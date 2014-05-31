@@ -17,8 +17,8 @@
  {/literal}
 </style>
 <link rel="stylesheet" type="text/css" href="themes/bootcss/css/Setting.css">
-<div class="container-fluid" style="height:580px;margin-right:10px">
-	<div class="row-fluid box" style="height:400px">
+<div class="container-fluid clearfix" style="margin-right:10px">
+	<div class="row-fluid box clearfix">
 		<div class="tab-header">导出{$APP.$MODULE}</div>
 		<div class="padded">
 			<form  name="Export_Records"  method="POST">

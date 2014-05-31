@@ -1,37 +1,73 @@
-<?php
+<?php 
 include('ecversion.php');
 
+// more than 8MB memory needed for graphics
 
-/* database configuration
-      db_server
-      db_port
-      db_hostname
-      db_username
-      db_password
-      db_name
+// memory limit default value = 16M
+
+ini_set('memory_limit','256M');
+
+// show or hide world clock, calculator and FCKEditor
+
+// world_clock_display default value = true
+// calculator_display default value = true
+// fckeditor_display default value = true
+
+$WORLD_CLOCK_DISPLAY = 'true';
+$CALCULATOR_DISPLAY = 'true';
+$FCKEDITOR_DISPLAY = 'true';
+
+//This is the URL for customer portal. (Ex. http://www.crmone.cn/portal)
+$PORTAL_URL = 'http://yourdomain.com/customerportal';
+
+//These two are the HelpDesk support email id and the support name. (Ex. 'support@crmone.cn' and 'crmone Support')
+$HELPDESK_SUPPORT_EMAIL_ID = 'support@yourdomain.com';
+$HELPDESK_SUPPORT_NAME = 'yourdomain Name';
+
+/* Database configuration
+      db_host_name:     MySQL Database Hostname
+      db_user_name:        MySQL Username
+      db_password:         MySQL Password
+      db_name:             MySQL Database Name
 */
-
-$dbconfig['db_server'] = '192.168.1.118';
-//$dbconfig['db_server'] = 'localhost';
-$dbconfig['db_port'] = ':3306';
-$dbconfig['db_username'] = 'root';
-$dbconfig['db_password'] = '';
-$dbconfig['db_name'] = 'freecrm';
-//$dbconfig['db_name'] = 'ecustomer';
+$dbconfig['db_server'] =     'localhost';
+$dbconfig['db_port'] =     ':3306';
+$dbconfig['db_username'] =     'root';
+$dbconfig['db_password'] =         '';
+$dbconfig['db_name'] =             'c3crm';
 $dbconfig['db_type'] = 'mysql';
 $dbconfig['db_status'] = 'true';
-
 // TODO: test if port is empty
 // TODO: set db_hostname dependending on db_type
 $dbconfig['db_hostname'] = $dbconfig['db_server'].$dbconfig['db_port'];
 
+// log_sql default value = false
+$dbconfig['log_sql'] = false;
+
+// persistent default value = true
+$dbconfigoption['persistent'] = true;
+
+// autofree default value = false
+$dbconfigoption['autofree'] = false;
+
+// debug default value = 0
+$dbconfigoption['debug'] = 0;
+
+// seqname_format default value = '%s_seq'
+$dbconfigoption['seqname_format'] = '%s_seq';
+
+// portability default value = 0
+$dbconfigoption['portability'] = 0;
+
+// ssl default value = false
+$dbconfigoption['ssl'] = false;
+
 $host_name = $dbconfig['db_hostname'];
 
-$site_URL = 'http://localhost/';
+$site_URL ='http://localhost/c3crm';
 
 // root directory path
-//$root_directory = 'D:\CRMONE\home\crmfree\git\c3crm/';
-$root_directory = 'D:\xampp\htdocs\c3crm/';
+$root_directory = __DIR__.'/';
 
 // cache direcory path
 $cache_dir = 'cache/';
@@ -40,11 +76,15 @@ $cache_dir = 'cache/';
 $tmp_dir = 'cache/images/';
 
 // import_dir default value prepended by cache_dir = import/
-$import_dir = 'cache/import/';
+$tmp_dir = 'cache/import/';
 
 // upload_dir default value prepended by cache_dir = upload/
-$upload_dir = 'cache/upload/';
+$tmp_dir = 'cache/upload/';
 
+// mail server parameters
+$mail_server = '';
+$mail_server_username = '';
+$mail_server_password = '';
 
 // maximum file size for uploaded files in bytes also used when uploading import files
 // upload_maxsize default value = 3000000
@@ -52,49 +92,65 @@ $upload_maxsize = 3000000;
 
 // flag to allow export functionality
 // 'all' to allow anyone to use exports 
-// 'admin' to only allow admins to export 
-// 'none' to block exports completely 
+// 'admin' to only allow admins to export
+// 'none' to block exports completely
 // allow_exports default value = all
 $allow_exports = 'all';
 
-// files with one of these extensions will have '.txt' appended to their filename on upload
+// Files with one of these extensions will have '.txt' appended to their filename on upload
 // upload_badext default value = php, php3, php4, php5, pl, cgi, py, asp, cfm, js, vbs, html, htm
 $upload_badext = array('php', 'php3', 'php4', 'php5', 'pl', 'cgi', 'py', 'asp', 'cfm', 'js', 'vbs', 'html', 'htm');
 
-// full path to include directory including the trailing slash
-// includeDirectory default value = $root_directory..'include/
+// This is the full path to the include directory including the trailing slash
+// includeDirectory default value = /home/wwwroot/itstar.net/crm/..'include/
 $includeDirectory = $root_directory.'include/';
 
 // list_max_entries_per_page default value = 20
 $list_max_entries_per_page = '20';
 
-// limitpage_navigation default value = 5
-$limitpage_navigation = '5';
+// change this number to whatever you want. This is the number of pages that will appear in the pagination. by Raju 
+$limitpage_navigation = '9';
 
 // history_max_viewed default value = 5
 $history_max_viewed = '5';
 
-// default_module default value = Home
-$default_module = 'Home';
+// Map Sugar language codes to jscalendar language codes
+// Unimplemented until jscalendar language files are fixed
+// $cal_codes = array('en_us'=>'en', 'ja'=>'jp', 'sp_ve'=>'sp', 'it_it'=>'it', 'tw_zh'=>'zh', 'pt_br'=>'pt', 'se'=>'sv', 'cn_zh'=>'zh', 'ge_ge'=>'de', 'ge_ch'=>'de', 'fr'=>'fr');
 
-// default_action default value = index
+//set default module and action
+$default_module = 'Home';
 $default_action = 'index';
 
-// set default theme
-// default_theme default value = blue
-$default_theme = 'softed';
+//set default theme
+$default_theme = 'bluelagoon';
 
+// If true, the time to compose each page is placed in the browser.
+$calculate_response_time = true;
+// Default Username - The default text that is placed initially in the login form for user name.
+$default_user_name = '';
+// Default Password - The default text that is placed initially in the login form for password.
+$default_password = '';
+// Create default user - If true, a user with the default username and password is created.
+$create_default_user = false;
+$default_user_is_admin = false;
+// disable persistent connections - If your MySQL/PHP configuration does not support persistent connections set this to true to avoid a large performance slowdown
+$disable_persistent_connections = false;
+// Defined languages available.  The key must be the language file prefix.  E.g. 'en_us' is the prefix for every 'en_us.lang.php' file. 
 $languages = Array('zh_cn'=>'Simplized Chinese',);
-
-
-// default charset
-// default charset default value = ISO-8859-1
+// Master currency name
+$currency_name = '';
+// Default charset if the language specific character set is not found.
 $default_charset = 'UTF-8';
-
-// default language
-// default_language default value = en_us
+// Default language in case all or part of the user's language pack is not available.
 $default_language = 'zh_cn';
+// Translation String Prefix - This will add the language pack name to every translation string in the display.
+$translation_string_prefix = false;
+//Option to cache tabs permissions for speed.
+$cache_tab_perms = true;
 
+//Option to hide empty home blocks if no entries.
+$display_empty_home_blocks = false;
 
 //true for hosting server , false for dedicated servers or virtual private server
 //2 for zend3.3.0 , 1 or true for hosting server(real_server_ip) ,false for dedicated servers or virtual private server

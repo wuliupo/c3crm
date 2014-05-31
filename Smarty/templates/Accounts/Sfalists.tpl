@@ -91,16 +91,16 @@ li {
 {/literal}
 </style>
  <!-- center start -->
- <div class="container-fluid" style="height:606px;">
+ <div class="container-fluid clearfix">
     <div class="row-fluid">
       <div class="span2">
-           <div class="accordion" id="accordion2" style="margin-top:0px;margin-bottom:0px;overflow:auto;height:550px;">
+           <div class="accordion" id="accordion2" style="margin-top:0px;margin-bottom:0px;overflow:auto;">
             
             {include file="$MODULE/DetailLeft.tpl"}
 
          </div>
       </div>
-       <div class="span10" style="margin-left:10px;height:600px;overflow:auto;">
+       <div class="span10">
           <table class="table table-bordered table-condensedfordv dvtable">
                 <tr>
                 <th  align="left" style="background:#DFEBEF;height:25px;"><i class="cus-hourglass"></i>&nbsp;<b>SFA 销售自动化</b></th>  
@@ -117,7 +117,7 @@ li {
                 </tr>
                 <tr>
                   <td>
-                    <div class="accordion" id="accordion3" style="height:500px;overflow:auto;">
+                    <div class="accordion clearfix" id="accordion3">
                        <div class="accordion-group" >
                             <div class="accordion-heading">
                               <a class="accordion-toggle" data-toggle="collapse" data-parent="#accordion3" href="#sfaone">

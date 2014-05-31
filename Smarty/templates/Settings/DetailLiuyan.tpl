@@ -48,25 +48,25 @@
 			<tr>
 			<td class="small" valign=top >
             		<table width="100%"  border="0" cellspacing="0" cellpadding="5">
-                        <tr style="height:25px;">
+                        <tr >
                             <td width="20%" nowrap class="small cellLabel"  align="right"><strong>姓名</strong></td>
                             <td width="80%" class="small cellText">
                             {$name}
 			  				</td>
                         </tr>
-                        <tr style="height:25px;">
+                        <tr >
                             <td width="20%" nowrap class="small cellLabel"  align="right"><strong>电话</strong></td>
                             <td width="80%" class="small cellText">
                             {$tel}
 			  				</td>
                         </tr>
-                        <tr style="height:25px;">
+                        <tr >
                             <td width="20%" nowrap class="small cellLabel"  align="right"><strong>留言</strong></td>
                             <td width="80%" class="small cellText">
                             {$content}
 			  				</td>
                         </tr>
-                        <tr style="height:25px;">
+                        <tr >
                             <td width="20%" nowrap class="small cellLabel"  align="right"><strong>是否回复</strong></td>
                             <td width="80%" class="small cellText">
                             {if $reply eq '1'}
@@ -76,7 +76,7 @@
                             {/if}
 			  				</td>
                         </tr>
-                        <tr style="height:25px;">
+                        <tr >
                             <td width="20%" nowrap class="small cellLabel"  align="right"><strong>回复时间</strong></td>
                             <td width="80%" class="small cellText">
                             {$replytime}

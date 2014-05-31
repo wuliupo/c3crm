@@ -64,7 +64,7 @@
 {* Main Contents Start Here *}
 <table width="100%" cellpadding="2" cellspacing="2" border="0" class="small showPanelBg" align="center" valign="top">
 	<tr>
-		<td width="100%" align="center" valign="top" height=300>
+		<td width="100%" align="center" valign="top" height="300">
 			<div id="MainMatrix" style="padding:5px;width:100%">
 				{foreach item=tablestuff from=$HOMEFRAME name="homeframe"}
 					{include file="Home/MainHomeBlock.tpl"}

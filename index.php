@@ -1,4 +1,5 @@
 <?php
+error_reporting(0);
 define('IN_CRMONE', true);
 $root_directory = dirname(__FILE__)."/";
 if($calculate_response_time) {

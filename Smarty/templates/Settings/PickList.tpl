@@ -2,14 +2,14 @@
 <div class="container-fluid">
 	<div class="row-fluid">
 		<div class="span2  ">
-			<div class="accordion affix span2" id="settingion1" style="overflow:auto;height:580px;">
+			<div class="accordion affix span2 clearfix" id="settingion1">
 			{include file='Settings/SettingLeft.tpl'}
 			</div>
 		</div>
 
 		<div id="editdiv" class="modal hide fade in" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true"   ></div>
 
-		<div class="span10" style="margin-left:10px">
+		<div class="span10">
 			<div class="row-fluid box">
 				<div class="tab-header">{$MOD.LBL_PICKLIST_EDITOR}
 					<!--<div class="page-header" style="margin-top:-10px">
@@ -23,22 +23,20 @@
 					<!-- choose the module-->
 					<div style="margin-top:-10px" >
 						<span class="label label-info">1. {$MOD.LBL_SELECT_MODULE}</span>
-						<table width="100%">
-								<tr class="small">
-									<td width="15%"><strong>{$MOD.LBL_SELECT_CRM_MODULE}</strong></td>
-									<td width="85%">
-										<select name="pickmodule" class="detailedViewTextBox" onChange="changeModule(this);">
-										{foreach key=tabid item=module from=$MODULE_LISTS}
-												{if $module eq $MODULE}
-												<option selected value="{$module}">{$APP.$module}</option>
-											{else}
-												<option value="{$module}">{$APP.$module}</option>
-											{/if}
-										{/foreach}
-										</select>
-									</td>
-								</tr>
-						</table>
+				<div class="row-fluid">
+					<div class="span3 small cellLabel"><strong>{$MOD.LBL_SELECT_CRM_MODULE}</strong></div>
+					<div class="span9 cellText">
+						<select name="pickmodule" class="detailedViewTextBox" onChange="changeModule(this);">
+						{foreach key=tabid item=module from=$MODULE_LISTS}
+								{if $module eq $MODULE}
+								<option selected value="{$module}">{$APP.$module}</option>
+							{else}
+								<option value="{$module}">{$APP.$module}</option>
+							{/if}
+						{/foreach}
+						</select>
+					</div>
+				</div>
 					</div>
 					<!-- choose the module end -->
 

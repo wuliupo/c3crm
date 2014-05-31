@@ -19,7 +19,7 @@
 		<input type="hidden" name="module" value="{$MODULE}">
 		<input type="hidden" name="step" value="1">
 		<input type="hidden" name="action" value="Import">
-		<div class="row-fluid box" style="height:502px">
+		<div class="row-fluid box clearfix">
 			<div class="tab-header">导入结果</div>
 			<div class="padded text-center" style="margin-top:100px">
 				<div align='center' width='100%'><font color='green'><b>导入完毕</b></font></div>

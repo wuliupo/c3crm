@@ -2,13 +2,12 @@
 <div class="container-fluid">
 	<div class="row-fluid">
 		<div class="span2">
-			<div class="accordion" id="settingion1" style="overflow:auto;height:580px;">
+			<div class="accordion clearfix" id="settingion1">
 			{include file='Settings/SettingLeft.tpl'}
 			</div>
 		</div>
-
-		<div class="span10" style="margin-left:10px">
-			<div class="row-fluid box" style="height:602px">
+		<div class="span10">
+			<div class="row-fluid box clearfix">
 				<div class="tab-header">{$MOD.LBL_DUANXINZHANGHAO}</div>
 					<!--<div class="page-header" style="margin-top:-10px">
 						<h4 style="margin-bottom:-8px">
@@ -89,18 +88,13 @@
 								</td>
 							</tr>
 						</table>
-						
-
 					</div>
 			<!--content end-->
 					</form>
-
 				</div>
 			</div>
-
 		</div>
 	</div>
-
 </div>
 
 <script>

@@ -89,7 +89,7 @@ function validate_layout() {
 		</div>
 
 		<!--content-->
-		<div class="span10" style="margin-left:10px">
+		<div class="span10">
 			<div class="row-fluid box">
 				<div class="tab-header">{$MOD.LBL_LAYOUT_EDITOR}</div>
 					<!--<div class="page-header" style="margin-top:-10px">

@@ -4,12 +4,12 @@
 		<div class="span2">
 			{include file='Settings/SettingLeft.tpl'}
 		</div>
-		<div class="span10" style="margin-left:10px">
+		<div class="span10">
 			<form action="index.php" method="post" name="editform" id="editform">
 				<input type="hidden" name="userid" value="">
 				<input type="hidden" name="module" value="Settings">
 				<input type="hidden" name="action" value="CreateMoreInfo">
-				<div class="row-fluid box" style="height:602px">
+				<div class="row-fluid box clearfix">
 					<div class="tab-header">{$MOD.LBL_CREATE_MORE_INFO}</div>
 					<div class="padded">
 						<div class="breadcrumb" style="height:25px">

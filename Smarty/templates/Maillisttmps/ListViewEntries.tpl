@@ -22,7 +22,7 @@
      <input name="change_status" type="hidden">
      <input name="allids" type="hidden" value="{$ALLIDS}">
 
-<div style="margin-top:0px;margin-bottom:0px;overflow:auto;height:470px;">
+<div class="clearfix">
    <table class="table table-bordered table-hover table-condensed table-striped">
     <thead>
       <tr>  

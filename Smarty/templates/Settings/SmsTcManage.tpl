@@ -12,12 +12,12 @@
 <div class="container-fluid">
 	<div class="row-fluid">
 		<div class="span2">
-			<div class="accordion" id="settingion1" style="overflow:auto;height:580px;">
+			<div class="accordion clearfix" id="settingion1">
 					{include file='Settings/SettingLeft.tpl'}
 			</div>
 		</div>
 		<!--content start-->
-		<div class="span10" style="margin-left:10px">
+		<div class="span10">
 			<div class="page-header" style="margin-top:-10px">
 				<h4 style="margin-bottom:-8px">
 					<img src="{$IMAGE_PATH}ico_mobile.gif" alt="Users" width="48" height="48" border=0 title="Users">{$MOD.LBL_SMS_TC_MANAGE}

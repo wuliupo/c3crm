@@ -247,3 +247,6 @@ var Dashboard = {
     }
 
 };
+function hiddenwin(divid){
+	$("#"+divid).css("display","none");
+}

@@ -24,7 +24,7 @@
 	<button class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
 	<h3 id="myModalLabel">{$TITLE}</h3>
 </div>
-<div class="modal-body" style="max-height:520px;height:520px">
+<div class="modal-body clearfix">
 	<div  style="position: relative;height: 20px;margin-bottom: 20px">
 		<table border="0" align="left" width="100%">
 			<form method="post" action="index.php" >

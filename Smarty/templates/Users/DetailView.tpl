@@ -97,7 +97,7 @@
 									</table>
 									<table border="0" cellpadding="5" cellspacing="0" width="100%">
 									<tbody>
-									<tr style="height: 25px;">
+									<tr >
 									<td class="dvtCellLabel" align="right" width="20%"> 用户名</td>
 									<td class="dvtCellInfo" align="left" width="30%">{$COLUMNS.user_name}</td>
 									<td class="dvtCellLabel" width="25%" align="right">密码 </td>
@@ -105,7 +105,7 @@
                                     {$CHANGE_PW_BUTTON}
                                     </td>
 									</tr>
-									<tr style="height: 25px;">
+									<tr >
                                     <td class="dvtCellLabel" align="right" width="20%">管理员</td>
 									<td class="dvtCellInfo" align="left" width="30%">
 									{if $COLUMNS.is_admin eq 'on'}
@@ -125,7 +125,7 @@
 									</select>
 									</td>
 									</tr>
-									<tr style="height: 25px;">
+									<tr >
 									<td class="dvtCellLabel" align="right" width="20%"> 姓名</td>
 									<td class="dvtCellInfo" align="left" width="30%">
 									{$COLUMNS.last_name}
@@ -137,7 +137,7 @@
 									
 									</td>
 									</tr>
-									<tr style="height: 25px;">
+									<tr >
 									<td class="dvtCellLabel" align="right" width="20%"> 电话</td>
 									<td class="dvtCellInfo" align="left" width="30%">
 									{$COLUMNS.phone_work}
@@ -146,7 +146,7 @@
 									 Email</td>
 									<td class="dvtCellInfo" align="left" width="30%">{$COLUMNS.email1}</td>
 									</tr>
-									<tr style="height: 25px;">
+									<tr >
 									<td class="dvtCellLabel" align="right" width="20%"> 部门</td>
 									<td class="dvtCellInfo" align="left" width="30%">
 									{$GROUP_NAME}

@@ -17,7 +17,7 @@
 				{include file="Settings/SettingLeft.tpl"}
 			</div>
 		</div>
-		<div class="span10" style="margin-left:10px">
+		<div class="span10">
 			<div class="row-fluid box">
 				<div class="tab-header">{$MOD.LBL_FIELDS_ACCESS}</div>
 						<!--<div class="page-header" style="margin-top:-10px">

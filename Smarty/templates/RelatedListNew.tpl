@@ -3,7 +3,7 @@
 	<tr>
 		<td >
 				{include file='RelatedListsHidden.tpl'}
-				<div id="RLContents" style="height:600px;overflow:auto;">
+				<div id="RLContents " class="clearfix">
                      {include file='RelatedListContents.tpl'}
         		</div>
 			</form>

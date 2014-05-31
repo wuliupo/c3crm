@@ -17,7 +17,7 @@
 {/literal}	
 </script>
 
- <div class="container-fluid" style="height:606px;"> 
+ <div class="container-fluid clearfix"> 
       <div class="row-fluid">
         <div class="span12" style="margin-left:0px;">
            

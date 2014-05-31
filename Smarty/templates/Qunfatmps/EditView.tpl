@@ -18,9 +18,8 @@
 {/if}
 
 <!-- center start -->
-     <div class="container-fluid" style="height:608px;">
+     <div class="container-fluid clearfix">
         <div class="row-fluid">
-         
           <div class="span12" style="margin-left:0px;">
              <div  class="pull-left" style="margin-bottom:5px;" >
                   <button class="btn btn-small btn-primary" style="margin-top:2px;" onclick="goback();">
@@ -32,7 +31,7 @@
                  
              </div>
              <div class="clearfix"></div>
-              <div class="accordion"  style="margin-top:0px;margin-bottom:0px;overflow:auto;height:550px;">
+              <div class="accordion clearfix">
                   <div class="accordion-group">
                      <div class="accordion-heading">
                       <a class="accordion-toggle" data-toggle="collapse"  href="#detailOne">

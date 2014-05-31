@@ -111,12 +111,9 @@ function ajaxChangeStatus(statusname){
 {/literal}
 
 </script>
- <div id="showReportInfo" class="modal hide fade" tabindex ="-1" role = "dialog" aria-labelledby="myModalLabel" aria-hidden="true" 
- style="width:1000px;margin-left:-400px;height:600px"></div>
-
- <!-- 批量修改负责人-->
- <div id="changeowner" class="modal hide fade" tabindex = "-1" role = "dialog" aria-labelledby = "myModalLabel" aria-hidden = "true" style="width:400px;">
-	
+<div id="showReportInfo" class="modal fade" tabindex ="-1" role = "dialog" aria-labelledby="myModalLabel" aria-hidden="true"></div>
+<!-- 批量修改负责人-->
+<div id="changeowner" class="modal fade" tabindex = "-1" role = "dialog" aria-labelledby = "myModalLabel" aria-hidden = "true">
 	<div class="modal-header">
 		<button class="close" type="button" aria-hidden="true" data-dismiss="modal">&times;</button>
 		<h3>修改负责人</h3>

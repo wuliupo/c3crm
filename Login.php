@@ -1,4 +1,5 @@
 <?php
+error_reporting(0);
 $theme_path="themes/softed/";
 $image_path="include/images/";
 $default_language = "zh_cn";
@@ -11,7 +12,7 @@ $default_company_name = "";
 <!DOCTYPE html>
 <html lang="en"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
     <meta charset="utf-8">
-    <title>中国知名开放源代码客户关系管理系统：易客CRM</title>
+    <title>CRM</title>
     
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <meta name="apple-mobile-web-app-capable" content="yes">    
@@ -46,15 +47,10 @@ function logining_load(){
 <div class="navbar navbar-fixed-top">	
 	<div class="navbar-inner">
 		<div class="container">
-			<a class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse"> 
-				<span class="icon-bar"></span> 
-				<span class="icon-bar"></span> 
-				<span class="icon-bar"></span> 				
-			</a>
-			<a class="" href="http://www.c3crm.com/" target="_blank"><img src="themes/bootcss/img/logonew.png"></a>
+			<a class="" href="./"><img src="themes/bootcss/img/logonew.png"></a>
 			<ul class="nav pull-right">
 				<li class="" style="line-height: 30px;">
-					<a href="http://www.c3crm.com/" target="_blank">专门针对小型企业开发的开源免费客户关系管理系统：易客CRM</a>
+					<a href="./">CRM</a>
 				</li>
 			</ul>
 		</div> <!-- /container -->
@@ -134,10 +130,7 @@ function logining_load(){
 			</p>
 			
              <br>
-             <p>Copyright &copy; 2013 <a href="http://www.c3crm.com" target="_blank">上海瑞策软件有限公司</a>, all rights reserved.</p>
-			<!--<p>我能用它做什么？让系统自动的帮您跟踪客户，真正的实现销售自动化(SFA)，</p>
-			<p>让您感觉销售是件非常Easy的事情！还不心动吗，赶紧试试吧！</p>-->
-			<p>联系电话：400 680 5898 &nbsp;&nbsp;E-mail: <a href="javascript:;">sales@c3crm.cn</a></p>
+             <p>Copyright &copy; 2014 <a href="http://pauli.cn" target="_blank">pauli.cn</a>, all rights reserved.</p>
 		</div> <!-- /login-extra -->
 	
 </div> <!-- /login-wrapper -->

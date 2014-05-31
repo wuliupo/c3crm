@@ -80,7 +80,7 @@ function validate() {
 <div class="container-fluid">
 	<div class="row-fluid">
 		<div class="span2">
-			<div class="accordion" id="settingion1" style="overflow:auto;height:580px;">
+			<div class="accordion clearfix" id="settingion1">
 				{include file='Settings/SettingLeft.tpl'}
 			</div>
 		</div>
@@ -116,16 +116,15 @@ function validate() {
 				<tr>
 				<td valign=top>
 				
-					<table border=0 cellspacing=0 cellpadding=5 width=100% class="tableHeading">
-					<tr>
-						<td class="big"><strong>1. {$MOD.LBL_SELECT_MODULE}</strong></td>
-						<td class="small" align=right>&nbsp;</td>
-					</tr>
-					</table>
-					<table width="100%" border="0" cellpadding="5" cellspacing="0" class="small">
-						<tr class="small">
-                        	<td width="15%" class="small cellLabel"><strong>{$MOD.LBL_SELECT_CRM_MODULE}</strong></td>
-	                        <td width="85%" class="cellText" >
+				<table border=0 cellspacing=0 cellpadding=5 width=100% class="tableHeading">
+				<tr>
+					<td class="big"><strong>1. {$MOD.LBL_SELECT_MODULE}</strong></td>
+					<td class="small" align=right>&nbsp;</td>
+				</tr>
+				</table>
+				<div class="row-fluid">
+					<div class="span3 small cellLabel"><strong>{$MOD.LBL_SELECT_CRM_MODULE}</strong></div>
+					<div class="span9 cellText">
 					<select name="pickmodule" class="detailedViewTextBox" onChange="changeModule(this);">
 					{foreach key=tabid item=module from=$MODULE_LISTS}
 					        {if $module eq $MODULE}
@@ -135,10 +134,8 @@ function validate() {
 						{/if}
 					{/foreach}
 					</select>
-				</td>
-				</tr>
-					</table>
-					<br>
+					</div>
+				</div>
 				<table border=0 cellspacing=0 cellpadding=5 width=100% class="tableHeading">
 				<tr>
 				    <td class="big" rowspan="2">

@@ -1,81 +1,76 @@
 <link rel="stylesheet" type="text/css" href="themes/bootcss/css/Setting.css">
-<div class="container-fluid" style="height:602px;">
-	   <!--Dashboad-->
-	<div class="container-fluid" style="height:602px;">
-		<div class="row-fluid">
-			<div class="span2" style="margin-left:-10px;">
-				<div class="accordion" id="settingion1" style="overflow:auto;height:580px;">
-					{include file='Settings/SettingLeft.tpl'}
+<div class="container-fluid clearfix">
+	<div class="row-fluid">
+		<div class="span2" style="margin-left:-10px;">
+			<div class="accordion clearfix" id="settingion1">
+				{include file='Settings/SettingLeft.tpl'}
+			</div>
+		</div>
+		<div class="span10">
+			<form action="index.php" method="post" name="settingform" id="settingform">
+				<input type="hidden" name="module" value="Settings">
+				<input type="hidden" name="action">
+				<input type="hidden" name="parenttab" value="Settings">
+				<!--<input type="hidden" name="settype" value="{$SETTYPE}">
+				<input type="hidden" name="settingmode" value="{$SETTINGMODE}">-->
+				<input type="hidden" name="issubmit" value="1">
+						<!--	Setting		-->
+				<div class="row-fluid box clearfix">
+					<div class="tab-header">系统用户</div>
+					  <div class="padded clearfix">
+						<!--	搜索	-->
+						<table class="table-condensed" style="margin-bottom:8px;width:100%" >
+							<tr>
+								<td class="pull-left"> 
+									<input class="search-query" type="text" value="{$user_name}" name="user_name"  size="18" style="border:1px solid #bababa;" placeholder="用户名/姓名/手机/Email" tabindex="13"/>
+									<button type="submit" class="btn btn-small btn-success">
+										<i class="icon-search icon-white"></i> 搜索
+									</button>
+								</td>
+								<td class="pull-right">
+									<button type="button" class="btn btn-small btn-primary " onclick="document.location.href='index.php?module=Settings&action=CreateMoreInfo'">
+										<i class="icon-plus icon-white"></i> 新增用户
+									</button>
+								</td>
+							</tr>
+						</table>
+
+						<table class="table table-condensed table-bordered table-hover">
+							<thead>
+								<tr>
+									<th>
+										<input type="checkbox"  name="selectall"   onClick=toggleSelect(this.checked,"selected_id")>
+									</th>
+									{$headerhtml}
+								</tr>
+							</thead>
+							<tbody style="text-align: center;">
+								{foreach item=entity key=entity_id from=$LISTENTITY}
+									<tr id="row_{$entity_id}">
+										<td width="2%">
+											<input type="checkbox" NAME="selected_id" value= '{$entity_id}' 
+											onClick=toggleSelectAll(this.name,"selectall")>
+										</td>
+										{foreach item=data from=$entity}
+											<td>{$data}</td>
+										{/foreach}
+									</tr>
+								{foreachelse}
+									<tr id="row_{$entity_id}">
+										<td colspan="{$countheader+1}" align="center">---&nbsp;无&nbsp;---</td>
+									</tr>
+								{/foreach}
+							</tbody>
+						</table>
+
+						<input type="hidden" value="{$order_url}" id="order_url"  name="order_url"/>
+						<input type="hidden" value="{$search_url}" id="search_url"  name="search_url"/>
+					</div>
 				</div>
 			</div>
-
-			<div class="span10" style="margin-left:10px;">
-				<form action="index.php" method="post" name="settingform" id="settingform">
-					<input type="hidden" name="module" value="Settings">
-					<input type="hidden" name="action">
-					<input type="hidden" name="parenttab" value="Settings">
-					<!--<input type="hidden" name="settype" value="{$SETTYPE}">
-					<input type="hidden" name="settingmode" value="{$SETTINGMODE}">-->
-					<input type="hidden" name="issubmit" value="1">
-							<!--	Setting		-->
-					<div class="row-fluid box" style="height:602px">
-						<div class="tab-header">系统用户</div>
-						  <div class="padded" style="overflow:auto;height:520px;">
-							<!--	搜索	-->
-							<table class="table-condensed" style="margin-bottom:8px;width:100%" >
-								<tr>
-									<td class="pull-left"> 
-										<input class="search-query" type="text" value="{$user_name}" name="user_name"  size="18" style="border:1px solid #bababa;" placeholder="用户名/姓名/手机/Email" tabindex="13"/>
-										<button type="submit" class="btn btn-small btn-success">
-											<i class="icon-search icon-white"></i> 搜索
-										</button>
-									</td>
-									<td class="pull-right">
-										<button type="button" class="btn btn-small btn-primary " onclick="document.location.href='index.php?module=Settings&action=CreateMoreInfo'">
-											<i class="icon-plus icon-white"></i> 新增用户
-										</button>
-									</td>
-								</tr>
-							</table>
-
-							<table class="table table-condensed table-bordered table-hover">
-								<thead>
-									<tr>
-										<th>
-											<input type="checkbox"  name="selectall"   onClick=toggleSelect(this.checked,"selected_id")>
-										</th>
-										{$headerhtml}
-									</tr>
-								</thead>
-								<tbody style="text-align: center;">
-									{foreach item=entity key=entity_id from=$LISTENTITY}
-										<tr id="row_{$entity_id}">
-											<td width="2%">
-												<input type="checkbox" NAME="selected_id" value= '{$entity_id}' 
-												onClick=toggleSelectAll(this.name,"selectall")>
-											</td>
-											{foreach item=data from=$entity}
-												<td>{$data}</td>
-											{/foreach}
-										</tr>
-									{foreachelse}
-										<tr id="row_{$entity_id}">
-											<td colspan="{$countheader+1}" align="center">---&nbsp;无&nbsp;---</td>
-										</tr>
-									{/foreach}
-								</tbody>
-							</table>
-
-							<input type="hidden" value="{$order_url}" id="order_url"  name="order_url"/>
-							<input type="hidden" value="{$search_url}" id="search_url"  name="search_url"/>
-						</div>
-					</div>
-						
-					</div>
-					<!--	/Setting	-->
-				</form>
-			</div>
-	</div></div>
+			<!--	/Setting	-->
+		</form>
+	</div>
 </div>
 <script>
 var type = "{$type}";

@@ -74,15 +74,15 @@ window.onload = function() {
 
 <!-- header - level 2 tabs -->
 <link rel="stylesheet" type="text/css" href="themes/bootcss/css/Setting.css">
-<div class="container-fluid" style="height:590px;margin-right:10px">
-	<div class="row-fluid box" style="height:500px">
+<div class="container-fluid clearfix" style="margin-right:10px">
+	<div class="row-fluid box clearfix">
 		<div class="tab-header">导入{$APP.$MODULE}</div>
-		<div class="padded" style="overflow:auto;height:500px;">
+		<div class="padded clearfix">
 			<form enctype="multipart/form-data" name="Import" method="POST" action="index.php">
 			<div class="row-fluid" style="margin-top:30px">
 				<!--tip-->
 				<div class="span4">
-					<div class="well" style="width:400px;height:200px;background-color:#fff">
+					<div class="well">
 						<span class="label label-info">说明:</span>
 						<p>
 							1.若不能上传文件，请刷新本页面即可。<br><br>

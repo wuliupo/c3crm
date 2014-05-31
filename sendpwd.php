@@ -9,7 +9,6 @@ $default_company_name = "";
 
 ?>
 <!DOCTYPE html>
-<!-- saved from url=(0050)http://wbpreview.com/previews/WB00U8L84/login.html -->
 <html lang="en"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
     <meta charset="utf-8">
     <title>Dashboard - Bootstrap Admin</title>
@@ -71,10 +70,10 @@ function check_duplicate()
 				<span class="icon-bar"></span> 
 				<span class="icon-bar"></span> 				
 			</a>
-			<a class="" href="http://www.c3crm.com/" target="_blank"><img src="themes/bootcss/img/logonew.png"></a>
+			<a class="" href="./" target="_blank"><img src="themes/bootcss/img/logonew.png"></a>
 			<ul class="nav pull-right">
 				<li class="" style="line-height: 30px;">
-					<a href="http://www.c3crm.com/" target="_blank">客户关系管理系统</a>
+					<a href="./" target="_blank">客户关系管理系统</a>
 				</li>
 			</ul>
 		</div> <!-- /container -->
@@ -149,7 +148,6 @@ function check_duplicate()
 			-->
 			<p>我能用它做什么？让系统自动的帮您跟踪客户，真正的实现销售自动化(SFA)，</p>
 			<p>让您感觉销售是件非常Easy的事情！还不心动吗，赶紧试试吧！</p>
-			<p>E-mail: <a href="javascript:;">sales@c3crm.cn</a></p>
 		</div> <!-- /login-extra -->
 	
 </div> <!-- /login-wrapper -->

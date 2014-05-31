@@ -1,4 +1,5 @@
 <?php
+error_reporting(0);
 $phpversion = preg_replace('/^(\d+)\..+$/', '\1', phpversion());
 if ($phpversion < 5) {
     die('易客CRM仅支持PHP 5.2.x版本.');

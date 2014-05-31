@@ -5,7 +5,7 @@
 	<button class="close" type="button" data-dismiss="modal" aria-hidden="true">&times;</button>
 	<h3>编辑联系人</h3>
 </div>
-<div class="modal-body" style="max-height:580px">
+<div class="modal-body clearfix" style="max-height:580px">
 {/if}
 
 	{*<!-- Contents -->*}

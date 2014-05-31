@@ -9,7 +9,7 @@
 
          </div>
       </div>
-      <div class="span10" style="margin-left:10px;">
+      <div class="span10">
         <form action="index.php" method="post" name="DetailView" id="form">
           {include file='DetailViewHidden.tpl'}
           

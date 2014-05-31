@@ -68,21 +68,21 @@
 			<tr>
 			<td class="small" valign=top >
             		<table width="100%"  border="0" cellspacing="0" cellpadding="5">
-                        <tr style="height:25px;">
+                        <tr >
                             <td width="20%" nowrap class="small cellLabel"  align="right"><strong>用户名</strong></td>
                             <td width="80%" class="small cellText">
                             {$user_name}
                           	 <input type="hidden" value="{$user_name}" name="user_name"  />
 			  				</td>
                         </tr>
-                        <tr style="height:25px;">
+                        <tr >
                             <td width="20%" nowrap class="small cellLabel"  align="right"><strong>姓名</strong></td>
                             <td width="80%" class="small cellText">
                             {$last_name}
                           	 <input type="hidden" value="{$last_name}" name="last_name"  />
 			  				</td>
                         </tr>
-                       <tr style="height:25px;">
+                       <tr >
                             <td width="20%" nowrap class="small cellLabel"  align="right"><strong>套餐</strong></td>
                             <td width="80%" class="small cellText">
                             <input type="radio" name="newtcdate" value="onemonth"  checked="checked">

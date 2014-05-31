@@ -15,7 +15,7 @@
 		<div class="tab-header">
 			<a href="index.php?action=Maillists&module=Relsettings&parenttab=settings">群发邮件统计</a>--详细日志
 		</div>
-		<div class="padding" style="height:502px">
+		<div class="padding clearfix">
 			<div style="margin:5px 5px 5px 5px">
 				{if $maillistsid neq ''}
 				<table class="table table-condensed table-bordered">

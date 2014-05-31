@@ -1,15 +1,15 @@
-<div class="container-fluid" style="height:602px">
+<div class="container-fluid clearfix">
 	<div class="row-fluid">
 		<!-- left nav-->
-		<div class="span2" style="">
-			<div class="accordion" id="settingion1" style="overflow:auto;height:580px;">
+		<div class="span2" >
+			<div class="accordion clearfix" id="settingion1">
 				{include file='Settings/SettingLeft.tpl'}
 			</div>
 		</div>
 		<!-- end nav-->
 
 		<!--content-->
-		<div class="span10" style="margin-left:10px;">
+		<div class="span10">
 			 <div class="accordion"  style="margin-top:0px;margin-bottom:0px;">
 				<div class="accordion-group">
 					<div class="accordion-heading">

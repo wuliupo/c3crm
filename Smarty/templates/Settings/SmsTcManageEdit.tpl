@@ -55,20 +55,20 @@
 			<tr>
 			<td class="small" valign=top >
             	<table width="100%"  border="0" cellspacing="0" cellpadding="5">
-                        <tr style="height:25px;">
+                        <tr >
                             <td width="20%" nowrap class="small cellLabel"  align="right"><strong>套餐名</strong></td>
                             <td width="80%" class="small cellText">
                           	 <input type="text" value="{$tc}" name="tc"  id="tc"  />（A~Z）
 			  				</td>
                         </tr>
-                        <tr style="height:25px;">
+                        <tr >
                             <td width="20%" nowrap class="small cellLabel"  align="right"><strong>价格</strong></td>
                             <td width="80%" class="small cellText">
                             
                           	 <input type="text" value="{$price}" name="price"  id="price"   />（元/月）
 			  				</td>
                         </tr>
-                       <tr style="height:25px;">
+                       <tr >
                             <td width="20%" nowrap class="small cellLabel"  align="right"><strong>次数</strong></td>
                             <td width="80%" class="small cellText">
                           

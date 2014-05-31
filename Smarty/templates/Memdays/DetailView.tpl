@@ -1,7 +1,7 @@
 <script type="text/javascript" src="modules/{$MODULE}/{$SINGLE_MOD}.js"></script>
 
  <!-- center start -->
- <div class="container-fluid" style="height:606px;">
+ <div class="container-fluid clearfix">
     <div class="row-fluid">
       
       <div class="span12" style="margin-left:0px;">
@@ -28,7 +28,7 @@
                 <i class="icon-trash icon-white"></i>删除</button>
          </div>
          <div class="clearfix"></div>
-          <div class="accordion"  style="margin-top:0px;margin-bottom:0px;overflow:auto;height:580px;">
+          <div class="accordion clearfix" style="margin-top:0px;margin-bottom:0px;overflow:auto;">
           {foreach key=header item=detail name=listviewforeach from=$BLOCKS}
                 <div class="accordion-group">
                    <div class="accordion-heading">

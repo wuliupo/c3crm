@@ -136,13 +136,13 @@ function check_duplicate()
                                 		</table>
 		                                <table border="0" cellpadding="5" cellspacing="0" width="100%">
 <tbody>
-<tr style="height: 25px;">
+<tr >
 <td class="dvtCellLabel" align="right" width="20%"><font color="red">*</font> 用户名</td>
 <td class="dvtCellInfo" align="left" width="30%"><input name="user_name" value="" tabindex="1" class="detailedViewTextBox" onfocus="this.className='detailedViewTextBoxOn'" onblur="this.className='detailedViewTextBox'" type="text"></td>
 <td class="dvtCellLabel" align="right" width="20%">管理员</td>
 <td class="dvtCellInfo" align="left" width="30%"><input name="is_admin" tabindex="6" type="checkbox"></td>
 </tr>
-<tr style="height: 25px;">
+<tr >
 <td class="dvtCellLabel" align="right" width="20%"><font color="red">*</font> 密码</td>
 <td class="dvtCellInfo" align="left" width="30%"><input name="user_password" tabindex="2" value="" class="detailedViewTextBox" onfocus="this.className='detailedViewTextBoxOn'" onblur="this.className='detailedViewTextBox'" type="password">
 </td>
@@ -151,7 +151,7 @@ function check_duplicate()
 <select name="status" tabindex="8" class="small"><option value="Active">Active</option><option value="Inactive">Inactive</option></select>
 </td>
 </tr>
-<tr style="height: 25px;">
+<tr >
 <td class="dvtCellLabel" align="right" width="20%">
 <font color="red">*</font> 确认密码</td>
 <td class="dvtCellInfo" align="left" width="30%">
@@ -165,7 +165,7 @@ function check_duplicate()
 <input name="user_role" id="user_role" value="" type="hidden">
 </td>
 </tr>
-<tr style="height: 25px;">
+<tr >
 <td class="dvtCellLabel" align="right" width="20%"><font color="red">*</font> 姓名</td>
 <td class="dvtCellInfo" align="left" width="30%">
 <input name="last_name" id="last_name" value="" tabindex="9" class="detailedViewTextBox" onfocus="this.className='detailedViewTextBoxOn'" onblur="this.className='detailedViewTextBox'" type="text">

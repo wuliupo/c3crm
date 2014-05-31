@@ -81,7 +81,7 @@ function check_duplicate()
 	<tr>
       <td >
 		<table  border="0" cellpadding="5" cellspacing="0" width="100%">
-		  <tr style="background:#DFEBEF;height:27px;">
+		  <tr style="background:#DFEBEF;">
 			<td >	
 				<span class="heading2">
 				{if $PARENTTAB neq ''}	
@@ -131,7 +131,7 @@ function check_duplicate()
                                 		</table>
 		                                <table border="0" cellpadding="5" cellspacing="0" width="100%">
 <tbody>
-<tr style="height: 25px;">
+<tr >
 <td class="dvtCellLabel" align="right" width="20%"><font color="red">*</font> 用户名</td>
 <td class="dvtCellInfo" align="left" width="30%"><input {$USERNAME_READONLY} name="user_name" value="{$COLUMNS.user_name}" tabindex="1" class="detailedViewTextBox" onfocus="this.className='detailedViewTextBoxOn'" onblur="this.className='detailedViewTextBox'" type="text"></td>
 <td class="dvtCellLabel" align="right" width="20%">管理员</td>
@@ -151,7 +151,7 @@ function check_duplicate()
 {/if}
 
 </tr>
-<tr style="height: 25px;">
+<tr >
 <td class="dvtCellLabel" align="right" width="20%">
 <font color="red">*</font> Email</td>
 <td class="dvtCellInfo" align="left" width="30%"><input name="email1" id="email1" value="{$COLUMNS.email1}" tabindex="7" class="detailedViewTextBox" onfocus="this.className='detailedViewTextBoxOn'" onblur="this.className='detailedViewTextBox'" type="text"></td>
@@ -176,7 +176,7 @@ function check_duplicate()
 {/if}
 </td>
 </tr>
-<tr style="height: 25px;">
+<tr >
 <td class="dvtCellLabel" align="right" width="20%"><font color="red">*</font> 姓名</td>
 <td class="dvtCellInfo" align="left" width="30%">
 <input name="last_name" id="last_name" value="{$COLUMNS.last_name}" tabindex="9" class="detailedViewTextBox" onfocus="this.className='detailedViewTextBoxOn'" onblur="this.className='detailedViewTextBox'" type="text">
@@ -194,7 +194,7 @@ function check_duplicate()
 <input name="user_role" id="user_role" value="{$COLUMNS.roleid}" type="hidden">
 </td>
 </tr>
-<tr style="height: 25px;">
+<tr >
 <td class="dvtCellLabel" align="right" width="20%"> 电话</td>
 <td class="dvtCellInfo" align="left" width="30%">
 <input name="phone_work" id="phone_work" value="{$COLUMNS.phone_work}" tabindex="9" class="detailedViewTextBox" onfocus="this.className='detailedViewTextBoxOn'" onblur="this.className='detailedViewTextBox'" type="text">

@@ -1,54 +1,49 @@
 <link rel="stylesheet" type="text/css" href="themes/bootcss/css/Setting.css">
-<div class="container-fluid" style="height:602px;">
-	   <!--Dashboad-->
-	<div class="container-fluid" style="height:602px;">
-		<div class="row-fluid">
-			<div class="span2" style="margin-left:-10px;">
-				<div class="accordion" id="settingion1" style="overflow:auto;height:580px;">
-					{include file='Settings/SettingLeft.tpl'}
-				</div>
+<!--Dashboad-->
+<div class="container-fluid clearfix">
+	<div class="row-fluid">
+		<div class="span2" style="margin-left:-10px;">
+			<div class="accordion clearfix" id="settingion1">
+				{include file='Settings/SettingLeft.tpl'}
 			</div>
-
-			<div class="span10" style="margin-left:10px;">
-				<!--	Setting		-->
-				<div class="row-fluid box" style="height:602px">
-					<div class="tab-header">自定义字段设置</div>
-					  <div class="padded">
-						
-						<!-- Fields Modal-->
-						<div  id="fieldModal" class="modal hide fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" style="width:650px;margin-left:-380px;">
-						</div>
-						<!-- end of Fields Modal-->
-
-						<!--<div id="createcf" style="display:block;position:absolute;width:500px;"></div>-->
-						<table class="tableHeading" border="0" cellpadding="5" cellspacing="0" width="100%">
-						 <tbody><tr><td class="small" align="left">
-							{$MOD.LBL_SELECT_CF_TEXT}
-							<select name="pick_module" class="importBox" onChange="getCustomFieldList(this)">
-							{foreach key=sel_value item=value from=$MODULES}
-							{if $MODULE eq $sel_value}
-								{assign var = "selected_val" value="selected"}
-							{else}
-								{assign var = "selected_val" value=""}
-							{/if}
-							<option value="{$sel_value}" {$selected_val}>{$APP.$value}</option>
-							{/foreach}
-							</select>
-							
-							</td>
-							</tr>
-						</tbody>
-						</table>
-						<div id="cfList">
-						{include file="Settings/CustomFieldEntries.tpl"}
-						</div>
-					  </div>
-				</div>
+		</div>
+		<div class="span10">
+			<!--	Setting		-->
+			<div class="row-fluid box clearfix">
+				<div class="tab-header">自定义字段设置</div>
+				  <div class="padded">
 					
+					<!-- Fields Modal-->
+					<div  id="fieldModal" class="modal hide fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" style="width:650px;margin-left:-380px;">
+					</div>
+					<!-- end of Fields Modal-->
+
+					<!--<div id="createcf" style="display:block;position:absolute;width:500px;"></div>-->
+					<table class="tableHeading" border="0" cellpadding="5" cellspacing="0" width="100%">
+					 <tbody><tr><td class="small" align="left">
+						{$MOD.LBL_SELECT_CF_TEXT}
+						<select name="pick_module" class="importBox" onChange="getCustomFieldList(this)">
+						{foreach key=sel_value item=value from=$MODULES}
+						{if $MODULE eq $sel_value}
+							{assign var = "selected_val" value="selected"}
+						{else}
+							{assign var = "selected_val" value=""}
+						{/if}
+						<option value="{$sel_value}" {$selected_val}>{$APP.$value}</option>
+						{/foreach}
+						</select>
+						
+						</td>
+						</tr>
+					</tbody>
+					</table>
+					<div id="cfList">
+					{include file="Settings/CustomFieldEntries.tpl"}
+					</div>
 				</div>
-				
 			</div>
-	</div></div>
+		</div>
+	</div>
 </div>
 
 

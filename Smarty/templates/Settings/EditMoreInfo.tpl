@@ -78,14 +78,14 @@ function check()
 	<div class="container-fluid">
 		<div class="row-fluid">
 			<div class="span2">
-				<div class="accordion" id="settingion1" style="overflow:auto;height:580px">
+				<div class="accordion clearfix" id="settingion1">
                 {include file='Settings/SettingLeft.tpl'}
 				</div>
 			</div>
-			 <div class="span10" style="margin-left:10px;">
-				 <div class="row-fluid box" style="height:602px">
+			 <div class="span10">
+				 <div class="row-fluid box clearfix">
 					<div class="tab-header">{$MOD.LBL_EDIT_MORE_INFO}</div>
-					<div class="padded" style="overflow:auto;height:520px;">
+					<div class="padded clearfix">
 						<!-- content body start-->
 						{if $mode neq 'edit'}
 						<table class="table table-hover table-bordered dvtable table-condensedforev">

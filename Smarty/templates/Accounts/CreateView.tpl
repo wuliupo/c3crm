@@ -34,7 +34,7 @@
 
              </div>
           </div>
-          <div class="span10" style="margin-left:10px;">
+          <div class="span10">
              <div  class="pull-left" style="margin-bottom:5px;" >
                   <button class="btn btn-small btn-primary" style="margin-top:2px;" onclick="goback();">
                     <i class="icon-arrow-left icon-white"></i>取消</button>

@@ -16,7 +16,7 @@
 				<input type="text" name="{$viewscopefld}_text" id="{$viewscopefld}_text" 
 					onkeydown="javascript:if(event.keyCode==13) return false;" 
 					class="chzn-search" onKeyUp="SearchViewScope('{$MODULE}','{$viewscopefld}','{$VIEWSCOPE}',this)">
-				<div id="{$viewscopefld}_info_div" style="overflow-y:auto;max-height:300px;height:300px;">
+				<div id="{$viewscopefld}_info_div" class="clearfix">
 				</div>
 				<script>
 					setViewScopeOpts("{$MODULE}","{$viewscopefld}",'{$VIEWSCOPE}');
