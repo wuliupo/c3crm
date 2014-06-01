@@ -16,12 +16,10 @@
  * @package log4php
  * @subpackage config
  */
-
 /**
  * @ignore 
  */
 if (!defined('LOG4PHP_DIR')) define('LOG4PHP_DIR', dirname(__FILE__) . '/..');
-
 /**
  * @author VxR <vxr@vxr.it>
  * @version $Revision: 1.2 $
@@ -31,7 +29,5 @@ if (!defined('LOG4PHP_DIR')) define('LOG4PHP_DIR', dirname(__FILE__) . '/..');
  * @todo Ehm... try to guess...
  */
 class LoggerPropertyGetter {
-
 }
-
 ?>

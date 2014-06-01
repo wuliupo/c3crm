@@ -5,7 +5,6 @@
 <h3>查找产品</h3>
 </div>
 <div class="modal-body" style="max-height:450px">
-
 <div class="container-fluid" > 
      
         <div  style="margin-left:10px;">
@@ -56,7 +55,6 @@
                 <li class="nav-header" style="padding-left:0px;padding-right:5px;">
                   <i class="icon-th-list"></i> 
                 </li>
-
                  {foreach name="listviewforeach" key=id item=viewname from=$CUSTOMVIEW_OPTION}
                   {if $id eq $VIEWID} 
                     <li class="active"><a href="javascript:;" onclick="javascript:getTabView('{$MODULE}','viewname={$id}',this,{$id});" >{$viewname}</a></li>
@@ -70,10 +68,8 @@
            <div id="ListViewContents" class="small" style="width:100%;position:relative;">
             {include file="Products/PopupContentsForSO.tpl"}
           </div>
-
         </div>
       </div>
-
     </div>
 </div>
 <div class="modal-footer" >
@@ -86,5 +82,3 @@
   <div class="pull-right"></div>
   <div class="clear"></div>
 </div>
-
-

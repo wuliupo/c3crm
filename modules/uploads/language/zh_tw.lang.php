@@ -6,6 +6,5 @@ $mod_strings = array (
   'LBL_DESCRIPTION' => '描述:',
   'LBL_OPTIONAL' => '(可選)',
   'NOT_EXIST' => '文件不存在！',
-
 );
 ?>

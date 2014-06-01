@@ -24,8 +24,6 @@
  * @license    http://www.gnu.org/licenses/old-licenses/lgpl-2.1.txt	LGPL
  * @version    1.7.2, 2010-01-11
  */
-
-
 /**
  * PHPExcel_Cell_Hyperlink
  *
@@ -82,7 +80,6 @@ class PHPExcel_Cell_Hyperlink
 	public function getUrl() {
 		return $this->_url;
 	}
-
 	/**
 	 * Set URL
 	 *
@@ -102,7 +99,6 @@ class PHPExcel_Cell_Hyperlink
 	public function getTooltip() {
 		return $this->_tooltip;
 	}
-
 	/**
 	 * Set tooltip
 	 *

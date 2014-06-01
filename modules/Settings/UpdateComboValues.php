@@ -15,7 +15,6 @@ $fldPickList =  $_REQUEST['listarea'];
 //changed by dingjianting on 2006-10-1 for picklist editor
 $fldPickList = utf8RawUrlDecode($fldPickList); 
 $uitype = $_REQUEST['uitype'];
-
 global $adb;
 $delquery = "delete from ec_picklist where colname='".$tableName."'";
 $adb->query($delquery);
@@ -27,7 +26,6 @@ if(substr_count($fldPickList,"br") > 0) {
 	$pickArray = explode("\n",$fldPickList);
 }
 $count = count($pickArray);
-
 for($i = 0; $i < $count; $i++)
 {
 	$pickArray[$i] = trim($pickArray[$i]);

@@ -2,7 +2,6 @@
 require_once('include/logging.php');
 require_once('include/database/PearDatabase.php');
 require_once('include/utils/UserInfoUtil.php');
-
 // User is used to store customer information.
  /** Main class for the user module
    *
@@ -20,8 +19,6 @@ class Users {
 	var $homeorder;
 	//added by dingjianting on 2006-12-13 for login error with display all errors
  	var $record_module;
-
-
 	var $tab_name = Array('ec_users');	
 	var $tab_name_index = Array('ec_users'=>'id');
 	var $column_fields = Array('user_name'=>'user_name','is_admin' =>'is_admin','user_password'=>'','confirm_password'=>'',
@@ -37,13 +34,10 @@ class Users {
 	'address_country' =>'',
 );
 	var $table_name = "ec_users";
-
 	// This is the list of fields that are in the lists.
 	var $list_link_field= 'last_name';
-
 	var $list_mode;
 	var $popup_type;
-
 	var $search_fields = Array(
 		'Name'=>Array('ec_users'=>'last_name'),
 		'Mobile'=>Array('ec_users'=>'phone_mobile'),
@@ -54,14 +48,10 @@ class Users {
 		'Mobile'=>'phone_mobile',
 		'Email'=>'email1'		
 	);
-
 	var $module_name = "Users";
-
 	var $object_name = "User";
 	var $encodeFields = Array("last_name", "description");
-
 	var $sortby_fields = Array('status','email1','phone_work','is_admin','user_name','last_name');	  
-
 	// This is the list of ec_fields that are in the lists.
 	var $list_fields = Array(
 		'Last Name'=>Array('ec_users'=>'last_name'),
@@ -79,14 +69,11 @@ class Users {
 		'Admin'=>'is_admin',	
 		'Phone'=>'phone_work'	
 	);
-
 	// This is the list of fields that are in the lists.
 	var $default_order_by = "user_name";
 	var $default_sort_order = 'ASC';
-
 	var $record_id;
 	var $new_schema = true;
-
 	/** constructor function for the main user class
             instantiates the Logger class and PearDatabase Class	
   	  *
@@ -97,9 +84,7 @@ class Users {
 		$this->log->debug("Entering Users() method ...");
 		$this->db = & getSingleDBInstance();
 		$this->log->debug("Exiting Users() method ...");
-
 	}
-
 	// Mike Crowe Mod --------------------------------------------------------Default ordering for us
 	/**
 	 * Function to get sort order
@@ -133,8 +118,6 @@ class Users {
 		return $order_by;
 	}	
 	
-
-
 	/**
 	 * @return string encrypted password for storage in DB and comparison against DB password.
 	 * @param string $user_name - Must be non null and at least 2 characters
@@ -152,19 +135,14 @@ class Users {
 //		$salt = $dbconfig['db_name'];
         $salt='$1$rasm$';
 		$encrypted_password = crypt($user_password, $salt);	
-
 		return $encrypted_password;
-
 	}
-
 	function encrypt_discuz_password($user_password)
 	{
 		// encrypt the password.
 		$encrypted_password = crypt($user_password);
 		return $encrypted_password;
-
 	}
-
 	
 	/** Function to authenticate the current user with the given password
   	  * @param $password -- password::Type varchar
@@ -172,18 +150,14 @@ class Users {
  	*/
 	function authenticate_user($password){
 		$usr_name = $this->column_fields["user_name"];
-
 		$query = "SELECT * from $this->table_name where user_name='$usr_name' AND user_hash='$password'";
 		$result = $this->db->requireSingleResult($query, false);
-
 		if(empty($result)){
 			$this->log->fatal("SECURITY: failed login by $usr_name");
 			return false;
 		}
-
 		return true;
 	}
-
 	/** Function for validation check 
   	  *
  	*/
@@ -195,13 +169,10 @@ class Users {
 				return 1;
 			}
 			return -1;
-
 		}else{
 			return -1;
 		}
-
 	}
-
 	/** Function for authorization check 
   	  *
  	*/	
@@ -215,7 +186,6 @@ class Users {
 		}else{
 			return -1;
 		}
-
 	}
 	/**
 	 * Checks the config.php AUTHCFG value for login type and forks off to the proper module
@@ -252,8 +222,6 @@ class Users {
 				
 		return false;
 	}
-
-
 	/** 
 	 * Load a user based on the user_name in $this
 	 * @return -- this if load was successul and null if load failed.
@@ -279,22 +247,18 @@ class Users {
 		unset($_SESSION['validation']);
 		if( !isset($this->column_fields["user_name"]) || $this->column_fields["user_name"] == "" || !isset($user_password) || $user_password == "")
 			return null;
-
 		if($this->validation_check('aW5jbHVkZS9pbWFnZXMvc3VnYXJzYWxlc19tZC5naWY=','1a44d4ab8f2d6e15e0ff6ac1c2c87e6f', '866bba5ae0a15180e8613d33b0acc6bd') == -1)$validation = -1;
 		//if($this->validation_check('aW5jbHVkZS9pbWFnZXMvc3VnYXJzYWxlc19tZC5naWY=','1a44d4ab8f2d6e15e0ff6ac1c2c87e6f') == -1)$validation = -1;
 		if($this->validation_check('aW5jbHVkZS9pbWFnZXMvcG93ZXJlZF9ieV9zdWdhcmNybS5naWY=' , '3d49c9768de467925daabf242fe93cce') == -1)$validation = -1;
 		if($this->authorization_check('aW5kZXgucGhw' , 'PEEgaHJlZj0naHR0cDovL3d3dy5zdWdhcmNybS5jb20nIHRhcmdldD0nX2JsYW5rJz48aW1nIGJvcmRlcj0nMCcgc3JjPSdpbmNsdWRlL2ltYWdlcy9wb3dlcmVkX2J5X3N1Z2FyY3JtLmdpZicgYWx0PSdQb3dlcmVkIEJ5IFN1Z2FyQ1JNJz48L2E+', 1) == -1)$validation = -1;
 		$encrypted_password = $this->encrypt_password($user_password);
-
 		$authCheck = false;
 		$authCheck = $this->doLogin($user_password);
-
 		if(!$authCheck)
 		{
 			$this->log->info("User authentication for $usr_name failed");
 			return null;
 		}
-
 		$query = "SELECT * from $this->table_name where deleted=0 and user_name='$usr_name'";
 		$result = $this->db->query($query);
 		$noofrows = $this->db->num_rows($result);
@@ -308,23 +272,16 @@ class Users {
 		$this->id = $id;	
 		
 		$user_hash = strtolower(md5($user_password));
-
-
 		// If there is no user_hash is not present or is out of date, then create a new one.
 		if(!isset($src_user_hash) || $src_user_hash != $user_hash)
 		{
 			$query = "UPDATE $this->table_name SET user_hash='$user_hash' where id='{$id}'";
 			$this->db->query($query, true, "Error setting new hash for {$usr_name}: ");	
 		}
-
-
 		if ($status != "Inactive") $this->authenticated = true;
-
 		unset($_SESSION['loginattempts']);
 		return $this;
 	}		
-
-
 	/**
 	 * @param string $user name - Must be non null and at least 1 character.
 	 * @param string $user_password - Must be non null and at least 1 character.
@@ -350,17 +307,14 @@ class Users {
 			echo $this->error_string;die;
 			return false;
 		}
-
 		$encrypted_password = $this->encrypt_password($user_password);
 		$encrypted_new_password = $this->encrypt_password($new_password);
-
 		//if (!is_admin($current_user)) {
 			//check old password first
 			$query = "SELECT user_name,user_password FROM $this->table_name WHERE id='$this->id'";
 			$row =$this->db->getFirstLine($query);	
 			$this->log->info("select old password query: $query");
 			$this->log->info("return result of $row");
-
 			if($encrypted_password != $row['user_password'])
 			{	
 				$this->log->info("Incorrect old password for $usr_name");
@@ -369,16 +323,13 @@ class Users {
 				return false;
 			}
 		//}		
-
 		
 		$user_hash = strtolower(md5($new_password));
-
 		//set new password
 		$query = "UPDATE $this->table_name SET user_password='$encrypted_new_password', user_hash='$user_hash' where id='$this->id'";
 		$this->db->query($query, true, "Error setting new password for $usr_name: ");	
 		return true;
 	}
-
 	function reset_password($new_password)
 	{		
 		global $mod_strings;
@@ -386,13 +337,11 @@ class Users {
 		$this->log->info("Starting password change for admin");
 		$encrypted_new_password = $this->encrypt_password($new_password);
 		$user_hash = strtolower(md5($new_password));
-
 		//set new password
 		$query = "UPDATE $this->table_name SET user_password='$encrypted_new_password', user_hash='$user_hash' where id='1'";
 		$this->db->query($query, true, "Error resetting new password for admin: ");	
 		return true;
 	}
-
 	function is_authenticated()
 	{
 		return $this->authenticated;
@@ -402,8 +351,6 @@ class Users {
 	{
 		return $this->confirmemail;
 	}
-
-
 	/** gives the user id for the specified user name 
   	  * @param $user_name -- user name:: Type varchar
 	  * @returns user id
@@ -424,15 +371,12 @@ class Users {
 	
 	function getColumnNames_User()
 	{
-
 		$mergeflds = array("FIRSTNAME","LASTNAME","USERNAME","YAHOOID","TITLE","OFFICEPHONE","DEPARTMENT",
 				"MOBILE","OTHERPHONE","FAX","EMAIL",
 				"HOMEPHONE","OTHEREMAIL","PRIMARYADDRESS",
 				"CITY","STATE","POSTALCODE","COUNTRY");	
 		return $mergeflds;
 	}
-
-
 	/** Function to get the current user information from the user_privileges file 
   	  * @param $userid -- user id:: Type integer
   	  * @returns user info in $this->column_fields array:: Type array
@@ -455,13 +399,8 @@ class Users {
 				$this->is_admin = true;
 			}
 		}
-
 		return $this;
-
 	}
-
-
-
 	/** Function to save the user information into the database
   	  * @param $module -- module name:: Type varchar
   	  *
@@ -470,7 +409,6 @@ class Users {
 	{	
 		global $current_user;//$adb added by raju for mass mailing
 		$insertion_mode = $this->mode;
-
 		$this->db->println("TRANS saveentity starts $module");
 		$this->db->startTransaction();
 		foreach($this->tab_name as $table_name)
@@ -487,7 +425,6 @@ class Users {
 		$this->db->completeTransaction();
 		$this->db->println("TRANS saveentity ends");
 	}
-
 	/** Function to insert values in the specifed table for the specified module
   	  * @param $table_name -- table name:: Type varchar
   	  * @param $module -- module:: Type varchar
@@ -498,21 +435,17 @@ class Users {
 		$log->info("function insertIntoEntityTable ".$module.' ec_table name ' .$table_name);
 		global $adb;
 		$insertion_mode = $this->mode;
-
 		//Checkin whether an entry is already is present in the ec_table to update
 		if($insertion_mode == 'edit')
 		{
 			$check_query = "select * from ".$table_name." where ".$this->tab_name_index[$table_name]."=".$this->id;
 			$check_result=$this->db->query($check_query);
-
 			$num_rows = $this->db->num_rows($check_result);
-
 			if($num_rows <= 0)
 			{
 				$insertion_mode = '';
 			}	 
 		}
-
 		if($insertion_mode == 'edit')
 		{
 			$update = '';
@@ -550,7 +483,6 @@ class Users {
 					{
 						$fldvalue = 0;
 					}
-
 				}
 				elseif($uitype == 33)
 				{
@@ -599,23 +531,15 @@ class Users {
 				  }
 			}
 			
-
 		}
-
-
-
-
-
 		if($insertion_mode == 'edit')
 		{
 			//Check done by Don. If update is empty the the query fails
 			if(trim($update) != '')
 			{
 				$sql1 = "update ".$table_name." set ".$update." where ".$this->tab_name_index[$table_name]."=".$this->id;
-
 				$this->db->query($sql1); 
 			}
-
 		}
 		else
 		{	
@@ -623,11 +547,7 @@ class Users {
 //                        echo $sql1;
 			$this->db->query($sql1); 
 		}
-
 	}
-
-
-
 	/** Function to insert values into the attachment table
   	  * @param $id -- entity id:: Type integer
   	  * @param $module -- module:: Type varchar
@@ -636,7 +556,6 @@ class Users {
 	{
 		global $log;
 		$log->debug("Entering into insertIntoAttachment($id,$module) method.");
-
 		foreach($_FILES as $fileindex => $files)
 		{
 			if($files['name'] != '' && $files['size'] > 0)
@@ -644,10 +563,8 @@ class Users {
 				$this->uploadAndSaveFile($id,$module,$files);
 			}
 		}
-
 		$log->debug("Exiting from insertIntoAttachment($id,$module) method.");
 	}
-
 	/** Function to retreive the user info of the specifed user id The user info will be available in $this->column_fields array
   	  * @param $record -- record id:: Type integer
   	  * @param $module -- module:: Type varchar
@@ -656,13 +573,11 @@ class Users {
 	{
 		global $adb,$log;
 		$log->debug("Entering into retrieve_entity_info($record, $module) method.");
-
 		if($record == '')
 		{
 			$log->debug("record is empty. returning null");
 			return null;
 		}
-
 		$result = Array();
 		foreach($this->tab_name_index as $table_name=>$index)
 		{
@@ -677,11 +592,9 @@ class Users {
 			$fieldcolname = $adb->query_result($result1,$i,"columnname");
 			$tablename = $adb->query_result($result1,$i,"tablename");
 			$fieldname = $adb->query_result($result1,$i,"fieldname");
-
 			$fld_value = $adb->query_result($result[$tablename],0,$fieldcolname);
 			$this->column_fields[$fieldname] = $fld_value;
 			$this->$fieldname = $fld_value;
-
 		}
 		$this->column_fields["record_id"] = $record;
 		$this->column_fields["record_module"] = $module;
@@ -696,11 +609,8 @@ class Users {
 //		$this->column_fields["groupid"] = $groupid;
 		$this->id = $record;
 		$log->debug("Exit from retrieve_entity_info() method.");
-
 		return $this;
 	}
-
-
 	
 	/** Function to save the user information into the database
   	  * @param $module -- module name:: Type varchar
@@ -724,8 +634,6 @@ class Users {
 		    $this->db->query($query);
 		}
 	}
-
-
 	/**
 	 * Track the viewing of a detail record.  This leverages get_summary_text() which is object specific
 	 * params $user_id - The user that is viewing the record.
@@ -737,11 +645,9 @@ class Users {
 	{
 		require_once('data/Tracker.php');
 		$this->log->debug("About to call ec_tracker (user_id, module_name, item_id)($user_id, $current_module, $this->id)");
-
 		$tracker = new Tracker();
 		$tracker->track_view($user_id, $current_module, $id, '');
 	}
-
 	function getListQuery($where=""){		
 		$query = "select id,last_name,user_name,ec_groups.groupid,ec_groups.groupname,status,is_admin,email1,phone_work from ec_users left join ec_users2group on ec_users2group.userid=ec_users.id left join ec_groups on ec_groups.groupid=ec_users2group.groupid where deleted=0 ";
 		$query = $query.$where;

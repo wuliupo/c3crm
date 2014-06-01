@@ -19,14 +19,10 @@
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  * @version    $Id: Mysql.php 23986 2011-05-03 20:10:42Z ralph $
  */
-
-
 /**
  * @see Zend_Db_Adapter_Pdo_Abstract
  */
 require_once 'include/Zend/Db/Adapter/Pdo/Abstract.php';
-
-
 /**
  * Class for connecting to MySQL databases and performing common operations.
  *
@@ -38,14 +34,12 @@ require_once 'include/Zend/Db/Adapter/Pdo/Abstract.php';
  */
 class Zend_Db_Adapter_Pdo_Mysql extends Zend_Db_Adapter_Pdo_Abstract
 {
-
     /**
      * PDO type.
      *
      * @var string
      */
     protected $_pdoType = 'mysql';
-
     /**
      * Keys are UPPERCASE SQL datatypes or the constants
      * Zend_Db::INT_TYPE, Zend_Db::BIGINT_TYPE, or Zend_Db::FLOAT_TYPE.
@@ -75,7 +69,6 @@ class Zend_Db_Adapter_Pdo_Mysql extends Zend_Db_Adapter_Pdo_Abstract
         'FIXED'              => Zend_Db::FLOAT_TYPE,
         'FLOAT'              => Zend_Db::FLOAT_TYPE
     );
-
     /**
      * Override _dsn() and ensure that charset is incorporated in mysql
      * @see Zend_Db_Adapter_Pdo_Abstract::_dsn()
@@ -100,15 +93,12 @@ class Zend_Db_Adapter_Pdo_Mysql extends Zend_Db_Adapter_Pdo_Abstract
         if ($this->_connection) {
             return;
         }
-
         if (!empty($this->_config['charset'])) {
             $initCommand = "SET NAMES '" . $this->_config['charset'] . "'";
             $this->_config['driver_options'][1002] = $initCommand; // 1002 = PDO::MYSQL_ATTR_INIT_COMMAND
         }
-
         parent::_connect();
     }
-
     /**
      * @return string
      */
@@ -116,7 +106,6 @@ class Zend_Db_Adapter_Pdo_Mysql extends Zend_Db_Adapter_Pdo_Abstract
     {
         return "`";
     }
-
     /**
      * Returns a list of the tables in the database.
      *
@@ -126,7 +115,6 @@ class Zend_Db_Adapter_Pdo_Mysql extends Zend_Db_Adapter_Pdo_Abstract
     {
         return $this->fetchCol('SHOW TABLES');
     }
-
     /**
      * Returns the column descriptions for a table.
      *
@@ -160,24 +148,20 @@ class Zend_Db_Adapter_Pdo_Mysql extends Zend_Db_Adapter_Pdo_Abstract
         // @todo  use INFORMATION_SCHEMA someday when MySQL's
         // implementation has reasonably good performance and
         // the version with this improvement is in wide use.
-
         if ($schemaName) {
             $sql = 'DESCRIBE ' . $this->quoteIdentifier("$schemaName.$tableName", true);
         } else {
             $sql = 'DESCRIBE ' . $this->quoteIdentifier($tableName, true);
         }
         $stmt = $this->query($sql);
-
         // Use FETCH_NUM so we are not dependent on the CASE attribute of the PDO connection
         $result = $stmt->fetchAll(Zend_Db::FETCH_NUM);
-
         $field   = 0;
         $type    = 1;
         $null    = 2;
         $key     = 3;
         $default = 4;
         $extra   = 5;
-
         $desc = array();
         $i = 1;
         $p = 1;
@@ -233,7 +217,6 @@ class Zend_Db_Adapter_Pdo_Mysql extends Zend_Db_Adapter_Pdo_Abstract
         }
         return $desc;
     }
-
     /**
      * Adds an adapter-specific LIMIT clause to the SELECT statement.
      *
@@ -251,20 +234,16 @@ class Zend_Db_Adapter_Pdo_Mysql extends Zend_Db_Adapter_Pdo_Abstract
             require_once 'include/Zend/Db/Adapter/Exception.php';
             throw new Zend_Db_Adapter_Exception("LIMIT argument count=$count is not valid");
         }
-
         $offset = intval($offset);
         if ($offset < 0) {
             /** @see Zend_Db_Adapter_Exception */
             require_once 'include/Zend/Db/Adapter/Exception.php';
             throw new Zend_Db_Adapter_Exception("LIMIT argument offset=$offset is not valid");
         }
-
         $sql .= " LIMIT $count";
         if ($offset > 0) {
             $sql .= " OFFSET $offset";
         }
-
         return $sql;
     }
-
 }

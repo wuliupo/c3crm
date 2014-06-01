@@ -35,13 +35,11 @@
                                         {rdelim}
                                 {rdelim}
                         );
-
         {rdelim}
         function validate()
         {ldelim}
             if( !emptyCheck( "catalogName", "下拉框选项名称不能为空" ) )
                 return false;
-
             dup_validation();
             //return true;
         {rdelim}
@@ -52,7 +50,6 @@
                 <td valign="top"><img src="{$IMAGE_PATH}showPanelTopLeft.gif"></td>
                 <td class="showPanelBg" style="padding: 10px;" valign="top" width="100%">
                 <br>
-
             <div align=left>
                         <!-- DISPLAY -->
                        <form name="newCatalogForm" action="index.php" method="post">
@@ -100,36 +97,30 @@
                                 <td class="cellText">{$PARENTNAME}</td>
                                   </tr>
                                 </table>
-
                             </td>
                               </tr>
                             
                        </table>
                     </form>
             </div>
-
         </td>
                 <td valign="top"><img src="{$IMAGE_PATH}showPanelTopRight.gif"></td>
            </tr>
         </tbody>
         </table>
-
         <script language="JavaScript" type="text/JavaScript">
                 var moveupLinkObj,moveupDisabledObj,movedownLinkObj,movedownDisabledObj;
                 function setObjects()
                 {ldelim}
                     availListObj=getObj("availList")
                     selectedColumnsObj=getObj("selectedColumns")
-
                 {rdelim}
-
                 function addColumn()
                 {ldelim}
                     for (i=0;i<selectedColumnsObj.length;i++)
                     {ldelim}
                         selectedColumnsObj.options[i].selected=false
                     {rdelim}
-
                     for (i=0;i<availListObj.length;i++)
                     {ldelim}
                         if (availListObj.options[i].selected==true)
@@ -143,7 +134,6 @@
                                     break
                                 {rdelim}
                             {rdelim}
-
                             if (rowFound!=true)
                             {ldelim}
                                 var newColObj=document.createElement("OPTION")
@@ -162,7 +152,6 @@
                         {rdelim}
                     {rdelim}
                 {rdelim}
-
                 function delColumn()
                 {ldelim}
                     for (i=0;i<=selectedColumnsObj.options.length;i++)
@@ -171,7 +160,6 @@
                         selectedColumnsObj.remove(selectedColumnsObj.options.selectedIndex)
                     {rdelim}
                 {rdelim}
-
                 function formSelectColumnString()
                 {ldelim}
                     var selectedColStr = "";
@@ -183,7 +171,5 @@
                 {rdelim}
             setObjects();
         </script>
-
-
 </body>
 </html>

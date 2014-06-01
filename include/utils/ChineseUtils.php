@@ -21,7 +21,6 @@ function toCNcap($data){
       $yuan=substr($yuan,0,strlen($yuan)-1); //截去尾数	  
       $j++;
    }
-
    if($subdata[1]){
      $chiao=(substr($subdata[1],0,1))?$capnum[substr($subdata[1],0,1)]."角":"零";
      $cent=(substr($subdata[1],1,1))?$capnum[substr($subdata[1],1,1)]."分":"零分";

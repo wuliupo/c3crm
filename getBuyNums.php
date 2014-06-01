@@ -1,18 +1,12 @@
 <?php
-require_once('config.inc.php');
+require_once('config.php');
 require_once('include/utils/utils.php');
 require_once('include/database/PearDatabase.php');
 global $adb,$current_user;
-
 $today = date("Y-m-d");
-
 $oneweek = date("Y-m-d",strtotime("-1 week"))." 00:00:00";
-
 $onemonth = date("Y-m-d",strtotime("-1 month"))." 00:00:00";
-
 $threemonth = date("Y-m-d",strtotime("-3 month"))." 00:00:00";
-
-
 $query = "select accountid from ec_account where deleted=0 order by smownerid";
 $result = $adb->getList($query);
 $nums = $adb->num_rows($result);
@@ -47,6 +41,4 @@ if($nums > 0){
 		$adb->query($updatesql);		
 	}
 }
-
-
 ?>

@@ -24,8 +24,6 @@
  * @license    http://www.gnu.org/licenses/old-licenses/lgpl-2.1.txt	LGPL
  * @version    1.7.2, 2010-01-11
  */
-
-
 /** PHPExcel root directory */
 if (!defined('PHPEXCEL_ROOT')) {
 	/**
@@ -33,26 +31,18 @@ if (!defined('PHPEXCEL_ROOT')) {
 	 */
 	define('PHPEXCEL_ROOT', dirname(__FILE__) . '/../../');
 }
-
 /** PHPExcel */
 require_once PHPEXCEL_ROOT . 'PHPExcel.php';
-
 /** PHPExcel_HashTable */
 require_once PHPEXCEL_ROOT . 'PHPExcel/HashTable.php';
-
 /** PHPExcel_IComparable */
 require_once PHPEXCEL_ROOT . 'PHPExcel/IComparable.php';
-
 /** PHPExcel_Worksheet */
 require_once PHPEXCEL_ROOT . 'PHPExcel/Worksheet.php';
-
 /** PHPExcel_Cell */
 require_once PHPEXCEL_ROOT . 'PHPExcel/Cell.php';
-
 /** PHPExcel_IWriter */
 require_once PHPEXCEL_ROOT . 'PHPExcel/Writer/IWriter.php';
-
-
 /**
  * PHPExcel_Writer_Serialized
  *
@@ -68,7 +58,6 @@ class PHPExcel_Writer_Serialized implements PHPExcel_Writer_IWriter
 	 * @var PHPExcel
 	 */
 	private $_spreadSheet;
-
     /**
      * Create a new PHPExcel_Writer_Serialized
      *
@@ -79,7 +68,6 @@ class PHPExcel_Writer_Serialized implements PHPExcel_Writer_IWriter
     	// Assign PHPExcel
 		$this->setPHPExcel($pPHPExcel);
     }
-
 	/**
 	 * Save PHPExcel to file
 	 *
@@ -91,22 +79,18 @@ class PHPExcel_Writer_Serialized implements PHPExcel_Writer_IWriter
 		if (!is_null($this->_spreadSheet)) {
 			// Garbage collect
 			$this->_spreadSheet->garbageCollect();
-
 			// Garbage collect...
 			foreach ($this->_spreadSheet->getAllSheets() as $sheet) {
         		$sheet->garbageCollect();
 			}
-
 			// Create new ZIP file and open it for writing
 			$objZip = new ZipArchive();
-
 			// Try opening the ZIP file
 			if ($objZip->open($pFilename, ZIPARCHIVE::OVERWRITE) !== true) {
 				if ($objZip->open($pFilename, ZIPARCHIVE::CREATE) !== true) {
 					throw new Exception("Could not open " . $pFilename . " for writing.");
 				}
 			}
-
 			// Add media
 			$sheetCount = $this->_spreadSheet->getSheetCount();
 			for ($i = 0; $i < $sheetCount; ++$i) {
@@ -117,10 +101,8 @@ class PHPExcel_Writer_Serialized implements PHPExcel_Writer_IWriter
 					}
 				}
 			}
-
 			// Add phpexcel.xml to the document, which represents a PHP serialized PHPExcel object
 			$objZip->addFromString('phpexcel.xml', $this->_writeSerialized($this->_spreadSheet, $pFilename));
-
 			// Close file
 			if ($objZip->close() === false) {
 				throw new Exception("Could not close zip file $pFilename.");
@@ -129,7 +111,6 @@ class PHPExcel_Writer_Serialized implements PHPExcel_Writer_IWriter
 			throw new Exception("PHPExcel object unassigned.");
 		}
 	}
-
 	/**
 	 * Get PHPExcel object
 	 *
@@ -143,7 +124,6 @@ class PHPExcel_Writer_Serialized implements PHPExcel_Writer_IWriter
 			throw new Exception("No PHPExcel assigned.");
 		}
 	}
-
 	/**
 	 * Get PHPExcel object
 	 *
@@ -155,7 +135,6 @@ class PHPExcel_Writer_Serialized implements PHPExcel_Writer_IWriter
 		$this->_spreadSheet = $pPHPExcel;
 		return $this;
 	}
-
 	/**
 	 * Serialize PHPExcel object to XML
 	 *
@@ -168,7 +147,6 @@ class PHPExcel_Writer_Serialized implements PHPExcel_Writer_IWriter
 	{
 		// Clone $pPHPExcel
 		$pPHPExcel = clone $pPHPExcel;
-
 		// Update media links
 		$sheetCount = $pPHPExcel->getSheetCount();
 		for ($i = 0; $i < $sheetCount; ++$i) {
@@ -179,29 +157,22 @@ class PHPExcel_Writer_Serialized implements PHPExcel_Writer_IWriter
 				}
 			}
 		}
-
 		// Create XML writer
 		$objWriter = new xmlWriter();
 		$objWriter->openMemory();
 		$objWriter->setIndent(true);
-
 		// XML header
 		$objWriter->startDocument('1.0','UTF-8','yes');
-
 		// PHPExcel
 		$objWriter->startElement('PHPExcel');
 		$objWriter->writeAttribute('version', '1.7.2');
-
 			// Comment
 			$objWriter->writeComment('This file has been generated using PHPExcel v1.7.2 (http://www.codeplex.com/PHPExcel). It contains a base64 encoded serialized version of the PHPExcel internal object.');
-
 			// Data
 			$objWriter->startElement('data');
 				$objWriter->writeCData( base64_encode(serialize($pPHPExcel)) );
 			$objWriter->endElement();
-
 		$objWriter->endElement();
-
 		// Return
 		return $objWriter->outputMemory(true);
 	}

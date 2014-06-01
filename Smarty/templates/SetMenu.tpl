@@ -1,5 +1,4 @@
 {*<!--
-
 /*********************************************************************************
 ** The contents of this file are subject to the vtiger CRM Public License Version 1.0
  * ("License"); You may not use this file except in compliance with the License
@@ -9,7 +8,6 @@
  * All Rights Reserved.
 *
  ********************************************************************************/
-
 -->*}
 <table border=0 cellspacing=0 cellpadding=20 width=100% class="settingsUI">
 <tr>
@@ -22,7 +20,6 @@
 		<tr>
 			<td class="settingsTabHeader" nowrap>{$MOD.LBL_USER_MANAGEMENT}</td>
 		</tr>
-
 		
 		{if  $smarty.request.action eq 'CustomBlockList'}
 		<tr><td class="settingsTabSelected" nowrap><a href="index.php?module=Settings&action=CustomBlockList&parenttab=Settings">{$MOD.LBL_BLOCK_EDITOR}</a></td></tr>
@@ -44,7 +41,6 @@
 		{else}
 		<tr><td class="settingsTabList" nowrap><a href="index.php?module=Settings&action=LayoutList&parenttab=Settings">{$MOD.LBL_LAYOUT_EDITOR}</a></td></tr>
 		{/if}
-
 		{if  $smarty.request.action eq 'CustomTabList'}
 		<tr><td class="settingsTabSelected" nowrap><a href="index.php?module=Settings&action=CustomTabList&parenttab=Settings">{$MOD.LBL_TAB_EDITOR}</a></td></tr>
 		{else}
@@ -56,10 +52,8 @@
 		<tr><td class="settingsTabList" nowrap><a href="index.php?module=Users&action=DefaultFieldPermissions&parenttab=Settings">{$MOD.LBL_FIELDS_ACCESS}</a></td></tr>
 		{/if}
 		
-
 	
 	
-
 		
         
            
@@ -68,7 +62,3 @@
 		
 	</td>
 	<td width=90% class="small settingsSelectedUI" valign=top align=left>
-
-
-
-

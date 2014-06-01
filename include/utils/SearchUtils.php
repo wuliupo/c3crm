@@ -2,9 +2,6 @@
 require_once('include/database/PearDatabase.php');
 require_once('include/utils/CommonUtils.php');
 require_once('include/utils/addon_utils.php');
-
-
-
 function getColumnOrTableArr($isColumn=true) {
 	$column_key = "searchutils_column_array";
 	$table_col_key = "searchutils_table_col_array";
@@ -30,7 +27,6 @@ function getColumnOrTableArr($isColumn=true) {
 	if($isColumn) return $column_array;
 	else return $table_col_array;
 }
-
 /**This function is used to get the list view header values in a list view during search
 *Param $focus - module object
 *Param $module - module name
@@ -41,7 +37,6 @@ function getColumnOrTableArr($isColumn=true) {
 *Param $oCv - Custom view object
 *Returns the listview header values in an array
 */
-
 function getSearchListHeaderValues($focus, $module,$sort_qry='',$sorder='',$order_by='',$relatedlist='',$oCv='')
 {
 	global $log;
@@ -51,7 +46,6 @@ function getSearchListHeaderValues($focus, $module,$sort_qry='',$sorder='',$orde
 	global $theme;
 	global $app_strings;
 	global $mod_strings,$current_user;
-
 	$arrow='';
 	$qry = getURLstring($focus);
 	$search_header = Array();
@@ -83,14 +77,11 @@ function getSearchListHeaderValues($focus, $module,$sort_qry='',$sorder='',$orde
 	}
 	$log->debug("Exiting getSearchListHeaderValues method ...");	
     return $search_header;
-
 }
-
 /**This function is used to get the where condition for search listview query along with url_string
 *Param $module - module name
 *Returns the where conditions and url_string values in string format
 */
-
 function Search($module)
 {	
 	global $log;
@@ -107,7 +98,6 @@ function Search($module)
 	if(isset($_REQUEST['searchtype']) && $_REQUEST['searchtype']!="")
 	{
 		$search_type=$_REQUEST['searchtype'];
-
 		if($search_type == "BasicSearch")
 		{
 			$where=BasicSearch($module,$search_column,$search_string);
@@ -124,16 +114,13 @@ function Search($module)
 		return $where."#@@#".$url_string;
 		$log->debug("Exiting Search method ...");
 	}
-
 }
-
 /**This function is used to get user_id's for a given user_name during search
 *Param $table_name - ec_tablename
 *Param $column_name - columnname
 *Param $search_string - searchstring value (username)
 *Returns the where conditions for list query in string format
 */
-
 function get_usersid($table_name,$column_name,$search_string)
 {
 	global $log;
@@ -143,21 +130,17 @@ function get_usersid($table_name,$column_name,$search_string)
 	$log->debug("Exiting get_usersid method ...");
 	return $where;
 }
-
 /**This function is used to get where conditions for a given ec_accountid or contactid during search for their respective names
 *Param $column_name - columnname
 *Param $search_string - searchstring value (username)
 *Returns the where conditions for list query in string format
 */
-
-
 function getValuesforColumns($column_name,$search_string)
 {
 	global $log;
 	$log->debug("Entering getValuesforColumns(".$column_name.",".$search_string.") method ...");
 	$column_array = getColumnOrTableArr();
 	$table_col_array = getColumnOrTableArr(false);
-
 	for($i=0; $i<count($column_array);$i++)
 	{
 		if($column_name == $column_array[$i])
@@ -189,14 +172,12 @@ function getValuesforColumns($column_name,$search_string)
 	$log->debug("Exiting getValuesforColumns method ...");
 	return $where;
 }
-
 /**This function is used to get where conditions in Basic Search
 *Param $module - module name
 *Param $search_field - columnname/field name in which the string has be searched
 *Param $search_string - searchstring value (username)
 *Returns the where conditions for list query in string format
 */
-
 function BasicSearch($module,$search_field,$search_string)
 {
 	 global $log;
@@ -204,7 +185,6 @@ function BasicSearch($module,$search_field,$search_string)
 	global $adb;
 	$column_array = getColumnOrTableArr();
 	$table_col_array = getColumnOrTableArr(false);
-
 	if($search_field =='crmid')
 	{
 		$column_name='crmid';
@@ -233,7 +213,6 @@ function BasicSearch($module,$search_field,$search_string)
 			if(empty($column_name)) {
 				return "";
 			}
-
 			//Check added for tickets by accounts/contacts in dashboard
 			if ($column_name == 'parent_id')
 		    {
@@ -287,7 +266,6 @@ function BasicSearch($module,$search_field,$search_string)
 			{
 				$where=" ec_account2.accountname like '%".$search_string."%' ";
 			}
-
 			else if(in_array($column_name,$column_array))
 			{
 				$where = getValuesforColumns($column_name,$search_string);
@@ -318,12 +296,10 @@ function BasicSearch($module,$search_field,$search_string)
 	$log->debug("Exiting BasicSearch method ...");
 	return $where;
 }
-
 /**This function is used to get where conditions in Advance Search
 *Param $module - module name
 *Returns the where conditions for list query in string format
 */
-
 function getAdvSearchfields($module,$column='')
 {
 	global $log;
@@ -346,7 +322,6 @@ function getAdvSearchfields($module,$column='')
 		$result = $adb->query($sql);
 		$noofrows = $adb->num_rows($result);
 		$block = '';
-
 		for($i=0; $i<$noofrows; $i++)
 		{
 			$fieldtablename = $adb->query_result($result,$i,"tablename");
@@ -361,7 +336,6 @@ function getAdvSearchfields($module,$column='')
 			if(isset($mod_strings[$fieldlabel])) {
 				$fieldlabel = $mod_strings[$fieldlabel];
 			}
-
 			if($fieldlabel != 'Related to')
 			{
 				if ($column==$fieldtablename.".".$fieldcolname)
@@ -377,12 +351,10 @@ function getAdvSearchfields($module,$column='')
 	$log->debug("Exiting getAdvSearchfields method ...");
 	return $OPTION_SET;
 }
-
 /**This function is returns the search criteria options for Advance Search
 *takes no parameter
 *Returns the criteria option in html format
 */
-
 function getcriteria_options($searchop='')
 {
 	global $log;
@@ -397,7 +369,6 @@ function getcriteria_options($searchop='')
 	foreach($opts as $optkey=>&$optval){
 		if($optkey==$searchop) $optval="selected";
 	}
-
 	$CRIT_OPT = "<option value=\'cts\' ".$opts['cts']." >".$app_strings['contains']."</option>
 	<option value=\'dcts\' ".$opts['dcts']." >".$app_strings['does_not_contain']."</option>
 	<option value=\'is\' ".$opts['is']." >".$app_strings['equals']."</option>
@@ -410,14 +381,12 @@ function getcriteria_options($searchop='')
 	$log->debug("Exiting getcriteria_options method ...");
 	return $CRIT_OPT;
 }
-
 /**This function is returns the where conditions for each search criteria option in Advance Search
 *Param $criteria - search criteria option
 *Param $searchstring - search string
 *Param $searchfield - ec_fieldname to be search for 
 *Returns the search criteria option (where condition) to be added in list query
 */
-
 function getSearch_criteria($criteria,$searchstring,$searchfield)
 {
 	global $log;
@@ -454,40 +423,31 @@ function getSearch_criteria($criteria,$searchstring,$searchfield)
 			if($searchstring == NULL)
 			$where_string = $searchfield." is NULL";
 			break;
-
 		case 'ewt':
 			$where_string = $searchfield." like '%".$searchstring."' ";
 			if($searchstring == NULL)
 			$where_string = $searchfield." is NULL";
 			break;
-
 		case 'grt':
 			$where_string = $searchfield." > '".$searchstring."' ";
 			break;
-
 		case 'lst':
 			$where_string = $searchfield." < '".$searchstring."' ";
 			break;
-
 		case 'grteq':
 			$where_string = $searchfield." >= '".$searchstring."' ";
 			break;
-
 		case 'lsteq':
 			$where_string = $searchfield." <= '".$searchstring."' ";
 			break;
-
-
 	}
 	$log->debug("Exiting getSearch_criteria method ...");
 	return $where_string;
 }
-
 /**This function is returns the where conditions for search
 *Param $currentModule - module name
 *Returns the where condition to be added in list query in string format
 */
-
 function getWhereCondition($currentModule)
 {	
 	global $log;
@@ -588,9 +548,7 @@ function getWhereCondition($currentModule)
 	$log->info("getWhereCondition method where condition:".$where);
 	$log->debug("Exiting getWhereCondition method ...");
 	return $where;
-
 }
-
 /**This function is used to replace only the first occurence of a given string
 Param $needle - string to be replaced
 Param $replace - string to be replaced with
@@ -608,7 +566,6 @@ function str_replace_once($needle, $replace, $haystack)
 	}
 	return substr_replace($haystack, $replace, $pos, strlen($needle));
 }
-
 //add by renzhen for save search
 function getSearchConditions() {
 	$searchopts=array();
@@ -627,7 +584,6 @@ function getSearchConditions() {
 			$table_colname = 'Fields'.$i;
 			$search_condition = 'Condition'.$i;
 			$search_value = 'Srch_value'.$i;
-
 			$tab_col = str_replace('\'','',stripslashes($_REQUEST[$table_colname]));
 			$srch_cond = str_replace('\'','',stripslashes($_REQUEST[$search_condition]));
 			$srch_val = $_REQUEST[$search_value];
@@ -636,7 +592,6 @@ function getSearchConditions() {
 		
 		$searchopts['conditions']=$searchcons;
 	}
-
 	return $searchopts;
 }
 ?>

@@ -38,7 +38,6 @@
 			<td valign=top align=left >
                 <table border=0 cellspacing=0 cellpadding=3 width=100% class="dvtContentSpace">
 				<tr>
-
 					<td align=left>
 					<!-- content cache -->
 					
@@ -73,11 +72,9 @@
 								
 								<input title="{$APP.LBL_DELETE_BUTTON_TITLE}" accessKey="{$APP.LBL_DELETE_BUTTON_KEY}" class="crmbutton small delete" onclick="this.form.return_module.value='{$MODULE}'; this.form.return_action.value='index'; this.form.action.value='Delete'; return confirm('{$APP.NTC_DELETE_CONFIRMATION}')" type="submit" name="Delete" value="{$APP.LBL_DELETE_BUTTON_LABEL}">&nbsp;
 								
-
 						</td>
 						</tr>
 						</table>
-
 							</td>
 						     </tr>
 						     <tr><td>
@@ -176,4 +173,3 @@
 </td>
 	<td align=right valign=top><img src="{$IMAGE_PATH}showPanelTopRight.gif"></td>
 </tr></table>
-

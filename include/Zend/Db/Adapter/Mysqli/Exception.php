@@ -20,12 +20,10 @@
  * @version    $Id: Exception.php 23775 2011-03-01 17:25:24Z ralph $
  *
  */
-
 /**
  * Zend
  */
 require_once 'include/Zend/Db/Adapter/Exception.php';
-
 /**
  * Zend_Db_Adapter_Mysqli_Exception
  *

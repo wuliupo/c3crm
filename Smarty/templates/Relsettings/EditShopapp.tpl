@@ -34,7 +34,6 @@
 <tbody>
 <tr>
 <td class="showPanelBg" style="padding: 10px;" valign="top" width="100%" >
-
 <form action="index.php" method="post" name="ShopApp" id="form" onsubmit="return checkEmpty();">
 <input type="hidden" name="module" value="Relsettings">
 <input type="hidden" name="action">
@@ -52,12 +51,10 @@
     <td valign=top class="small">{$EDITTYPE} {$MOD.DIANPUYINGYONG} </td>
 </tr>
 </table>
-
 </td>
 </tr>
 <tr>
 <td class="showPanelBg" style="padding: 5px 10px 5px 10px;" valign="top" width="100%" >
-
 <table width="100%" align="left"  border="0" cellspacing="0" cellpadding="5" class="small" >
  <tr>
     <td  align="right">
@@ -66,13 +63,10 @@
     </td>
  </tr>
 </table>
-
 </td>
 </tr>
 <tr>
 <td class="showPanelBg" style="padding: 5px 10px 5px 10px;" valign="top" width="100%" >
-
-
 <table width="100%"  border="0" cellspacing="0" cellpadding="5"  style="border:1px solid #999;">
 <tr>
     <td width="20%" nowrap class="small cellLabel"><strong>店铺名称</strong></td>
@@ -169,4 +163,3 @@ function CreateSessionKey(){
 } 
 {/literal}
 </script>
-

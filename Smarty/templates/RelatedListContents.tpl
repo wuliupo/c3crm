@@ -1,14 +1,10 @@
 {assign var = return_modname value='DetailView'}
-
-
 {foreach key=header name=foo  item=detail from=$RELATEDLISTS}
-
 {if $type eq $header}
 <div id="{$header}"  style="display:;">
 {else}
 <div id="{$header}"  style="display:none;">
 {/if}
-
 <table class="table table-bordered  table-condensed" style="margin-bottom:1px;background:#DFEBEF;">
 	<tr>
 		<td align="left" ><i class="cus-text_padding_left"></i>&nbsp;<b>{$APP.$header}</b></td>
@@ -26,7 +22,6 @@
 				<button title="{$APP.LBL_ADD_NEW} {$APP.Contact}" accessyKey="F" class="btn btn-small btn-primary" type="button" onclick="editAccountRelInfo('index.php?module=Contacts&action=PopupEditView&return_action=CallRelatedList&return_id={$ID}&parenttab=Customer&moduletype=Contacts&return_module={$MODULE}')" name="button">
 					<i class="icon-plus icon-white"></i> {$APP.LBL_ADD_NEW} {$APP.Contact}
 				</button>
-
 			{elseif $header eq 'Attachments'}
 			        {if $MODULE neq 'Maillists'}
 						<input type="hidden" name="fileid">				
@@ -89,7 +84,6 @@
 		</tr>
 	</table>
 {/if}
-
 <br><br>
 </div>
 {/foreach}

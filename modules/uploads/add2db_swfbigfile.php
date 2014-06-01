@@ -8,7 +8,6 @@
  * All Rights Reserved.
 * 
  ********************************************************************************/
-
 require_once('include/database/PearDatabase.php');
 require_once('include/utils/utils.php');
 require_once('include/logging.php');
@@ -20,7 +19,6 @@ if(isset($_POST['hidFileID']) && $_POST['hidFileID'] != "") {
 	//{
 		
 		$filename = $_POST['filename'];
-
 		$file_info = pathinfo($filename);
 		//获取文件扩展名
 		$ext = $file_info["extension"];
@@ -29,7 +27,6 @@ if(isset($_POST['hidFileID']) && $_POST['hidFileID'] != "") {
 		if(is_file($savepath)) {
 			$filesize = filesize($savepath);
 		}
-
 		if($filename != '' && $filesize > 0)
 		{
 			if (in_array($ext, $upload_badext))
@@ -87,7 +84,6 @@ if(isset($_POST['hidFileID']) && $_POST['hidFileID'] != "") {
 						$sql1 .= $associated_account."','".$current_id."')";
 						$result = $adb->query($sql1);
 					}
-
 					echo '<script>window.opener.location.reload();self.close();</script>';		
 			} else {
 				echo '<script>window.opener.location.reload();self.close();</script>';
@@ -105,26 +101,20 @@ if(isset($_POST['hidFileID']) && $_POST['hidFileID'] != "") {
 			// Arbitrary File Upload Vulnerability fix - Philip
 			$binFile = $file_details['name'];
 			$ext_pos = strrpos($binFile, ".");
-
 			$ext = substr($binFile, $ext_pos + 1);
-
 			if (in_array($ext, $upload_badext))
 			{
 				$binFile .= ".txt";
 			}
 			// Vulnerability fix ends
-
 			$current_id = $adb->getUniqueID("ec_crmentity");
-
 			$filename = explode_basename($binFile);
 			$filetype= $file_details['type'];
 			$filesize = $file_details['size'];
 			$filetmp_name = $file_details['tmp_name'];
-
 			//get the file path inwhich folder we want to upload the file
 			$upload_file_path = decideFilePath();
 			$upload_status = false;
-
 			//upload the file in server
 			if(is_uploaded_file($filetmp_name)) {
 				$encode_file = base64_encode_filename($binFile);
@@ -179,7 +169,6 @@ if(isset($_POST['hidFileID']) && $_POST['hidFileID'] != "") {
 			} 
 			else 
 			{
-
 				$errorCode =  $_FILES['binFile']['error'];
 				if($errorCode == 4)
 				{
@@ -202,7 +191,6 @@ if(isset($_POST['hidFileID']) && $_POST['hidFileID'] != "") {
 					
 				}
 				
-
 			}
 		} else {
 			echo "<b><font color='red'>3Problems in file upload. Please try again!</font></b><br>";

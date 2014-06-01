@@ -93,6 +93,5 @@ $mod_strings = array (
   'After 60 Days' => 'After 60 Days',
   'After 100 Days' => 'After 100 Days',
   'After 180 Days' => 'After 180 Days',
-
 );
 ?>

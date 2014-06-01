@@ -34,4 +34,3 @@ if( isset($_REQUEST['view']) ) {
 }
 include_once "includes/footer.php";	
 ?>
-

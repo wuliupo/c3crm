@@ -19,7 +19,6 @@
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  * @version    $Id: Interface.php 23775 2011-03-01 17:25:24Z ralph $
  */
-
 /**
  * Emulates a PDOStatement for native database adapters.
  *
@@ -31,7 +30,6 @@
  */
 interface Zend_Db_Statement_Interface
 {
-
     /**
      * Bind a column of the statement result set to a PHP variable.
      *
@@ -43,7 +41,6 @@ interface Zend_Db_Statement_Interface
      * @throws Zend_Db_Statement_Exception
      */
     public function bindColumn($column, &$param, $type = null);
-
     /**
      * Binds a parameter to the specified variable name.
      *
@@ -56,7 +53,6 @@ interface Zend_Db_Statement_Interface
      * @throws Zend_Db_Statement_Exception
      */
     public function bindParam($parameter, &$variable, $type = null, $length = null, $options = null);
-
     /**
      * Binds a value to a parameter.
      *
@@ -67,7 +63,6 @@ interface Zend_Db_Statement_Interface
      * @throws Zend_Db_Statement_Exception
      */
     public function bindValue($parameter, $value, $type = null);
-
     /**
      * Closes the cursor, allowing the statement to be executed again.
      *
@@ -75,7 +70,6 @@ interface Zend_Db_Statement_Interface
      * @throws Zend_Db_Statement_Exception
      */
     public function closeCursor();
-
     /**
      * Returns the number of columns in the result set.
      * Returns null if the statement has no result set metadata.
@@ -84,7 +78,6 @@ interface Zend_Db_Statement_Interface
      * @throws Zend_Db_Statement_Exception
      */
     public function columnCount();
-
     /**
      * Retrieves the error code, if any, associated with the last operation on
      * the statement handle.
@@ -93,7 +86,6 @@ interface Zend_Db_Statement_Interface
      * @throws Zend_Db_Statement_Exception
      */
     public function errorCode();
-
     /**
      * Retrieves an array of error information, if any, associated with the
      * last operation on the statement handle.
@@ -102,7 +94,6 @@ interface Zend_Db_Statement_Interface
      * @throws Zend_Db_Statement_Exception
      */
     public function errorInfo();
-
     /**
      * Executes a prepared statement.
      *
@@ -111,7 +102,6 @@ interface Zend_Db_Statement_Interface
      * @throws Zend_Db_Statement_Exception
      */
     public function execute(array $params = array());
-
     /**
      * Fetches a row from the result set.
      *
@@ -122,7 +112,6 @@ interface Zend_Db_Statement_Interface
      * @throws Zend_Db_Statement_Exception
      */
     public function fetch($style = null, $cursor = null, $offset = null);
-
     /**
      * Returns an array containing all of the result set rows.
      *
@@ -132,7 +121,6 @@ interface Zend_Db_Statement_Interface
      * @throws Zend_Db_Statement_Exception
      */
     public function fetchAll($style = null, $col = null);
-
     /**
      * Returns a single column from the next row of a result set.
      *
@@ -141,7 +129,6 @@ interface Zend_Db_Statement_Interface
      * @throws Zend_Db_Statement_Exception
      */
     public function fetchColumn($col = 0);
-
     /**
      * Fetches the next row and returns it as an object.
      *
@@ -151,7 +138,6 @@ interface Zend_Db_Statement_Interface
      * @throws Zend_Db_Statement_Exception
      */
     public function fetchObject($class = 'stdClass', array $config = array());
-
     /**
      * Retrieve a statement attribute.
      *
@@ -160,7 +146,6 @@ interface Zend_Db_Statement_Interface
      * @throws Zend_Db_Statement_Exception
      */
     public function getAttribute($key);
-
     /**
      * Retrieves the next rowset (result set) for a SQL statement that has
      * multiple result sets.  An example is a stored procedure that returns
@@ -170,7 +155,6 @@ interface Zend_Db_Statement_Interface
      * @throws Zend_Db_Statement_Exception
      */
     public function nextRowset();
-
     /**
      * Returns the number of rows affected by the execution of the
      * last INSERT, DELETE, or UPDATE statement executed by this
@@ -180,7 +164,6 @@ interface Zend_Db_Statement_Interface
      * @throws Zend_Db_Statement_Exception
      */
     public function rowCount();
-
     /**
      * Set a statement attribute.
      *
@@ -190,7 +173,6 @@ interface Zend_Db_Statement_Interface
      * @throws Zend_Db_Statement_Exception
      */
     public function setAttribute($key, $val);
-
     /**
      * Set the default fetch mode for this statement.
      *
@@ -199,5 +181,4 @@ interface Zend_Db_Statement_Interface
      * @throws Zend_Db_Statement_Exception
      */
     public function setFetchMode($mode);
-
 }

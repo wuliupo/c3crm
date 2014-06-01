@@ -8,7 +8,6 @@ require_once('modules/Users/Users.php');
 require_once('modules/Products/Products.php');
 include('include/excel/tbs_class.php');
 require_once('modules/Memdays/ModuleConfig.php');
-
 global $app_strings;
 global $mod_strings;
 global $currentModule;
@@ -19,12 +18,10 @@ foreach($focus->column_fields as $key=>$value) {
 	$upperKey = strtoupper($key);
 	$$upperKey = $value;
 }
-
 // Company information
 $add_query = "select * from ec_organizationdetails";
 $result = $adb->query($add_query);
 $num_rows = $adb->num_rows($result);
-
 if($num_rows == 1)
 {
 		$COMPANY_NAME = $adb->query_result($result,0,"organizationname");
@@ -40,19 +37,15 @@ if($num_rows == 1)
 		$log_path = str_replace("-","","t-e-st/logo/");
 		$COMPANY_LOGO_PATH = $log_path.$COMPANY_LOGO;
 		
-
 		$COMPANY_PERSON = $adb->query_result($result,0,"person");
 		$COMPANY_BANKNAME = $adb->query_result($result,0,"bankname");
 		$COMPANY_BANKACCOUNT = $adb->query_result($result,0,"bankaccount");
 		$COMPANY_TAXNO = $adb->query_result($result,0,"taxno");
 }
-
 $sql="select currency_symbol from ec_currency_info";
 $result = $adb->query($sql);
 $currency_symbol = $adb->query_result($result,0,'currency_symbol');
-
 $id = $_REQUEST['record'];
-
 $account_id = $focus->column_fields["account_id"];
 if(!empty($account_id)) {
 	$account_focus = new Accounts();
@@ -96,7 +89,6 @@ if(!empty($contact_id)) {
 	$CONTACT_MOBILE = "";//getContactMBPhone($contact_id);
 	$CONTACT_PHONE = "";//getContactMBPhone($contact_id);
 }
-
 $user_id = $focus->column_fields['assigned_user_id'];
 if(!empty($user_id)) {
 	$user_focus = new Users();
@@ -173,12 +165,9 @@ if(isset($module_enable_product) && $module_enable_product)
 	$TOTAL_BIG = toCNcap($price_total);//大写金额
 	$TOTAL_BIG = iconv_ec("GBK","UTF-8",$TOTAL_BIG);
 }
-
 $MODULE_LABEL = $app_strings["Memdays"];
-
 $TBS = new clsTinyButStrong;
 $TBS->NoErr = true; // no more error message displayed. 
-
 // Load the template
 if(isset($module_enable_product) && $module_enable_product) 
 {
@@ -189,5 +178,4 @@ if(isset($module_enable_product) && $module_enable_product)
 }
 // Final merge and download file
 $TBS->Show();
-
 ?>

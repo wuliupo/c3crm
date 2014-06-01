@@ -15,8 +15,6 @@ else
 {
     $focus->mode='';
 }    
-
-
 if($_REQUEST['changepassword'] == 'true')
 {
 	$focus->retrieve_entity_info($_REQUEST['record'],'Users');
@@ -32,5 +30,4 @@ if($_REQUEST['changepassword'] == 'true')
 	}
 	
 }
-
 ?>

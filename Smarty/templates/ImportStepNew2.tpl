@@ -9,9 +9,7 @@
 *
  ********************************************************************************/
 -->*}
-
 <link href="themes/bootcss/css/Setting.css" rel="stylesheet" type="text/css"/>
-
 <!-- header - level 2 tabs -->
 {*include file='Buttons_List.tpl'*}	
 <div class="container-fluid" style="margin-right:10px">
@@ -33,7 +31,6 @@
 				onclick="javascript:location.href='index.php?module={$MODULE}&action=ListView'" />
 					<i class="icon-arrow-left icon-white"></i> 返回{$APP.$MODULE}
 				</button>
-
 				<button title="{$MOD.LBL_IMPORT_MORE}"  class="btn btn-small btn-primary" type="submit" name="button" onclick="this.form.action.value='Import';this.form.step.value='1' ">
 					<i class="icon-circle-arrow-right icon-white"></i> {$MOD.LBL_IMPORT_MORE}
 				</button>

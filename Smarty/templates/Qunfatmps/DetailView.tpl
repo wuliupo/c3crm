@@ -1,5 +1,4 @@
 <script type="text/javascript" src="modules/{$MODULE}/{$SINGLE_MOD}.js"></script>
-
  <!-- center start -->
  <div class="container-fluid clearfix">
     <div class="row-fluid">

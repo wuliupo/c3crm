@@ -21,38 +21,28 @@
  * All Rights Reserved.
  * Contributor(s): ______________________________________..
  ********************************************************************************/
-
 function get_validate_import_fields_js (&$req_fields,&$all_fields)
 {
 	global $mod_strings;
-
 	$err_multiple = $mod_strings['ERR_MULTIPLE'];
 	$err_required = $mod_strings['ERR_MISSING_REQUIRED_FIELDS']; 
 	$err_select_full_name = $mod_strings['ERR_SELECT_FULL_NAME']; 
 	$print_required_array = "";
-
 	foreach ($req_fields as $required=>$unused)
 	{
 		$print_required_array .= "required['$required'] = '". $all_fields[$required] . "';\n";
 		
 	}
-
 	$the_script  = <<<EOQ
-
 <script type="text/javascript" language="Javascript">
 <!--  to hide script contents from old browsers
-
 function verify_data(form) 
 {
 	var isError = false;
 	var errorMessage = "";
-
         var hash = new Object();
-
 	var required = new Object();
-
 	$print_required_array
-
 	for(i=0;i < form.length;i++)
 	{
 		if ( form.elements[i].name.indexOf("colnum",0) == 0)
@@ -70,19 +60,16 @@ function verify_data(form)
 			hash[form.elements[i].value] = 1;
 		}
         }
-
 	if (isError == true) 
 	{
 		alert( "$err_multiple" );
 		return false;
 	}
-
 	if (hash['full_name'] == 1 && (hash['last_name'] == 1 || hash['first_name'] == 1) )
 	{
 		alert( "$err_select_full_name" );
 		return false;
 	}
-
 	for(var ec_field_name in required)
 	{
 		// contacts hack to bypass errors if full_name is set
@@ -97,41 +84,27 @@ function verify_data(form)
 				errorMessage += "$err_required " + required[field_name];
 		}
 	}
-
 	if (isError == true) 
 	{
 		alert( errorMessage);
 		return false;
 	}
-
-
 	return true;
 }
-
 // end hiding contents from old browsers  -->
 </script>
-
 EOQ;
-
 	return $the_script;
 }
-
-
-
-
 function get_validate_upload_js () 
 {
 	global $mod_strings;
-
 	$err_missing_required_fields = $mod_strings['ERR_MISSING_REQUIRED_FIELDS'];
 	$lbl_select_file = $mod_strings['ERR_SELECT_FILE'];
 	$lbl_custom = $mod_strings['LBL_CUSTOM'];
-
 	$the_script  = <<<EOQ
-
 <script type="text/javascript" language="Javascript">
 <!--  to hide script contents from old browsers
-
 function verify_data(form) 
 {
 	var isError = false;
@@ -155,25 +128,18 @@ function verify_data(form)
 			}
 		}
         }
-
 	if (isError == true) 
 	{
 		alert("$err_missing_required_fields" + errorMessage);
 		return false;
 	}
-
-
 	return true;
 }
-
 // end hiding contents from old browsers  -->
 </script>
-
 EOQ;
-
 	return $the_script;
 }
-
 /**	function used to form the combo values with the available importable fields
  *	@param array reference &$column_fields - reference of the column fields which will be like lastname=>1, etc where as the key is the field name based on the import module and value is 1
  *	@param int $colnum - column number
@@ -187,25 +153,18 @@ function getFieldSelect(&$column_fields,$colnum,&$required_fields,$suggest_field
 {
 	global $mod_strings;
 	global $app_strings;
-
 	$output = "<select id=\"colnum" . $colnum ."\" name=\"colnum" . $colnum ."\">\n";
 	$output .= "<option value=\"-1\">". $mod_strings['LBL_DONT_MAP'] . "</option>";
-
 	$count = 0;
 	$req_mark = ""; 
-
 	//asort($translated_fields);
-
-
 	foreach ($translated_fields as $field=>$name)
 	{
-
 	 	if (! isset($column_fields[$field]))
 		{
 			continue;
 		}
 		$output .= "<option value=\"".$field;
-
 		if ( isset( $suggest_field) && 
 			$field == $suggest_field)
 		{
@@ -223,26 +182,17 @@ function getFieldSelect(&$column_fields,$colnum,&$required_fields,$suggest_field
 		{
 			$req_mark = "";
 		}
-
 		$output .=  $name . $req_mark."</option>\n";
-
 		$count ++;
 	}
-
-
 	$output .= "</select>\n";
-
 	return $output;
-
 }
-
-
 function get_readonly_js () 
 {
 ?>
 <script type="text/javascript" language="Javascript">
 <!--  to hide script contents from old browsers
-
 function set_readonly(form) 
 {
 	
@@ -259,12 +209,8 @@ function set_readonly(form)
 		form.save_map_as.readOnly=true; 
 	}
 }
-
 // end hiding contents from old browsers  -->
 </script>
-
 <?php
 }
-
-
 ?>

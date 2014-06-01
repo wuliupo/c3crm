@@ -15,12 +15,10 @@
  * 
  * @package log4php
  */
-
 /**
  * @ignore
  */
 if (!defined('LOG4PHP_DIR')) define('LOG4PHP_DIR', dirname(__FILE__));
-
 require_once(LOG4PHP_DIR . '/config/LoggerPropertySetter.php');
 require_once(LOG4PHP_DIR . '/helpers/LoggerOptionConverter.php');
 require_once(LOG4PHP_DIR . '/or/LoggerObjectRenderer.php');
@@ -32,7 +30,6 @@ require_once(LOG4PHP_DIR . '/LoggerDefaultCategoryFactory.php');
 require_once(LOG4PHP_DIR . '/LoggerLayout.php');
 require_once(LOG4PHP_DIR . '/LoggerLevel.php');
 require_once(LOG4PHP_DIR . '/LoggerManager.php');
-
 define('LOG4PHP_LOGGER_PROPERTY_CONFIGURATOR_CATEGORY_PREFIX',      "log4php.category.");
 define('LOG4PHP_LOGGER_PROPERTY_CONFIGURATOR_LOGGER_PREFIX',        "log4php.logger.");
 define('LOG4PHP_LOGGER_PROPERTY_CONFIGURATOR_FACTORY_PREFIX',       "log4php.factory");
@@ -42,16 +39,12 @@ define('LOG4PHP_LOGGER_PROPERTY_CONFIGURATOR_ROOT_LOGGER_PREFIX',   "log4php.roo
 define('LOG4PHP_LOGGER_PROPERTY_CONFIGURATOR_APPENDER_PREFIX',      "log4php.appender.");
 define('LOG4PHP_LOGGER_PROPERTY_CONFIGURATOR_RENDERER_PREFIX',      "log4php.renderer.");
 define('LOG4PHP_LOGGER_PROPERTY_CONFIGURATOR_THRESHOLD_PREFIX',     "log4php.threshold");
-
 /** 
  * Key for specifying the {@link LoggerFactory}.  
  */
 define('LOG4PHP_LOGGER_PROPERTY_CONFIGURATOR_LOGGER_FACTORY_KEY',   "log4php.loggerFactory");
 define('LOG4PHP_LOGGER_PROPERTY_CONFIGURATOR_LOGGER_DEBUG_KEY',     "log4php.debug");
 define('LOG4PHP_LOGGER_PROPERTY_CONFIGURATOR_INTERNAL_ROOT_NAME',   "root");
-
-
-
 /**
  * Allows the configuration of log4php from an external file.
  * 
@@ -90,7 +83,6 @@ define('LOG4PHP_LOGGER_PROPERTY_CONFIGURATOR_INTERNAL_ROOT_NAME',   "root");
  * @since 0.5 
  */
 class LoggerPropertyConfigurator extends LoggerConfigurator {
-
     /**
      * @var LoggerFactory
      */
@@ -120,7 +112,6 @@ class LoggerPropertyConfigurator extends LoggerConfigurator {
         $repository =& LoggerManager::getLoggerRepository();
         return $configurator->doConfigure($url, $repository);
     }
-
     /**
      * Read configuration from a file.
      *
@@ -325,8 +316,6 @@ class LoggerPropertyConfigurator extends LoggerConfigurator {
         }
         return $this->doConfigureProperties($properties, $repository);
     }
-
-
     /**
      * Read configuration options from <b>properties</b>.
      *
@@ -341,23 +330,19 @@ class LoggerPropertyConfigurator extends LoggerConfigurator {
         if (!empty($value)) {
             LoggerLog::internalDebugging(LoggerOptionConverter::toBoolean($value, LoggerLog::internalDebugging()));
         }
-
         $thresholdStr = @$properties[LOG4PHP_LOGGER_PROPERTY_CONFIGURATOR_THRESHOLD_PREFIX];
         $hierarchy->setThreshold(LoggerOptionConverter::toLevel($thresholdStr, LoggerLevel::getLevelAll()));
         
         $this->configureRootCategory($properties, $hierarchy);
         $this->configureLoggerFactory($properties);
         $this->parseCatsAndRenderers($properties, $hierarchy);
-
         LoggerLog::debug("LoggerPropertyConfigurator::doConfigureProperties() Finished configuring.");
         
         return true;
     }
-
     // --------------------------------------------------------------------------
     // Internal stuff
     // --------------------------------------------------------------------------
-
     /**
      * Check the provided <b>Properties</b> object for a
      * {@link LoggerFactory} entry specified by 
@@ -394,7 +379,6 @@ class LoggerPropertyConfigurator extends LoggerConfigurator {
                 );
                 $loggerFactory = $this->loggerFactory;
             }
-
             LoggerLog::debug(
                 "LoggerPropertyConfigurator::configureLoggerFactory() ".
                 "Setting properties for category factory [" . get_class($loggerFactory) . "]."
@@ -412,12 +396,10 @@ class LoggerPropertyConfigurator extends LoggerConfigurator {
     {
         $effectivePrefix = LOG4PHP_LOGGER_PROPERTY_CONFIGURATOR_ROOT_LOGGER_PREFIX;
         $value = @$props[LOG4PHP_LOGGER_PROPERTY_CONFIGURATOR_ROOT_LOGGER_PREFIX];
-
         if(empty($value)) {
             $value = @$props[LOG4PHP_LOGGER_PROPERTY_CONFIGURATOR_ROOT_CATEGORY_PREFIX];
             $effectivePrefix = LOG4PHP_LOGGER_PROPERTY_CONFIGURATOR_ROOT_CATEGORY_PREFIX;
         }
-
         if (empty($value)) {
             LoggerLog::debug(
                 "LoggerPropertyConfigurator::configureRootCategory() ".
@@ -436,7 +418,6 @@ class LoggerPropertyConfigurator extends LoggerConfigurator {
             // }
         }
     }
-
     /**
      * Parse non-root elements, such non-root categories and renderers.
      *
@@ -467,7 +448,6 @@ class LoggerPropertyConfigurator extends LoggerConfigurator {
 	        }
         }
     }
-
     /**
      * Parse the additivity option for a non-root category.
      *
@@ -495,7 +475,6 @@ class LoggerPropertyConfigurator extends LoggerConfigurator {
             $cat->setAdditivity($additivity);
         }
     }
-
     /**
      * This method must work for the root category as well.
      *
@@ -515,10 +494,8 @@ class LoggerPropertyConfigurator extends LoggerConfigurator {
         
         // We must skip over ',' but not white space
         $st = explode(',', $value);
-
         // If value is not in the form ", appender.." or "", then we should set
         // the level of the loggeregory.
-
         if(!(@$value{0} == ',' || empty($value))) {
             // just to be on the safe side...
             if(sizeof($st) == 0)
@@ -529,7 +506,6 @@ class LoggerPropertyConfigurator extends LoggerConfigurator {
                 "LoggerPropertyConfigurator::parseCategory() ".
                 "Level token is [$levelStr]."
             );
-
             // If the level value is inherited, set category level value to
             // null. We also check that the user has not specified inherited for the
             // root category.
@@ -546,7 +522,6 @@ class LoggerPropertyConfigurator extends LoggerConfigurator {
 	            $logger->setLevel(LoggerOptionConverter::toLevel($levelStr, LoggerLevel::getLevelDebug()));
             }
         }
-
         // Begin by removing all existing appenders.
         $logger->removeAllAppenders();
         while($appenderName = next($st)) {
@@ -563,7 +538,6 @@ class LoggerPropertyConfigurator extends LoggerConfigurator {
             }
         }
     }
-
     /**
      * @param array $props array of properties
      * @param string $appenderName
@@ -645,6 +619,5 @@ class LoggerPropertyConfigurator extends LoggerConfigurator {
         );
         return $appender;        
     }
-
 }
 ?>

@@ -5,7 +5,6 @@
 <h3>查找客户</h3>
 </div>
 <div class="modal-body" >
-
 <div class="container-fluid" > 
      
         <div  style="margin-left:10px;">
@@ -56,7 +55,6 @@
                 <li class="nav-header" style="padding-left:0px;padding-right:5px;">
                   <i class="icon-th-list"></i> 
                 </li>
-
                  {foreach name="listviewforeach" key=id item=viewname from=$CUSTOMVIEW_OPTION}
                   {if $id eq $VIEWID} 
                     <li class="active"><a href="javascript:;" onclick="javascript:getTabView('{$MODULE}','viewname={$id}',this,{$id});" >{$viewname}</a></li>
@@ -70,10 +68,8 @@
            <div id="ListViewContents" class="small" style="width:100%;position:relative;">
             {include file="Accounts/PopupContents.tpl"}
           </div>
-
         </div>
       </div>
-
     </div>
 </div>
 <div class="modal-footer" >
@@ -170,7 +166,6 @@ function getListViewEntries_js(module,url)
 		   {rdelim}  
 	{rdelim});
 {rdelim}
-
 function getListViewWithPageNo(module,pageElement)
 {ldelim}
 	//var pageno = document.getElementById('listviewpage').value;
@@ -183,7 +178,6 @@ function getListViewWithPageSize(module,pageElement)
 	var pagesize = pageElement.options[pageElement.options.selectedIndex].value;
 	getListViewEntries_js(module,'pagesize='+pagesize);
 {rdelim}
-
 function getListViewSorted_js(module,url)
 {ldelim}
         var urlstring ="module="+module+"&action="+module+"Ajax&file=Popup&ajax=true"+url;

@@ -161,6 +161,5 @@ $mod_strings = array (
   'The record exists.' => '產品名稱已存在！',
   'PRODUCT_CATALOG' => '产品分类',
   'VENDOR' => '供应商',
-
 );
 ?>

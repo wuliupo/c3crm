@@ -38,7 +38,6 @@
 //               www.tecnick.com
 //               info@tecnick.com
 //============================================================+
-
 /**
  * PHP class to creates array representations for common 1D barcodes to be used with TCPDF.
  * @package com.tecnick.tcpdf
@@ -49,7 +48,6 @@
  * @license http://www.gnu.org/copyleft/lesser.html LGPL
  * @version 1.0.008
  */
-
 	/**
 	* PHP class to creates array representations for common 1D barcodes to be used with TCPDF (http://www.tcpdf.org).<br>
 	* @name TCPDFBarcode
@@ -1971,7 +1969,6 @@ class TCPDFBarcode {
 	}
 	
 } // end of class
-
 //============================================================+
 // END OF FILE                                                 
 //============================================================+

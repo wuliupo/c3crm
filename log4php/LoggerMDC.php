@@ -15,7 +15,6 @@
  * 
  * @package log4php
  */
-
 /**
  * @ignore 
  */
@@ -24,15 +23,11 @@ if (!defined('LOG4PHP_DIR')) define('LOG4PHP_DIR', dirname(__FILE__));
 /**
  */
 require_once(LOG4PHP_DIR . '/LoggerLog.php');
-
-
 define('LOGGER_MDC_HT_SIZE', 7);
-
 /**
  * This is the global repository of user mappings
  */
 $GLOBALS['log4php.LoggerMDC.ht'] = array();
-
 /**
  * The LoggerMDC class is similar to the {@link LoggerNDC} class except that it is
  * based on a map instead of a stack. It provides <i>mapped diagnostic contexts</i>.
@@ -95,7 +90,6 @@ class LoggerMDC {
                 
                 return $_SERVER[$varName];
             } elseif (strpos($key, 'env.') === 0) {
-
                 $varName = substr($key, 4);
                 
                 LoggerLog::debug("LoggerMDC::get() a _ENV[$varName] is requested.");
@@ -110,7 +104,6 @@ class LoggerMDC {
         }
         return '';
     }
-
     /**
      * Remove the the context identified by the key parameter. 
      *
@@ -124,6 +117,5 @@ class LoggerMDC {
     {
         unset($GLOBALS['log4php.LoggerMDC.ht'][$key]);
     }
-
 }
 ?>

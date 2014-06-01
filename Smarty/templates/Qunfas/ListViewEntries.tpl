@@ -1,9 +1,7 @@
 {if $smarty.request.ajax neq ''}
 &#&#&#{$ERROR}&#&#&#
 {/if}
-
      <input id="viewname" name="viewname" type="hidden" value="">
-
 				<!-- List View Master Holder starts -->
 				<table class="table table-bordered table-hover table-condensed table-striped">
 				  <tr>
@@ -81,7 +79,6 @@
                                 <textarea style="line-height: 150%; width: 337px; height: 299px;" cols="35" name="msg" rows="8" id="sendmessageinfo" onkeyup="checkFieldNum();"></textarea>
                                 </p>
                                 <div>选择开始发送时间: &nbsp;
-
                                     <span id="jscal_field_sendtime" class="input-append date">
                                       <input data-format="yyyy-MM-dd hh:mm" type="text" name="sendtime"></input>
                                       <span class="add-on">
@@ -98,8 +95,6 @@
                                     });
                                     {/literal}
                                   </script>
-
-
 								                 <div style="letter-spacing:3px;">>><font color=red>发送时间为空</font>则即时发送。</div>
                                 </div>
                                 </td>
@@ -114,7 +109,6 @@
                                 <td>
                                  <p>
                                   <font color="#FF0000">注意：</font>（您使用本系统发送短信，就表明您同意并接受以下内容）<br><br>
-
                                     1.不得发送包含以下内容、文字的短信息内容：非法的、骚扰性的、中伤他人的、辱骂性的、恐吓性的、伤害性的、庸俗的、淫秽的信息；教唆他人构成犯罪行为的信息；危害国家安全的信息；及任何不符合国家法律、国际惯例、地方法律规定的信息。<br><br>
                                     2.不能违反运营商规定，不得发送竞争对手产品的广告，不能按手机号段形式进行广告业务的宣传等，不能发送与本行业无关和移动运营商限制和禁止发送的短信内容，特别是广告类信息，群发短信等，对违反此声明产生的一切后果由发送者及其单位承担。<br><br>
                                     3.最好不要在晚22:00至早7:00时段发送短信，以免引起客户反感。<br><br />

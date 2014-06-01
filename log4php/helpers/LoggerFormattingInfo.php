@@ -16,7 +16,6 @@
  * @package log4php
  * @subpackage helpers
  */
-
 /**
  * @ignore 
  */
@@ -25,7 +24,6 @@ if (!defined('LOG4PHP_DIR')) define('LOG4PHP_DIR', dirname(__FILE__) . '/..');
 /**
  */
 require_once(LOG4PHP_DIR . '/LoggerLog.php');
-
 /**
  * This class encapsulates the information obtained when parsing
  * formatting modifiers in conversion modifiers.
@@ -36,11 +34,9 @@ require_once(LOG4PHP_DIR . '/LoggerLog.php');
  * @since 0.3
  */
 class LoggerFormattingInfo {
-
     var $min        = -1;
     var $max        = 0x7FFFFFFF;
     var $leftAlign  = false;
-
     /**
      * Constructor
      */
@@ -52,7 +48,6 @@ class LoggerFormattingInfo {
         $this->max          = 0x7FFFFFFF;
         $this->leftAlign    = false;      
     }
-
     function dump()
     {
         LoggerLog::debug("LoggerFormattingInfo::dump() min={$this->min}, max={$this->max}, leftAlign={$this->leftAlign}");

@@ -24,8 +24,6 @@
  * @license    http://www.gnu.org/licenses/old-licenses/lgpl-2.1.txt	LGPL
  * @version    1.7.2, 2010-01-11
  */
-
-
 /** PHPExcel root directory */
 if (!defined('PHPEXCEL_ROOT')) {
 	/**
@@ -33,14 +31,10 @@ if (!defined('PHPEXCEL_ROOT')) {
 	 */
 	define('PHPEXCEL_ROOT', dirname(__FILE__) . '/../../');
 }
-
 /** PHPExcel_Style_Color */
 require_once PHPEXCEL_ROOT . 'PHPExcel/Style/Color.php';
-
 /** PHPExcel_IComparable */
 require_once PHPEXCEL_ROOT . 'PHPExcel/IComparable.php';
-
-
 /**
  * PHPExcel_Style_Font
  *
@@ -119,21 +113,18 @@ class PHPExcel_Style_Font implements PHPExcel_IComparable
 	 * @var _parentPropertyName string
 	 */
 	private $_parentPropertyName;
-
 	/**
 	 * Supervisor?
 	 *
 	 * @var boolean
 	 */
 	private $_isSupervisor;
-
 	/**
 	 * Parent. Only used for supervisor
 	 *
 	 * @var PHPExcel_Style
 	 */
 	private $_parent;
-
 	/**
      * Create a new PHPExcel_Style_Font
      */
@@ -141,7 +132,6 @@ class PHPExcel_Style_Font implements PHPExcel_IComparable
     {
     	// Supervisor?
 		$this->_isSupervisor = $isSupervisor;
-
     	// Initialise values
     	$this->_name				= 'Calibri';
     	$this->_size				= 11;
@@ -152,13 +142,11 @@ class PHPExcel_Style_Font implements PHPExcel_IComparable
 		$this->_underline			= PHPExcel_Style_Font::UNDERLINE_NONE;
 		$this->_strikethrough		= false;
 		$this->_color				= new PHPExcel_Style_Color(PHPExcel_Style_Color::COLOR_BLACK, $isSupervisor);
-
 		// bind parent if we are a supervisor
 		if ($isSupervisor) {
 			$this->_color->bindParent($this, '_color');
 		}
     }
-
 	/**
 	 * Bind parent. Only used for supervisor
 	 *
@@ -169,7 +157,6 @@ class PHPExcel_Style_Font implements PHPExcel_IComparable
 	{
 		$this->_parent = $parent;
 	}
-
 	/**
 	 * Is this a supervisor or a real style component?
 	 *
@@ -190,7 +177,6 @@ class PHPExcel_Style_Font implements PHPExcel_IComparable
 	{
 		return $this->_parent->getSharedComponent()->getFont();
 	}
-
 	/**
 	 * Get the currently active sheet. Only used for supervisor
 	 *
@@ -200,7 +186,6 @@ class PHPExcel_Style_Font implements PHPExcel_IComparable
 	{
 		return $this->_parent->getActiveSheet();
 	}
-
 	/**
 	 * Get the currently active cell coordinate in currently active sheet.
 	 * Only used for supervisor
@@ -211,7 +196,6 @@ class PHPExcel_Style_Font implements PHPExcel_IComparable
 	{
 		return $this->getActiveSheet()->getSelectedCells();
 	}
-
 	/**
 	 * Get the currently active cell coordinate in currently active sheet.
 	 * Only used for supervisor
@@ -222,7 +206,6 @@ class PHPExcel_Style_Font implements PHPExcel_IComparable
 	{
 		return $this->getActiveSheet()->getActiveCell();
 	}
-
 	/**
 	 * Build style array from subcomponents
 	 *
@@ -233,7 +216,6 @@ class PHPExcel_Style_Font implements PHPExcel_IComparable
 	{
 		return array('font' => $array);
 	}
-
     /**
      * Apply styles from array
      * 
@@ -565,7 +547,6 @@ class PHPExcel_Style_Font implements PHPExcel_IComparable
 		}
 		return $this;
     }
-
     /**
      * Get Color
      *
@@ -594,7 +575,6 @@ class PHPExcel_Style_Font implements PHPExcel_IComparable
 		}
 		return $this;
     }
-
 	/**
 	 * Get hash code
 	 *

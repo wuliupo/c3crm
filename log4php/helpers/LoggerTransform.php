@@ -16,7 +16,6 @@
  * @package log4php
  * @subpackage helpers
  */
-
 /**
  * @ignore 
  */
@@ -30,7 +29,6 @@ define('LOG4PHP_LOGGER_TRANSFORM_CDATA_EMBEDDED_END',
     LOG4PHP_LOGGER_TRANSFORM_CDATA_PSEUDO_END .
     LOG4PHP_LOGGER_TRANSFORM_CDATA_START 
 );
-
 /**
  * Utility class for transforming strings.
  *
@@ -42,7 +40,6 @@ define('LOG4PHP_LOGGER_TRANSFORM_CDATA_EMBEDDED_END',
  * @since 0.7
  */
 class LoggerTransform {
-
     /**
     * This method takes a string which may contain HTML tags (ie,
     * &lt;b&gt;, &lt;table&gt;, etc) and replaces any '&lt;' and '&gt;'
@@ -57,16 +54,12 @@ class LoggerTransform {
     {
         //Check if the string is null or zero length -- if so, return
         //what was sent in.
-
         if(empty($input))
             return $input;
-
         //Use a StringBuffer in lieu of String concatenation -- it is
         //much more efficient this way.
-
         return htmlspecialchars($input, ENT_NOQUOTES);
     }
-
     /**
     * Ensures that embeded CDEnd strings (]]&gt;) are handled properly
     * within message, NDC and throwable tag text.

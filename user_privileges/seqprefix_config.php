@@ -1,6 +1,5 @@
 <?php
 $account_seqprefix = 'C';
-
 $product_seqprefix = 'P';
 $quote_seqprefix = 'Q';
 $invoice_seqprefix = 'I';

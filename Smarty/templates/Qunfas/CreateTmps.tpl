@@ -14,7 +14,6 @@
 <tr style="background:#DFEBEF;height:27px;">
 <td style="padding-left:10px;"><b>新增 短信模板</b></td>
 </tr>
-
 <tr>     
 <td>   
 <table border=0 cellspacing=0 cellpadding=0 width=100% align=left class="small">
@@ -35,7 +34,6 @@
     <td  colspan=2 style="padding:5px">
        <div align="center">
           <input title="保存 [Alt+S]" accessKey="S" class="crmbutton small save" type="submit" name="button" value="  保存  " style="width:70px" >
-
 		 <input title="取消 [Alt+X]" accessKey="X" class="crmbutton small cancel" onClick="window.close()" type="button" name="button" value="  取消  " style="width:70px">
        </div>
     </td>
@@ -62,7 +60,5 @@ function checkIsEmpty(){
 	}
 	return true;
 }
-
 {/literal} 
 </script>
-

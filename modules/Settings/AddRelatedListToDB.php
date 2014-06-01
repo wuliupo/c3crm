@@ -10,8 +10,6 @@ if(isset($_REQUEST['presence'])) {
 } else {
 	$presence = 1;
 }
-
-
 //checking if the user is trying to create a custom ec_field which already exists  
 if(!empty($relation_id))
 {   
@@ -19,7 +17,6 @@ if(!empty($relation_id))
 	$query = "update ec_relatedlists set sequence='".$sequence."',presence='".$presence."' where relation_id='".$relation_id."'";
 	$adb->query($query);
 }
-
 $url = "index.php?module=Settings&action=RelatedList&parenttab=Settings&fld_module=".$fld_module;
 redirect($url);
 ?>

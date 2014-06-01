@@ -485,7 +485,6 @@ $mod_strings = array (
   'LBL_DATABASE_SETUP' => '数据库',
   'LBL_DATABASE_BACKUP' => '数据库备份',
   'LBL_DATABASE_BACKUP_DESCRIPTION' => '备份CRM系统的数据库',
-
   'LBL_BACKUP_OPTION' => '使用扩展插入(Extended Insert)方式',
   'LBL_BACKUP_SIZE' => '分卷备份 - 文件长度限制(kb)',
   'LBL_BACKUP_FILENAME' => '备份文件名',
@@ -494,7 +493,6 @@ $mod_strings = array (
   'LBL_DATABASE_BACKUP_NOTICE' => '备份提示',
   'LBL_DATABASE_BACKUP_TITLE' => '数据库备份',
   'LBL_BACKUP_BUTTON_LABEL' => '备份',
-
   'LBL_DATABASE_RESTORE' => '数据库恢复',
   'backup_title' => '数据文件 %s 成功创建，程序将自动继续。',
   'LBL_DATABASE_BACKUP_NOTICE' => '如果您的浏览器没有自动跳转，请点击这里',
@@ -523,7 +521,6 @@ $mod_strings = array (
   'lbl_charset' => '字符集',
   'lbl_status' => '状态',
   'BELOW_INFO' => '在下面输入条件条款，然后点击保存按钮。',
-
   'LBL_BLOCK_EDITOR' => '显示区域',
   'LBL_CUSTOM_BLOCK_IN' => '显示区域',
   'LBL_BLOCK_DESCRIPTION' => '模块的详细信息和编辑信息包括若干显示区域，显示区域的上下显示顺序由显示顺序决定。',
@@ -537,7 +534,6 @@ $mod_strings = array (
   'LBL_BLOCK_ORDER_NOT_BLANK' => '显示顺序不能为空！',
   'LBL_BLOCK_ORDER' => '显示顺序',
   'LBL_BLOCK_WITH_FIELD' => '显示区域有关联字段，不能删除！',
-
   'LBL_LAYOUT_LABEL' => '显示区域',
   'LBL_LAYOUT_EDITOR' => '页面布局',
   'LBL_LAYOUT_DESCRIPTION' => '字段所在的显示区域和显示顺序决定模块的页面布局，每行2个字段。',
@@ -566,17 +562,14 @@ $mod_strings = array (
   'IS_PURCHASEORDERID' => '进货单字段',
   'LBL_CREATEMODULE_TIPS' => '提示:关联模块表示字段的值是从其它模块选择而来的。以上新模块的字段选择后将不能修改，请根据需求谨慎选择所需字段。',
   
-
   'LBL_BASICINFO' => '基本信息',
   'LBL_RELATEDMODULEINFO' => '关联模块信息',
   'LBL_OTHERINFO' => '其它信息',
-
   'IS_APPROVE' => '审批功能',
   'IS_IMPORTEXPORT' => '导入导出功能',
   'IS_ATTACHMENT' => '关联附件',
   'IS_RELATED' => '其它模块字段',
   'IS_PRODUCT' => '产品列表信息',
-
   'MODULE_DESCRIPTION' => '备注',
   'LBL_EDIT_MODULE' => '编辑模块',
   'LBL_ADD_MODULE' => '新增模块',
@@ -585,7 +578,6 @@ $mod_strings = array (
   'Export' => '导出',
   'AddModule' => '新增',
   'DelModule' => '删除',
-
   'LBL_TAB_EDITOR' => '主菜单',
   'LBL_TAB_DESCRIPTION' => '管理主菜单及包括的子模块',
   'LBL_NEW_TAB' => '新增主菜单',
@@ -598,7 +590,6 @@ $mod_strings = array (
   'CONTACT_NAME' => '联系人姓名',
   'Account' => '客户名称',
   'Contact' => '联系人姓名', 
-
   'FROMDATE' => '开始日期', 
   'TODATE' => '结束日期', 
   'CREATOR' => '创建者', 
@@ -632,12 +623,10 @@ $mod_strings = array (
   'SEX_GIRL' => '小姐',
   'SEX_BOY' => '先生',
   'LBL_DOWNLOAD_LOG' => '下载日志',
-
   'LBL_ORGANIZATIONPERSON' => '法定代表人',
   'LBL_ORGANIZATIONBANKNAME' => '开户银行',
   'LBL_ORGANIZATIONBANKACCOUNT' => '银行帐号',
   'LBL_ORGANIZATIONTAXNO' => '税号',
-
   // For Recyclebin feature
   'LBL_RECYCLEBIN'=>'回收站',
   'LBL_RECYCLEBIN_DESCRIPTION'=>'恢复和彻底删除已经删除的记录',
@@ -645,7 +634,6 @@ $mod_strings = array (
   'LBL_PRODUCT_FIELD'=>'关联产品字段',
   'LBL_RELMOD_FIELD'=>'相关信息模块字段',
   'LBL_MSSQL_BACKUP_TIPS'=>'请使用SqlServer自带的备份功能。',
-
   'LBL_ADD_TEMPLATE' => '新增模板',
   'LBL_TEMPLATE_NAME' => '模板名称',
   'LBL_MEMDAY_SETTINGS'=>'纪念日提醒设置',

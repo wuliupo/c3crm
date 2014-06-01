@@ -11,12 +11,10 @@ if (isset($_REQUEST['db_type'])) $db_type = $_REQUEST['db_type'];
 if (isset($_REQUEST['check_createdb'])) $check_createdb = $_REQUEST['check_createdb'];
 if (isset($_REQUEST['root_user'])) $root_user = $_REQUEST['root_user'];
 if (isset($_REQUEST['root_password'])) $root_password = $_REQUEST['root_password'];
-
 $db_server_status = false; // does the db server connection exist?
 $db_creation_failed = false; // did we try to create a database and fail?
 $db_exist_status = false; // does the database exist?
 $next = false; // allow installation to continue
-
 //Checking for database connection parameters
 if($db_type=='mysql')
 {
@@ -28,13 +26,11 @@ if($db_type=='mysql')
 	$version = explode('-',mysql_get_server_info($mysql_conn));
 	$mysql_server_version=$version[0];
 	mysql_close($mysql_conn);
-
 }
 if(isset($_REQUEST['check_createdb']) && $_REQUEST['check_createdb'] == 'on')
 {
 	$root_user = $_REQUEST['root_user'];
 	$root_password = $_REQUEST['root_password'];
-
 	$mysql_conn = mysql_connect($db_hostname,$root_user,$root_password);
 	if($mysql_conn)
 	{
@@ -46,7 +42,6 @@ if(isset($_REQUEST['check_createdb']) && $_REQUEST['check_createdb'] == 'on')
 	}
 	mysql_close($mysql_conn);
 }
-
 // test the connection to the database
 $mysql_conn = mysql_connect($db_hostname,$db_username,$db_password);
 if($mysql_conn)
@@ -59,11 +54,8 @@ if($mysql_conn)
 	}
 	mysql_close($mysql_conn);
 }
-
-
 $error_msg = '';
 $error_msg_info = '';
-
 if(!$db_server_status)
 {
 	$error_msg = 'Unable to connect to database Server. Invalid mySQL Connection Parameters specified';
@@ -88,9 +80,7 @@ else
 {
 	$next = true;
 }
-
 ?>
-
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
@@ -98,12 +88,9 @@ else
 	<title>易客CRM - 安装向导 - 确认配置</title>
 	<link href="include/install/install.css" rel="stylesheet" type="text/css">
 </head>
-
 <body class="small cwPageBg" topmargin="0" leftmargin="0" marginheight="0" marginwidth="0">
-
 <br><br><br>
 	<!-- Table for cfgwiz starts -->
-
 	<table border=0 cellspacing=0 cellpadding=0 width=80% align=center>
 	<tr>
 		<td class="cwHeadBg" align=left><img src="include/install/images/configwizard.gif" alt="Configuration Wizard" hspace="20" title="Configuration Wizard"></td>
@@ -113,7 +100,6 @@ else
 	<table border=0 cellspacing=0 cellpadding=0 width=80% align=center>
 	<tr>
 		<td background="include/install/images/topInnerShadow.gif" align=left><img src="include/install/images/topInnerShadow.gif" ></td>
-
 	</tr>
 	</table>
 	<table border=0 cellspacing=0 cellpadding=10 width=80% align=center>
@@ -123,7 +109,6 @@ else
 			<table border=0 cellspacing=0 cellpadding=0 width=97%>
 			<tr>
 				<td width=20% valign=top>
-
 				<!-- Left side tabs -->
 					<table border=0 cellspacing=0 cellpadding=10 width=100%>
 					<tr><td class="small cwUnSelectedTab" align=right><div align="left">欢迎使用易客CRM</div></td></tr>
@@ -192,10 +177,7 @@ else
 						<td align="left"> <font class="dataInput"><?php if (isset($cache_dir)) echo $root_directory.''.$cache_dir; ?></font></td>
 					</tr>
 					</table>	
-
 					
-
-
 					<br><br>
 					<table width="90%" cellpadding="5" border="0" class="small" >
 					<tr>
@@ -216,7 +198,6 @@ else
 						<input type="image" name="Change" value="Change" title="Change" src="include/install/images/cwBtnChange.gif"/>
 					</form>
 					</td>
-
 					<?php if($next) : ?>
 					<td align="right" valign="bottom">
 					<form action="install.php" method="post" name="form" id="form">
@@ -230,7 +211,6 @@ else
 						<input type="hidden" class="dataInput" name="db_drop_tables" value="<?php if (isset($db_drop_tables)) echo "$db_drop_tables"; ?>" />
 						<input type="hidden" class="dataInput" name="site_URL" value="<?php if (isset($site_URL)) echo "$site_URL"; ?>" />
 						<input type="hidden" class="dataInput" name="root_directory" value="<?php if (isset($root_directory)) echo "$root_directory"; ?>" />
-
 						<input type="hidden" class="dataInput" name="cache_dir" value="<?php if (isset($cache_dir)) echo $cache_dir; ?>" />
 						<input type="hidden" class="dataInput" name="check_createdb" value="<?php if (isset($check_createdb)) echo "$check_createdb"; ?>" />
 						<input type="hidden" class="dataInput" name="root_user" value="<?php if (isset($root_user)) echo "$root_user"; ?>" />
@@ -241,7 +221,6 @@ else
 					<?php endif ?>
 					</tr>
 					</table>
-
 				</td>
 				</tr>
 			</table>
@@ -255,7 +234,6 @@ else
 	</table>
 	<table border=0 cellspacing=0 cellpadding=0 width=80% align=center>
 	<tr>
-
 		<td background="include/install/images/bottomGradient.gif"><img src="include/install/images/bottomGradient.gif"></td>
 	</tr>
 	</table>

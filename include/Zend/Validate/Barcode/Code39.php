@@ -18,12 +18,10 @@
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  * @version    $Id: Code39.php 23775 2011-03-01 17:25:24Z ralph $
  */
-
 /**
  * @see Zend_Validate_Barcode_AdapterAbstract
  */
 require_once 'include/Zend/Validate/Barcode/AdapterAbstract.php';
-
 /**
  * @category   Zend
  * @package    Zend_Validate
@@ -37,19 +35,16 @@ class Zend_Validate_Barcode_Code39 extends Zend_Validate_Barcode_AdapterAbstract
      * @var integer
      */
     protected $_length = -1;
-
     /**
      * Allowed barcode characters
      * @var string
      */
     protected $_characters = '0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ -.$/+%';
-
     /**
      * Checksum function
      * @var string
      */
     protected $_checksum = '_code39';
-
     /**
      * @var array
      */
@@ -62,7 +57,6 @@ class Zend_Validate_Barcode_Code39 extends Zend_Validate_Barcode_AdapterAbstract
         'Z' => 35, '-' => 36, '.' => 37, ' ' => 38, '$' => 39, '/' => 40, '+' => 41,
         '%' => 42,
     );
-
     /**
      * Constructor
      *
@@ -74,7 +68,6 @@ class Zend_Validate_Barcode_Code39 extends Zend_Validate_Barcode_AdapterAbstract
     {
         $this->setCheck(false);
     }
-
     /**
      * Validates the checksum (Modulo 43)
      *
@@ -89,12 +82,10 @@ class Zend_Validate_Barcode_Code39 extends Zend_Validate_Barcode_AdapterAbstract
         foreach($value as $char) {
             $count += $this->_check[$char];
         }
-
         $mod = $count % 43;
         if ($mod == $this->_check[$checksum]) {
             return true;
         }
-
         return false;
     }
 }

@@ -10,12 +10,10 @@ if($calculate_response_time) {
 	$connectTimes = 0;
 	$noneDBTime = 0;
 }
-
 require($root_directory.'include/init.php');
 if(isset($_REQUEST['module_action']) && $_REQUEST['module_action'] != "") {
 	$_REQUEST['action'] = $_REQUEST['module_action'];
 }
-
 if(isset($_REQUEST['action']) && $_REQUEST['action'] == "Login") {
 	redirect("Login.php");
 	exit();
@@ -24,23 +22,19 @@ if (!is_file('config.inc.php')) {
 	redirect("install.php");
 	exit();
 }
-
 if (isset($_REQUEST['PHPSESSID'])) $log->debug("****Starting for session ".$_REQUEST['PHPSESSID']);
 else $log->debug("****Starting for new session");
-
 // We use the REQUEST_URI later to construct dynamic URLs.  IIS does not pass this field
 // to prevent an error, if it is not set, we will assign it to ''
 if(!isset($_SERVER['REQUEST_URI']))
 {
 	$_SERVER['REQUEST_URI'] = '';
 }
-
 $action = '';
 if(isset($_REQUEST['action']))
 {
 	$action = $_REQUEST['action'];
 }
-
 $is_module = false;
 if(isset($_REQUEST['module']))
 {
@@ -75,21 +69,17 @@ if($action == 'Export')
 {
 	include ($root_directory.'include/utils/export.php');
 }
-
 //Code added for 'Multiple SQL Injection Vulnerabilities & XSS issue' fixes - Philip
 if(isset($_REQUEST['record']) && !is_numeric($_REQUEST['record']) && $_REQUEST['record']!='')
 {
         die("An invalid record number specified to view details.");
 }
-
 // Check to see if there is an authenticated user in the session.
 $use_current_login = false;
 if(isset($_SESSION["authenticated_user_id"]))
 {
         $use_current_login = true;
 }
-
-
 if($use_current_login)
 {
 	$log->debug("We have an authenticated user id: ".$_SESSION["authenticated_user_id"]);
@@ -130,12 +120,10 @@ if(!empty($action) && !empty($module))
  	         header( "Cache-Control: no-cache, must-revalidate" );
  	         header( "Pragma: no-cache" );        
  	}
-
 	if($module == 'Users' || $module == 'Home' || $module == 'uploads')
 	{
 	    $skipSecurityCheck=true;
 	}
-
 	$currentModuleFile = 'modules/'.$module.'/'.$action.'.php';
 	$currentModule = $module;
 	
@@ -149,20 +137,15 @@ elseif(isset($module))
 else {
 	redirect("index.php?action=".$default_action."&module=".$default_module);
 }
-
 $log->info("current page is $currentModuleFile");	
 $log->info("current module is $currentModule ");	
-
-
 // for printing
 $module = (isset($_REQUEST['module'])) ? $_REQUEST['module'] : "";
 $action = (isset($_REQUEST['action'])) ? $_REQUEST['action'] : "";
 $record = (isset($_REQUEST['record'])) ? $_REQUEST['record'] : "";
 $lang_crm = (isset($_SESSION['authenticated_user_language'])) ? $_SESSION['authenticated_user_language'] : "";
 $GLOBALS['request_string'] = "&module=$module&action=$action&record=$record&lang_crm=$lang_crm";
-
 $current_user = new Users();
-
 if($use_current_login)
 {	
 	//$result = $current_user->retrieve($_SESSION['authenticated_user_id']);
@@ -176,7 +159,6 @@ if($use_current_login)
 	}
 	$log->debug('Current user is: '.$current_user->user_name);
 }
-
 if(isset($_SESSION['authenticated_user_theme']) && $_SESSION['authenticated_user_theme'] != '')
 {
 	$theme = $_SESSION['authenticated_user_theme'];
@@ -186,10 +168,8 @@ else
 	$theme = $default_theme;
 }
 $log->debug('Current theme is: '.$theme);
-
 //Used for current record focus
 $focus = "";
-
 // if the language is not set yet, then set it to the default language.
 if(isset($_SESSION['authenticated_user_language']) && $_SESSION['authenticated_user_language'] != '')
 {
@@ -200,7 +180,6 @@ else
 	$current_language = $default_language;
 }
 $log->debug('current_language is: '.$current_language);
-
 //set module and application string arrays based upon selected language
 $app_strings = return_application_language($current_language);
 $app_list_strings = return_app_list_strings_language($current_language);
@@ -210,7 +189,6 @@ $mod_strings = return_module_language($current_language, $currentModule);
 // This will be inserted in Header.tpl
 global $monday_first;
 $app_strings["FIRST_DAY_OF_WEEK"] = $monday_first ? "1" : "0";
-
 //If DetailView, set focus to record passed in
 if($action == "DetailView")
 {
@@ -223,9 +201,7 @@ if($action == "DetailView")
 		track_view($current_user->id,$currentModule,$_REQUEST['record']);
 	}
 	*/
-
 }
-
 //skip headers for popups, deleting, saving, importing and other actions
 if(!$skipHeaders) {
 	if($use_current_login)
@@ -246,7 +222,6 @@ if(!$skipSecurityCheck)
 			$now_action=$action;
 	}
 	
-
 	if(isset($_REQUEST['record']) && $_REQUEST['record'] != '')
 	{
 			$display = isPermitted($module,$now_action,$_REQUEST['record']);
@@ -260,12 +235,10 @@ if(!$skipSecurityCheck)
 	}
 	
 }
-
 if($display == "no")
 {
 	echo "<table border='0' cellpadding='5' cellspacing='0' width='100%' height='450px'><tr><td align='center'>";
 	echo "<div style='border: 3px solid rgb(153, 153, 153); background-color: rgb(255, 255, 255); width: 55%; position: relative; z-index: 10000000;'>
-
 		<table border='0' cellpadding='5' cellspacing='0' width='98%'>
 		<tbody><tr>
 		<td rowspan='2' width='11%'><img src='themes/$theme/images/denied.gif' ></td>
@@ -284,7 +257,6 @@ else
 {
 	include($root_directory.$currentModuleFile);
 }
-
 if(!$skipFooters)
 {
 	// include_once($root_directory.'ecversion.php');

@@ -24,8 +24,6 @@
  * @license    http://www.gnu.org/licenses/old-licenses/lgpl-2.1.txt	LGPL
  * @version    1.7.2, 2010-01-11
  */
-
-
 /** PHPExcel root directory */
 if (!defined('PHPEXCEL_ROOT')) {
 	/**
@@ -33,17 +31,12 @@ if (!defined('PHPEXCEL_ROOT')) {
 	 */
 	define('PHPEXCEL_ROOT', dirname(__FILE__) . '/../../');
 }
-
 /** PHPExcel */
 require_once PHPEXCEL_ROOT . 'PHPExcel.php';
-
 /** PHPExcel_Worksheet */
 require_once PHPEXCEL_ROOT . 'PHPExcel/Worksheet.php';
-
 /** PHPExcel_Cell */
 require_once PHPEXCEL_ROOT . 'PHPExcel/Cell.php';
-
-
 /**
  * PHPExcel_Worksheet_CellIterator
  * 
@@ -82,7 +75,6 @@ class PHPExcel_Worksheet_CellIterator extends IteratorIterator
 	 * @var boolean
 	 */
 	private $_onlyExistingCells = true;
-
 	/**
 	 * Create a new cell iterator
 	 *
@@ -108,7 +100,6 @@ class PHPExcel_Worksheet_CellIterator extends IteratorIterator
     public function rewind() {
         $this->_position = 0;
     }
-
     /**
      * Current PHPExcel_Cell
      *
@@ -117,7 +108,6 @@ class PHPExcel_Worksheet_CellIterator extends IteratorIterator
     public function current() {
 		return $this->_subject->getCellByColumnAndRow($this->_position, $this->_rowIndex);
     }
-
     /**
      * Current key
      *
@@ -126,14 +116,12 @@ class PHPExcel_Worksheet_CellIterator extends IteratorIterator
     public function key() {
         return $this->_position;
     }
-
     /**
      * Next value
      */
     public function next() {
         ++$this->_position;
     }
-
     /**
      * More PHPExcel_Cell instances available?
      *
@@ -144,7 +132,6 @@ class PHPExcel_Worksheet_CellIterator extends IteratorIterator
         // treat it as a count when comparing it to the base zero
         // position.
         $columnCount = PHPExcel_Cell::columnIndexFromString($this->_subject->getHighestColumn());
-
         if ($this->_onlyExistingCells) {
             // If we aren't looking at an existing cell, either
             // because the first column doesn't exist or next() has
@@ -155,7 +142,6 @@ class PHPExcel_Worksheet_CellIterator extends IteratorIterator
                 ++$this->_position;
             }
         }
-
         return $this->_position < $columnCount;
     }
     

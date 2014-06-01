@@ -9,23 +9,19 @@
 *
  ********************************************************************************/
 -->*}
-
 <link href="swfupload/css/default2.css" rel="stylesheet" type="text/css" />
 <script type="text/javascript" src="swfupload/js/swfupload.js"></script>
 <script type="text/javascript" src="swfupload/js/swfupload.queue.js"></script>
 <script type="text/javascript" src="swfupload/js/fileprogress.js"></script>
 <script type="text/javascript" src="swfupload/js/handlers.js"></script>
 <script type="text/javascript">
-
 {literal}
 var swfu;
-
 window.onload = function() {
 	swfu = new SWFUpload({
 		// Backend Settings
 		upload_url: "modules/Import/upload.php",	// Relative to the SWF file (or you can use absolute paths)
 		post_params: {"PHPSESSID" : ""},
-
 		
 		// File Upload Settings
 		file_size_limit : "2048",	// 2MB
@@ -33,7 +29,6 @@ window.onload = function() {
 		file_types_description : "All Files",
 		file_upload_limit : 2,
 		file_queue_limit : 0,
-
 		// Event Handler Settings (all my handlers are in the Handler.js file)
 		file_dialog_start_handler : fileDialogStart,
 		file_queued_handler : fileQueued,
@@ -44,7 +39,6 @@ window.onload = function() {
 		upload_error_handler : uploadError,
 		upload_success_handler : uploadSuccess,
 		upload_complete_handler : uploadComplete,
-
 		// Button Settings
 		button_image_url : "swfupload/images/XPButtonUploadText_61x21.png",
 		button_placeholder_id : "spanButtonPlaceholder1",
@@ -54,7 +48,6 @@ window.onload = function() {
 		// Flash Settings
 		flash_url : "swfupload/swf/swfupload.swf",
 		
-
 		custom_settings : {
 			progressTarget : "fsUploadProgress1",
 			cancelButtonId : "btnCancel1"
@@ -63,15 +56,10 @@ window.onload = function() {
 		// Debug Settings
 		debug: false
 	});
-
 	
-
 }
-
  {/literal}
 </script>
-
-
 <!-- header - level 2 tabs -->
 <link rel="stylesheet" type="text/css" href="themes/bootcss/css/Setting.css">
 <div class="container-fluid clearfix" style="margin-right:10px">
@@ -141,7 +129,6 @@ window.onload = function() {
 		</div>
 	</div>
 </div>
-
 <script>
 {literal}
 	function checkFilename(){

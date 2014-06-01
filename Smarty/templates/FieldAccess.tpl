@@ -105,7 +105,6 @@
 		</div>
 	</div>
 </div>
-
 <script>
 var def_field='{$DEF_MODULE}_fields';
 {literal}
@@ -119,4 +118,3 @@ function changemodules(selectmodule)
 }
 </script>
 {/literal}
-

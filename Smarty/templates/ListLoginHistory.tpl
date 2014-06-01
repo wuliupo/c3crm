@@ -9,11 +9,9 @@
   *
  ********************************************************************************/
 -->*}
-
 <script language="JAVASCRIPT" type="text/javascript" src="include/js/smoothscroll.js"></script>
 <script language="JavaScript" type="text/javascript" src="include/js/dtlviewajax.js"></script>
 <script language="JavaScript" type="text/javascript" src="include/js/menu.js"></script>
-
 <br>
 <table align="center" border="0" cellpadding="0" cellspacing="0" width="98%">
 <tbody><tr>
@@ -23,8 +21,6 @@
 <input type='hidden' name='action' value='ListLoginHistory'>
 <input type='hidden' name='record' id='record' value="{$ID}">
 <input type='hidden' name='parenttab' value='Settings'>
-
-
 	<div align=center>
 			{include file='SetMenu.tpl'}
 				<!-- DISPLAY -->
@@ -100,13 +96,11 @@
 	</table>
 		
 	</div>
-
 </td>
    </tr>
 </tbody>
 </form>
 </table>
-
 {literal}
 <script>
 function fetchlogin_js(id)
@@ -158,7 +152,6 @@ function getListViewEntries_js(module,url)
                 {rdelim}
         );
 {rdelim}
-
 function getListViewWithPageNo(module,pageElement)
 {ldelim}
 	//var pageno = document.getElementById('listviewpage').value;
@@ -171,6 +164,4 @@ function getListViewWithPageSize(module,pageElement)
 	var pagesize = pageElement.options[pageElement.options.selectedIndex].value;
 	getListViewEntries_js(module,'pagesize='+pagesize);
 {rdelim}
-
 </script>
-

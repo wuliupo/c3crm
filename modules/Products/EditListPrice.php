@@ -8,14 +8,11 @@
  * All Rights Reserved.
 *
  ********************************************************************************/
-
 global $mod_strings;
 global $app_strings;
 global $theme;
 $theme_path="themes/".$theme."/";
 $image_path=$theme_path."images/";
-
-
 if(isset($_REQUEST['return_module']) && $_REQUEST['return_module']=="PriceBooks")
 {
 	$pricebook_id = $_REQUEST['pricebook_id'];
@@ -68,7 +65,5 @@ $output ='<div id="roleLay" style="display:block;" class="layerPopup">
 </table>
 </form>
 </div>';
-
 echo $output;
-
 ?>

@@ -19,15 +19,10 @@
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  * @version    $Id: Db2.php 23775 2011-03-01 17:25:24Z ralph $
  */
-
-
 /** @see Zend_Db_Adapter_Pdo_Ibm */
 require_once 'include/Zend/Db/Adapter/Pdo/Ibm.php';
-
 /** @see Zend_Db_Statement_Pdo_Ibm */
 require_once 'include/Zend/Db/Statement/Pdo/Ibm.php';
-
-
 /**
  * @category   Zend
  * @package    Zend_Db
@@ -41,7 +36,6 @@ class Zend_Db_Adapter_Pdo_Ibm_Db2
      * @var Zend_Db_Adapter_Abstract
      */
     protected $_adapter = null;
-
     /**
      * Construct the data server class.
      *
@@ -54,7 +48,6 @@ class Zend_Db_Adapter_Pdo_Ibm_Db2
     {
         $this->_adapter = $adapter;
     }
-
     /**
      * Returns a list of the tables in the database.
      *
@@ -66,7 +59,6 @@ class Zend_Db_Adapter_Pdo_Ibm_Db2
         . "FROM SYSCAT.TABLES ";
         return $this->_adapter->fetchCol($sql);
     }
-
     /**
      * DB2 catalog lookup for describe table
      *
@@ -93,15 +85,12 @@ class Zend_Db_Adapter_Pdo_Ibm_Db2
             $sql .= $this->_adapter->quoteInto(' AND UPPER(c.tabschema) = UPPER(?)', $schemaName);
         }
         $sql .= " ORDER BY c.colno";
-
         $desc = array();
         $stmt = $this->_adapter->query($sql);
-
         /**
          * To avoid case issues, fetch using FETCH_NUM
          */
         $result = $stmt->fetchAll(Zend_Db::FETCH_NUM);
-
         /**
          * The ordering of columns is defined by the query so we can map
          * to variables to improve readability
@@ -118,7 +107,6 @@ class Zend_Db_Adapter_Pdo_Ibm_Db2
         $identityCol    = 9;
         $tabconstype    = 10;
         $colseq         = 11;
-
         foreach ($result as $key => $row) {
             list ($primary, $primaryPosition, $identity) = array(false, null, false);
             if ($row[$tabconstype] == 'P') {
@@ -132,7 +120,6 @@ class Zend_Db_Adapter_Pdo_Ibm_Db2
             if ($row[$identityCol] == 'Y') {
                 $identity = true;
             }
-
             $desc[$this->_adapter->foldCase($row[$colname])] = array(
             'SCHEMA_NAME'      => $this->_adapter->foldCase($row[$tabschema]),
             'TABLE_NAME'       => $this->_adapter->foldCase($row[$tabname]),
@@ -150,10 +137,8 @@ class Zend_Db_Adapter_Pdo_Ibm_Db2
             'IDENTITY'         => $identity
             );
         }
-
         return $desc;
     }
-
     /**
      * Adds a DB2-specific LIMIT clause to the SELECT statement.
      *
@@ -177,7 +162,6 @@ class Zend_Db_Adapter_Pdo_Ibm_Db2
                 require_once 'include/Zend/Db/Adapter/Exception.php';
                 throw new Zend_Db_Adapter_Exception("LIMIT argument offset=$offset is not valid");
             }
-
             if ($offset == 0 && $count > 0) {
                 $limit_sql = $sql . " FETCH FIRST $count ROWS ONLY";
                 return $limit_sql;
@@ -199,7 +183,6 @@ class Zend_Db_Adapter_Pdo_Ibm_Db2
         }
         return $limit_sql;
     }
-
     /**
      * DB2-specific last sequence id
      *
@@ -212,7 +195,6 @@ class Zend_Db_Adapter_Pdo_Ibm_Db2
         $value = $this->_adapter->fetchOne($sql);
         return $value;
     }
-
     /**
      * DB2-specific sequence id value
      *

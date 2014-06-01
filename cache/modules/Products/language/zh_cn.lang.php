@@ -3,5 +3,4 @@
   $mod_strings['Modified Time'] = '修改时间';
   $mod_strings['smcreator'] = '创建人';
   $mod_strings['Detail Url'] = 'URL';
-
 ?>

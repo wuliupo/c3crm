@@ -24,8 +24,6 @@
  * @license    http://www.gnu.org/licenses/old-licenses/lgpl-2.1.txt	LGPL
  * @version    1.7.2, 2010-01-11
  */
-
-
 /** PHPExcel root directory */
 if (!defined('PHPEXCEL_ROOT')) {
 	/**
@@ -33,11 +31,8 @@ if (!defined('PHPEXCEL_ROOT')) {
 	 */
 	define('PHPEXCEL_ROOT', dirname(__FILE__) . '/../../');
 }
-
 /** PHPExcel_IComparable */
 require_once PHPEXCEL_ROOT . 'PHPExcel/IComparable.php';
-
-
 /**
  * PHPExcel_Style_Color
  *
@@ -72,28 +67,24 @@ class PHPExcel_Style_Color implements PHPExcel_IComparable
 	 * @var string
 	 */
 	private $_argb;
-
 	/**
 	 * Supervisor?
 	 *
 	 * @var boolean
 	 */
 	private $_isSupervisor;
-
 	/**
 	 * Parent. Only used for supervisor
 	 *
 	 * @var mixed
 	 */
 	private $_parent;
-
 	/**
 	 * Parent property name
 	 *
 	 * @var string
 	 */
 	private $_parentPropertyName;
-
     /**
      * Create a new PHPExcel_Style_Color
      * 
@@ -103,7 +94,6 @@ class PHPExcel_Style_Color implements PHPExcel_IComparable
     {
     	// Supervisor?
 		$this->_isSupervisor = $isSupervisor;
-
     	// Initialise values
     	$this->_argb			= $pARGB;
     }
@@ -121,7 +111,6 @@ class PHPExcel_Style_Color implements PHPExcel_IComparable
 		$this->_parentPropertyName = $parentPropertyName;
 		return $this;
 	}
-
 	/**
 	 * Is this a supervisor or a real style component?
 	 *
@@ -131,7 +120,6 @@ class PHPExcel_Style_Color implements PHPExcel_IComparable
 	{
 		return $this->_isSupervisor;
 	}
-
 	/**
 	 * Get the shared style component for the currently active cell in currently active sheet.
 	 * Only used for style supervisor
@@ -144,17 +132,14 @@ class PHPExcel_Style_Color implements PHPExcel_IComparable
 		case '_endColor':
 			return $this->_parent->getSharedComponent()->getEndColor();
 			break;
-
 		case '_color':
 			return $this->_parent->getSharedComponent()->getColor();
 			break;
-
 		case '_startColor':
 			return $this->_parent->getSharedComponent()->getStartColor();
 			break;
 		}
 	}
-
 	/**
 	 * Get the currently active sheet. Only used for supervisor
 	 *
@@ -164,7 +149,6 @@ class PHPExcel_Style_Color implements PHPExcel_IComparable
 	{
 		return $this->_parent->getActiveSheet();
 	}
-
 	/**
 	 * Get the currently active cell coordinate in currently active sheet.
 	 * Only used for supervisor
@@ -175,7 +159,6 @@ class PHPExcel_Style_Color implements PHPExcel_IComparable
 	{
 		return $this->getActiveSheet()->getSelectedCells();
 	}
-
 	/**
 	 * Get the currently active cell coordinate in currently active sheet.
 	 * Only used for supervisor
@@ -186,7 +169,6 @@ class PHPExcel_Style_Color implements PHPExcel_IComparable
 	{
 		return $this->getActiveSheet()->getActiveCell();
 	}
-
 	/**
 	 * Build style array from subcomponents
 	 *
@@ -199,19 +181,15 @@ class PHPExcel_Style_Color implements PHPExcel_IComparable
 		case '_endColor':
 			$key = 'endcolor';
 			break;
-
 		case '_color':
 			$key = 'color';
 			break;
-
 		case '_startColor':
 			$key = 'startcolor';
 			break;
-
 		}
 		return $this->_parent->getStyleArray(array($key => $array));
 	}
-
     /**
      * Apply styles from array
      * 
@@ -388,7 +366,6 @@ class PHPExcel_Style_Color implements PHPExcel_IComparable
     	
     	return new PHPExcel_Style_Color();
     }
-
 	/**
 	 * Get hash code
 	 *

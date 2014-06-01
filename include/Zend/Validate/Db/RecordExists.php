@@ -18,12 +18,10 @@
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  * @version    $Id: RecordExists.php 23775 2011-03-01 17:25:24Z ralph $
  */
-
 /**
  * @see Zend_Validate_Db_Abstract
  */
 require_once 'include/Zend/Validate/Db/Abstract.php';
-
 /**
  * Confirms a record exists in a table.
  *
@@ -39,13 +37,11 @@ class Zend_Validate_Db_RecordExists extends Zend_Validate_Db_Abstract
     {
         $valid = true;
         $this->_setValue($value);
-
         $result = $this->_query($value);
         if (!$result) {
             $valid = false;
             $this->_error(self::ERROR_NO_RECORD_FOUND);
         }
-
         return $valid;
     }
 }

@@ -3,20 +3,15 @@ require_once('include/logging.php');
 require_once('include/database/PearDatabase.php');
 require_once('data/CRMEntity.php');
 require_once('modules/Contacts/ModuleConfig.php');
-
 // Note is used to store customer information.
 class Contacts extends CRMEntity {
 	var $log;
 	var $db;
-
 	var $tab_name = Array('ec_crmentity','ec_contacts');
 	var $tab_name_index = Array('ec_crmentity'=>'crmid','ec_contacts'=>'contactsid');
 	var $entity_table = "ec_contacts";
-
 	var $column_fields = Array();
-
 	var $sortby_fields = Array('contactname');
-
 	// This is the list of ec_fields that are in the lists.
 	/* Format: Field Label => Array(tablename, columnname) */
 	// tablename should not have prefix 'ec_'
@@ -61,12 +56,10 @@ class Contacts extends CRMEntity {
 	//added for import and export function
 	var $special_functions =  array("create_user","add_create_account");
 	var $importable_fields = Array();
-
 	//Added these variables which are used as default order by and sortorder in ListView
 	var $default_order_by = 'modifiedtime';
 	var $default_sort_order = 'DESC';
 	var $is_custom_module = true;
-
 	function Contacts() {
 		$this->log = LoggerManager::getLogger('contacts');
 		$this->log->debug("Entering Contacts() method ...");
@@ -74,12 +67,10 @@ class Contacts extends CRMEntity {
 		$this->column_fields = getColumnFields('Contacts');
 		$this->log->debug("Exiting Contacts method ...");
 	}
-
 	function save_module($module)
 	{
 		
 	}
-
 	/** Function to export the notes in CSV Format
 	* @param reference variable - order by is passed when the query is executed
 	* @param reference variable - where condition is passed when the query is executed
@@ -89,9 +80,7 @@ class Contacts extends CRMEntity {
 	{
 		global $log;
 		$log->debug("Entering create_export_query(".$order_by.",". $where.") method ...");
-
 		include("include/utils/ExportUtils.php");
-
 		//To get the Permitted fields query and the permitted fields list
 		$module = "Contacts";
 		$sql = getPermittedFieldsQuery($module, "detail_view");
@@ -101,7 +90,6 @@ class Contacts extends CRMEntity {
 			$mod_strings = return_module_language($current_language,"Contacts");
 		}
 		$fields_list = $this->getFieldsListFromQuery($sql,$mod_strings);
-
 		$query = "SELECT $fields_list FROM ec_contacts
 				LEFT JOIN ec_users
 					ON ec_contacts.smownerid = ec_users.id 
@@ -116,7 +104,6 @@ class Contacts extends CRMEntity {
        // exit(); 2013-08-22 by ligangze
 		
 		$where_auto = " ec_contacts.deleted = 0 ";
-
 		if($where != "")
 			$query .= " WHERE ($where) AND ".$where_auto;
 		else
@@ -125,7 +112,6 @@ class Contacts extends CRMEntity {
 		$log->debug("Exiting create_export_query method ...");
 		return $query;
 	}
-
 	/**	function used to get the list of fields from the input query as a comma seperated string 
 	 *	@param string $query - field table query which contains the list of fields 
 	 *	@return string $fields - list of fields as a comma seperated string
@@ -137,7 +123,6 @@ class Contacts extends CRMEntity {
 		
 		$result = $this->db->query($query);
 		$num_rows = $this->db->num_rows($result);
-
 		for($i=0; $i < $num_rows;$i++)
 		{
 			$columnName = $this->db->query_result($result,$i,"columnname");
@@ -218,11 +203,9 @@ class Contacts extends CRMEntity {
 			}
 		}
 		$fields = trim($fields,",");
-
 		$log->debug("Exit from the function getFieldsListFromQuery()");
 		return $fields;
 	}
-
 	function getListQuery($where,$isSearchAll=false){
 		global $current_user;
 		$module = "Contacts";		
@@ -235,9 +218,7 @@ class Contacts extends CRMEntity {
 		$query .= $where;
 		return $query;
 	}
-
 	
-
 	//get next salesorder id
 	function get_next_id() {
 		//$query = "select count(*) as num from ec_contacts";
@@ -248,9 +229,7 @@ class Contacts extends CRMEntity {
 		elseif($num > 9) return "0".$num;
 		else return "00".$num;
 	}
-
 	
-
 	/**	Function used to get the sort order for Contacts listview
 	 *	@return string	$sorder	- first check the $_REQUEST['sorder'] if request value is empty then check in the $_SESSION['CONTACTS_SORT_ORDER'] if this session value is empty then default sort order will be returned. 
 	 */
@@ -265,7 +244,6 @@ class Contacts extends CRMEntity {
 		$log->debug("Exiting getSortOrder() method ...");
 		return $sorder;
 	}
-
 	/**	Function used to get the order by value for CONTACTS listview
 	 *	@return string	$order_by  - first check the $_REQUEST['order_by'] if request value is empty then check in the $_SESSION['CONTACTS_ORDER_BY'] if this session value is empty then default order by will be returned. 
 	 */
@@ -280,7 +258,6 @@ class Contacts extends CRMEntity {
 		$log->debug("Exiting getOrderBy method ...");
 		return $order_by;
 	}
-
 	/**   
 	function used to set the importable fields
     */
@@ -289,7 +266,6 @@ class Contacts extends CRMEntity {
 		foreach($this->column_fields as $key=>$value)
 			$this->importable_fields[$key]=1;
 	}
-
 	/**   
 	function used to set the assigned_user_id value in the column_fields when we map the username during import
     */
@@ -317,7 +293,6 @@ class Contacts extends CRMEntity {
 			}
 		}
 	}
-
 	/**   
 	function used to set the assigned_user_id value in the column_fields when we map the username during import
     */
@@ -375,7 +350,6 @@ class Contacts extends CRMEntity {
 			$focus->column_fields['accountname'] = $acc_name;
 			$focus->column_fields['assigned_user_id'] = $current_user->id;
 			$focus->column_fields['modified_user_id'] = $current_user->id;
-
 			$focus->save("Accounts");
 			$acc_id = $focus->id;
 			// avoid duplicate mappings:
@@ -386,7 +360,6 @@ class Contacts extends CRMEntity {
 		}
 		// now just link the ec_account
         $this->column_fields["account_id"] = $focus->id;
-
     }
     /**
 	check whether record exists during import,
@@ -404,6 +377,5 @@ class Contacts extends CRMEntity {
 		*/
 		return false;
 	}
-
 }
 ?>

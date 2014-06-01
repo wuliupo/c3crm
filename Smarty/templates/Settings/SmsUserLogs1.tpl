@@ -104,6 +104,5 @@ function getListViewWithPageSize(module,pageElement)
 	var pagesize = pageElement.options[pageElement.options.selectedIndex].value;
 	getListViewEntries_js(module,'pagesize='+pagesize);
 } 
-
 </script>
 {/literal}

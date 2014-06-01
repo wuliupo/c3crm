@@ -7,8 +7,6 @@
 		<b>{$APP.LBL_PRODUCT_DETAILS}</b>
 	</td>
    </tr>
-
-
    <!-- Header for the Product Details -->
    <tr valign="top">
 	<td width=5% valign="top"  align="right"><b>{$APP.LBL_TOOLS}</b></td>
@@ -22,7 +20,6 @@
    </tr>
 </table>
 <!-- Upto this has been added for form the first row. Based on these above we should form additional rows using script -->
-
 <table class="table table-bordered table-hover  dvtable" style="margin-top:5px;">
    <!-- Add Product Button -->
    <tr>

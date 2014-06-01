@@ -1,5 +1,4 @@
 {*<!--
-
 /*********************************************************************************
 ** The contents of this file are subject to the vtiger CRM Public License Version 1.0
  * ("License"); You may not use this file except in compliance with the License
@@ -9,20 +8,15 @@
  * All Rights Reserved.
 *
  ********************************************************************************/
-
 -->*}
-
 <script type="text/javascript" src="include/js/general.js"></script>
-
 <tr><td colspan="4" align="left">
-
 <table width="100%"  border="0" align="center" cellpadding="5" cellspacing="0" class="crmTable" id="proTab">
    <tr>   	
 	<td colspan="9" class="dvInnerHeader">	
 		<b>{$APP.LBL_PRODUCT_DETAILS}</b>
 	</td>
    </tr>
-
    <!-- Header for the Product Details -->
    <tr valign="top">
 	<td width=5% valign="top" class="lvtCol" align="right"><b>{$APP.LBL_TOOLS}</b></td>
@@ -45,7 +39,6 @@
 	{assign var="productTotal" value="productTotal"|cat:$row_no}
 	{assign var="netPrice" value="netPrice"|cat:$row_no}
    <tr id="row{$row_no}" valign="top">
-
 	<!-- column 1 - delete link - starts -->
 	<td  class="crmTableRow small lineOnTop">
 		
@@ -53,7 +46,6 @@
 		
 		<input type="hidden" id="{$deleted}" name="{$deleted}" value="0">
 	</td>
-
 	{foreach item=fieldname from=$PRODUCTNAMELIST}
 	        {assign var="itemfield" value=$fieldname|cat:$row_no}
 		{if $fieldname eq "productname"}
@@ -65,28 +57,23 @@
 		<td class="crmTableRow small lineOnTop" valign="top" nowrap>&nbsp;<span id="{$itemfield}">{$data.$itemfield}</span></td>
 		{/if}
 	{/foreach}
-
-
 	<!-- column 4 - Quantity - starts -->
 	<td class="crmTableRow small lineOnTop" valign="top" align="left">
         <input id="{$qty}" name="{$qty}" type="text" class="small " style="width:50px" {$PRODUCT_READONLY} onfocus="this.className='detailedViewTextBoxOn'" onBlur="FindDuplicate(); settotalnoofrows(); calcGrandTotal();" value="{$data.$qty}"/>
 	</td>
 	<!-- column 4 - Quantity - ends -->
-
 	<!-- column 5 - List Price with Discount, Total After Discount and Tax as table - starts -->
 	<td class="crmTableRow small lineOnTop" align="left" valign="top">
 	<input id="{$listPrice}" name="{$listPrice}" value="{$data.$listPrice}" type="text" class="small " style="width:70px" {$PRODUCT_READONLY} onBlur="calcGrandTotal();"/>
 		
 	</td>
 	<!-- column 5 - List Price with Discount, Total After Discount and Tax as table - ends -->
-
         
 	<!-- column 6 - Comment - starts -->
 	<td valign="bottom" class="crmTableRow small lineOnTop" align="left">
 		<input id="{$comment}" name="{$comment}" class=small style="width:70px" {$PRODUCT_READONLY} value="{$data.$comment}">
 	</td>
 	<!-- column 6 - Comment - ends -->
-
 	<!-- column 7 - Product Total - starts -->
 	<td class="crmTableRow small lineOnTop" align="right">
 	<table width="100%" cellpadding="5" cellspacing="0">
@@ -100,9 +87,6 @@
    <!-- Product Details First row - Ends -->
    {/foreach}
 </table>
-
-
-
 <table width="100%"  border="0" align="center" cellpadding="5" cellspacing="0" class="crmTable">
    <tr valign="top">
 	<td class="crmTableRow big lineOnTop" width="80%" style="border-right:1px #dadada;">&nbsp;</td>

@@ -4,7 +4,6 @@ global $adb;
 global $app_strings;
 global $current_user;
 global $log;
-
 $idlist = $_REQUEST['idlist'];
 $basemodule = $_REQUEST['basemodule'];
 $idlist = str_replace(";",",",$idlist);
@@ -12,7 +11,6 @@ $fieldlist = getProductFieldList($basemodule);
 //$fieldlist = array("productname","productcode","serialno","unit_price","catalogname");
 //$fieldlist = array("productname","productcode","serialno","unit_price");
 $productlist = array();
-
 $query = "SELECT ec_products.productid as crmid,ec_products.*,ec_catalog.catalogname,ec_vendor.vendorname FROM ec_products left join ec_catalog on ec_catalog.catalogid=ec_products.catalogid left join ec_vendor on ec_vendor.vendorid=ec_products.vendor_id WHERE ec_products.deleted=0 and ec_products.productid in (".$idlist.")";
 $result = $adb->query($query);
 $rownum = $adb->num_rows($result);
@@ -40,7 +38,6 @@ if($rownum > 0)
 	$jsonproduct = $json->encode($productlist);
 	$log->info($jsonproduct);
 	echo $jsonproduct;
-
 }
 die;
 ?>

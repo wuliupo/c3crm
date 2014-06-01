@@ -14,5 +14,4 @@ $module_enname = 'memday';
 $module_cnname = '纪念日';
 $module_parenttabid = '3';
 $module_displayorder = '5';
-
 ?>

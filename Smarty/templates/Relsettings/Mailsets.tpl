@@ -32,7 +32,6 @@
 	<div align=center>
     
 			
-
 				<!-- DISPLAY -->
 				<table border=0 cellspacing=0 cellpadding=5 width=100% class="settingsSelUITopLine">
 				<tr>
@@ -145,7 +144,6 @@ function validate(form)
 		alert("发件人邮件格式不正确");
 		return false;
 	}
-
 	return true;
 }
 </script>

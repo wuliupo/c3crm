@@ -19,14 +19,10 @@
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  * @version    $Id: Exception.php 23775 2011-03-01 17:25:24Z ralph $
  */
-
-
 /**
  * @see Zend_Db_Exception
  */
 require_once 'include/Zend/Db/Exception.php';
-
-
 /**
  * @category   Zend
  * @package    Zend_Db
@@ -37,4 +33,3 @@ require_once 'include/Zend/Db/Exception.php';
 class Zend_Db_Profiler_Exception extends Zend_Db_Exception
 {
 }
-

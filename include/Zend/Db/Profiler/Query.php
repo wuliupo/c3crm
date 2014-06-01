@@ -19,8 +19,6 @@
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  * @version    $Id: Query.php 23775 2011-03-01 17:25:24Z ralph $
  */
-
-
 /**
  * @category   Zend
  * @package    Zend_Db
@@ -30,44 +28,37 @@
  */
 class Zend_Db_Profiler_Query
 {
-
     /**
      * SQL query string or user comment, set by $query argument in constructor.
      *
      * @var string
      */
     protected $_query = '';
-
     /**
      * One of the Zend_Db_Profiler constants for query type, set by $queryType argument in constructor.
      *
      * @var integer
      */
     protected $_queryType = 0;
-
     /**
      * Unix timestamp with microseconds when instantiated.
      *
      * @var float
      */
     protected $_startedMicrotime = null;
-
     /**
      * Unix timestamp with microseconds when self::queryEnd() was called.
      *
      * @var integer
      */
     protected $_endedMicrotime = null;
-
     /**
      * @var array
      */
     protected $_boundParams = array();
-
     /**
      * @var array
      */
-
     /**
      * Class constructor.  A query is about to be started, save the query text ($query) and its
      * type (one of the Zend_Db_Profiler::* constants).
@@ -83,7 +74,6 @@ class Zend_Db_Profiler_Query
         // by default, and for backward-compatibility, start the click ticking
         $this->start();
     }
-
     /**
      * Clone handler for the query object.
      * @return void
@@ -94,7 +84,6 @@ class Zend_Db_Profiler_Query
         $this->_endedMicrotime = null;
         $this->start();
     }
-
     /**
      * Starts the elapsed time click ticking.
      * This can be called subsequent to object creation,
@@ -107,7 +96,6 @@ class Zend_Db_Profiler_Query
     {
         $this->_startedMicrotime = microtime(true);
     }
-
     /**
      * Ends the query and records the time so that the elapsed time can be determined later.
      *
@@ -117,7 +105,6 @@ class Zend_Db_Profiler_Query
     {
         $this->_endedMicrotime = microtime(true);
     }
-
     /**
      * Returns true if and only if the query has ended.
      *
@@ -127,7 +114,6 @@ class Zend_Db_Profiler_Query
     {
         return $this->_endedMicrotime !== null;
     }
-
     /**
      * Get the original SQL text of the query.
      *
@@ -137,7 +123,6 @@ class Zend_Db_Profiler_Query
     {
         return $this->_query;
     }
-
     /**
      * Get the type of this query (one of the Zend_Db_Profiler::* constants)
      *
@@ -147,7 +132,6 @@ class Zend_Db_Profiler_Query
     {
         return $this->_queryType;
     }
-
     /**
      * @param string $param
      * @param mixed $variable
@@ -157,7 +141,6 @@ class Zend_Db_Profiler_Query
     {
         $this->_boundParams[$param] = $variable;
     }
-
     /**
      * @param array $param
      * @return void
@@ -172,7 +155,6 @@ class Zend_Db_Profiler_Query
             $this->bindParam($param, $value);
         }
     }
-
     /**
      * @return array
      */
@@ -180,7 +162,6 @@ class Zend_Db_Profiler_Query
     {
         return $this->_boundParams;
     }
-
     /**
      * Get the elapsed time (in seconds) that the query ran.
      * If the query has not yet ended, false is returned.
@@ -192,10 +173,8 @@ class Zend_Db_Profiler_Query
         if (null === $this->_endedMicrotime) {
             return false;
         }
-
         return $this->_endedMicrotime - $this->_startedMicrotime;
     }
-
     /**
      * Get the time (in seconds) when the profiler started running.
      *
@@ -206,8 +185,6 @@ class Zend_Db_Profiler_Query
         if(null === $this->_startedMicrotime) {
             return false;
         }
-
         return $this->_startedMicrotime;
     }
 }
-

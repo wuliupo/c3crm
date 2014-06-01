@@ -19,12 +19,10 @@
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  * @version    $Id: PlatformJob.php 23775 2011-03-01 17:25:24Z ralph $
  */
-
 /**
  * @see Zend_Queue_Message
  */
 require_once 'include/Zend/Queue/Message.php';
-
 /**
  * Class for managing Zend Platform JobQueue jobs via Zend_Queue
  *
@@ -40,13 +38,11 @@ class Zend_Queue_Message_PlatformJob extends Zend_Queue_Message
      * @var ZendApi_Job
      */
     protected $_job;
-
     /**
      * Job identifier
      * @var string
      */
     protected $_id = null;
-
     /**
      * Constructor
      *
@@ -75,17 +71,14 @@ class Zend_Queue_Message_PlatformJob extends Zend_Queue_Message
             parent::__construct($this->_job->getProperties());
         } else {
             parent::__construct($options);
-
             if (!isset($options['script'])) {
                 require_once 'include/Zend/Queue/Exception.php';
                 throw new Zend_Queue_Exception('The script is mandatory data');
             }
-
             $this->_job = new ZendApi_Job($options['script']);
             $this->_setJobProperties();
         }
     }
-
     /**
      * Set the job identifier
      *
@@ -99,7 +92,6 @@ class Zend_Queue_Message_PlatformJob extends Zend_Queue_Message
         $this->_id = $id;
         return $this;
     }
-
     /**
      * Retrieve the job identifier
      *
@@ -109,7 +101,6 @@ class Zend_Queue_Message_PlatformJob extends Zend_Queue_Message
     {
         return (($this->_id) ?  $this->_id : $this->_job->getID());
     }
-
     /**
      * Retrieve the internal ZendApi_Job instance
      *
@@ -119,7 +110,6 @@ class Zend_Queue_Message_PlatformJob extends Zend_Queue_Message
     {
         return $this->_job;
     }
-
     /**
      * Store queue and data in serialized object
      *
@@ -129,7 +119,6 @@ class Zend_Queue_Message_PlatformJob extends Zend_Queue_Message
     {
         return serialize('_job', '_id', '_data');
     }
-
     /**
      * Query the class name of the Queue object for which this
      * Message was created.
@@ -140,7 +129,6 @@ class Zend_Queue_Message_PlatformJob extends Zend_Queue_Message
     {
         return 'Zend_Queue_Adapter_Platform_JQ';
     }
-
     /**
      * Sets properties on the ZendApi_Job instance
      *
@@ -151,42 +139,33 @@ class Zend_Queue_Message_PlatformJob extends Zend_Queue_Message
      * @return void
      */
     protected function _setJobProperties() {
-
         if (isset($this->_data['script'])) {
             $this->_job->setScript($this->_data['script']);
         }
-
         if (isset($this->_data['priority'])) {
             $this->_job->setJobPriority($this->_data['priority']);
         }
-
         if (isset($this->_data['name'])) {
             $this->_job->setJobName($this->_data['name']);
         }
-
         if (isset($this->_data['predecessor'])) {
             $this->_job->setJobDependency($this->_data['predecessor']);
         }
-
         if (isset($this->_data['preserved'])) {
             $this->_job->setPreserved($this->_data['preserved']);
         }
-
         if (isset($this->_data['user_variables'])) {
             $this->_job->setUserVariables($this->_data['user_variables']);
         }
-
         if (!empty($this->_data['interval'])) {
             $endTime = isset($this->_data['end_time']) ? $this->_data['end_time'] : null;
             $this->_job->setRecurrenceData($this->_data['interval'], $endTime);
         } elseif (isset($this->_data['interval']) && ($this->_data['interval'] === '')) {
             $this->_job->setRecurrenceData(0,0);
         }
-
         if (isset($this->_data['scheduled_time'])) {
             $this->_job->setScheduledTime($this->_data['scheduled_time']);
         }
-
         if (isset($this->_data['application_id'])) {
             $this->_job->setApplicationID($this->_data['application_id']);
         }

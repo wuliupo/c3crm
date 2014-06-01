@@ -1,5 +1,4 @@
 {*<!--
-
 /*********************************************************************************
 ** The contents of this file are subject to the vtiger CRM Public License Version 1.0
  * ("License"); You may not use this file except in compliance with the License
@@ -9,7 +8,6 @@
  * All Rights Reserved.
 *
  ********************************************************************************/
-
 -->*}
 {literal}
 <script language="javascript">
@@ -36,7 +34,6 @@ function getListViewEntries_js(module,url)
                 }
         );
 }
-
 function getListViewWithPageNo(module,pageElement)
 {
 	//var pageno = document.getElementById('listviewpage').value;
@@ -58,13 +55,10 @@ function getListViewWithPageNo(module,pageElement)
 		</td>
 	{/if}
 </tr>
-
 <tr><td>
 <div id="duplicate_ajax">
-
 {include file='Accounts/FindDuplicateAjax.tpl'}
 </div>
 <div id="current_action" style="display:none">{$smarty.request.action}</div>
 </td></tr>
 </table>
-

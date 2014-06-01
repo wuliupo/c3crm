@@ -39,7 +39,6 @@
 // THANKS TO
 // Efthimios Mavrogeorgiadis
 // Saleh AlMatrafe
-
 /**
  * Unicode Include file for TCPDF.
  * @author Nicola Asuni
@@ -49,7 +48,6 @@
  * @license http://www.gnu.org/copyleft/lesser.html LGPL
  * @since 2.1.000 (2008-01-08)
 */
-
 /**
 * Left-to-Right Mark
 */
@@ -78,7 +76,6 @@ define('K_LRO', 8237);
 * Right-to-Left Override
 */
 define('K_RLO', 8238);
-
 /*
  * Pattern to test RTL (Righ-To-Left) strings using regular expressions.
  */
@@ -95,7 +92,6 @@ define('K_RE_PATTERN_RTL', "/(
 	| \xF0\x90\xA9[\x80-\x87\x90-\x98]                     # R
 	| \xE2\x80[\xAB\xAE]                                   # RLE & RLO
 	)/x");
-
 /*
  * Pattern to test Arabic strings using regular expressions.
  * source: http://www.w3.org/International/questions/qa-forms-utf-8
@@ -121,7 +117,6 @@ define("K_RE_PATTERN_ARABIC", "/(
 		| \xEF\xBB[\x80-\xBC]                           # AL
 		| \xD9[\xA0-\xA9\xAB\xAC]                       # AN
 		)/x");
-
 /**
  * Array of unicode types
  */
@@ -17848,7 +17843,6 @@ $unicode = array(
 1048576=>'L',
 1114109=>'L'
 );
-
 /**
  * Mirror unicode characters.
  * For information on bidi mirroring, see UAX #9: Bidirectional Algorithm, 
@@ -18208,7 +18202,6 @@ $unicode_mirror = array (
 0xFF60=>0xFF5F,
 0xFF62=>0xFF63,
 0xFF63=>0xFF62);
-
 /**
  * Arabic shape subtitutions
  * char code=>isolated, final, initial, medial
@@ -18292,7 +18285,6 @@ $unicode_arlet = array(
 1746=>array(64430, 64431),
 1747=>array(64432, 64433)
 );
-
 /**
  * Arabic laa letter
  * char code=>isolated, final, initial, medial
@@ -18304,7 +18296,6 @@ $laa_array = array (
 1573 =>array(65273, 65274, 65273, 65274),
 1575 =>array(65275, 65276, 65275, 65276)
 );
-
 /**
  * Array of character substitutions for sequences of two diacritics symbols starting with SHADDA (0651 HEX, 1617 DEC).
  * Combining characters that can occur with Shadda (U0651) are placed in UE586-UE594. 
@@ -18319,7 +18310,6 @@ $diacritics = array (
 1615=>64609, # Shadda + Damma
 1616=>64610  # Shadda + Kasra
 );
-
 /**
  * Array of character substitutions from UTF-8 unicode to latin1
  */
@@ -18353,7 +18343,6 @@ $utf8tolatin = array (
 8482=>153, # trademark
 382=>158   # zcaron2
 );
-
 //============================================================+
 // END OF FILE
 //============================================================+

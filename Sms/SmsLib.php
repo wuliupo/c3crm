@@ -5,7 +5,6 @@ require_once('include/utils/utils.php');
 require_once('include/database/PearDatabase.php');
 global $adb;
 global $current_user;
-
 function getCurlResult($parameters,$method){
 	
 	$sms_url = "http://c3sms.sinaapp.com";
@@ -28,7 +27,6 @@ function getCurlResult($parameters,$method){
 	
 	return $result;
 }
-
 /**
  * 创建client实例
  */
@@ -56,7 +54,6 @@ function getSingleInfo($id=''){
 		}
 		return $arr;
 }
-
 /**
  * 登录 用例
  */
@@ -80,7 +77,6 @@ function loginSMS($userid='')
 	}
 	
 }
-
 function getBalance($userid='') {
 	//获取用户信息
 	if(!is_array($userinfo) || empty($userinfo)){
@@ -105,8 +101,6 @@ function getBalance($userid='') {
 	}
 	
 }
-
-
 /**
  * 注销登录 用例
  */
@@ -123,8 +117,6 @@ function logout($userid='')
 	$method = "sms_logout";
 	getCurlResult($parameters,$method);
 }
-
-
 //异步发送短信
 function sendSMS($msg,$phonename,$userid='') {
 	//获取用户信息
@@ -149,7 +141,6 @@ function sendSMS($msg,$phonename,$userid='') {
 	
 	return array("error"=>0);
 }
-
 //同步发送短信
 function sendMultiSMS($msg,$phonenames,$userid='') {
 		//获取用户信息
@@ -176,7 +167,6 @@ function sendMultiSMS($msg,$phonenames,$userid='') {
 		
         return array("error"=>0);
 }
-
 function getMessageAccount($userid){ 
 		//获取用户信息
 		if(!is_array($userinfo) || empty($userinfo)){
@@ -221,7 +211,6 @@ function sendSmsByTime($message,$phonenames,$sendtime,$userid) {
 	$result = getCurlResult($parameters,$method);
 	return array("error"=>0);
 }
-
 function getUserSmsLogs($userid,$phone){
 	//获取用户信息
 	if(!is_array($userinfo) || empty($userinfo)){
@@ -236,7 +225,6 @@ function getUserSmsLogs($userid,$phone){
 	$result = getCurlResult($parameters,$method); 
 	return $result;
 }
-
 //added by ligangze on 2013-10-23
 function SaveSmsLogs($sendresult,$content,$flag,$result) {
 	global $adb,$current_user;
@@ -258,7 +246,4 @@ function SaveSmsLogs($sendresult,$content,$flag,$result) {
 		$adb->query($query);
 	}
 }
-
 ?>
-
-

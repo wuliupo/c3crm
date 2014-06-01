@@ -15,17 +15,14 @@
  * 
  * @package log4php
  */
-
 /**
  * @ignore 
  */
 if (!defined('LOG4PHP_DIR')) define('LOG4PHP_DIR', dirname(__FILE__));
-
 require_once(LOG4PHP_DIR . '/spi/LoggerConfigurator.php');
 require_once(LOG4PHP_DIR . '/LoggerLayout.php');
 require_once(LOG4PHP_DIR . '/LoggerAppender.php');
 require_once(LOG4PHP_DIR . '/LoggerManager.php');
-
 /**
  * Use this class to quickly configure the package.
  *
@@ -38,12 +35,10 @@ require_once(LOG4PHP_DIR . '/LoggerManager.php');
  * @since 0.5
  */
 class LoggerBasicConfigurator extends LoggerConfigurator {
-
     function LoggerBasicConfigurator() 
     {
         return;
     }
-
     /**
      * Add a {@link LoggerAppenderConsole} that uses 
      * the {@link LoggerLayoutTTCC} to the root category.
@@ -58,10 +53,8 @@ class LoggerBasicConfigurator extends LoggerConfigurator {
         $appender =& LoggerAppender::singleton('A1', 'LoggerAppenderConsole');
         $layout = LoggerLayout::factory('LoggerLayoutTTCC');
         $appender->setLayout($layout);
-
         $root->addAppender($appender);
     }
-
     /**
      * Reset the default hierarchy to its defaut. 
      * It is equivalent to

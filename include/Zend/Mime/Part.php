@@ -18,12 +18,10 @@
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  * @version    $Id: Part.php 23775 2011-03-01 17:25:24Z ralph $
  */
-
 /**
  * Zend_Mime
  */
 require_once 'include/Zend/Mime.php';
-
 /**
  * Class representing a MIME part.
  *
@@ -33,7 +31,6 @@ require_once 'include/Zend/Mime.php';
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  */
 class Zend_Mime_Part {
-
     public $type = Zend_Mime::TYPE_OCTETSTREAM;
     public $encoding = Zend_Mime::ENCODING_8BIT;
     public $id;
@@ -46,8 +43,6 @@ class Zend_Mime_Part {
     public $language;
     protected $_content;
     protected $_isStream = false;
-
-
     /**
      * create a new Mime Part.
      * The (unencoded) content of the Part as passed
@@ -62,13 +57,11 @@ class Zend_Mime_Part {
             $this->_isStream = true;
         }
     }
-
     /**
      * @todo setters/getters
      * @todo error checking for setting $type
      * @todo error checking for setting $encoding
      */
-
     /**
      * check if this part can be read as a stream.
      * if true, getEncodedStream can be called, otherwise
@@ -81,7 +74,6 @@ class Zend_Mime_Part {
     {
       return $this->_isStream;
     }
-
     /**
      * if this was created with a stream, return a filtered stream for
      * reading the content. very useful for large file attachments.
@@ -95,7 +87,6 @@ class Zend_Mime_Part {
             require_once 'include/Zend/Mime/Exception.php';
             throw new Zend_Mime_Exception('Attempt to get a stream from a string part');
         }
-
         //stream_filter_remove(); // ??? is that right?
         switch ($this->encoding) {
             case Zend_Mime::ENCODING_QUOTEDPRINTABLE:
@@ -132,7 +123,6 @@ class Zend_Mime_Part {
         }
         return $this->_content;
     }
-
     /**
      * Get the Content of the current Mime Part in the given encoding.
      *
@@ -159,7 +149,6 @@ class Zend_Mime_Part {
             return $this->_content;
         }
     }
-
     /**
      * Create and return the array of headers for this MIME part
      *
@@ -169,27 +158,21 @@ class Zend_Mime_Part {
     public function getHeadersArray($EOL = Zend_Mime::LINEEND)
     {
         $headers = array();
-
         $contentType = $this->type;
         if ($this->charset) {
             $contentType .= '; charset=' . $this->charset;
         }
-
         if ($this->boundary) {
             $contentType .= ';' . $EOL
                           . " boundary=\"" . $this->boundary . '"';
         }
-
         $headers[] = array('Content-Type', $contentType);
-
         if ($this->encoding) {
             $headers[] = array('Content-Transfer-Encoding', $this->encoding);
         }
-
         if ($this->id) {
             $headers[]  = array('Content-ID', '<' . $this->id . '>');
         }
-
         if ($this->disposition) {
             $disposition = $this->disposition;
             if ($this->filename) {
@@ -197,22 +180,17 @@ class Zend_Mime_Part {
             }
             $headers[] = array('Content-Disposition', $disposition);
         }
-
         if ($this->description) {
             $headers[] = array('Content-Description', $this->description);
         }
-
         if ($this->location) {
             $headers[] = array('Content-Location', $this->location);
         }
-
         if ($this->language){
             $headers[] = array('Content-Language', $this->language);
         }
-
         return $headers;
     }
-
     /**
      * Return the headers for this part as a string
      *
@@ -224,7 +202,6 @@ class Zend_Mime_Part {
         foreach ($this->getHeadersArray($EOL) as $header) {
             $res .= $header[0] . ': ' . $header[1] . $EOL;
         }
-
         return $res;
     }
 }

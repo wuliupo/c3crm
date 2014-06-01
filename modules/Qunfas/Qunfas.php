@@ -4,20 +4,15 @@ require_once('include/logging.php');
 require_once('include/database/PearDatabase.php');
 require_once('data/CRMEntity.php');
 require_once('modules/Qunfas/ModuleConfig.php');
-
 // Note is used to store customer information.
 class Qunfas extends CRMEntity {
 	var $log;
 	var $db;
-
 	var $tab_name = Array('ec_crmentity','ec_qunfas');
 	var $tab_name_index = Array('ec_crmentity'=>'crmid','ec_qunfas'=>'qunfasid');
 	var $entity_table = "ec_qunfas";
-
 	var $column_fields = Array();
-
 	var $sortby_fields = Array('qunfaname');
-
 	// This is the list of ec_fields that are in the lists.
 	/* Format: Field Label => Array(tablename, columnname) */
 	// tablename should not have prefix 'ec_'
@@ -48,12 +43,10 @@ class Qunfas extends CRMEntity {
 	//added for import and export function
 	var $special_functions =  array("create_user","add_create_account");
 	var $importable_fields = Array();
-
 	//Added these variables which are used as default order by and sortorder in ListView
 	var $default_order_by = 'modifiedtime';
 	var $default_sort_order = 'DESC';
 	var $is_custom_module = true;
-
 	function Qunfas() {
 		$this->log = LoggerManager::getLogger('qunfas');
 		$this->log->debug("Entering Qunfas() method ...");
@@ -61,7 +54,6 @@ class Qunfas extends CRMEntity {
 		$this->column_fields = getColumnFields('Qunfas');
 		$this->log->debug("Exiting Qunfas method ...");
 	}
-
 	function save_module($module)
 	{
 		global $module_enable_product;
@@ -69,11 +61,8 @@ class Qunfas extends CRMEntity {
 		{
 			//$this->saveProductDetails(true); update product qty
 			$this->saveProductDetails();
-
 		}
 	}
-
-
 	/**
 	 *      This function is used to add the ec_attachments. This will call the function uploadAndSaveFile which will upload the attachment into the server and save that attachment information in the database.
 	 *      @param int $id  - entity id to which the ec_files to be uploaded
@@ -83,9 +72,7 @@ class Qunfas extends CRMEntity {
 	{
 		global $log;
 		$log->debug("Entering into insertIntoAttachment($id,$module) method.");
-
 		$file_saved = false;
-
 		foreach($_FILES as $fileindex => $files)
 		{
 			if($files['name'] != '' && $files['size'] > 0)
@@ -93,10 +80,8 @@ class Qunfas extends CRMEntity {
 				$file_saved = $this->uploadAndSaveFile($id,$module,$files);
 			}
 		}
-
 		$log->debug("Exiting from insertIntoAttachment($id,$module) method.");
 	}
-
 	function getListQuery($where,$isSearchAll=false){
 		global $current_user;
 		$module = "Qunfas";
@@ -106,11 +91,8 @@ class Qunfas extends CRMEntity {
 				LEFT JOIN ec_users	ON ec_users.id = ec_qunfas.smownerid ";
 		
 		$query .= " WHERE ec_qunfas.deleted = 0 ";
-
 		return $query;
 	}
-
-
 	//get next salesorder id
 	function get_next_id() {
 		//$query = "select count(*) as num from ec_qunfas";
@@ -135,7 +117,6 @@ class Qunfas extends CRMEntity {
 		$log->debug("Exiting getSortOrder() method ...");
 		return $sorder;
 	}
-
 	/**	Function used to get the order by value for QUNFAS listview
 	 *	@return string	$order_by  - first check the $_REQUEST['order_by'] if request value is empty then check in the $_SESSION['QUNFAS_ORDER_BY'] if this session value is empty then default order by will be returned.
 	 */

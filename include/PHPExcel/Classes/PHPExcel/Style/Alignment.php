@@ -24,8 +24,6 @@
  * @license    http://www.gnu.org/licenses/old-licenses/lgpl-2.1.txt	LGPL
  * @version    1.7.2, 2010-01-11
  */
-
-
 /** PHPExcel root directory */
 if (!defined('PHPEXCEL_ROOT')) {
 	/**
@@ -33,11 +31,8 @@ if (!defined('PHPEXCEL_ROOT')) {
 	 */
 	define('PHPEXCEL_ROOT', dirname(__FILE__) . '/../../');
 }
-
 /** PHPExcel_IComparable */
 require_once PHPEXCEL_ROOT . 'PHPExcel/IComparable.php';
-
-
 /**
  * PHPExcel_Style_Alignment
  *
@@ -109,21 +104,18 @@ class PHPExcel_Style_Alignment implements PHPExcel_IComparable
 	 * @var _parentPropertyName string
 	 */
 	private $_parentPropertyName;
-
 	/**
 	 * Supervisor?
 	 *
 	 * @var boolean
 	 */
 	private $_isSupervisor;
-
 	/**
 	 * Parent. Only used for supervisor
 	 *
 	 * @var PHPExcel_Style
 	 */
 	private $_parent;
-
     /**
      * Create a new PHPExcel_Style_Alignment
      */
@@ -131,7 +123,6 @@ class PHPExcel_Style_Alignment implements PHPExcel_IComparable
     {
     	// Supervisor?
 		$this->_isSupervisor = $isSupervisor;
-
     	// Initialise values
     	$this->_horizontal			= PHPExcel_Style_Alignment::HORIZONTAL_GENERAL;
     	$this->_vertical			= PHPExcel_Style_Alignment::VERTICAL_BOTTOM;
@@ -140,7 +131,6 @@ class PHPExcel_Style_Alignment implements PHPExcel_IComparable
 		$this->_shrinkToFit			= false;
 		$this->_indent				= 0;
     }
-
 	/**
 	 * Bind parent. Only used for supervisor
 	 *
@@ -152,7 +142,6 @@ class PHPExcel_Style_Alignment implements PHPExcel_IComparable
 		$this->_parent = $parent;
 		return $this;
 	}
-
 	/**
 	 * Is this a supervisor or a real style component?
 	 *
@@ -162,7 +151,6 @@ class PHPExcel_Style_Alignment implements PHPExcel_IComparable
 	{
 		return $this->_isSupervisor;
 	}
-
 	/**
 	 * Get the shared style component for the currently active cell in currently active sheet.
 	 * Only used for style supervisor
@@ -173,7 +161,6 @@ class PHPExcel_Style_Alignment implements PHPExcel_IComparable
 	{
 		return $this->_parent->getSharedComponent()->getAlignment();
 	}
-
 	/**
 	 * Get the currently active sheet. Only used for supervisor
 	 *
@@ -183,7 +170,6 @@ class PHPExcel_Style_Alignment implements PHPExcel_IComparable
 	{
 		return $this->_parent->getActiveSheet();
 	}
-
 	/**
 	 * Get the currently active cell coordinate in currently active sheet.
 	 * Only used for supervisor
@@ -194,7 +180,6 @@ class PHPExcel_Style_Alignment implements PHPExcel_IComparable
 	{
 		return $this->getActiveSheet()->getSelectedCells();
 	}
-
 	/**
 	 * Get the currently active cell coordinate in currently active sheet.
 	 * Only used for supervisor
@@ -205,7 +190,6 @@ class PHPExcel_Style_Alignment implements PHPExcel_IComparable
 	{
 		return $this->getActiveSheet()->getActiveCell();
 	}
-
 	/**
 	 * Build style array from subcomponents
 	 *
@@ -216,7 +200,6 @@ class PHPExcel_Style_Alignment implements PHPExcel_IComparable
 	{
 		return array('alignment' => $array);
 	}
-
     /**
      * Apply styles from array
      * 
@@ -354,7 +337,6 @@ class PHPExcel_Style_Alignment implements PHPExcel_IComparable
     	if ($pValue == 255) {
     		$pValue = -165;
     	}
-
 		// Set rotation
     	if ( ($pValue >= -90 && $pValue <= 90) || $pValue == -165 ) {
 			if ($this->_isSupervisor) {
@@ -431,7 +413,6 @@ class PHPExcel_Style_Alignment implements PHPExcel_IComparable
 		}
 		return $this;
     }
-
     /**
      * Get indent
      *

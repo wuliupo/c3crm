@@ -1,5 +1,4 @@
 <?php
-
 /*********************************************************************************
 ** The contents of this file are subject to the vtiger CRM Public License Version 1.0
  * ("License"); You may not use this file except in compliance with the License
@@ -9,20 +8,14 @@
  * All Rights Reserved.
 *
  ********************************************************************************/
-
-
 require_once('include/database/PearDatabase.php');
 require_once('include/utils/utils.php');
-
 global $mod_strings, $app_strings;
 global $theme;
 $theme_path="themes/".$theme."/";
 $image_path=$theme_path."images/";
-
 $delete_user_id = $_REQUEST['record'];
 $delete_user_name = getUserName($delete_user_id);
-
-
 $output='theme_path=>'.$theme_path.'image_path=>'.$image_path.'$delete_user_id=>'.$delete_user_id.'delete_user_name=>'.$delete_user_name;
 $output ='<div id="DeleteLay" class="layerPopup" style="width: 400px;left:400px;top:200px;">
 <form name="newProfileForm" action="index.php">
@@ -64,7 +57,6 @@ $output ='<div id="DeleteLay" class="layerPopup" style="width: 400px;left:400px;
 					$output.='<option value="'.$user_id.'">'.$user_name.'</option>';
 				 }	
 			}
-
 		$output.='</td>
 	</tr>
 	
@@ -79,6 +71,5 @@ $output ='<div id="DeleteLay" class="layerPopup" style="width: 400px;left:400px;
 </tr>
 </table>
 </form></div>';
-
 echo $output;
 ?>

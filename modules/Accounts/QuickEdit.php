@@ -2,13 +2,11 @@
 require_once('include/CRMSmarty.php');
 require_once('modules/Accounts/Accounts.php');
 require_once('include/utils/utils.php');
-
 global $mod_strings,$app_strings,$theme,$currentModule,$current_user;
 $focus = new Accounts();
 $focus->mode = '';
 $disp_view = getView($focus->mode);
 $display_type_check = "ec_field.displaytype in (1,4) and ec_field.uitype not in(53,51,1004,10) and ec_field.fieldname not in('membername','accountname','phone','tel','qq','msn','weibo','email','account_id','wangwang','fax','website','bill_state','bill_city','bill_district') ";
-
 $smarty = new CRMSmarty();
 $smarty->assign("IMAGE_PATH", "themes/$theme/images/");
 $smarty->assign("THEME", $theme);
@@ -19,19 +17,15 @@ $smarty->assign("BLOCKS",getBlocksForQuickEdit($currentModule,$disp_view,$mode,$
 // Field Validation Information 
 $tabid = getTabid($currentModule);
 $data = getQuickValidationData($tabid,$display_type_check);
-
 $smarty->assign("VALIDATION_DATA_FIELDNAME",$data['fieldname']);
 $smarty->assign("VALIDATION_DATA_FIELDDATATYPE",$data['datatype']);
 $smarty->assign("VALIDATION_DATA_FIELDLABEL",$data['fieldlabel']);
-
 $smarty->display('QuickEditForm.tpl');
-
 /**
  * This function returns the ec_blocks and its related information for given module.
  * Input Parameter are $module - module name, $disp_view = display view (edit,detail or create),$mode - edit, $col_fields - * column ec_fields/
  * This function returns an array
  */
-
 function getBlocksForQuickEdit($module,$disp_view,$mode,$col_fields='',$display_type_check)
 {
 	global $log;
@@ -94,11 +88,9 @@ function getBlocksForQuickEdit($module,$disp_view,$mode,$col_fields='',$display_
 	$log->debug("Exiting getBlocksForQuickEdit method ...");
 	return $getBlockInfo;
 }
-
 /**
 * merged with getDBValidationData and split_validationdataArray functions for performance
 */
-
 function getQuickValidationData($tabid,$display_type_check)
 {
 	global $log;
@@ -128,5 +120,4 @@ function getQuickValidationData($tabid,$display_type_check)
 	$log->debug("Exiting getQuickValidationData method ...");
 	return $validationData;
 }
-
 ?>

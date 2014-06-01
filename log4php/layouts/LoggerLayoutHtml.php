@@ -16,12 +16,10 @@
  * @package log4php
  * @subpackage layouts
  */
-
 /**
  * @ignore 
  */
 if (!defined('LOG4PHP_DIR')) define('LOG4PHP_DIR', dirname(__FILE__) . '/..');
-
 if (!defined('LOG4PHP_LINE_SEP')) {
     if (substr(php_uname(), 0, 7) == "Windows") { 
         /**
@@ -40,7 +38,6 @@ if (!defined('LOG4PHP_LINE_SEP')) {
  */
 require_once(LOG4PHP_DIR . '/LoggerLayout.php');
 require_once(LOG4PHP_DIR . '/spi/LoggerLoggingEvent.php');
-
 /**
  * This layout outputs events in a HTML table.
  *
@@ -52,7 +49,6 @@ require_once(LOG4PHP_DIR . '/spi/LoggerLoggingEvent.php');
  * @subpackage layouts
  */
 class LoggerLayoutHtml extends LoggerLayout {
-
     /**
      * The <b>LocationInfo</b> option takes a boolean value. By
      * default, it is set to false which means there will be no location
@@ -102,7 +98,6 @@ class LoggerLayoutHtml extends LoggerLayout {
             $this->locationInfo = (bool)(strtolower($flag) == 'true');
         }
     }
-
     /**
      * Returns the current value of the <b>LocationInfo</b> option.
      */
@@ -120,7 +115,6 @@ class LoggerLayoutHtml extends LoggerLayout {
     {
         $this->title = $title;
     }
-
     /**
      * @return string Returns the current value of the <b>Title</b> option.
      */
@@ -191,11 +185,9 @@ class LoggerLayoutHtml extends LoggerLayout {
             $sbuf .= htmlentities($locInfo->getFileName(), ENT_QUOTES). ':' . $locInfo->getLineNumber();
             $sbuf .= "</td>" . LOG4PHP_LINE_SEP;
         }
-
         $sbuf .= "<td title=\"Message\">";
         $sbuf .= htmlentities($event->getRenderedMessage(), ENT_QUOTES);
         $sbuf .= "</td>" . LOG4PHP_LINE_SEP;
-
         $sbuf .= "</tr>" . LOG4PHP_LINE_SEP;
         
         if ($event->getNDC() != null) {
@@ -203,10 +195,8 @@ class LoggerLayoutHtml extends LoggerLayout {
             $sbuf .= "NDC: " . htmlentities($event->getNDC(), ENT_QUOTES);
             $sbuf .= "</td></tr>" . LOG4PHP_LINE_SEP;
         }
-
         return $sbuf;
     }
-
     /**
      * @return string Returns appropriate HTML headers.
      */
@@ -237,10 +227,8 @@ class LoggerLayoutHtml extends LoggerLayout {
             $sbuf .= "<th>File:Line</th>" . LOG4PHP_LINE_SEP;
         $sbuf .= "<th>Message</th>" . LOG4PHP_LINE_SEP;
         $sbuf .= "</tr>" . LOG4PHP_LINE_SEP;
-
         return $sbuf;
     }
-
     /**
      * @return string Returns the appropriate HTML footers.
      */
@@ -249,7 +237,6 @@ class LoggerLayoutHtml extends LoggerLayout {
         $sbuf = "</table>" . LOG4PHP_LINE_SEP;
         $sbuf .= "<br>" . LOG4PHP_LINE_SEP;
         $sbuf .= "</body></html>";
-
         return $sbuf;
     }
 }

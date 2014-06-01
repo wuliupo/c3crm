@@ -16,25 +16,21 @@
  * $Header$
  * Description:  TODO: To be written.
  ********************************************************************************/
-
 require_once('data/Tracker.php');
 require_once('modules/Import/ImportContact.php');
 require_once('modules/Import/ImportAccount.php');
 require_once('modules/Import/UsersLastImport.php');
 require_once('modules/Import/parse_utils.php');
 require_once('include/utils/utils.php');
-
 global $mod_strings;
 global $app_list_strings;
 global $app_strings;
 global $current_user;
 global $theme;
-
 if (! isset( $_REQUEST['module']))
 {
         $_REQUEST['module'] = 'Home';
 }
-
 if (! isset( $_REQUEST['return_id']))
 {
         $_REQUEST['return_id'] = '';
@@ -43,26 +39,18 @@ if (! isset( $_REQUEST['return_module']))
 {
         $_REQUEST['return_module'] = '';
 }
-
 if (! isset( $_REQUEST['return_action']))
 {
         $_REQUEST['return_action'] = '';
 }
-
 $parenttab = getParenttab();
-
 $theme_path="themes/".$theme."/";
 $image_path=$theme_path."images/";
-
-
 $log->info("Import Undo");
 $last_import = new UsersLastImport();
 $ret_value = $last_import->undo($current_user->id);
 ?>
-
 <br>
-
-
 <table align="center" cellpadding="5" cellspacing="0" width="95%" class="mailClient importLeadUI small">
         <tr>
          <td bgcolor="#FFFFFF" height="50" valign="middle" align="left" class="mailClientBg genHeaderSmall"> <?php echo $mod_strings['LBL_MODULE_NAME']; ?> <?php echo $app_strings[$_REQUEST['module']] ; ?> </td>
@@ -111,4 +99,3 @@ $ret_value = $last_import->undo($current_user->id);
 				</td>
 			</tr>
 		</table>
-

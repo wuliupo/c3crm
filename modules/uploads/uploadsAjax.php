@@ -8,7 +8,6 @@
   * All Rights Reserved.
   *
 ********************************************************************************/
-
 	
 	require_once('include/Ajax/CommonAjax.php');
 ?>

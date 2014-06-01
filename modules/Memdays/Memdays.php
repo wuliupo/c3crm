@@ -4,20 +4,15 @@ require_once('include/logging.php');
 require_once('include/database/PearDatabase.php');
 require_once('data/CRMEntity.php');
 require_once('modules/Memdays/ModuleConfig.php');
-
 // Note is used to store customer information.
 class Memdays extends CRMEntity {
 	var $log;
 	var $db;
-
 	var $tab_name = Array('ec_crmentity','ec_memdays');
 	var $tab_name_index = Array('ec_crmentity'=>'crmid','ec_memdays'=>'memdaysid');
 	var $entity_table = "ec_memdays";
-
 	var $column_fields = Array();
-
 	var $sortby_fields = Array('memdayname');
-
 	// This is the list of ec_fields that are in the lists.
 	/* Format: Field Label => Array(tablename, columnname) */
 	// tablename should not have prefix 'ec_'
@@ -62,12 +57,10 @@ class Memdays extends CRMEntity {
 	//added for import and export function
 	var $special_functions =  array("create_user","add_create_account");
 	var $importable_fields = Array();
-
 	//Added these variables which are used as default order by and sortorder in ListView
 	var $default_order_by = 'modifiedtime';
 	var $default_sort_order = 'DESC';
 	var $is_custom_module = true;
-
 	function Memdays() {
 		$this->log = LoggerManager::getLogger('memdays');
 		$this->log->debug("Entering Memdays() method ...");
@@ -75,7 +68,6 @@ class Memdays extends CRMEntity {
 		$this->column_fields = getColumnFields('Memdays');
 		$this->log->debug("Exiting Memdays method ...");
 	}
-
 	function save_module($module)
 	{
 		global $module_enable_product,$adb;
@@ -84,7 +76,6 @@ class Memdays extends CRMEntity {
 			//$this->saveProductDetails(true); update product qty
 			$this->saveProductDetails();
 		}
-
 		$nowyear = date("Y");$nowmonth = date("m");
 		$nowday = date("d");$nowdate = date("Y-m-d");
 		
@@ -154,8 +145,6 @@ class Memdays extends CRMEntity {
 		$query = "update ec_memdays set memday946 = '{$lastdate}' where memdaysid = {$this->id} ";
 		$adb->query($query);
 	}
-
-
 	/**
 	 *      This function is used to add the ec_attachments. This will call the function uploadAndSaveFile which will upload the attachment into the server and save that attachment information in the database.
 	 *      @param int $id  - entity id to which the ec_files to be uploaded
@@ -167,7 +156,6 @@ class Memdays extends CRMEntity {
 		$log->debug("Entering into insertIntoAttachment($id,$module) method.");
 		
 		$file_saved = false;
-
 		foreach($_FILES as $fileindex => $files)
 		{
 			if($files['name'] != '' && $files['size'] > 0)
@@ -175,7 +163,6 @@ class Memdays extends CRMEntity {
 				$file_saved = $this->uploadAndSaveFile($id,$module,$files);
 			}
 		}
-
 		$log->debug("Exiting from insertIntoAttachment($id,$module) method.");
 	}
 	function getListQuery($where,$isSearchAll=false){
@@ -190,9 +177,7 @@ class Memdays extends CRMEntity {
 		$query .= $where;
 		return $query;
 	}
-
 	
-
 	//get next salesorder id
 	function get_next_id() {
 		//$query = "select count(*) as num from ec_memdays";
@@ -203,7 +188,6 @@ class Memdays extends CRMEntity {
 		elseif($num > 9) return "0".$num;
 		else return "00".$num;
 	}
-
 	/**	Function used to get the sort order for Memdays listview
 	 *	@return string	$sorder	- first check the $_REQUEST['sorder'] if request value is empty then check in the $_SESSION['MEMDAYS_SORT_ORDER'] if this session value is empty then default sort order will be returned. 
 	 */
@@ -218,7 +202,6 @@ class Memdays extends CRMEntity {
 		$log->debug("Exiting getSortOrder() method ...");
 		return $sorder;
 	}
-
 	/**	Function used to get the order by value for MEMDAYS listview
 	 *	@return string	$order_by  - first check the $_REQUEST['order_by'] if request value is empty then check in the $_SESSION['MEMDAYS_ORDER_BY'] if this session value is empty then default order by will be returned. 
 	 */
@@ -233,7 +216,6 @@ class Memdays extends CRMEntity {
 		$log->debug("Exiting getOrderBy method ...");
 		return $order_by;
 	}
-
 	/**   
 	function used to set the importable fields
     */
@@ -242,7 +224,6 @@ class Memdays extends CRMEntity {
 		foreach($this->column_fields as $key=>$value)
 			$this->importable_fields[$key]=1;
 	}
-
 	/**   
 	function used to set the assigned_user_id value in the column_fields when we map the username during import
     */
@@ -272,7 +253,6 @@ class Memdays extends CRMEntity {
 			}
 		}
 	}
-
 	/**   
 	function used to set the assigned_user_id value in the column_fields when we map the username during import
     */
@@ -332,7 +312,6 @@ class Memdays extends CRMEntity {
 			$focus->column_fields['accountname'] = $acc_name;
 			$focus->column_fields['assigned_user_id'] = $current_user->id;
 			$focus->column_fields['modified_user_id'] = $current_user->id;
-
 			$focus->save("Accounts");
 			$acc_id = $focus->id;
 			// avoid duplicate mappings:
@@ -343,7 +322,6 @@ class Memdays extends CRMEntity {
 		}
 		// now just link the ec_account
         $this->column_fields["account_id"] = $focus->id;
-
     }
     /**
 	check whether record exists during import,
@@ -416,6 +394,5 @@ class Memdays extends CRMEntity {
 			}
 		$log->debug("Exiting setLastdate method ...");
 	}
-
 }
 ?>

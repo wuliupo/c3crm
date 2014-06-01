@@ -36,7 +36,6 @@
 					</button>
 				</div>
 			</div><br><br>
-
 			<div>
 				 <table width=99% align="center" class="lvt small" >
                        
@@ -70,11 +69,7 @@
                     </table>
 				
 			</div>
-
-
-
 			 
-
 		</div>
 		<!--content end-->
 	</div>
@@ -186,7 +181,6 @@ var type = "{$type}";
 function CreateNewTc(){
 	location.href="index.php?module=Settings&action=SmsTcManageEdit";
 }
-
 function getOrderBy(theorderbystr){
 	getListViewEntries_js("Settings",theorderbystr);
 } 
@@ -211,7 +205,5 @@ function getListViewWithPageSize(module,pageElement)
 	var pagesize = pageElement.options[pageElement.options.selectedIndex].value;
 	getListViewEntries_js(module,'pagesize='+pagesize);
 } 
-
 {/literal}
 </script>
-

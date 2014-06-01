@@ -17,7 +17,6 @@
 					<div  id="fieldModal" class="modal hide fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" style="width:650px;margin-left:-380px;">
 					</div>
 					<!-- end of Fields Modal-->
-
 					<!--<div id="createcf" style="display:block;position:absolute;width:500px;"></div>-->
 					<table class="tableHeading" border="0" cellpadding="5" cellspacing="0" width="100%">
 					 <tbody><tr><td class="small" align="left">
@@ -45,8 +44,6 @@
 		</div>
 	</div>
 </div>
-
-
 <script language="JavaScript" type="text/javascript" src="include/js/customview.js"></script>
 <script language="javascript">
 function getCustomFieldList(customField){ldelim}
@@ -59,8 +56,6 @@ function getCustomFieldList(customField){ldelim}
 		{rdelim}
 	{rdelim});
 {rdelim}
-
-
 function getCustomFieldList_old(customField)
 {ldelim}
 	var modulename = customField.options[customField.options.selectedIndex].value;
@@ -75,13 +70,10 @@ function getCustomFieldList_old(customField)
 		{rdelim}
 	);	
 {rdelim}
-
 {literal}
-
 function subForm(id){
 	$("#"+id).submit();
 }
-
 function deleteCustomField(id, fld_module, colName, uitype)
 {
         if(confirm(alert_arr.SURE_TO_DELETE))
@@ -90,9 +82,6 @@ function deleteCustomField(id, fld_module, colName, uitype)
                 document.form.submit()
         }
 }
-
-
-
 function getCreateCustomFieldForm(module,id,tabid,ui){
 	$.ajax({
 		type:"GET",
@@ -105,7 +94,6 @@ function getCreateCustomFieldForm(module,id,tabid,ui){
 	$("#fieldModal").modal('show');
 	gselected_fieldtype = '';
 }
-
 function getCreateCustomFieldForm_old(customField,id,tabid,ui)
 {
         var modulename = customField;
@@ -120,7 +108,6 @@ function getCreateCustomFieldForm_old(customField,id,tabid,ui)
 			}
 		}
 	);
-
 }
 var gselected_fieldtype = '';
 function makeFieldSelected(oField,fieldid)
@@ -139,6 +126,5 @@ function CustomFieldMapping()
         document.form.action="index.php?module=Settings&action=LeadCustomFieldMapping";
         document.form.submit();
 }
-
 {/literal}
 </script>

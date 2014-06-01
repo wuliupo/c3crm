@@ -11,7 +11,6 @@
 require_once('include/CRMSmarty.php');
 require_once('include/database/PearDatabase.php');
 require_once('include/CustomFieldUtil.php');
-
 global $mod_strings;
 global $app_strings;
 $smarty = new CRMSmarty();
@@ -20,10 +19,8 @@ $smarty->assign("APP",$app_strings);
 global $theme;
 $theme_path="themes/".$theme."/";
 $image_path=$theme_path."images/";
-
 $smarty->assign("IMAGE_PATH", $image_path);
 $module_array = getCustomFieldSupportedModules();
-
 $cfimagecombo = Array($image_path."text.gif",
 $image_path."number.gif",
 $image_path."percent.gif",
@@ -36,7 +33,6 @@ $image_path."url.gif",
 $image_path."checkbox.gif",
 $image_path."text.gif",
 $image_path."picklist.gif");
-
 $cftextcombo = Array($mod_strings['Text'],
 $mod_strings['Number'],
 $mod_strings['Percent'],
@@ -50,8 +46,6 @@ $mod_strings['LBL_CHECK_BOX'],
 $mod_strings['LBL_TEXT_AREA'],
 $mod_strings['LBL_MULTISELECT_COMBO']
 );
-
-
 $smarty->assign("MODULES",$module_array);
 $smarty->assign("CFTEXTCOMBO",$cftextcombo);
 $smarty->assign("CFIMAGECOMBO",$cfimagecombo);
@@ -66,16 +60,13 @@ if(isset($_REQUEST["duplicate"]) && $_REQUEST["duplicate"] == "yes")
 	$error= $mod_strings['custom_field_exists'];
 	$smarty->assign("DUPLICATE_ERROR", $error);
 }
-
 if($_REQUEST['mode'] !='')
 	$mode = $_REQUEST['mode'];
 $smarty->assign("MODE", $mode);
-
 if($_REQUEST['ajax'] != 'true')
 	$smarty->display('Settings/CustomBlockList.tpl');	
 else
 	$smarty->display('Settings/CustomBlockEntries.tpl');
-
 	/**
 	* Function to get customfield entries
 	* @param string $module - Module name
@@ -110,17 +101,13 @@ function getBlockListEntries($module)
 			$cf_element['sequence'] = $row["sequence"];
 			//getCreateCustomBlockForm(customModule,blockid,tabid,label,order)
 			$cf_element['tool']='<img src="'.$image_path.'editfield.gif" border="0" style="cursor:pointer;" onClick="fnvshobj(this,\'createblock\');getCreateCustomBlockForm(\''.$module.'\',\''.$row["blockid"].'\',\''.$tabid.'\',\''.$cf_element['label'].'\',\''.$row["sequence"].'\')" alt="Edit" title="Edit"/>&nbsp;|&nbsp;<img style="cursor:pointer;" onClick="deleteCustomBlock('.$row["blockid"].',\''.$module.'\', \''.$row["columnname"].'\', \''.$row["uitype"].'\')" src="'.$image_path.'delete.gif" border="0"  alt="Delete" title="Delete"/></a>';
-
 			$cflist[] = $cf_element;
 			$count++;
 	}
 	return $cflist;
 }
-
-
 /* function to get the modules supports Custom Fields
 */
-
 function getCustomFieldSupportedModules()
 {
 	global $adb;

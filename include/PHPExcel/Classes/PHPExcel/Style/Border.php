@@ -24,8 +24,6 @@
  * @license    http://www.gnu.org/licenses/old-licenses/lgpl-2.1.txt	LGPL
  * @version    1.7.2, 2010-01-11
  */
-
-
 /** PHPExcel root directory */
 if (!defined('PHPEXCEL_ROOT')) {
 	/**
@@ -33,14 +31,10 @@ if (!defined('PHPEXCEL_ROOT')) {
 	 */
 	define('PHPEXCEL_ROOT', dirname(__FILE__) . '/../../');
 }
-
 /** PHPExcel_Style_Color */
 require_once PHPEXCEL_ROOT . 'PHPExcel/Style/Color.php';
-
 /** PHPExcel_IComparable */
 require_once PHPEXCEL_ROOT . 'PHPExcel/IComparable.php';
-
-
 /**
  * PHPExcel_Style_Border
  *
@@ -79,28 +73,24 @@ class PHPExcel_Style_Border implements PHPExcel_IComparable
 	 * @var PHPExcel_Style_Color
 	 */
 	private $_color;
-
 	/**
 	 * Supervisor?
 	 *
 	 * @var boolean
 	 */
 	private $_isSupervisor;
-
 	/**
 	 * Parent. Only used for supervisor
 	 *
 	 * @var PHPExcel_Style_Borders
 	 */
 	private $_parent;
-
 	/**
 	 * Parent property name
 	 *
 	 * @var string
 	 */
 	private $_parentPropertyName;
-
     /**
      * Create a new PHPExcel_Style_Border
      */
@@ -108,17 +98,14 @@ class PHPExcel_Style_Border implements PHPExcel_IComparable
     {
     	// Supervisor?
 		$this->_isSupervisor = $isSupervisor;
-
     	// Initialise values
 		$this->_borderStyle			= PHPExcel_Style_Border::BORDER_NONE;
 		$this->_color			= new PHPExcel_Style_Color(PHPExcel_Style_Color::COLOR_BLACK, $isSupervisor);
-
 		// bind parent if we are a supervisor
 		if ($isSupervisor) {
 			$this->_color->bindParent($this, '_color');
 		}
     }
-
 	/**
 	 * Bind parent. Only used for supervisor
 	 *
@@ -142,7 +129,6 @@ class PHPExcel_Style_Border implements PHPExcel_IComparable
 	{
 		return $this->_isSupervisor;
 	}
-
 	/**
 	 * Get the shared style component for the currently active cell in currently active sheet.
 	 * Only used for style supervisor
@@ -160,30 +146,23 @@ class PHPExcel_Style_Border implements PHPExcel_IComparable
 			case '_vertical':
 				throw new Exception('Cannot get shared component for a pseudo-border.');
 				break;
-
 			case '_bottom':
 				return $this->_parent->getSharedComponent()->getBottom();
 				break;
-
 			case '_diagonal':
 				return $this->_parent->getSharedComponent()->getDiagonal();
 				break;
-
 			case '_left':
 				return $this->_parent->getSharedComponent()->getLeft();
 				break;
-
 			case '_right':
 				return $this->_parent->getSharedComponent()->getRight();
 				break;
-
 			case '_top':
 				return $this->_parent->getSharedComponent()->getTop();
 				break;
-
 		}
 	}
-
 	/**
 	 * Get the currently active sheet. Only used for supervisor
 	 *
@@ -193,7 +172,6 @@ class PHPExcel_Style_Border implements PHPExcel_IComparable
 	{
 		return $this->_parent->getActiveSheet();
 	}
-
 	/**
 	 * Get the currently active cell coordinate in currently active sheet.
 	 * Only used for supervisor
@@ -204,7 +182,6 @@ class PHPExcel_Style_Border implements PHPExcel_IComparable
 	{
 		return $this->getActiveSheet()->getSelectedCells();
 	}
-
 	/**
 	 * Get the currently active cell coordinate in currently active sheet.
 	 * Only used for supervisor
@@ -215,7 +192,6 @@ class PHPExcel_Style_Border implements PHPExcel_IComparable
 	{
 		return $this->getActiveSheet()->getActiveCell();
 	}
-
 	/**
 	 * Build style array from subcomponents
 	 *
@@ -228,46 +204,36 @@ class PHPExcel_Style_Border implements PHPExcel_IComparable
 		case '_allBorders':
 			$key = 'allborders';
 			break;
-
 		case '_bottom':
 			$key = 'bottom';
 			break;
-
 		case '_diagonal':
 			$key = 'diagonal';
 			break;
-
 		case '_horizontal':
 			$key = 'horizontal';
 			break;
-
 		case '_inside':
 			$key = 'inside';
 			break;
-
 		case '_left':
 			$key = 'left';
 			break;
-
 		case '_outline':
 			$key = 'outline';
 			break;
-
 		case '_right':
 			$key = 'right';
 			break;
-
 		case '_top':
 			$key = 'top';
 			break;
-
 		case '_vertical':
 			$key = 'vertical';
 			break;
 		}
 		return $this->_parent->getStyleArray(array($key => $array));
 	}
-
     /**
      * Apply styles from array
      * 

@@ -1,16 +1,12 @@
 <?php
 require_once('include/CRMSmarty.php');
 require_once('modules/Qunfatmps/Qunfatmps.php');
-
 global $mod_strings;
 global $current_user;
 global $adb;
-
 $focus = new Qunfatmps();
 $smarty = new CRMSmarty();
-
 $datetime = date("Y-m-d H:i:s");
-
 if($_REQUEST['mode'] =='save'){
 	$qunfatmpname = $_REQUEST['qunfatmpname'];
 	$description = $_REQUEST['description'];
@@ -27,11 +23,5 @@ if($_REQUEST['mode'] =='save'){
 	echo "<script>window.opener.document.getElementById('sendmessageinfo').value='".$description."';</script>";
 	echo "<script>window.close();</script>>";
 }
-
-
-
-
-
 $smarty->display("Qunfas/CreateTmps.tpl");
-
 ?>

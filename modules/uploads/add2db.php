@@ -8,7 +8,6 @@
  * All Rights Reserved.
 * 
  ********************************************************************************/
-
 require_once('include/database/PearDatabase.php');
 require_once('include/utils/utils.php');
 require_once('include/logging.php');
@@ -22,26 +21,20 @@ foreach($_FILES as $fileindex => $file_details)
 		// Arbitrary File Upload Vulnerability fix - Philip
 		$binFile = $file_details['name'];
 		$ext_pos = strrpos($binFile, ".");
-
 		$ext = substr($binFile, $ext_pos + 1);
-
 		if (in_array($ext, $upload_badext))
 		{
 			$binFile .= ".txt";
 		}
 		// Vulnerability fix ends
-
 		$current_id = $adb->getUniqueID("ec_crmentity");
-
 		$filename = explode_basename($binFile);
 		$filetype= $file_details['type'];
 		$filesize = $file_details['size'];
 		$filetmp_name = $file_details['tmp_name'];
-
 		//get the file path inwhich folder we want to upload the file
 		$upload_file_path = decideFilePath();
 		$upload_status = false;
-
 		//upload the file in server
 		if(is_uploaded_file($filetmp_name)) {
 			$encode_file = base64_encode_filename($binFile);
@@ -55,7 +48,6 @@ foreach($_FILES as $fileindex => $file_details)
 				$query = "insert into ec_crmentity (crmid,smcreatorid,smownerid,setype,description,createdtime,modifiedtime) values('";
 				$query .= $current_id."','".$current_user->id."','".$current_user->id."','".$_REQUEST['return_module'].' Attachment'."','".$description."',".$date_var.",".$date_var.")";	
 				$result = $adb->query($query);
-
 				if ($_REQUEST['return_module'] == 'Contacts')
 				{
 					$crmid = $_REQUEST['return_id'];
@@ -83,12 +75,9 @@ foreach($_FILES as $fileindex => $file_details)
 					}
 				}
 				$filename = preg_replace('/\'/', '', $filename);
-
 				$sql = "insert into ec_attachments values(";
 				$sql .= $current_id.",'".$filename."','".$description."','".$filetype."','".$upload_file_path."')";
 				$result = $adb->query($sql);
-
-
 				$sql1 = "insert into ec_seattachmentsrel values('";
 				$sql1 .= $crmid."','".$current_id."')";
 				$result = $adb->query($sql1);
@@ -98,12 +87,10 @@ foreach($_FILES as $fileindex => $file_details)
 					$sql1 .= $associated_account."','".$current_id."')";
 					$result = $adb->query($sql1);
 				}
-
 				echo '<script>window.opener.location.href = window.opener.location.href;self.close();</script>';		
 		} 
 		else 
 		{
-
 			$errorCode =  $_FILES['binFile']['error'];
 			if($errorCode == 4)
 			{
@@ -128,7 +115,6 @@ foreach($_FILES as $fileindex => $file_details)
 				include "upload.php";
 			}
 			
-
 		}
 	} else {
 		echo "<b><font color='red'>3Problems in file upload. Please try again!</font></b><br>";

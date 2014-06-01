@@ -20,31 +20,24 @@
  * All Rights Reserved.
  * Contributor(s): ______________________________________..
  ********************************************************************************/
-
-
 include_once('config.php');
 require_once('include/logging.php');
 require_once('include/database/PearDatabase.php');
 require_once('modules/Accounts/Accounts.php');
 require_once('modules/Products/Products.php');
 require_once('user_privileges/seqprefix_config.php');
-
 class ImportProduct extends Products {
 	 var $db;
 	 
-
 	// This is the list of the functions to run when importing
 	var $special_functions =  array("catalog","add_create_vendor");
-
 	var $importable_fields = Array();
-
 	/**   function used to set the assigned_user_id value in the column_fields when we map the username during import
          */
 	function assign_user()
 	{
 		global $current_user;
 		$ass_user = $this->column_fields["assigned_user_id"];
-
 		if( $ass_user != $current_user->id)
 		{
 			$result = $this->db->query("select id from ec_users where user_name = '".$ass_user."'");
@@ -54,7 +47,6 @@ class ImportProduct extends Products {
 			}
 			else
 			{
-
 				$row = $this->db->fetchByAssoc($result, -1, false);
 				if (isset($row['id']) && $row['id'] != -1)
         	    {
@@ -67,34 +59,24 @@ class ImportProduct extends Products {
 			}
 		}
 	}
-
 	/**	function used to create or map with existing vendor if the product has mapped with an vendor during import
 	 */
 	function add_create_vendor()
     {
-
 		global $imported_ids;
         global $current_user;
-
 		$vendor_name = trim($this->column_fields['vendor_id']);
-
 		if ((! isset($vendor_name) || $vendor_name == '') )
 		{
 			return;
 		}
-
         $arr = array();
-
 		// check if it already exists
         $focus = new Vendors();
-
 		$query = '';
-
 		// if user is defining the ec_vendor id to be associated with this contact..
-
 		//Modified to remove the spaces at first and last in ec_account name -- after 4.2 patch 2
 		$vendor_name = trim(addslashes($vendor_name));
-
 		//Modified the query to get the available vendor only ie., which is not deleted
 		$query = "select * from ec_vendor WHERE vendorname like '%{$vendor_name}%' and deleted=0";
 		$result = $this->db->query($query);
@@ -104,7 +86,6 @@ class ImportProduct extends Products {
 		{
 			$focus->id = $row['vendorid'];
 		}
-
 		// if we didnt find the ec_account, so create it
 		if (! isset($focus->id) || $focus->id == '')
 		{
@@ -121,7 +102,6 @@ class ImportProduct extends Products {
 		}
 		// now just link the ec_vendor
         $this->column_fields["vendor_id"] = $focus->id;
-
     }
 	/**
 	  *function used to set the catalog value in the column_fields when we map the catalogname during import
@@ -138,11 +118,9 @@ class ImportProduct extends Products {
 			$this->column_fields["catalogid"] = "";
 		}
 	}
-
 	/** Constructor which will set the importable_fields as $this->importable_fields[$key]=1 in this object where key is the fieldname in the field table
 	 */
 	function ImportProduct() {
-
 		$this->log = LoggerManager::getLogger('import_product');
 		$this->db = & getSingleDBInstance();
 		$colf = getColumnFields("Products");
@@ -150,14 +128,12 @@ class ImportProduct extends Products {
 			$this->importable_fields[$key]=1;
 	}
 	function ClearColumnFields() {
-
 		$this->log = LoggerManager::getLogger('import_product');
 		$this->db = & getSingleDBInstance();
 		$colf = getColumnFields("Products");
 		foreach($colf as $key=>$value)
 			$this->column_fields[$key]='';
 	}
-
 	function save($module) {
 		global $app_strings;
 		global $product_seqprefix;
@@ -200,7 +176,6 @@ class ImportProduct extends Products {
 		}
 		$this->ClearColumnFields();
 	}
-
 	function saveInventPro(){
 		$subject=$this->column_fields['subject'];
 		$productname=$this->column_fields['productname'];
@@ -215,7 +190,6 @@ class ImportProduct extends Products {
 		if ($this->db->getRowCount($result ) >= 1) {
 			$salesorderid = $this->db->query_result($result,0,"salesorderid");
 		}
-
 		$productid='';
 		$where_clause2 = "and ec_products.productname='".trim($productname)."'";
 		$query2 = "SELECT ec_products.productid FROM ec_products where deleted=0 $where_clause2";
@@ -223,8 +197,6 @@ class ImportProduct extends Products {
 		if ($this->db->getRowCount($result2 ) >= 1) {
 			$productid = $this->db->query_result($result2,0,"productid");
 		}
-
-
 		if($salesorderid !='' && $productid !=''){
 			
 			$this->db->query("delete from ec_inventoryproductrel where id=".$salesorderid." ");
@@ -233,7 +205,6 @@ class ImportProduct extends Products {
 			$eof =  $this->db->query($insertsql);
 			
 		}
-
 		$this->column_fields['subject']='';
 		$this->column_fields['productname']='';
 		$this->column_fields['listprice']='';
@@ -246,13 +217,11 @@ class ImportProduct extends Products {
 			return "2";
 		  }
 	}
-
 	function insertIntoEntityTable($table_name, $module)
 	{
 	  global $log;
   	  global $current_user;
 	  $log->debug("Entering into function insertIntoEntityTable()");
-
       if(isset($this->column_fields['createdtime']) && $this->column_fields['createdtime'] != "") {
 			$createdtime = getDisplayDate_WithTime($this->column_fields['createdtime']);
 		} else {
@@ -285,7 +254,6 @@ class ImportProduct extends Products {
 		  }
 		  setSqlCacheData($key,$importColumns);
 	  }
-
 	  if($this->mode == 'edit') {
 		  $update = "";
 		  $iCount = 0;
@@ -313,7 +281,6 @@ class ImportProduct extends Products {
 		      $sql1 = "update ".$table_name." set modifiedby='".$current_user->id."',modifiedtime=NOW(),".$update." where ".$this->tab_name_index[$table_name]."=".$this->id;
 		       $eof =  $this->db->query($sql1);
 		  }
-
 	  } else {
 		  $column = $this->tab_name_index[$table_name];
 	      $value = $this->id;
@@ -331,7 +298,6 @@ class ImportProduct extends Products {
 				  }
 			  }
 		  }
-
 		  $sql1 = "insert into ".$table_name." (".$column.",smcreatorid,smownerid,createdtime,modifiedtime) values(".$value.",'".$current_user->id."','".$current_user->id."',NOW(),NOW())"; 
 		   $eof =  $this->db->query($sql1);
 	  }
@@ -343,8 +309,6 @@ class ImportProduct extends Products {
 		return false;
 	  }
 	}
-
-
 	function saveentity($module)
 	{
 		global $current_user;
@@ -370,6 +334,5 @@ class ImportProduct extends Products {
 			return false;
 		  }
 	}
-
 }
 ?>

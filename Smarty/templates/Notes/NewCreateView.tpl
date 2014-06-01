@@ -1,5 +1,4 @@
 {*<!--
-
 /*********************************************************************************
 ** The contents of this file are subject to the vtiger CRM Public License Version 1.0
  * ("License"); You may not use this file except in compliance with the License
@@ -9,17 +8,13 @@
  * All Rights Reserved.
 *
  ********************************************************************************/
-
 -->*}
-
 {*<!-- module header -->*}
 <script type="text/javascript" src="modules/{$MODULE}/{$SINGLE_MOD}.js"></script>
 		{include file='Buttons_List_create.tpl'}
-
 {*<!-- Contents -->*}
 <table border=0 cellspacing=0 cellpadding=0 width=98% align=center>
    <tr>
-
 	<td class="showPanelBg" valign=top width=100%>
 	     {*<!-- PUBLIC CONTENTS STARTS-->*}
 	     <div class="small" style="padding:0px">
@@ -53,10 +48,8 @@
 		   </tr>
 		   <tr>
 			<td valign=top align=left >
-
 			    <!-- Basic Information Tab Opened -->
 			    <div id="basicTab">
-
 				<table border=0 cellspacing=0 cellpadding=3 width=100% class="dvtContentSpace">
 				   <tr>
 					<td align=left>
@@ -70,8 +63,6 @@
 							<td style="padding:10px">
 							<!-- General details -->
 								<table border=0 cellspacing=0 cellpadding=0 width=100% class="small">
-
-
 								   {foreach key=header item=data from=$BASBLOCKS}
 								   <tr>
 									
@@ -80,11 +71,9 @@
 									
 							 			</td>
 		                           </tr>
-
 								   <!-- Here we should include the uitype handlings-->
 								   {include file="DisplayFields2.tpl"}
 								   {/foreach}
-
 								   <tr>
 									<td  colspan=4 style="padding:5px">
 									   <div align="center">
@@ -105,7 +94,6 @@
 					
 			    </div>
 			    <!-- Basic Information Tab Closed -->		    
-
 			</td>
 		   </tr>
 		</table>
@@ -114,21 +102,11 @@
    </tr>
 </table>
 </form>
-
 <script>
-
-
-
         var fieldname = new Array({$VALIDATION_DATA_FIELDNAME})
-
         var fieldlabel = new Array({$VALIDATION_DATA_FIELDLABEL})
-
         var fielddatatype = new Array({$VALIDATION_DATA_FIELDDATATYPE})
-
 {literal}
 	
 {/literal}
 </script>
-
-
-

@@ -4,7 +4,6 @@
 * Spanish version
 * Versión en español
 */
-
 $PHPMAILER_LANG['authenticate']         = 'Error SMTP: No se pudo autentificar.';
 $PHPMAILER_LANG['connect_host']         = 'Error SMTP: No puedo conectar al servidor SMTP.';
 $PHPMAILER_LANG['data_not_accepted']    = 'Error SMTP: Datos no aceptados.';

@@ -19,8 +19,6 @@
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  * @version    $Id: Interface.php 23775 2011-03-01 17:25:24Z ralph $
  */
-
-
 /**
  * @category   Zend
  * @package    Zend_Mail
@@ -28,7 +26,6 @@
  * @copyright  Copyright (c) 2005-2011 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  */
-
 interface Zend_Mail_Storage_Writable_Interface
 {
     /**
@@ -43,7 +40,6 @@ interface Zend_Mail_Storage_Writable_Interface
      * @throws Zend_Mail_Storage_Exception
      */
     public function createFolder($name, $parentFolder = null);
-
     /**
      * remove a folder
      *
@@ -52,7 +48,6 @@ interface Zend_Mail_Storage_Writable_Interface
      * @throws Zend_Mail_Storage_Exception
      */
     public function removeFolder($name);
-
     /**
      * rename and/or move folder
      *
@@ -64,7 +59,6 @@ interface Zend_Mail_Storage_Writable_Interface
      * @throws Zend_Mail_Storage_Exception
      */
     public function renameFolder($oldName, $newName);
-
     /**
      * append a new message to mail storage
      *
@@ -74,7 +68,6 @@ interface Zend_Mail_Storage_Writable_Interface
      * @throws Zend_Mail_Storage_Exception
      */
     public function appendMessage($message, $folder = null, $flags = null);
-
     /**
      * copy an existing message
      *
@@ -84,7 +77,6 @@ interface Zend_Mail_Storage_Writable_Interface
      * @throws Zend_Mail_Storage_Exception
      */
     public function copyMessage($id, $folder);
-
     /**
      * move an existing message
      *
@@ -94,7 +86,6 @@ interface Zend_Mail_Storage_Writable_Interface
      * @throws Zend_Mail_Storage_Exception
      */
     public function moveMessage($id, $folder);
-
     /**
      * set flags for message
      *

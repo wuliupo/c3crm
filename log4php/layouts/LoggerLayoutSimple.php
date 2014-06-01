@@ -16,12 +16,10 @@
  * @package log4php
  * @subpackage layouts
  */
-
 /**
  * @ignore 
  */
 if (!defined('LOG4PHP_DIR')) define('LOG4PHP_DIR', dirname(__FILE__) . '/..');
-
 if (!defined('LOG4PHP_LINE_SEP')) {
     if (substr(php_uname(), 0, 7) == "Windows") { 
         define('LOG4PHP_LINE_SEP', "\r\n");
@@ -32,12 +30,10 @@ if (!defined('LOG4PHP_LINE_SEP')) {
         define('LOG4PHP_LINE_SEP', "\n");
     }
 }
-
  
 /**
  */
 require_once(LOG4PHP_DIR . '/LoggerLayout.php');
-
 /**
  * A simple layout.
  *
@@ -60,12 +56,10 @@ class LoggerLayoutSimple extends LoggerLayout {
     {
         return;
     }
-
     function activateOptions() 
     {
         return;
     }
-
     /**
      * Returns the log statement in a format consisting of the
      * <b>level</b>, followed by " - " and then the

@@ -2,7 +2,6 @@
 require_once('modules/Accounts/Accounts.php');
 require_once('include/utils/utils.php');
 require_once('modules/Accounts/Accountsrel.php');
-
 $rel_focus = new Accountsrel();
 $account_focus = new Accounts();
 global $adb,$current_user;
@@ -10,23 +9,16 @@ global $currentModule;
 global $theme;
 $theme_path="themes/".$theme."/";
 $image_path=$theme_path."images/";
-
 $type = $_REQUEST["type"];
 $_SESSION['list_type'] = $type;
-
 $record = $_REQUEST["record"];
-
 if(!$type || $type == ''){
 	echo '';die;
 }
-
 $infohtml = '<table class="dvtContentSpace" width="100%" style="border-top: 1px solid rgb(222, 222, 222);" border="0"><tbody><tr><td style="padding:1px;">';
 if($type == 'DetailsOrders'){
 	
 	$infohtml .= '<table style="background-color: rgb(234, 234, 234);" class="small" width="100%" border="0" cellpadding="3" cellspacing="1" >
-
-
-
       <tr style="height: 20px;">
         <td class="lvtCol2"  nowrap>订单编号</td>
 		<td class="lvtCol2"  nowrap>订单状态</td>
@@ -37,10 +29,8 @@ if($type == 'DetailsOrders'){
 		<td class="lvtCol2"  nowrap>提成金额</td>
 		<td class="lvtCol2"  nowrap>编辑|删除</td>
       </tr>';
-
   if(!empty($record)){
 	  $relorderinfo = $rel_focus->getDetailsOrderInfo($record);
-
 	  if($relorderinfo && $relorderinfo != ''){
 		  $i = 1;
 		 foreach($relorderinfo as $orderinfo){
@@ -63,35 +53,20 @@ if($type == 'DetailsOrders'){
 	  $infohtml .= '<tr style="height: 20px;"><td><input class="crmbutton small create" type="button" value="新增订单" name="Create" onclick="javascript:location.href=\'index.php?module=SalesOrder&action=EditView&return_module=Accounts&return_id='.$record.'\'" accesskey="新增订单" title="新增订单"></td></tr>';
 	 }
 }else if($type == 'Receiveinfo'){
-
 	$infohtml .= '<table style="background-color: rgb(234, 234, 234);" class="small" width="100%" border="0" cellpadding="3" cellspacing="1">
-
-
       <tr style="height: 20px;">
-
         <td class="lvtCol2"  nowrap>收货人姓名</td>
-
         <td class="lvtCol2"  nowrap>所在省份</td>
-
         <td class="lvtCol2"  nowrap>所在市</td>
-
         <td class="lvtCol2"  nowrap>所在区</td>
-
         <td class="lvtCol2"  nowrap>详细地址</td>
-
         <td class="lvtCol2"  nowrap>邮编</td>
-
 	    <td class="lvtCol2"  nowrap>手机号码</td>
-
         <td class="lvtCol2"  nowrap>联系电话</td>
-
         <td class="lvtCol2"  nowrap>E-mail</td>
-
       </tr>';
-
 	 if(!empty($record)){
 		$relreceiveinfo = $rel_focus->getReceiveInfo($record);
-
 		if($relreceiveinfo && $relreceiveinfo != ''){
 		  $i = 1;
 		    foreach($relreceiveinfo as $receiveinfo){
@@ -110,12 +85,9 @@ if($type == 'DetailsOrders'){
 		    }
 		 }
 	 }
-
 	$infohtml .= '</table>';
 }else if($type == 'BuyProducts'){
-
 	$infohtml .= '<table style="background-color: rgb(234, 234, 234);" class="small" width="100%"  border="0" cellpadding="3" cellspacing="1">
-
       <tr style="height: 20px;">
 		<td class="lvtCol2"  nowrap>订单编号</td>
         <td class="lvtCol2"  nowrap>订单日期</td>
@@ -126,10 +98,8 @@ if($type == 'DetailsOrders'){
         <td class="lvtCol2" nowrap>价格</td>
         <td class="lvtCol2" nowrap>商品URL</td>
       </tr>';
-
 	 if(!empty($record)){
 		$relreceiveinfo = $rel_focus->getBuyProducts($record);
-
 		if($relreceiveinfo && $relreceiveinfo != ''){
 		  $i = 1;
 		    foreach($relreceiveinfo as $productinfo){
@@ -142,13 +112,11 @@ if($type == 'DetailsOrders'){
 								<td nowrap>'.$productinfo['salesum'].'</td>
 								<td nowrap>'.$productinfo['price'].'</td>
 								<td nowrap>'.$productinfo['detail_url'].'</td>
-
 							  </tr>';
 					$i++;
 		    }
 		 }
 	 }
-
 	$infohtml .= '</table>';
 }else if($type == 'Contacts'){
 	$infohtml .= '<table style="background-color: rgb(234, 234, 234);"  class="small" width="100%"  border="0" cellpadding="3" cellspacing="1" >';
@@ -163,10 +131,8 @@ if($type == 'DetailsOrders'){
 		<td class="lvtCol2" nowrap>QQ</td>
 		<td class="lvtCol2" nowrap>编辑|删除</td>
       </tr>';
-
 	 if(!empty($record)){
 		$relcontactinfos = $rel_focus->getContactInfo($record);
-
 		if($relcontactinfos && $relcontactinfos != ''){
 		  $i = 1;
 		    foreach($relcontactinfos as $relcontactinfo){
@@ -184,14 +150,12 @@ if($type == 'DetailsOrders'){
 		    }
 		 }
 	 }
-
 		$infohtml .= '</table>';
 		if($record != ''){
 		  $infohtml .= '<tr style="height: 20px;"><td><input class="crmbutton small create" type="button" value="新增联系人" name="Create" onclick="javascript:location.href=\'index.php?module=Contacts&action=EditView&return_module=Accounts&return_id='.$record.'\'" accesskey="新增联系人" title="新增联系人"></td></tr>';
 		 }
 }else if($type == 'Noteinfo'){
 	$infohtml .= '<table style="background-color: rgb(234, 234, 234);"  class="small" width="100%"  border="0" cellpadding="3" cellspacing="1">';
-
      $infohtml .= ' <tr style="height: 20px;">
         <td class="lvtCol2"  nowrap width="20%">主题</td>
         <td class="lvtCol2" nowrap>联系类型</td>
@@ -201,10 +165,8 @@ if($type == 'DetailsOrders'){
 		<td class="lvtCol2" nowrap>内容</td>
 		<td class="lvtCol2" nowrap>编辑|删除</td>
       </tr>';
-
 	 if(!empty($record)){
 		$relnoteinfos = $rel_focus->getDetailsNoteInfo($record);
-
 		if($relnoteinfos && $relnoteinfos != ''){
 		  $i = 1;
 		    foreach($relnoteinfos as $relnoteinfo){
@@ -221,7 +183,6 @@ if($type == 'DetailsOrders'){
 		    }
 		 }
 	 }
-
 		$infohtml .= '</table>';
 	
 	if($record != ''){
@@ -230,7 +191,6 @@ if($type == 'DetailsOrders'){
 }else if($type == 'Qunfas'){
 	$infohtml .= '<table style="background-color: rgb(234, 234, 234);" class="small" width="100%"  border="0" cellpadding="3" cellspacing="1">';
      $infohtml .= ' <tr style="height: 20px;">
-
 		 <td class="lvtCol2" nowrap>#</td>
         <td class="lvtCol2" nowrap>接收人</td>
 		
@@ -241,15 +201,12 @@ if($type == 'DetailsOrders'){
 		<td class="lvtCol2" nowrap>发送结果</td>
 		
 		<td class="lvtCol2" nowrap>发送时间</td>
-
       </tr>';
-
 	 if(!empty($record)){
 		$qunfainfos = $rel_focus->getQunfasInfo($record); 
 		
 		//$qunfainfos = json_encode($qunfainfos);
 		//print_r($qunfainfos);die;
-
 		if($qunfainfos && $qunfainfos != ''){
 		  $i = 1;
 		    foreach($qunfainfos as $qunfainfo){
@@ -265,21 +222,16 @@ if($type == 'DetailsOrders'){
 		    }
 		 }
 	 }
-
 		$infohtml .= '</table>';
 		if($record != ''){
 		  $infohtml .= '<tr style="height: 20px;"><td><input class="crmbutton small create" type="button" value="发送短信" name="Create" onclick="javascript:location.href=\'index.php?module=Qunfas&action=ListView&idstring='.$record.'&modulename=Accounts\'" accesskey="发送短信" title="发送短信"></td></tr>';
 		 }
-
 }else if($type == 'Maillists'){
 	$infohtml .= '<table style="background-color: rgb(234, 234, 234);" class="small" width="100%"  border="0" cellpadding="3" cellspacing="1">';
      $infohtml .= ' <tr style="height: 20px;">
-
-
         <td class="lvtCol2" nowrap>接收人</td>
 		
 		<td class="lvtCol2" nowrap>接收人邮件</td>
-
 		<td class="lvtCol2" nowrap>邮件主题</td>
 		
 		<td class="lvtCol2" nowrap>邮件内容</td>
@@ -289,10 +241,8 @@ if($type == 'DetailsOrders'){
 		<td class="lvtCol2" nowrap>发送时间</td>
 		
       </tr>';
-
 	 if(!empty($record)){
 		$maillistinfos = $rel_focus->getMaillistsInfo($record);
-
 		if($maillistinfos && $maillistinfos != ''){
 		  $i = 1;
 		    foreach($maillistinfos as $maillistinfo){
@@ -308,12 +258,10 @@ if($type == 'DetailsOrders'){
 		    }
 		 }
 	 }
-
 		$infohtml .= '</table>';
 		if($record != ''){
 				  $infohtml .= '<tr style="height: 20px;"><td><input class="crmbutton small create" type="button" value="发送邮件" name="Create" onclick="javascript:location.href=\'index.php?module=Maillists&action=ListView&idstring='.$record.'&modulename=Accounts\'" accesskey="发送邮件" title="发送邮件"></td></tr>';
 		 }
-
 }else if($type == 'Memdays'){
 	
 	$infohtml .= '<table style="background-color: rgb(234, 234, 234);" class="small" width="100%"  border="0" cellpadding="3" cellspacing="1">';
@@ -325,7 +273,6 @@ if($type == 'DetailsOrders'){
 						<td class="lvtCol2" nowrap>下次提醒</td>
 						<td class="lvtCol2" nowrap>编辑|删除</td>
 						</tr>';
-
 	 if(!empty($record)){
 		$reshtml = $rel_focus->getMemdaysInfo($record);
 		if($reshtml && !empty($reshtml)){
@@ -333,7 +280,6 @@ if($type == 'DetailsOrders'){
 		}
 		
 	 }
-
 		$infohtml .= '</table>';
 	if($record != ''){
 	  $infohtml .= '<tr style="height: 20px;"><td><input class="crmbutton small create" type="button" value="新增纪念日" name="Create" onclick="javascript:location.href=\'index.php?module=Memdays&action=EditView&return_module=Accounts&return_id='.$record.'\'" accesskey="新增纪念日" title="新增纪念日"></td></tr>';
@@ -343,7 +289,6 @@ if($type == 'DetailsOrders'){
 	$dzsmarr = array("manual"=>"具体事务","sms"=>"发短信","email"=>"发邮件");
 $zxztarr = array("成功"=>"s31.png","跳过"=>"s32.png","再次执行"=>"me.png","执行失败"=>"s33.png","未执行"=>"me.png","自动执行中"=>"s34.png",);
 $bjztarr = array("正在执行期内"=>"jinxing","过期未执行的"=>"guoqi","正常的"=>"zhengchang");
-
 $query = "select * from ec_sfalists where accountid='".$record."' and deleted=0 and smownerid='".$current_user->id."'";
 $result = $adb->getList($query);
 	$Sfalists_now = array();
@@ -385,7 +330,6 @@ $result = $adb->getList($query);
 			
 		}
 	}
-
 	$query = "select * from ec_sfalogs where logstatus !='未执行' and accountid='".$record."' and smownerid='".$current_user->id."' and sfalisteventsid !=0  and (modifiedtime >= '".date("Y-m-d")." 00:00:00' && modifiedtime <= '".date("Y-m-d")." 59:59:59') order by modifiedtime desc"; 
 	$result = $adb->getList($query);
 	foreach($result as $row)
@@ -393,8 +337,6 @@ $result = $adb->getList($query);
 		$sfalogsid = $row['sfalogsid'];
 		$sfalogs[$sfalogsid] = "<img src=\"themes/softed/images/s1.png\" border=0/> &nbsp;&nbsp;[".$row['logstatus']."] &nbsp;&nbsp;<a href=\"#\" onclick=\"openRunEvent(".$row['sfalisteventsid'].");return false;\">".$row['sj']."</a> &nbsp;&nbsp; (执行时间: <font color=\"#666666\">".$row['modifiedtime']."</font>)";
 	}
-
-
 	$query = "select * from ec_sfasettings where sfastatus='已启用' and deleted=0 and smownerid='".$current_user->id."' ";
 	$result = $adb->query($query);
 	$num_rows = $adb->num_rows($result);
@@ -411,7 +353,6 @@ $result = $adb->getList($query);
 			$sfasettingshtml .='<option value="'.$sfa_id.'">'.$sfa_name.'</option>';
 		}
 	}
-
 	
 	$infohtml .= '<table class="small" width="100%"  border="0" cellpadding="3" cellspacing="1">';
 	if($record != ''){
@@ -484,10 +425,8 @@ $result = $adb->getList($query);
 	$infohtml .= '';
 }
 $infohtml .= '</td></tr><tr><td>&nbsp;&nbsp;&nbsp;</td></tr></tbody></table>';
-
 echo $infohtml;
 exit();
-
 function getSfasettingName($sfasettingsid){
 	global $adb;
 	$query = "select sfasettingname from ec_sfasettings where sfasettingsid='".$sfasettingsid."' and deleted=0";
@@ -498,7 +437,6 @@ function getSfasettingName($sfasettingsid){
 	}
 	return $sfasettingname;
 }
-
 function getSfalistEvent($sfalistsid){
 	global $adb;
 	$query = "select * from ec_sfalistevents where sfalistsid='".$sfalistsid."' order by datestart ";
@@ -529,5 +467,4 @@ function getSfalistEvent($sfalistsid){
 	}
 	return $arr3;	
 }
-
 ?>

@@ -8,10 +8,7 @@ require_once('modules/Users/Users.php');
 require_once('modules/Products/Products.php');
 require_once('include/utils/UserInfoUtil.php');
 require_once('modules/CustomView/CustomView.php');
-
 global $allow_exports;
-
-
 /**Function convert line breaks to space in description during export 
  * Pram $str - text
  * retrun type string
@@ -24,7 +21,6 @@ function br2nl_vt($str)
 	$log->debug("Exiting br2nl_vt method ...");
 	return $str;
 }
-
 /**This function exports all the data for a given module
  * Param $type - module name
  * Return type text
@@ -34,10 +30,8 @@ function export_all($type)
 	global $log,$list_max_entries_per_page;
 	$log->debug("Entering export_all(".$type.") method ...");
 	global $adb;
-
 	$focus = 0;
 	$content = '';
-
 	if ($type != "")
 	{
 		//changed by dingjianting on 2009-2-15 for supporting new module
@@ -46,7 +40,6 @@ function export_all($type)
 	}
 	$where = '';
 	/*
-
 	if ( isset($_REQUEST['all']) )
 	{
 		$where = '';
@@ -63,7 +56,6 @@ function export_all($type)
 		$allids =  substr($allids,0,-1);
 		$where = $crmid." in (".$allids.")";
 	}
-
 	$search_type = $_REQUEST['search_type'];
     $export_data = $_REQUEST['export_data'];
 	$viewname = $_REQUEST['viewname'];
@@ -71,18 +63,14 @@ function export_all($type)
 	$ec_crmentity = $entityArr["tablename"];
 	$entityidfield = $entityArr["entityidfield"];
 	$crmid = $ec_crmentity.".".$entityidfield;
-
 	$order_by = "";
-
 	$query = $focus->create_export_query($order_by,$where);
   
-
 	if(isset($_SESSION['export_where']) && $_SESSION['export_where']!='' && $search_type == 'includesearch')
 	{
 		$where = $_SESSION['export_where'];
 		$query .= ' and  ('.$where.') ';
 	}
-
 	if(($search_type == 'withoutsearch' || $search_type == 'includesearch') && $export_data == 'selecteddata')
 	{
 		$idstring = str_replace(";",",",$_REQUEST['idstring']);
@@ -101,9 +89,7 @@ function export_all($type)
 		}
 	}
 	
-
 	
-
 	if(isset($_SESSION['nav_start']) && $_SESSION['nav_start'] != '' && $export_data == 'currentpage')
 	{
 		$start_rec = $_SESSION['nav_start'];
@@ -116,7 +102,6 @@ function export_all($type)
 		$result = $adb->query($query,true,"Error exporting $type: "."<BR>$query");
 	}
 	$numRows = $adb->num_rows($result);
-
 	$fields_array = $adb->getFieldsArray($result);
 	global $current_language;
 	$spec_mod_strings = return_specified_module_language($current_language,$type);
@@ -126,17 +111,14 @@ function export_all($type)
 		}
 	}
 	
-
 	$header = implode("\",\"",array_values($fields_array));
 	$header = "\"" .$header;
 	$header .= "\"\r\n";
 	$content .= $header;
-
 	$column_list = implode(",",array_values($fields_array));
     foreach($result as $val)
 	{
 		$new_arr = array();
-
 		foreach ($val as $key => $value)
 		{
 			if($key=="description")
@@ -154,16 +136,13 @@ function export_all($type)
 	return $content;
 	
 }
-
 $content = export_all($_REQUEST['module']);
-
 ob_end_clean();
 header("Expires: ".gmdate("D, d M Y H:i:s")." GMT");
 header("Last-Modified: ".gmdate("D, d M Y H:i:s")." GMT");
 header("X-DNS-Prefetch-Control: off");
 header("Cache-Control: private, no-cache, must-revalidate, post-check=0, pre-check=0");
 header("Pragma: no-cache");
-
 header("Content-Type: application/octet-stream");
 header("Content-Type: application/force-download");
 header("Content-Disposition: attachment; filename={$_REQUEST['module']}.csv");

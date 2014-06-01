@@ -17,7 +17,6 @@
 //               www.tecnick.com
 //               info@tecnick.com
 //============================================================+
-
 /**
  * Configuration file for TCPDF.
  * @author Nicola Asuni
@@ -28,9 +27,7 @@
  * @license http://www.gnu.org/copyleft/lesser.html LGPL
  * @since 2004-10-27
  */
-
 // If you define the constant K_TCPDF_EXTERNAL_CONFIG, the following settings will be ignored.
-
 if (!defined('K_TCPDF_EXTERNAL_CONFIG')) {
 	
 	// DOCUMENT_ROOT fix for IIS Webserver
@@ -225,7 +222,6 @@ if (!defined('K_TCPDF_EXTERNAL_CONFIG')) {
 	 */
 	define('K_SMALL_RATIO', 2/3);
 }
-
 //============================================================+
 // END OF FILE                                                 
 //============================================================+

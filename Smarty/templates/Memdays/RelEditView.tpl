@@ -4,7 +4,6 @@
     <button class="close" type="button" data-dismiss="modal" aria-hidden="true">&times;</button>
     <h3>修改纪念日</h3>
 </div>
-
 <div class="modal-body" style="max-height:500px">
 	{*<!-- Contents -->*}
 	<form name="EditView" method="POST" action="index.php">
@@ -18,7 +17,6 @@
 	<input type="hidden" name="return_action" value="{$RETURN_ACTION}">
 	<input type="hidden" name="return_viewname" value="{$RETURN_VIEWNAME}">
 	<input type="hidden" name="moduletype" value="Memdays">
-
 	<!-- center start -->
 		 <div class="container-fluid">
 			<div class="row-fluid">
@@ -63,10 +61,6 @@
 </div>
 <div class="modal-footer">
 </div>
-
-
-
-
 <script>	
         var fieldname = new Array({$VALIDATION_DATA_FIELDNAME})
         var fieldlabel = new Array({$VALIDATION_DATA_FIELDLABEL})

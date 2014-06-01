@@ -21,8 +21,6 @@ session_start();
 //
 ////构造Url
 //$url = $rooturl . $strParam;
-
-
 //unset($_SESSION['sign']); 
 unset($_SESSION['nick']); 
 unset($_SESSION['authenticated_user_id']); 

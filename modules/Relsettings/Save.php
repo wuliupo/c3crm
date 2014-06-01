@@ -10,20 +10,17 @@ $server_type = $_REQUEST['server_type'];
 $from_email = $_REQUEST['from_email'];
 $from_name = $_REQUEST['from_name'];
 $interval = $_REQUEST['interval'];
-
 $db_update = true;
 if($_REQUEST['smtp_auth'] == 'on' || $_REQUEST['smtp_auth'] == 1)
 	$smtp_auth = 'true';
 else
 	$smtp_auth = 'false';
-
 $date_array = $adb->getFirstLine("select * from ec_systems where server_type='".$server_type."' and smownerid='".$current_user->id."'");
 if(empty($date_array)) {
 	$id ='';
 }else{
 	$id =$date_array['id'];
 }
-
 if($db_update)
 {
 	if($id=='')
@@ -33,11 +30,8 @@ if($db_update)
 	}else{
 		$sql="update ec_systems set server = '".$server."', server_username = '".$server_username."', server_password = '".$server_password."', smtp_auth='".$smtp_auth."', server_type = '".$server_type."',from_name = '".$from_name."',from_email = '".$from_email."',server_port='".$port."',smownerid='".$current_user->id."',`interval`='".$interval."' where id = ".$id;
 	}
-
 	$adb->query($sql);
 }
-
-
 $options = array(
 	'id' => $id,
 	'server' => $server,
@@ -53,15 +47,12 @@ $options = array(
 if($server_type =='email'){
 	$key = "webmail_array_".$current_user->id;
 }
-
 setSqlCacheData($key,$options);	
-
 //Added code to send a test mail to the currently logged in user
 if($server_type != 'backup' && $server_type != 'proxy')
 {
 	include_once("modules/Webmails/mail.php");
 	global $current_user;
-
 	$to_email = $server_username;
 	$subject = $mod_strings['Test_mail_configuration'];
 	$description = $mod_strings['Test_mail_Description'];
@@ -77,11 +68,9 @@ if($server_type != 'backup' && $server_type != 'proxy')
 	//$action = 'EmailConfig';
 	//if($error_str != "")
 		//$action = 'EmailConfig&emailconfig_mode=edit';
-
         $action = 'index';
 	if($error_str != "")
 		$action = 'index&emailconfig_mode=edit';
-
 }
 redirect("index.php?module=Relsettings&parenttab=Settings&action=$action&$error_str");
 ?>

@@ -18,7 +18,6 @@
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  * @version    $Id: Loader.php 23775 2011-03-01 17:25:24Z ralph $
  */
-
 /**
  * Static methods for loading classes and files.
  *
@@ -54,12 +53,10 @@ class Zend_Loader
         if (class_exists($class, false) || interface_exists($class, false)) {
             return;
         }
-
         if ((null !== $dirs) && !is_string($dirs) && !is_array($dirs)) {
             require_once 'include/Zend/Exception.php';
             throw new Zend_Exception('Directory argument must be a string or an array');
         }
-
         // Autodiscover the path from the class name
         // Implementation is PHP namespace-aware, and based on
         // Framework Interop Group reference implementation:
@@ -73,7 +70,6 @@ class Zend_Loader
             $file      = str_replace('\\', DIRECTORY_SEPARATOR, $namespace) . DIRECTORY_SEPARATOR;
         }
         $file .= str_replace('_', DIRECTORY_SEPARATOR, $className) . '.php';
-
         if (!empty($dirs)) {
             // use the autodiscovered path
             $dirPath = dirname($file);
@@ -93,13 +89,11 @@ class Zend_Loader
         } else {
             self::loadFile($file, null, true);
         }
-
         if (!class_exists($class, false) && !interface_exists($class, false)) {
             require_once 'include/Zend/Exception.php';
             throw new Zend_Exception("File \"$file\" does not exist or class \"$class\" was not found in the file");
         }
     }
-
     /**
      * Loads a PHP file.  This is a wrapper for PHP's include() function.
      *
@@ -126,7 +120,6 @@ class Zend_Loader
     public static function loadFile($filename, $dirs = null, $once = false)
     {
         self::_securityCheck($filename);
-
         /**
          * Search in provided directories, as well as include_path
          */
@@ -138,7 +131,6 @@ class Zend_Loader
             $incPath = get_include_path();
             set_include_path($dirs . PATH_SEPARATOR . $incPath);
         }
-
         /**
          * Try finding for the plain filename in the include_path.
          */
@@ -147,17 +139,14 @@ class Zend_Loader
         } else {
             include 'include/'.$filename;
         }
-
         /**
          * If searching in directories, reset include_path
          */
         if ($incPath) {
             set_include_path($incPath);
         }
-
         return true;
     }
-
     /**
      * Returns TRUE if the $filename is readable, or FALSE otherwise.
      * This function uses the PHP include_path, where PHP's is_readable()
@@ -178,7 +167,6 @@ class Zend_Loader
             // include_path
             return true;
         }
-
         if (strtoupper(substr(PHP_OS, 0, 3)) == 'WIN'
             && preg_match('/^[a-z]:/i', $filename)
         ) {
@@ -186,7 +174,6 @@ class Zend_Loader
             // return false immediately
             return false;
         }
-
         foreach (self::explodeIncludePath() as $path) {
             if ($path == '.') {
                 if (is_readable($filename)) {
@@ -201,7 +188,6 @@ class Zend_Loader
         }
         return false;
     }
-
     /**
      * Explode an include path into an array
      *
@@ -216,7 +202,6 @@ class Zend_Loader
         if (null === $path) {
             $path = get_include_path();
         }
-
         if (PATH_SEPARATOR == ':') {
             // On *nix systems, include_paths which include paths with a stream
             // schema cannot be safely explode'd, so we have to be a bit more
@@ -227,7 +212,6 @@ class Zend_Loader
         }
         return $paths;
     }
-
     /**
      * spl_autoload() suitable implementation for supporting class autoloading.
      *
@@ -250,7 +234,6 @@ class Zend_Loader
             return false;
         }
     }
-
     /**
      * Register {@link autoload()} with spl_autoload()
      *
@@ -267,7 +250,6 @@ class Zend_Loader
         require_once 'include/Zend/Loader/Autoloader.php';
         $autoloader = Zend_Loader_Autoloader::getInstance();
         $autoloader->setFallbackAutoloader(true);
-
         if ('Zend_Loader' != $class) {
             self::loadClass($class);
             $methods = get_class_methods($class);
@@ -275,9 +257,7 @@ class Zend_Loader
                 require_once 'include/Zend/Exception.php';
                 throw new Zend_Exception("The class \"$class\" does not have an autoload() method");
             }
-
             $callback = array($class, 'autoload');
-
             if ($enabled) {
                 $autoloader->pushAutoloader($callback);
             } else {
@@ -285,7 +265,6 @@ class Zend_Loader
             }
         }
     }
-
     /**
      * Ensure that filename does not contain exploits
      *
@@ -303,7 +282,6 @@ class Zend_Loader
             throw new Zend_Exception('Security check: Illegal character in filename');
         }
     }
-
     /**
      * Attempt to include() the file.
      *

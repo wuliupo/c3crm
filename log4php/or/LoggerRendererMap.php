@@ -16,7 +16,6 @@
  * @package log4php
  * @subpackage or
  */
-
 /**
  * @ignore 
  */
@@ -27,7 +26,6 @@ if (!defined('LOG4PHP_DIR')) define('LOG4PHP_DIR', dirname(__FILE__) . '/..');
 require_once(LOG4PHP_DIR . '/or/LoggerDefaultRenderer.php');
 require_once(LOG4PHP_DIR . '/or/LoggerObjectRenderer.php');
 require_once(LOG4PHP_DIR . '/LoggerLog.php');
-
 /**
  * Map class objects to an {@link LoggerObjectRenderer}.
  *
@@ -38,17 +36,14 @@ require_once(LOG4PHP_DIR . '/LoggerLog.php');
  * @since 0.3
  */
 class LoggerRendererMap {
-
     /**
      * @var array
      */
     var $map;
-
     /**
      * @var LoggerDefaultRenderer
      */
     var $defaultRenderer;
-
     /**
      * Constructor
      */
@@ -57,7 +52,6 @@ class LoggerRendererMap {
         $this->map = array();
         $this->defaultRenderer = new LoggerDefaultRenderer();
     }
-
     /**
      * Add a renderer to a hierarchy passed as parameter.
      * Note that hierarchy must implement getRendererMap() and setRenderer() methods.
@@ -78,8 +72,6 @@ class LoggerRendererMap {
             $repository->setRenderer($renderedClassName, $renderer);
         }
     }
-
-
     /**
      * Find the appropriate renderer for the class type of the
      * <var>o</var> parameter. 
@@ -110,7 +102,6 @@ class LoggerRendererMap {
             }
         }
     }
-
     /**
      * Syntactic sugar method that calls {@link PHP_MANUAL#get_class} with the
      * class of the object parameter.
@@ -123,8 +114,6 @@ class LoggerRendererMap {
 		$class = get_class($o);
         return ($o == null) ? null : $this->getByClassName($class);
     }
-
-
     /**
      * Search the parents of <var>clazz</var> for a renderer. 
      *
@@ -144,7 +133,6 @@ class LoggerRendererMap {
         }
         return $this->defaultRenderer;
     }
-
     /**
      * @return LoggerDefaultRenderer
      */
@@ -152,13 +140,10 @@ class LoggerRendererMap {
     {
         return $this->defaultRenderer;
     }
-
-
     function clear()
     {
         $this->map = array();
     }
-
     /**
      * Register a {@link LoggerObjectRenderer} for <var>clazz</var>.
      * @param string $class

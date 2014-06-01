@@ -6,9 +6,7 @@
 			{include file='Settings/SettingLeft.tpl'}
 			</div>
 		</div>
-
 		<div id="editdiv" class="modal hide fade in" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true"   ></div>
-
 		<div class="span10">
 			<div class="row-fluid box">
 				<div class="tab-header">{$MOD.LBL_PICKLIST_EDITOR}
@@ -39,7 +37,6 @@
 				</div>
 					</div>
 					<!-- choose the module end -->
-
 					<div id="picklist_datas">	
 								{include file='Settings/PickListContents.tpl'}
 					</div>
@@ -52,8 +49,6 @@
 		</div>
 	</div>
 </div>
-
-
 {literal}
 <script>
 function SavePickList(fieldname,module,uitype)
@@ -71,9 +66,7 @@ function SavePickList(fieldname,module,uitype)
 			$("#editdiv").modal("hide");
 		}
 	});
-
 }
-
 function changeModule(pickmodule)
 {
 	$("#status").css("display","inline");//进度条
@@ -87,7 +80,6 @@ function changeModule(pickmodule)
 		}
 	});
 }
-
 function fetchEditPickList(module,fieldname,uitype)
 {
 	$("#status").css("display","inline");
@@ -118,7 +110,6 @@ function fetchEditPickList(module,fieldname,uitype)
 //        );
 	
 }
-
 function picklist_validate(mode,fieldname,module,uitype)
 {
 	
@@ -143,7 +134,6 @@ function picklist_validate(mode,fieldname,module,uitype)
 			}
 		}
 		i = curr_iter		
-
 	}
 	if(mode == 'edit')
 	{

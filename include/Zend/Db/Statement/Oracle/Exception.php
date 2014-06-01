@@ -19,12 +19,10 @@
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  * @version    $Id: Exception.php 23775 2011-03-01 17:25:24Z ralph $
  */
-
 /**
  * Zend_Db_Statement_Exception
  */
 require_once 'include/Zend/Db/Statement/Exception.php';
-
 /**
  * @category   Zend
  * @package    Zend_Db
@@ -32,12 +30,10 @@ require_once 'include/Zend/Db/Statement/Exception.php';
  * @copyright  Copyright (c) 2005-2011 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  */
-
 class Zend_Db_Statement_Oracle_Exception extends Zend_Db_Statement_Exception
 {
    protected $message = 'Unknown exception';
    protected $code = 0;
-
    function __construct($error = null, $code = 0)
    {
        if (is_array($error)) {
@@ -56,4 +52,3 @@ class Zend_Db_Statement_Oracle_Exception extends Zend_Db_Statement_Exception
        }
    }
 }
-

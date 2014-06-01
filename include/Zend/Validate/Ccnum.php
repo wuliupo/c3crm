@@ -18,12 +18,10 @@
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  * @version    $Id: Ccnum.php 23775 2011-03-01 17:25:24Z ralph $
  */
-
 /**
  * @see Zend_Validate_Abstract
  */
 require_once 'include/Zend/Validate/Abstract.php';
-
 /**
  * @category   Zend
  * @package    Zend_Validate
@@ -36,19 +34,16 @@ class Zend_Validate_Ccnum extends Zend_Validate_Abstract
      * Validation failure message key for when the value is not of valid length
      */
     const LENGTH   = 'ccnumLength';
-
     /**
      * Validation failure message key for when the value fails the mod-10 checksum
      */
     const CHECKSUM = 'ccnumChecksum';
-
     /**
      * Digits filter for input
      *
      * @var Zend_Filter_Digits
      */
     protected static $_filter = null;
-
     /**
      * Validation failure message template definitions
      *
@@ -58,12 +53,10 @@ class Zend_Validate_Ccnum extends Zend_Validate_Abstract
         self::LENGTH   => "'%value%' must contain between 13 and 19 digits",
         self::CHECKSUM => "Luhn algorithm (mod-10 checksum) failed on '%value%'"
     );
-
     public function __construct()
     {
         trigger_error('Using the Ccnum validator is deprecated in favor of the CreditCard validator');
     }
-
     /**
      * Defined by Zend_Validate_Interface
      *
@@ -75,7 +68,6 @@ class Zend_Validate_Ccnum extends Zend_Validate_Abstract
     public function isValid($value)
     {
         $this->_setValue($value);
-
         if (null === self::$_filter) {
             /**
              * @see Zend_Filter_Digits
@@ -83,30 +75,23 @@ class Zend_Validate_Ccnum extends Zend_Validate_Abstract
             require_once 'include/Zend/Filter/Digits.php';
             self::$_filter = new Zend_Filter_Digits();
         }
-
         $valueFiltered = self::$_filter->filter($value);
-
         $length = strlen($valueFiltered);
-
         if ($length < 13 || $length > 19) {
             $this->_error(self::LENGTH);
             return false;
         }
-
         $sum    = 0;
         $weight = 2;
-
         for ($i = $length - 2; $i >= 0; $i--) {
             $digit = $weight * $valueFiltered[$i];
             $sum += floor($digit / 10) + $digit % 10;
             $weight = $weight % 2 + 1;
         }
-
         if ((10 - $sum % 10) % 10 != $valueFiltered[$length - 1]) {
             $this->_error(self::CHECKSUM, $valueFiltered);
             return false;
         }
-
         return true;
     }
 }

@@ -20,8 +20,6 @@
  * All Rights Reserved.
  * Contributor(s): ______________________________________..
  ********************************************************************************/
-
-
 include_once('config.php');
 require_once('include/logging.php');
 require_once('include/database/PearDatabase.php');
@@ -30,17 +28,12 @@ require_once('modules/Potentials/Potentials.php');
 require_once('modules/Notes/Notes.php');
 require_once('modules/Accounts/Accounts.php');
 require_once('modules/Notes/Notes.php');
-
-
 class ImportNote extends Notes {
 	 var $db;
-
 	// This is the list of the functions to run when importing
 	var $special_functions =  array("add_create_contact","add_create_account");
 	var $required_fields =  array("notes_title"=>1);
-
 	var $importable_fields = Array();
-
 	/**   function used to set the assigned_user_id value in the column_fields when we map the username during import
          */
 	function assign_user()
@@ -81,27 +74,22 @@ class ImportNote extends Notes {
 		{
 			return; 
 		}
-
         $arr = array();
 		// check if it already exists
         $focus = new Contacts();
 		$query = '';
 		// if user is defining the ec_contact id to be associated with this contact..
-
 		//Modified to remove the spaces at first and last in ec_contactdetails name -- after 4.2 patch 2
 		$contact_name = trim(addslashes($contact_name));
-
 		//Modified the query to get the available account only ie., which is not deleted
 		$query = "select * from ec_contactdetails WHERE lastname='{$contact_name}' and deleted=0";
         $result = $this->db->query($query);
-
         $row = $this->db->fetchByAssoc($result, -1, false);
 		// we found a row with that id
         if (isset($row['contactid']) && $row['contactid'] != -1)
         {
 			$focus->id = $row['contactid'];
         }
-
 		// if we didnt find the ec_contactdetails, so create it
         if (! isset($focus->id) || $focus->id == '')
         {
@@ -111,19 +99,15 @@ class ImportNote extends Notes {
 			$focus->column_fields['modified_user_id'] = $current_user->id;
 			$focus->save("Contacts");
 			$contact_id = $focus->id;
-
 			// avoid duplicate mappings:
 			if (! isset( $imported_ids[$contact_id]) )
 			{
 				$imported_ids[$acc_id] = 1;
 			}
         }
-
 		// now just link the ec_contactdetails
         $this->column_fields["contact_id"] = $focus->id;
-
     }
-
 	/**	function used to create or map with existing account if the contact has mapped with an account during import
 	 */
 	function add_create_account()
@@ -141,7 +125,6 @@ class ImportNote extends Notes {
         $focus = new Accounts();
 		$query = '';
 		// if user is defining the ec_account id to be associated with this contact..
-
 		//Modified to remove the spaces at first and last in ec_account name -- after 4.2 patch 2
 		$acc_name = trim(addslashes($acc_name));
 		//Modified the query to get the available account only ie., which is not deleted
@@ -170,7 +153,6 @@ class ImportNote extends Notes {
 		// now just link the ec_account
         $this->column_fields["account_id"] = $focus->id;
     }
-
 	/** Constructor which will set the importable_fields as $this->importable_fields[$key]=1 in this object where key is the fieldname in the field table
 	 */
 	function ImportNote() {
@@ -181,13 +163,11 @@ class ImportNote extends Notes {
 		foreach($colf as $key=>$value)
 			$this->importable_fields[$key]=1;
 	}
-
 	function save($module) { 
 		$this->id = ""; 
 		$this->mode = ''; 
 		CRMEntity::save($module);
 	}
-
 	function insertIntoEntityTable($table_name, $module)
 	{
 	  global $log;
@@ -270,13 +250,11 @@ class ImportNote extends Notes {
 				  }
 			  }		 
 		  }
-
 		  $sql1 = "insert into ".$table_name." (".$column.",smcreatorid,createdtime,modifiedtime) values(".$value.",'".$current_user->id."',NOW(),NOW())";
 		  $this->db->query($sql1); 
 	  }
 	  $log->debug("Exiting function insertIntoEntityTable()");
 	}
-
 	function saveentity($module)
 	{
 		global $current_user;
@@ -297,7 +275,5 @@ class ImportNote extends Notes {
 		$this->db->completeTransaction();
 		$this->db->println("TRANS saveentity ends");
 	}
-
-
 }
 ?>

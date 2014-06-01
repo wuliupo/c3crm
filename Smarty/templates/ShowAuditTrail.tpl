@@ -2,11 +2,9 @@
 <link href="themes/softed/style.css" rel="stylesheet" type="text/css"></link>
 <script language="javascript" type="text/javascript" src="include/scriptaculous/prototypeall.js"></script>
 <body class="small" marginwidth=0 marginheight=0 leftmargin=0 topmargin=0 bottommargin=0 rigthmargin=0>
-
 <form action="index.php" method="post" id="form">
 <input type='hidden' name='module' value='Users'>
 <input type='hidden' id='userid' name='userid' value='{$USERID}'>
-
 <table  width="100%" border="0" cellspacing="0" cellpadding="0" class="mailClient mailClientBg">
 	<tr>
 		<td>
@@ -47,7 +45,6 @@ function getListViewEntries_js(module,url)
                 }
         );
 }
-
 function getListViewWithPageNo(module,pageElement)
 {
 	//var pageno = document.getElementById('listviewpage').value;

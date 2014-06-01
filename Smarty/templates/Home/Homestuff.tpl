@@ -82,7 +82,6 @@
 {* Main Contents Ends Here *}
 <script>
 {literal}
-
 initHomePage = function(){
 Sortable.create
 (
@@ -104,13 +103,10 @@ Sortable.create
 	}
 );
 }
-
 initHomePage();
-
 function BlockSorting(matrixseqarr)
 {
 var sequence = matrixseqarr.join("_");
-
 new Ajax.Request('index.php',
 					{queue: {position: 'end', scope: 'command'},
 						method: 'post',
@@ -143,5 +139,3 @@ function fnAddWindow(obj,CurrObj)
 }
 {/literal}	
 </script>
-
-

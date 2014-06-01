@@ -10,7 +10,6 @@
 		</button>
 	</li>
 </ul>
-
 <input type="hidden" name="changepassword" value="true">
 <input type="hidden" name="user_name" value="{$user_name}">
 <input type="hidden" name="record" value="{$record}">

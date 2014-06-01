@@ -26,15 +26,10 @@ if($adb->num_rows($result) == 1)
 $adb->startTransaction();
 $sql = "delete from ec_seattachmentsrel where attachmentsid ='".$id."'";
 $adb->query($sql);
-
 $sql = "delete from ec_attachments where attachmentsid ='".$id."'";
 $adb->query($sql);
-
 $sql = "delete from ec_crmentity where crmid ='".$id."'";
 $adb->query($sql);
 $adb->completeTransaction();
-
 header("Location:index.php?module=".$_REQUEST['return_module']."&action=".$_REQUEST['return_action']."&record=".$_REQUEST['return_id']);
-
-
 ?>

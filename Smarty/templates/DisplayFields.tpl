@@ -23,7 +23,6 @@
 		{else}
 		        {assign var="required" value=" "}
 		{/if}
-
 		{if $uitype eq 2}
 			<td class="dvt">
 				{$required}{$fldlabel}
@@ -112,10 +111,8 @@
 			<td class="dvn">
 			   <select{$disable} name="{$fldname}" id="{$fldname}" class="small" onchange="multifieldSelectChange('{$uitype}','{$secondvalue}','{$MODULE}',this);">
 				{foreach item=value from=$fldvalue}
-
 						<option value="{$value[1]}" relvalue="{$value[0]}" {$value[2]}>
                                                         {$value[1]}
-
 				{/foreach}
 			   </select>
 			</td>
@@ -132,7 +129,6 @@
 											{/foreach}
 			   </select>
 			</td>
-
 		{elseif $uitype eq 53}
 			<td class="dvt">
 				{$required}{$fldlabel}
@@ -171,7 +167,6 @@
 				{else}
 					<select{$disable} name="{$fldname}" class="small">
 				{/if}
-
 				{foreach key=key_one item=arr from=$fldvalue}
 					{foreach key=sel_value item=value from=$arr}
 						<option value="{$key_one}" {$value}>{$sel_value}</option>
@@ -201,7 +196,6 @@
                 <br>①直接查客户: <input style='border: 1px solid rgb(186, 186, 186);' id='account_search_val' name='account_search_val' type="text" >&nbsp;<i class="cus-zoom" onclick='SearchAccountVal();'></i>
                 <br>②浏览选客户: <i class="cus-zoom" onclick="BrowerAcct('{$popuptype}');" style='cursor:hand;cursor:pointer'></i>&nbsp;<img{$disable}  src="{$IMAGE_PATH}clear_field.gif" alt="{$APP.LBL_CLEAR_BUTTON_LABEL}" title="{$APP.LBL_CLEAR_BUTTON_LABEL}" LANGUAGE=javascript onClick="document.EditView.account_id.value=''; document.EditView.account_name.value='';return false;" align="absmiddle" style='cursor:hand;cursor:pointer'>
 			</td>
-
 		{elseif $uitype eq 50}
 			<td class="dvt">
 				{$required}{$fldlabel}
@@ -220,7 +214,6 @@
                 <br>①直接查客户:<input style='border: 1px solid rgb(186, 186, 186);' id='account_search_val' name='account_search_val' type="text">&nbsp;<input type='button' value='查' onclick='SearchAccountVal();'>
                 <br>②浏览选客户:<img src="{$IMAGE_PATH}select.gif" alt="{$APP.LBL_SELECT}" title="{$APP.LBL_SELECT}" LANGUAGE=javascript onclick='return window.open("index.php?module=Accounts&action=Popup&popuptype=specific_account_address&form=TasksEditView&form_submit=false","test","width=700,height=602,resizable=1,scrollbars=1");' align="absmiddle" style='cursor:hand;cursor:pointer'>
 			</td>
-
 		{elseif $uitype eq 57}
 			<td class="dvt">
 				{$required}{$fldlabel}
@@ -239,7 +232,6 @@
 			<td class="dvn">
 				<input{$disable} name="salesorder_name" readonly type="text"  value="{$fldvalue}"><input{$disable} name="{$fldname}" type="hidden" value="{$secondvalue}">&nbsp;<img src="{$IMAGE_PATH}select.gif" alt="{$APP.LBL_SELECT}" title="{$APP.LBL_SELECT}" LANGUAGE=javascript onclick='return openSOPopup()' align="absmiddle" style='cursor:hand;cursor:pointer'>&nbsp;<img{$disable}  src="{$IMAGE_PATH}clear_field.gif" alt="{$APP.LBL_CLEAR_BUTTON_LABEL}" title="{$APP.LBL_CLEAR_BUTTON_LABEL}" LANGUAGE=javascript onClick="document.EditView.salesorder_id.value=''; document.EditView.salesorder_name.value='';return false;" align="absmiddle" style='cursor:hand;cursor:pointer'>
 			</td>
-
 		{elseif $uitype eq 76}
 			<td class="dvt">
 				{$required}{$fldlabel}
@@ -247,7 +239,6 @@
 			<td class="dvn">
 				<input{$disable} name="potential_name" readonly type="text"  value="{$fldvalue}"><input{$disable} name="{$fldname}" type="hidden" value="{$secondvalue}">&nbsp;<img src="{$IMAGE_PATH}select.gif" alt="{$APP.LBL_SELECT}" title="{$APP.LBL_SELECT}" LANGUAGE=javascript onclick='return openPotentialPopup();' align="absmiddle" style='cursor:hand;cursor:pointer'>&nbsp;<img{$disable}  src="{$IMAGE_PATH}clear_field.gif" alt="{$APP.LBL_CLEAR_BUTTON_LABEL}" title="{$APP.LBL_CLEAR_BUTTON_LABEL}" LANGUAGE=javascript onClick="document.EditView.potential_id.value=''; document.EditView.potential_name.value='';return false;" align="absmiddle" style='cursor:hand;cursor:pointer'>
 			</td>
-
 		{elseif $uitype eq 17}
 			<td class="dvt">
 				{$required}{$fldlabel}
@@ -257,7 +248,6 @@
 				<input{$disable} type="text" name="{$fldname}" id ="{$fldname}" class="detailedViewTextBox"  value="{$fldvalue}">
 				
 			</td>
-
 		{elseif $uitype eq 85}
                         <td class="dvt">
                                 {$required}{$fldlabel}
@@ -299,7 +289,6 @@
                                 <img src="{$IMAGE_PATH}yahoo.gif" align="absmiddle">
 				<input{$disable} type="text" name="{$fldname}" id ="{$fldname}" class="detailedViewTextBox"  value="{$fldvalue}">
                         </td>
-
 		{elseif $uitype eq 71 || $uitype eq 72}
 			<td class="dvt">
 				{$fldlabel}
@@ -307,8 +296,6 @@
 			<td class="dvn">
 				<input{$disable} name="{$fldname}" type="text"     value="{$fldvalue}">
 			</td>
-
-
 		{elseif $uitype eq 5}
 			<td class="dvt">
 				{$required}{$fldlabel}
@@ -325,9 +312,7 @@
 				</script>
 			<!-- 	<input{$disable} name="{$fldname}" id="jscal_field_{$fldname}" type="text"  size="11" maxlength="10" value="{$fldvalue}">
 				<img src="{$IMAGE_PATH}calendar.gif" id="jscal_trigger_{$fldname}" onclick="javascript:displayCalendar('jscal_field_{$fldname}',this)">  -->
-
 			</td>
-
 		{elseif $uitype eq 22}
 			<td class="dvt">
 				{$required}{$fldlabel}
@@ -335,7 +320,6 @@
 			<td class="dvn">
 				<textarea{$disable} name="{$fldname}" cols="30" rows="2">{$fldvalue}</textarea>
 			</td>
-
 		{elseif $uitype eq 61}
 			<td class="dvt">
 				{$required}{$fldlabel}
@@ -370,7 +354,6 @@
 				<input{$disable} type="text" name="{$fldname}" value="{$fldvalue}"   >
 				{/if}
 			</td>
-
 		
 		
 		{/if}

@@ -31,7 +31,6 @@
 *    License along with this library; if not, write to the Free Software
 *    Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 */
-
 /**
 * Class for generating Excel XF records (formats)
 *
@@ -39,7 +38,6 @@
 * @category FileFormats
 * @package  PHPExcel_Writer_Excel5_Writer
 */
-
 class PHPExcel_Writer_Excel5_Format
 {
     /**
@@ -47,109 +45,91 @@ class PHPExcel_Writer_Excel5_Format
     * @var integer
     */
     var $_xf_index;
-
     /**
     * Index to the FONT record.
     * @var integer
     */
     var $font_index;
-
     /**
     * The font name (ASCII).
     * @var string
     */
     var $_font_name;
-
     /**
     * Height of font (1/20 of a point)
     * @var integer
     */
     var $_size;
-
     /**
     * Bold style
     * @var integer
     */
     var $_bold;
-
     /**
     * Bit specifiying if the font is italic.
     * @var integer
     */
     var $_italic;
-
     /**
     * Index to the cell's color
     * @var integer
     */
     var $_color;
-
     /**
     * The text underline property
     * @var integer
     */
     var $_underline;
-
     /**
     * Bit specifiying if the font has strikeout.
     * @var integer
     */
     var $_font_strikeout;
-
     /**
     * Bit specifiying if the font has outline.
     * @var integer
     */
     var $_font_outline;
-
     /**
     * Bit specifiying if the font has shadow.
     * @var integer
     */
     var $_font_shadow;
-
     /**
     * 2 bytes specifiying the script type for the font.
     * @var integer
     */
     var $_font_script;
-
     /**
     * Byte specifiying the font family.
     * @var integer
     */
     var $_font_family;
-
     /**
     * Byte specifiying the font charset.
     * @var integer
     */
     var $_font_charset;
-
     /**
     * An index (2 bytes) to a FORMAT record (number format).
     * @var integer
     */
     var $_num_format;
-
     /**
     * Bit specifying if formulas are hidden.
     * @var integer
     */
     var $_hidden;
-
     /**
     * Bit specifying if the cell is locked.
     * @var integer
     */
     var $_locked;
-
     /**
     * The three bits specifying the text horizontal alignment.
     * @var integer
     */
     var $_text_h_align;
-
     /**
     * Bit specifying if the text is wrapped at the right border.
     * @var integer
@@ -167,91 +147,76 @@ class PHPExcel_Writer_Excel5_Format
 	* @var
 	*/
 	var $_shrink_to_fit;
-
     /**
     * The three bits specifying the text vertical alignment.
     * @var integer
     */
     var $_text_v_align;
-
     /**
     * 1 bit, apparently not used.
     * @var integer
     */
     var $_text_justlast;
-
     /**
     * Integer specifying the text rotation. (-90 to +90 or -165 indicating stacked text)
     * @var integer
     */
     var $_rotation;
-
     /**
     * The cell's foreground color.
     * @var integer
     */
     var $_fg_color;
-
     /**
     * The cell's background color.
     * @var integer
     */
     var $_bg_color;
-
     /**
     * The cell's background fill pattern.
     * @var integer
     */
     var $_pattern;
-
     /**
     * Style of the bottom border of the cell
     * @var integer
     */
     var $_bottom;
-
     /**
     * Color of the bottom border of the cell.
     * @var integer
     */
     var $_bottom_color;
-
     /**
     * Style of the top border of the cell
     * @var integer
     */
     var $_top;
-
     /**
     * Color of the top border of the cell.
     * @var integer
     */
     var $_top_color;
-
     /**
     * Style of the left border of the cell
     * @var integer
     */
     var $_left;
-
     /**
     * Color of the left border of the cell.
     * @var integer
     */
     var $_left_color;
-
     /**
     * Style of the right border of the cell
     * @var integer
     */
     var $_right;
-
     /**
     * Color of the right border of the cell.
     * @var integer
     */
     var $_right_color;
-
     /**
     * Constructor
     *
@@ -276,12 +241,9 @@ class PHPExcel_Writer_Excel5_Format
         $this->_font_script    = 0;
         $this->_font_family    = 0;
         $this->_font_charset   = 0;
-
         $this->_num_format     = 0;
-
         $this->_hidden         = 0;
         $this->_locked         = 1;
-
         $this->_text_h_align   = 0;
         $this->_text_wrap      = 0;
 		$this->_indent         = 0;
@@ -289,24 +251,19 @@ class PHPExcel_Writer_Excel5_Format
         $this->_text_v_align   = 2;
         $this->_text_justlast  = 0;
         $this->_rotation       = 0;
-
         $this->_fg_color       = 0x40;
         $this->_bg_color       = 0x41;
-
         $this->_pattern        = 0;
-
         $this->_bottom         = 0;
         $this->_top            = 0;
         $this->_left           = 0;
         $this->_right          = 0;
         $this->_diag           = 0;
-
         $this->_bottom_color   = 0x40;
         $this->_top_color      = 0x40;
         $this->_left_color     = 0x40;
         $this->_right_color    = 0x40;
         $this->_diag_color     = 0x40;
-
         // Set properties passed to PHPExcel_Writer_Excel5_Workbook::addFormat()
         foreach ($properties as $property => $value)
         {
@@ -316,8 +273,6 @@ class PHPExcel_Writer_Excel5_Format
             }
         }
     }
-
-
     /**
     * Generate an Excel BIFF XF record (style or cell).
     *
@@ -333,7 +288,6 @@ class PHPExcel_Writer_Excel5_Format
             $style   = $this->_locked;
             $style  |= $this->_hidden << 1;
         }
-
         // Flags to indicate if attributes have been set.
         $atr_num     = ($this->_num_format != 0)?1:0;
         $atr_fnt     = ($this->font_index != 0)?1:0;
@@ -346,7 +300,6 @@ class PHPExcel_Writer_Excel5_Format
                         ($this->_bg_color != 0x41) ||
                         $this->_pattern)?1:0;
         $atr_prot    = $this->_locked | $this->_hidden;
-
         // Zero the default border colour if the border has not been set.
         if ($this->_bottom == 0) {
             $this->_bottom_color = 0;
@@ -363,7 +316,6 @@ class PHPExcel_Writer_Excel5_Format
         if ($this->_diag == 0) {
             $this->_diag_color = 0;
         }
-
         $record         = 0x00E0;              // Record identifier
         if ($this->_BIFF_version == 0x0500) {
             $length         = 0x0010;              // Number of bytes to follow
@@ -371,7 +323,6 @@ class PHPExcel_Writer_Excel5_Format
         if ($this->_BIFF_version == 0x0600) {
             $length         = 0x0014;
         }
-
         $ifnt           = $this->font_index;   // Index to FONT record
         $ifmt           = $this->_num_format;  // Index to FORMAT record
         if ($this->_BIFF_version == 0x0500) {
@@ -386,22 +337,17 @@ class PHPExcel_Writer_Excel5_Format
             $align         |= $atr_bdr                << 13;
             $align         |= $atr_pat                << 14;
             $align         |= $atr_prot               << 15;
-
             $icv            = $this->_fg_color;       // fg and bg pattern colors
             $icv           |= $this->_bg_color      << 7;
-
             $fill           = $this->_pattern;        // Fill and border line style
             $fill          |= $this->_bottom        << 6;
             $fill          |= $this->_bottom_color  << 9;
-
             $border1        = $this->_top;            // Border line style and color
             $border1       |= $this->_left          << 3;
             $border1       |= $this->_right         << 6;
             $border1       |= $this->_top_color     << 9;
-
             $border2        = $this->_left_color;     // Border color
             $border2       |= $this->_right_color   << 7;
-
             $header      = pack("vv",       $record, $length);
             $data        = pack("vvvvvvvv", $ifnt, $ifmt, $style, $align,
                                             $icv, $fill,
@@ -411,17 +357,14 @@ class PHPExcel_Writer_Excel5_Format
             $align         |= $this->_text_wrap     << 3;
             $align         |= $this->_text_v_align  << 4;
             $align         |= $this->_text_justlast << 7;
-
             $used_attrib    = $atr_num              << 2;
             $used_attrib   |= $atr_fnt              << 3;
             $used_attrib   |= $atr_alc              << 4;
             $used_attrib   |= $atr_bdr              << 5;
             $used_attrib   |= $atr_pat              << 6;
             $used_attrib   |= $atr_prot             << 7;
-
             $icv            = $this->_fg_color;      // fg and bg pattern colors
             $icv           |= $this->_bg_color      << 7;
-
             $border1        = $this->_left;          // Border line style and color
             $border1       |= $this->_right         << 4;
             $border1       |= $this->_top           << 8;
@@ -432,15 +375,12 @@ class PHPExcel_Writer_Excel5_Format
             $diag_tr_to_lb = 0; // FIXME: add method
             $border1       |= $diag_tl_to_rb        << 30;
             $border1       |= $diag_tr_to_lb        << 31;
-
             $border2        = $this->_top_color;    // Border color
             $border2       |= $this->_bottom_color   << 7;
             $border2       |= $this->_diag_color     << 14;
             $border2       |= $this->_diag           << 21;
             $border2       |= $this->_pattern        << 26;
-
             $header      = pack("vv",       $record, $length);
-
             //$rotation      = 0x00;
 			if ($this->_rotation == -165) {
 				$angle = 255;
@@ -449,7 +389,6 @@ class PHPExcel_Writer_Excel5_Format
 			} else {
 				$angle = $this->_rotation;
 			}
-
 			//BIFF8 options: identation, shrinkToFit and  text direction
 			$biff8_options  = $this->_indent;
 			$biff8_options |= $this->_shrink_to_fit << 4;
@@ -459,10 +398,8 @@ class PHPExcel_Writer_Excel5_Format
             $data .= pack("CCC", $angle, $biff8_options, $used_attrib);
             $data .= pack("VVv", $border1, $border2, $icv);
         }
-
         return($header . $data);
     }
-
     /**
     * Generate an Excel BIFF FONT record.
     *
@@ -478,7 +415,6 @@ class PHPExcel_Writer_Excel5_Format
         $bFamily    = $this->_font_family;  // Font family
         $bCharSet   = $this->_font_charset; // Character set
         $encoding   = 0;                    // TODO: Unicode support
-
         $cch        = strlen($this->_font_name); // Length of font name
         $record     = 0x31;                      // Record identifier
         if ($this->_BIFF_version == 0x0500) {
@@ -500,7 +436,6 @@ class PHPExcel_Writer_Excel5_Format
         if ($this->_font_shadow) {
             $grbit     |= 0x20;
         }
-
         $header  = pack("vv",         $record, $length);
         if ($this->_BIFF_version == 0x0500) {
             $data    = pack("vvvvvCCCCC", $dyHeight, $grbit, $icv, $bls,
@@ -513,7 +448,6 @@ class PHPExcel_Writer_Excel5_Format
         }
         return($header . $data . $this->_font_name);
     }
-
     /**
     * Returns a unique hash key for a font.
     * Used by PHPExcel_Writer_Excel5_Workbook::_storeAllFonts()
@@ -534,7 +468,6 @@ class PHPExcel_Writer_Excel5_Format
         $key  = str_replace(' ', '_', $key);
         return ($key);
     }
-
     /**
     * Returns the index used by PHPExcel_Writer_Excel5_Worksheet::_XF()
     *
@@ -544,7 +477,6 @@ class PHPExcel_Writer_Excel5_Format
     {
         return($this->_xf_index);
     }
-
     /**
     * Used in conjunction with the set_xxx_color methods to convert a color
     * string into a number. Color range is 0..63 but we will restrict it
@@ -576,36 +508,29 @@ class PHPExcel_Writer_Excel5_Format
                          'white'   => 0x01,
                          'yellow'  => 0x05
                       );
-
         // Return the default color, 0x7FFF, if undef,
         if ($name_color == '') {
             return(0x7FFF);
         }
-
         // or the color string converted to an integer,
         if (isset($colors[$name_color])) {
             return($colors[$name_color]);
         }
-
         // or the default color if string is unrecognised,
         if (preg_match("/\D/",$name_color)) {
             return(0x7FFF);
         }
-
         // or an index < 8 mapped into the correct range,
         //if ($name_color < 8) {
         //    return($name_color + 8);
         //}
-
         // or the default color if arg is outside range,
         if ($name_color > 63) {
             return(0x7FFF);
         }
-
         // or an integer in the valid range
         return($name_color);
     }
-
     /**
     * Set cell alignment.
     *
@@ -617,9 +542,7 @@ class PHPExcel_Writer_Excel5_Format
         if (preg_match("/\d/",$location)) {
             return;                      // Ignore numbers
         }
-
         $location = strtolower($location);
-
         if ($location == 'left') {
             $this->_text_h_align = 1;
         }
@@ -663,7 +586,6 @@ class PHPExcel_Writer_Excel5_Format
             $this->_text_v_align = 4;
         }
     }
-
     /**
     * Set cell horizontal alignment.
     *
@@ -703,7 +625,6 @@ class PHPExcel_Writer_Excel5_Format
             $this->_text_h_align = 7;
         }
     }
-
     /**
     * Set cell vertical alignment.
     *
@@ -737,7 +658,6 @@ class PHPExcel_Writer_Excel5_Format
             $this->_text_v_align = 4;
         }
     }
-
     /**
     * This is an alias for the unintuitive setAlign('merge')
     *
@@ -747,7 +667,6 @@ class PHPExcel_Writer_Excel5_Format
     {
         $this->setAlign('merge');
     }
-
     /**
     * Sets the boldness of the text.
     * Bold has a range 100..1000.
@@ -774,12 +693,9 @@ class PHPExcel_Writer_Excel5_Format
         }
         $this->_bold = $weight;
     }
-
-
     /************************************
     * FUNCTIONS FOR SETTING CELLS BORDERS
     */
-
     /**
     * Sets the width for the bottom border of the cell
     *
@@ -790,7 +706,6 @@ class PHPExcel_Writer_Excel5_Format
     {
         $this->_bottom = $style;
     }
-
     /**
     * Sets the width for the top border of the cell
     *
@@ -801,7 +716,6 @@ class PHPExcel_Writer_Excel5_Format
     {
         $this->_top = $style;
     }
-
     /**
     * Sets the width for the left border of the cell
     *
@@ -812,7 +726,6 @@ class PHPExcel_Writer_Excel5_Format
     {
         $this->_left = $style;
     }
-
     /**
     * Sets the width for the right border of the cell
     *
@@ -823,8 +736,6 @@ class PHPExcel_Writer_Excel5_Format
     {
         $this->_right = $style;
     }
-
-
     /**
     * Set cells borders to the same style
     *
@@ -838,12 +749,9 @@ class PHPExcel_Writer_Excel5_Format
         $this->setLeft($style);
         $this->setRight($style);
     }
-
-
     /*******************************************
     * FUNCTIONS FOR SETTING CELLS BORDERS COLORS
     */
-
     /**
     * Sets all the cell's borders to the same color
     *
@@ -858,7 +766,6 @@ class PHPExcel_Writer_Excel5_Format
         $this->setLeftColor($color);
         $this->setRightColor($color);
     }
-
     /**
     * Sets the cell's bottom border color
     *
@@ -870,7 +777,6 @@ class PHPExcel_Writer_Excel5_Format
         $value = $this->_getColor($color);
         $this->_bottom_color = $value;
     }
-
     /**
     * Sets the cell's top border color
     *
@@ -882,7 +788,6 @@ class PHPExcel_Writer_Excel5_Format
         $value = $this->_getColor($color);
         $this->_top_color = $value;
     }
-
     /**
     * Sets the cell's left border color
     *
@@ -894,7 +799,6 @@ class PHPExcel_Writer_Excel5_Format
         $value = $this->_getColor($color);
         $this->_left_color = $value;
     }
-
     /**
     * Sets the cell's right border color
     *
@@ -906,8 +810,6 @@ class PHPExcel_Writer_Excel5_Format
         $value = $this->_getColor($color);
         $this->_right_color = $value;
     }
-
-
     /**
     * Sets the cell's foreground color
     *
@@ -922,7 +824,6 @@ class PHPExcel_Writer_Excel5_Format
             $this->_pattern = 1;
         }
     }
-
     /**
     * Sets the cell's background color
     *
@@ -937,7 +838,6 @@ class PHPExcel_Writer_Excel5_Format
             $this->_pattern = 1;
         }
     }
-
     /**
     * Sets the cell's color
     *
@@ -949,7 +849,6 @@ class PHPExcel_Writer_Excel5_Format
         $value = $this->_getColor($color);
         $this->_color = $value;
     }
-
     /**
     * Sets the fill pattern attribute of a cell
     *
@@ -961,7 +860,6 @@ class PHPExcel_Writer_Excel5_Format
     {
         $this->_pattern = $arg;
     }
-
     /**
     * Sets the underline of the text
     *
@@ -973,7 +871,6 @@ class PHPExcel_Writer_Excel5_Format
     {
         $this->_underline = $underline;
     }
-
     /**
     * Sets the font style as italic
     *
@@ -983,7 +880,6 @@ class PHPExcel_Writer_Excel5_Format
     {
         $this->_italic = 1;
     }
-
     /**
     * Sets the font size
     *
@@ -994,7 +890,6 @@ class PHPExcel_Writer_Excel5_Format
     {
         $this->_size = $size;
     }
-
     /**
     * Sets text wrapping
     *
@@ -1025,7 +920,6 @@ class PHPExcel_Writer_Excel5_Format
 	{
 		$this->_shrink_to_fit = 1;
 	}
-
     /**
     * Sets the orientation of the text
     *
@@ -1057,7 +951,6 @@ class PHPExcel_Writer_Excel5_Format
         //}
 		$this->_rotation = $rotation;
     }
-
     /**
     * Sets the numeric format.
     * It can be date, time, currency, etc...
@@ -1069,7 +962,6 @@ class PHPExcel_Writer_Excel5_Format
     {
         $this->_num_format = $num_format;
     }
-
     /**
     * Sets font as strikeout.
     *
@@ -1079,7 +971,6 @@ class PHPExcel_Writer_Excel5_Format
     {
         $this->_font_strikeout = 1;
     }
-
     /**
     * Sets outlining for a font.
     *
@@ -1089,7 +980,6 @@ class PHPExcel_Writer_Excel5_Format
     {
         $this->_font_outline = 1;
     }
-
     /**
     * Sets font as shadow.
     *
@@ -1099,7 +989,6 @@ class PHPExcel_Writer_Excel5_Format
     {
         $this->_font_shadow = 1;
     }
-
     /**
     * Sets the script type of the text
     *
@@ -1111,7 +1000,6 @@ class PHPExcel_Writer_Excel5_Format
     {
         $this->_font_script = $script;
     }
-
      /**
      * Locks a cell.
      *
@@ -1121,7 +1009,6 @@ class PHPExcel_Writer_Excel5_Format
      {
          $this->_locked = 1;
      }
-
     /**
     * Unlocks a cell. Useful for unprotecting particular cells of a protected sheet.
     *
@@ -1131,7 +1018,6 @@ class PHPExcel_Writer_Excel5_Format
     {
         $this->_locked = 0;
     }
-
 	/**
 	* Hide a cell.
 	*
@@ -1141,7 +1027,6 @@ class PHPExcel_Writer_Excel5_Format
 	{
 		$this->_hidden = 1;
 	}
-
 	/**
 	* Unhide a cell.
 	*
@@ -1151,7 +1036,6 @@ class PHPExcel_Writer_Excel5_Format
 	{
 		$this->_hidden = 0;
 	}
-
     /**
     * Sets the font family name.
     *

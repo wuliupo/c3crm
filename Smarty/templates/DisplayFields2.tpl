@@ -5,7 +5,6 @@
 	{else}
 		<tr style="height:25px">
 	{/if}
-
 	{foreach key=mainlabel item=maindata from=$subdata}
 		{assign var="uitype" value="$maindata[0][0]"}
 		{assign var="fldlabel" value="$maindata[1][0]"}
@@ -19,7 +18,6 @@
 		{assign var="vt_tab" value="$maindata[4][0]"}
 		{assign var="readonly" value="$maindata[0][1]"}
 		{assign var="mandatory" value="$maindata[0][2]"}
-
 		{if $readonly eq '0'}
 		        {assign var="disable" value=" disabled "}
 		{else}
@@ -32,7 +30,6 @@
 		{/if}
 		
 		
-
 		{if $uitype eq 2}
 			<td width=20% class="dvtCellLabel" align=right>
 				{$required}{$fldlabel}
@@ -110,10 +107,8 @@
 			<td width="30%" align=left class="dvtCellInfo">
 			   <select{$disable} name="{$fldname}" id="{$fldname}" tabindex="{$vt_tab}" class="small upaccount" onchange="multifieldSelectChange('{$uitype}','{$secondvalue}','{$MODULE}',this);">
 				{foreach item=value from=$fldvalue}
-
 						<option value="{$value[1]}" relvalue="{$value[0]}" {$value[2]}>
                                                         {$value[1]}
-
 				{/foreach}
 			   </select>
 			</td>
@@ -130,7 +125,6 @@
 											{/foreach}
 			   </select>
 			</td>
-
 		{elseif $uitype eq 53}
 			<td width="20%" class="dvtCellLabel" align=right>
 				{$required}{$fldlabel}
@@ -169,7 +163,6 @@
 				{else}
 					<select{$disable} name="{$fldname}" tabindex="{$vt_tab}" class="small upaccount">
 				{/if}
-
 				{foreach key=key_one item=arr from=$fldvalue}
 					{foreach key=sel_value item=value from=$arr}
 						<option value="{$key_one}" {$value}>{$sel_value}</option>
@@ -202,7 +195,6 @@
                 <br>②浏览选客户: <img tabindex="{$vt_tab}" src="{$IMAGE_PATH}select.gif" alt="{$APP.LBL_SELECT}" title="{$APP.LBL_SELECT}" LANGUAGE=javascript onclick='return window.open("index.php?module=Accounts&action=Popup&popuptype={$popuptype}&form=TasksEditView&form_submit=false","test","width=700,height=602,resizable=1,scrollbars=1");' align="absmiddle" style='cursor:hand;cursor:pointer'>&nbsp;<img{$disable}  src="{$IMAGE_PATH}clear_field.gif" alt="{$APP.LBL_CLEAR_BUTTON_LABEL}" title="{$APP.LBL_CLEAR_BUTTON_LABEL}" LANGUAGE=javascript onClick="document.EditView.account_id.value=''; document.EditView.account_name.value='';return false;" align="absmiddle" style='cursor:hand;cursor:pointer'>
                 {/if}
 			</td>
-
 		{elseif $uitype eq 50}
 			<td width="20%" class="dvtCellLabel" align=right>
 				{$required}{$fldlabel}
@@ -231,8 +223,6 @@
                       {$fldvalue}
                   </select>
                 </td>
-
-
 		{elseif $uitype eq 80}
 			<td width="20%" class="dvtCellLabel" align=right>
 				{$required}{$fldlabel}
@@ -240,7 +230,6 @@
 			<td width="30%" align=left class="dvtCellInfo">
 				<input{$disable} name="salesorder_name" readonly type="text" style="border:1px solid #bababa;" value="{$fldvalue}" class="upaccount"><input{$disable} name="{$fldname}" type="hidden" value="{$secondvalue}" class="upaccount">&nbsp;<img src="{$IMAGE_PATH}select.gif" alt="{$APP.LBL_SELECT}" title="{$APP.LBL_SELECT}" LANGUAGE=javascript onclick='return openSOPopup()' align="absmiddle" style='cursor:hand;cursor:pointer'>&nbsp;<img{$disable}  tabindex="{$vt_tab}" src="{$IMAGE_PATH}clear_field.gif" alt="{$APP.LBL_CLEAR_BUTTON_LABEL}" title="{$APP.LBL_CLEAR_BUTTON_LABEL}" LANGUAGE=javascript onClick="document.EditView.salesorder_id.value=''; document.EditView.salesorder_name.value='';return false;" align="absmiddle" style='cursor:hand;cursor:pointer'>
 			</td>
-
 		{elseif $uitype eq 76}
 			<td width="20%" class="dvtCellLabel" align=right>
 				{$required}{$fldlabel}
@@ -248,7 +237,6 @@
 			<td width="30%" align=left class="dvtCellInfo">
 				<input{$disable} name="potential_name" readonly type="text" style="border:1px solid #bababa;" value="{$fldvalue}" class="upaccount"><input{$disable} name="{$fldname}" type="hidden" value="{$secondvalue}" class="upaccount">&nbsp;<img tabindex="{$vt_tab}" src="{$IMAGE_PATH}select.gif" alt="{$APP.LBL_SELECT}" title="{$APP.LBL_SELECT}" LANGUAGE=javascript onclick='return openPotentialPopup();' align="absmiddle" style='cursor:hand;cursor:pointer'>&nbsp;<img{$disable}  src="{$IMAGE_PATH}clear_field.gif" alt="{$APP.LBL_CLEAR_BUTTON_LABEL}" title="{$APP.LBL_CLEAR_BUTTON_LABEL}" LANGUAGE=javascript onClick="document.EditView.potential_id.value=''; document.EditView.potential_name.value='';return false;" align="absmiddle" style='cursor:hand;cursor:pointer'>
 			</td>
-
 		{elseif $uitype eq 17}
 			<td width="20%" class="dvtCellLabel" align=right>
 				{$required}{$fldlabel}
@@ -257,7 +245,6 @@
 				&nbsp;&nbsp;
 				<input{$disable} type="text" tabindex="{$vt_tab}" name="{$fldname}" style="border:1px solid #bababa;" size="27" class="upaccount"   value="{$fldvalue}">
 			</td>
-
 		{elseif $uitype eq 85}
                         <td width="20%" class="dvtCellLabel" align=right>
                                 {$required}{$fldlabel}
@@ -293,7 +280,6 @@
                         <td width="30%" align=left class="dvtCellInfo">
                                 <img src="{$IMAGE_PATH}yahoo.gif" align="absmiddle"><input{$disable} type="text" name="{$fldname}" style="border:1px solid #bababa;" size="27"     value="{$fldvalue}" class="upaccount">
                         </td>
-
 		{elseif $uitype eq 71 || $uitype eq 72}
 			<td width="20%" class="dvtCellLabel" align=right>
 				{$fldlabel}
@@ -301,8 +287,6 @@
 			<td width="30%" align=left class="dvtCellInfo">
 				<input{$disable} name="{$fldname}" tabindex="{$vt_tab}" type="text" class="detailedViewTextBox upaccount"value="{$fldvalue}" >
 			</td>
-
-
 		{elseif $uitype eq 23 || $uitype eq 5 || $uitype eq 6}
 			<td width="20%" class="dvtCellLabel" align=right>
 				{$required}{$fldlabel}
@@ -313,7 +297,6 @@
 				<img src="{$IMAGE_PATH}calendar.gif" id="jscal_trigger_{$fldname}" onclick="javascript:displayCalendar('jscal_field_{$fldname}',this)">
 				
 			</td>
-
 		{elseif $uitype eq 63}
 			<td width="20%" class="dvtCellLabel" align=right>
 				{$required}{$fldlabel}
@@ -325,11 +308,6 @@
 						<option value="{$labelval}" {$selectval}>{$labelval}</option>
 					{/foreach}
 				</select>
-
-
-
-
-
 		{elseif $uitype eq 59}
 			<td width="20%" class="dvtCellLabel" align=right>
 				{$required}{$fldlabel}
@@ -338,7 +316,6 @@
 				<input{$disable} name="{$fldname}" type="hidden" value="{$secondvalue}"  class="upaccount">
 				<input{$disable} name="product_name" readonly type="text" value="{$fldvalue}"  class="upaccount">&nbsp;<img tabindex="{$vt_tab}" src="{$IMAGE_PATH}select.gif" alt="{$APP.LBL_SELECT}" title="{$APP.LBL_SELECT}" LANGUAGE=javascript onclick='return window.open("index.php?module=Products&action=Popup&html=Popup_picker&form=HelpDeskEditView&popuptype=specific","test","width=700,height=602,resizable=1,scrollbars=1,top=150,left=200");' align="absmiddle" style='cursor:hand;cursor:pointer'>&nbsp;<img{$disable}  src="{$IMAGE_PATH}clear_field.gif" alt="{$APP.LBL_CLEAR_BUTTON_LABEL}" title="{$APP.LBL_CLEAR_BUTTON_LABEL}" LANGUAGE=javascript onClick="document.EditView.product_id.value=''; document.EditView.product_name.value=''; return false;" align="absmiddle" style='cursor:hand;cursor:pointer'>
 			</td>
-
 		{elseif $uitype eq 55} 
 			<td width="20%" class="dvtCellLabel" align=right>{$required}{$fldlabel}</td>
 			<td width="30%" align=left class="dvtCellInfo">
@@ -351,7 +328,6 @@
 				</select>
 				<input{$disable} type="text" name="{$fldname}" tabindex="{$vt_tab}" class="detailedViewTextBox upaccount"value= "{$secondvalue}">
 			</td>
-
 		{elseif $uitype eq 22}
 			<td width="20%" class="dvtCellLabel" align=right>
 				{$required}{$fldlabel}
@@ -359,7 +335,6 @@
 			<td width="30%" align=left class="dvtCellInfo">
 				<textarea{$disable} name="{$fldname}" cols="30" tabindex="{$vt_tab}" rows="2" class="upaccount">{$fldvalue}</textarea>
 			</td>
-
 		{elseif $uitype eq 61}
 			<td width="20%" class="dvtCellLabel" align=right>
 				{$required}{$fldlabel}
@@ -390,7 +365,6 @@
 						{/if}	
 					</td>
 				{/if}
-
 		{elseif $uitype eq 104}<!-- Mandatory Email Fields -->			
 			 <td width=20% class="dvtCellLabel" align=right>
 			 {$required}
@@ -431,7 +405,6 @@
 				<input{$disable} type="text" name="{$fldname}" value="{$fldvalue}" tabindex="{$vt_tab}" class="detailedViewTextBox upaccount">
 			</td>	
 	
-
 			{elseif $uitype eq 106}
 			<td width=20% class="dvtCellLabel" align=right>
 				{$required}{$fldlabel}
@@ -443,8 +416,6 @@
 				<input{$disable} type="text" name="{$fldname}" value="{$fldvalue}" tabindex="{$vt_tab}" class="detailedViewTextBox upaccount">
 				{/if}
 			</td>
-
-
 		
 		
 		{/if}

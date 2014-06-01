@@ -14,7 +14,6 @@
   
 function send_webmail($to_email,$subject,$contents,$cc='',$bcc='',$attachment='',$emailid='')
 {	
-
 	global $adb, $log; 
 	global $current_user;
 	$log->debug("Entering send_webmail() method ...");
@@ -32,14 +31,10 @@ function send_webmail($to_email,$subject,$contents,$cc='',$bcc='',$attachment=''
 	if($from_email == ''){
 		$from_email = $webmail_array['server_username'];
 	}
-
 	require_once('include/phpmailer/class.phpmailer.php');
-
 	$mail = new PHPMailer(true); // the true param means it will throw exceptions on errors, which we need to catch
-
 	$mail->IsSMTP(); // telling the class to use SMTP
 	$result = "";
-
 	try {
 	  $mail->CharSet = "UTF-8";
 	  $mail->Host       = $webmail_array['server']; // SMTP server
@@ -64,6 +59,4 @@ function send_webmail($to_email,$subject,$contents,$cc='',$bcc='',$attachment=''
 	$log->debug("Exit send_webmail() method ...");
 	return $result;
 }
-
-
 ?>

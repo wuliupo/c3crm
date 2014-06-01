@@ -34,7 +34,6 @@
 								</td>
 							</tr>
 						</table>
-
 						<table class="table table-condensed table-bordered table-hover">
 							<thead>
 								<tr>
@@ -62,7 +61,6 @@
 								{/foreach}
 							</tbody>
 						</table>
-
 						<input type="hidden" value="{$order_url}" id="order_url"  name="order_url"/>
 						<input type="hidden" value="{$search_url}" id="search_url"  name="search_url"/>
 					</div>
@@ -146,7 +144,6 @@ function SendMail(){
 	var select_options  =  document.getElementsByName('selected_id');
 	var x = select_options.length;
 	idstring = "";
-
 	xx = 0;
 	for(i = 0; i < x ; i++)
 	{
@@ -170,7 +167,6 @@ function SendSms(){
 	var select_options  =  document.getElementsByName('selected_id');
 	var x = select_options.length;
 	idstring = "";
-
 	xx = 0;
 	for(i = 0; i < x ; i++)
 	{
@@ -192,4 +188,3 @@ function SendSms(){
 }
 {/literal}
 </script>
-

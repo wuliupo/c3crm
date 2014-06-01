@@ -16,7 +16,6 @@
  * @package log4php
  * @subpackage varia
  */
-
 /**
  * @ignore 
  */
@@ -25,7 +24,6 @@ if (!defined('LOG4PHP_DIR')) define('LOG4PHP_DIR', dirname(__FILE__) . '/..');
 /**
  */
 require_once(LOG4PHP_DIR . '/spi/LoggerFilter.php');
-
 /**
  * This is a very simple filter based on string matching.
  * 
@@ -50,7 +48,6 @@ class LoggerStringMatchFilter extends LoggerFilter {
      * @var boolean
      */
     var $acceptOnMatch = true;
-
     /**
      * @var string
      */
@@ -89,7 +86,6 @@ class LoggerStringMatchFilter extends LoggerFilter {
     {
         $this->stringToMatch = $s;
     }
-
     /**
      * @return integer a {@link LOGGER_FILTER_NEUTRAL} is there is no string match.
      */

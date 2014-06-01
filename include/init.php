@@ -3,11 +3,8 @@ if (__FILE__ == '')
 {
     die('Fatal error code: 0');
 }
-
 require_once($root_directory.'include/waf.php');
 require($root_directory.'config.php');
-
-
 /* 对用户传入的变量进行转义操作。*/
 if (!get_magic_quotes_gpc())
 {
@@ -19,11 +16,8 @@ if (!get_magic_quotes_gpc())
     {
         $_POST = stripslashes_deep($_POST);
     }
-
     $_COOKIE   = stripslashes_deep($_COOKIE);
     $_REQUEST  = stripslashes_deep($_REQUEST);
-
-
 }
 header('Content-Type: text/html; charset=UTF-8');
 global $entityDel;
@@ -47,12 +41,6 @@ if(isset($_REQUEST['PHPSESSID']))
 }
 // Create or reestablish the current session
 session_start();
-
-
-
-
-
-
 /**
  * 递归方式的对变量中的特殊字符去除转义
  *

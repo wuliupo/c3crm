@@ -2,7 +2,6 @@
 require_once('include/utils/UserInfoUtil.php');
 require_once("include/utils/utils.php");
 require_once("include/ListView/ListViewSession.php");
-
 /** Function to get related list entries in detailed array format
   * @param $module -- modulename:: Type string
   * @param $relatedmodule -- relatedmodule:: Type string
@@ -16,7 +15,6 @@ require_once("include/ListView/ListViewSession.php");
   * @returns $related_entries -- related entires:: Type string array
   *
   */
-
 function GetRelatedList($module,$relatedmodule,$focus,$query,$button,$returnset,$id='',$edit_val='',$del_val='')
 {   
 	global $log;
@@ -24,7 +22,6 @@ function GetRelatedList($module,$relatedmodule,$focus,$query,$button,$returnset,
 	$log->debug("Entering GetRelatedList() method ...");
 	require_once('include/CRMSmarty.php');
 	require_once('include/DatabaseUtil.php');
-
 	global $adb;
 	global $app_strings;
 	global $current_language;
@@ -91,8 +88,6 @@ function GetRelatedList($module,$relatedmodule,$focus,$query,$button,$returnset,
 	$navigation_array = getNavigationValues($start, $noofrows, $list_max_entries_per_page);
 	$start_rec = $navigation_array['start'];
 	$end_rec = $navigation_array['end_val'];
-
-
 	//limiting the query
 	if ($start_rec <= 0) 
 		$limit_start_rec = 0;
@@ -100,7 +95,6 @@ function GetRelatedList($module,$relatedmodule,$focus,$query,$button,$returnset,
 		$limit_start_rec = $start_rec -1;
 	//$list_result = $adb->limitQuery2($query,$limit_start_rec,$list_max_entries_per_page,$order_by,$sorder);
 	$list_result = $adb->limitQuery($query,$limit_start_rec,$list_max_entries_per_page,$order_by,$sorder);
-
 	//Retreive the List View Table Header
 	if($noofrows == 0)
 	{
@@ -108,7 +102,6 @@ function GetRelatedList($module,$relatedmodule,$focus,$query,$button,$returnset,
 	}
 	else
 	{
-
 		setRelmodFieldList($relatedmodule,$focus);//set more module field
 		$id = $_REQUEST['record'];
 		$listview_header = getListViewHeader($focus,$relatedmodule,'',$sorder,$order_by,$id,'',$module);//"Accounts"); 
@@ -129,7 +122,6 @@ function GetRelatedList($module,$relatedmodule,$focus,$query,$button,$returnset,
 		{			
 			$listview_entries = getListViewEntries($focus,$relatedmodule,$list_result,$navigation_array,'relatedlist',$returnset,'SalesOrderEditView','DeleteSalesOrder');
 		}
-
 		$navigationOutput = Array();
 		//$navigationOutput[] = $app_strings['LBL_SHOWING']." " .$start_rec." - ".$end_rec." " .$app_strings['LBL_LIST_OF'] ." ".$noofrows;
 		$navigationOutput[] = $app_strings['LBL_SHOWING']." " .$start_rec." - ".$noofrows;
@@ -141,8 +133,6 @@ function GetRelatedList($module,$relatedmodule,$focus,$query,$button,$returnset,
 		return $related_entries;
 	}
 }
-
-
 /** Function to get related list entries in detailed array format
   * @param $parentmodule -- parentmodulename:: Type string
   * @param $query -- query:: Type string
@@ -153,7 +143,6 @@ ADD `smcreatorid` INT( 10 ) NOT NULL ,
 ADD `createdtime` DATETIME NOT NULL ,
 ADD `deleted` INT( 1 ) NULL DEFAULT '0';
   */
-
 function getAttachments($parentmodule,$query,$id,$sid='')
 {	
 	global $log;
@@ -166,10 +155,8 @@ function getAttachments($parentmodule,$query,$id,$sid='')
 	global $mod_strings;
 	global $app_strings;
 	global $current_user;
-
 	$result=$adb->query($query);
 	$noofrows = $adb->num_rows($result);
-
 	$header[] = $app_strings['LBL_CREATED_TIME'];
 	$header[] = $app_strings['LBL_ATTACHMENTS'];
 	$header[] = $app_strings['LBL_DESCRIPTION'];
@@ -194,13 +181,11 @@ function getAttachments($parentmodule,$query,$id,$sid='')
 			$created_date = '';
 			$created_time = '';
 		}
-
 		$entries[] = $created_date;
 		
 		//$attachmentname = ltrim($row['filename'],$row['attachmentsid'].'_');//explode('_',$row['filename'],2);
 		//changed by dingjianting on 2008-09-16 for attachment with number name posted by pushi
 		$attachmentname = trim($row['name']);//explode('_',$row['filename'],2);
-
 		$entries[] = '<a href="index.php?module=uploads&action=downloadfile&entityid='.$id.'&fileid='.$row['attachmentsid'].'">'.$attachmentname.'</a>';
 		/*
 		if(strlen($row['description']) > 40)
@@ -213,7 +198,6 @@ function getAttachments($parentmodule,$query,$id,$sid='')
 		$setype = $row['setype']; 
 	    
 		
-
 	    if($current_user->column_fields['user_name'] == $row['user_name']) {
 			$del_param = 'index.php?module='.$module.'&action='.$deleteaction.'&return_module='.$setype.'&return_action='.$_REQUEST['action'].'&record='.$row["attachmentsid"].'&return_id='.$_REQUEST["record"];			
 			if($setype == 'Maillists'){
@@ -233,7 +217,5 @@ function getAttachments($parentmodule,$query,$id,$sid='')
 		$return_data = array('header'=>$header,'entries'=>$entries_list);
 	$log->debug("Exiting getAttachments method ...");
 	return $return_data;
-
 }
-
 ?>

@@ -24,14 +24,11 @@
 				<table border=0 celspacing=0 cellpadding=5 width=100% align=center bgcolor=white>
 				<tr>
 					<td width="40%" valign="top">		
-
 						<select name="quickedit_field" class=small onchange="quick_edit_fieldchange(this)">
 						<option>{$SELECT}</option>
-
 						{foreach key=header item=data from=$BLOCKS}
 							
 							{foreach key=label item=subdata from=$data}
-
 								{foreach key=mainlabel item=maindata from=$subdata}						
 									{assign var="uitype" value="$maindata[0][0]"}
 									{assign var="fldlabel" value="$maindata[1][0]"}
@@ -45,13 +42,11 @@
 									{if $fldlabel neq '' && $uitype neq ''}
 									<option value="{$fldname}">{$fldlabel}</option>
 									{/if}
-
 								{/foreach}
 							{/foreach}
 						{/foreach}
 					</select>
 					</td>
-
 					<td valign="top">
 						
 						{include file='QuickEditDisplayFields.tpl'}			
@@ -66,10 +61,8 @@
 	<button class="btn" data-dismiss="modal" aria-hidden="true">关闭</button>
     <button class="btn btn-primary" onClick="ajax_quick_edit()">保存</button>
 </div>
-
 <script type="text/javascript" id="quickedit_javascript">
         var quick_fieldname = new Array({$VALIDATION_DATA_FIELDNAME});
         var quick_fieldlabel = new Array({$VALIDATION_DATA_FIELDLABEL});
         var quick_fielddatatype = new Array({$VALIDATION_DATA_FIELDDATATYPE});
 </script>
-

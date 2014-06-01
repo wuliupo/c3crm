@@ -13,25 +13,18 @@ require_once('include/CRMSmarty.php');
 global $mod_strings;
 global $app_strings;
 global $app_list_strings, $current_language;
-
 $tableName=$_REQUEST["fieldname"];
 $moduleName=$_REQUEST["fld_module"];
 $uitype=$_REQUEST["uitype"];
-
-
 global $theme;
 $theme_path="themes/".$theme."/";
 $image_path=$theme_path."images/";
-
-
 $smarty = new CRMSmarty();
-
 //Added to get the strings from language files if present
 if($moduleName == 'Events')
 	$temp_module_strings = return_module_language($current_language, 'Calendar');
 else
 	$temp_module_strings = return_module_language($current_language, $moduleName);
-
 //To get the Editable Picklist Values 
 //changed by dingjianting on 2007-2-20 for picklist ,some items used in codes can note be changed such as close win.
 /*
@@ -40,7 +33,6 @@ if($uitype != 111)
 	$query = "select * from ec_".$tableName ;
 	$result = $adb->query($query);
 	$fldVal='';
-
 	while($row = $adb->fetch_array($result))
 	{
 		if($temp_module_strings[$row[$tableName]] != '')
@@ -55,7 +47,6 @@ else
 	$query = "select * from ec_".$tableName." where presence=0"; 
 	$result = $adb->query($query);
 	$fldVal='';
-
 	while($row = $adb->fetch_array($result))
 	{
 		if($temp_module_strings[$row[$tableName]] != '')
@@ -77,7 +68,6 @@ foreach($result as $row)
 		$fldVal .= $row['colvalue'];
 	$fldVal .= "\n";	
 }
-
 //To get the Non Editable Picklist Entries
 /*
 if($uitype == 111) 
@@ -85,7 +75,6 @@ if($uitype == 111)
 	$qry = "select * from ec_".$tableName." where presence=1"; 
 	$res = $adb->query($qry);
 	$nonedit_fldVal='';
-
 	while($row = $adb->fetch_array($res))
 	{
 		if($temp_module_strings[$row[$tableName]] != '')
@@ -95,12 +84,10 @@ if($uitype == 111)
 		$nonedit_fldVal .= "<br>";	
 	}
 }
-
 $query = "select colvalue from ec_picklist where colname='".$tableName."' order by sequence";
 $qry = "select * from ec_".$tableName." where presence=1 order by sortorderid"; 
 $res = $adb->query($qry);
 $nonedit_fldVal='';
-
 while($row = $adb->fetch_array($res))
 {
 	if($temp_module_strings[$row[$tableName]] != '')
@@ -112,7 +99,6 @@ while($row = $adb->fetch_array($res))
 $query = "select fieldlabel from ec_tab inner join ec_field on ec_tab.tabid=ec_field.tabid where ec_tab.name='".$moduleName."' and fieldname='".$tableName."' ";
 $result = $adb->query($query);
 $fieldlabel = $adb->query_result($result,0,'fieldlabel'); 
-
 if($nonedit_fldVal == '')
 		$smarty->assign("EDITABLE_MODE","edit");
 	else
@@ -130,6 +116,5 @@ $smarty->assign("IMAGE_PATH",$image_path);
 $smarty->assign("APP", $app_strings);
 $smarty->assign("CMOD", $mod_strings);
 $smarty->assign("TEMP_MOD", $temp_module_strings);
-
 $smarty->display("Settings/EditPickList.tpl");
 ?>

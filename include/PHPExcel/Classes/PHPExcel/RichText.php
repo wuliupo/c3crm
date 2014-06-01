@@ -24,8 +24,6 @@
  * @license    http://www.gnu.org/licenses/old-licenses/lgpl-2.1.txt	LGPL
  * @version    1.7.2, 2010-01-11
  */
-
-
 /** PHPExcel root directory */
 if (!defined('PHPEXCEL_ROOT')) {
 	/**
@@ -33,28 +31,20 @@ if (!defined('PHPEXCEL_ROOT')) {
 	 */
 	define('PHPEXCEL_ROOT', dirname(__FILE__) . '/../');
 }
-
 /** PHPExcel_IComparable */
 require_once PHPEXCEL_ROOT . 'PHPExcel/IComparable.php';
-
 /** PHPExcel_Cell */
 require_once PHPEXCEL_ROOT . 'PHPExcel/Cell.php';
-
 /** PHPExcel_Cell_DataType */
 require_once PHPEXCEL_ROOT . 'PHPExcel/Cell/DataType.php';
-
 /** PHPExcel_RichText_ITextElement */
 require_once PHPEXCEL_ROOT . 'PHPExcel/RichText/ITextElement.php';
-
 /** PHPExcel_RichText_TextElement */
 require_once PHPEXCEL_ROOT . 'PHPExcel/RichText/TextElement.php';
-
 /** PHPExcel_RichText_Run */
 require_once PHPEXCEL_ROOT . 'PHPExcel/RichText/Run.php';
-
 /** PHPExcel_Style_Font */
 require_once PHPEXCEL_ROOT . 'PHPExcel/Style/Font.php';
-
 /**
  * PHPExcel_RichText
  *
@@ -225,7 +215,6 @@ class PHPExcel_RichText implements PHPExcel_IComparable
     	$this->_parent->setValueExplicit($this, PHPExcel_Cell_DataType::TYPE_STRING);
 		
 		// Verify style information
-
 		$sheet = $this->_parent->getParent();
 		$cellFont = $sheet->getStyle($this->_parent->getCoordinate())->getFont()->getSharedComponent();
 		foreach ($this->getRichTextElements() as $element) {

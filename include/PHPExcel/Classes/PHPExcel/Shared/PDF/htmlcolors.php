@@ -37,7 +37,6 @@
 //               www.tecnick.com
 //               info@tecnick.com
 //============================================================+
-
 /**
  * Array of WEB safe colors.
  * @author Nicola Asuni
@@ -47,7 +46,6 @@
  * @license http://www.gnu.org/copyleft/lesser.html LGPL
  * @since 2.9.000 (2008-03-26)
 */
-
 /**
  * Array of WEB safe colors
  */
@@ -203,7 +201,6 @@ $webcolor = array (
 'yellow' => 'ffff00',
 'yellowgreen' => '9acd32'
 );
-
 //============================================================+
 // END OF FILE                                                 
 //============================================================+

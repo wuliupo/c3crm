@@ -24,7 +24,6 @@ a.x:hover {ldelim}
 		text-decoration:underline;
 		font-weight:bold;
 {rdelim}
-
 ul {ldelim}color:black;{rdelim}	 
 	
 .drag_Element{ldelim}
@@ -36,7 +35,6 @@ ul {ldelim}color:black;{rdelim}
 	border:0px dashed #CCCCCC;
 	visibility:hidden;
 {rdelim}
-
 #Drag_content{ldelim}
 	position:absolute;
 	left:0px;
@@ -83,14 +81,12 @@ ul {ldelim}color:black;{rdelim}
             if(nextlevel>totallevel) return;
             window.location.href="index.php?action=PopupMultiFieldTree&module=Settings&multifieldid="+multifieldid+"&level="+nextlevel+"&parentfieldid="+parentfieldid;
         }
-
         function gotoPreviousLevel(multifieldid,level,parentfieldid)
         {
             var previouslevel=level-1;
             if(previouslevel==0) return;
             window.location.href="index.php?action=PopupMultiFieldTree&module=Settings&multifieldid="+multifieldid+"&level="+previouslevel+"&parentfieldid="+parentfieldid;
         }
-
         function deleteFieldNode(actualfieldid,multifieldid,level,parentfieldid)
         {
             if(confirm(alert_arr.SURE_TO_DELETE))
@@ -125,33 +121,26 @@ ul {ldelim}color:black;{rdelim}
 				</tr>
 				</table>	
 	</div>
-
 </td>
         <td valign="top"><img src="{$IMAGE_PATH}showPanelTopRight.gif"></td>
    </tr>
 </tbody>
 </table>
-
 <table border=0 cellspacing=0 cellpadding=10 width=100% >
 <tr>
-
 <td class="small" align="right">
     <input type="button" name="Edit" value="保存" class="crmButton small create" onclick="window.opener.reloadOptions({$MULTIFIELDID});window.close();">
 </td>
 <td class="small" width=50%>&nbsp;</td>
-
 </tr>
 </table>
-
 <div id="Drag_content">&nbsp;</div>
-
 <script language="javascript" type="text/javascript">
 	var hideAll = false;
 	var parentId = "";
 	var parentName = "";
 	var childId ="NULL";
 	var childName = "NULL";
-
 		
 	
 	 function get_parent_ID(obj,currObj)
@@ -207,21 +196,16 @@ ul {ldelim}color:black;{rdelim}
 				);
 			{rdelim}
 	{rdelim}
-
 	function fnVisible(Obj)
 	{ldelim}
 			if(!hideAll)
 				document.getElementById(Obj).style.visibility = 'visible';
 	{rdelim}
-
 	function fnInVisible(Obj)
 	{ldelim}
 		document.getElementById(Obj).style.visibility = 'hidden';
 	{rdelim}
-
 	
-
-
 function showhide(argg,imgId)
 {ldelim}
 	var harray=argg.split(",");
@@ -242,9 +226,6 @@ function showhide(argg,imgId)
 		{rdelim}
 	{rdelim}
 {rdelim}
-
-
-
 </script>
 </body>
 </html>

@@ -10,5 +10,4 @@ $module_enname = 'maillist';
 $module_cnname = '群发邮件';
 $module_parenttabid = '1';
 $module_displayorder = '10';
-
 ?>

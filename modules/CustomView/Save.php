@@ -13,7 +13,6 @@ require_once('include/database/PearDatabase.php');
 global $adb;
 global $log;
 global $current_user;
-
 $cvid = $_REQUEST["record"];
 $cvmodule = $_REQUEST["cvmodule"];
 $parenttab = $_REQUEST["parenttab"];
@@ -40,7 +39,6 @@ if($cvmodule != "")
 		$setpublic = implode(",",$_REQUEST["roleid"]);
 	  }
 	}
-
 	if(isset($_REQUEST["setMetrics"]))
 	{
 	  $setmetrics = 1;
@@ -50,7 +48,6 @@ if($cvmodule != "")
 	}
     $choosecollectcolhtml=$_REQUEST['collectcolumn'];
  	$allKeys = array_keys($_POST);
-
 	//<<<<<<<columns>>>>>>>>>>
 	for ($i=0;$i<count($allKeys);$i++)
 	{
@@ -61,7 +58,6 @@ if($cvmodule != "")
    	   }
 	}
 	//<<<<<<<columns>>>>>>>>>
-
 	//<<<<<<<standardfilters>>>>>>>>>
 	$stdfiltercolumn = $_REQUEST["stdDateFilterField"];
 	$std_filter_list["columnname"] = $stdfiltercolumn;
@@ -84,7 +80,6 @@ if($cvmodule != "")
 		$std_filter_list["enddate"] = "''";
 	}
 	//<<<<<<<standardfilters>>>>>>>>>
-
 	//<<<<<<<advancedfilter>>>>>>>>>
 	for ($i=0;$i<count($allKeys);$i++)
 	{
@@ -94,7 +89,6 @@ if($cvmodule != "")
            	$adv_filter_col[] = $_REQUEST[$allKeys[$i]];
    	   }
 	}
-
 	for ($i=0;$i<count($allKeys);$i++)
 	{
 	   $string = substr($allKeys[$i], 0, 3);
@@ -124,20 +118,17 @@ if($cvmodule != "")
 		$smownerid = $current_user->id;	
 	}*/
 	$smownerid = 0;
-
 	if(!$cvid)
 	{
 		$genCVid = $adb->getUniqueID("ec_customview");
 		if($genCVid != "")
 		{
-
 			/*if($setdefault == 1)
 			{
 				$updatedefaultsql = "UPDATE ec_customview SET setdefault = 0 WHERE entitytype = ".$adb->quote($cvmodule)." and setpublic=".$adb->quote($setpublic);
 				$updatedefaultresult = $adb->query($updatedefaultsql);
 			}*/
 			$log->info("CustomView :: Save :: setdefault upated successfully");
-
 			$customviewsql = "INSERT INTO ec_customview(cvid, viewname,	setdefault, setmetrics,	entitytype,setpublic,collectcolumn,smownerid)	VALUES (".$genCVid.",".$adb->quote($viewname).",".$setdefault.",".$setmetrics.",".$adb->quote($cvmodule).",".$adb->quote($setpublic).",'$choosecollectcolhtml',".$smownerid.")";
 			$customviewresult = $adb->query($customviewsql);
 			$log->info("CustomView :: Save :: ec_customview created successfully");
@@ -152,7 +143,6 @@ if($cvmodule != "")
 						$columnresult = $adb->query($columnsql);
 					}
 					$log->info("CustomView :: Save :: ec_cvcolumnlist created successfully");
-
 					$stdfiltersql = "INSERT INTO ec_cvstdfilter
 								(cvid,
 								columnname,
@@ -192,7 +182,6 @@ if($cvmodule != "")
 	}
 	else
 	{
-
 		/*if($setdefault == 1)
 		{
 			//$updatedefaultsql = "UPDATE ec_customview SET setdefault = 0 WHERE entitytype = ".$adb->quote($cvmodule);
@@ -204,14 +193,11 @@ if($cvmodule != "")
 		$log->info("CustomView :: Save :: ec_customview upated successfully");
 		$deletesql = "DELETE FROM ec_cvcolumnlist WHERE cvid = ".$cvid;
 		$deleteresult = $adb->query($deletesql);
-
 		$deletesql = "DELETE FROM ec_cvstdfilter WHERE cvid = ".$cvid;
 		$deleteresult = $adb->query($deletesql);
-
 		$deletesql = "DELETE FROM ec_cvadvfilter WHERE cvid = ".$cvid;
 		$deleteresult = $adb->query($deletesql);
 		$log->info("CustomView :: Save :: ec_cvcolumnlist,cvstdfilter,cvadvfilter deleted successfully before update");
-
 		$genCVid = $cvid;
 		if($updatecvresult)
 		{
@@ -221,7 +207,6 @@ if($cvmodule != "")
 				{
 					$columnsql = "INSERT INTO ec_cvcolumnlist (cvid, columnindex, columnname)
 						VALUES (".$genCVid.", ".$i.", ".$adb->quote($columnslist[$i]).")";
-
 					$columnresult = $adb->query($columnsql);
 				}
 				$log->info("CustomView :: Save :: ec_cvcolumnlist update successfully".$genCVid);

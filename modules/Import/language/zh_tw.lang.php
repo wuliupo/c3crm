@@ -133,7 +133,6 @@ $mod_strings = array (
   'ERR_MAP_TWICE' => '被映射多次，请检查字段映射。',
   'ERR_MAP_MANDORY' => '请映射必填字段',
   'ERR_SAVE_MAP' => '请输入字段映射表名称',
-
 );
 $mod_list_strings = array (
   'contacts_import_fields' =>
@@ -233,6 +232,5 @@ $mod_list_strings = array (
     'notecontent' => '內容',
     'assigned_user_id' => '負責人',
   ),
-
 );
 ?>

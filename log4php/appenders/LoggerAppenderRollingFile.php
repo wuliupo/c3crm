@@ -16,14 +16,12 @@
  * @package log4php
  * @subpackage appenders
  */
-
 /**
  * @ignore 
  */
 if (!defined('LOG4PHP_DIR')) define('LOG4PHP_DIR', dirname(__FILE__) . '/..');
  
 require_once(LOG4PHP_DIR . '/appenders/LoggerAppenderFile.php');
-
 /**
  * LoggerAppenderRollingFile extends LoggerAppenderFile to backup the log files 
  * when they reach a certain size.
@@ -38,7 +36,6 @@ require_once(LOG4PHP_DIR . '/appenders/LoggerAppenderFile.php');
  * @subpackage appenders
  */
 class LoggerAppenderRollingFile extends LoggerAppenderFile {
-
     /**
      * Set the maximum size that the output file is allowed to reach
      * before being rolled over to backup files.
@@ -76,7 +73,6 @@ class LoggerAppenderRollingFile extends LoggerAppenderFile {
      * @access private
      */
     var $expandedFileName = null;
-
     /**
      * Constructor.
      *
@@ -94,7 +90,6 @@ class LoggerAppenderRollingFile extends LoggerAppenderFile {
     function getExpandedFileName() {
         return $this->expandedFileName;
     }
-
     /**
      * Returns the value of the MaxBackupIndex option.
      * @return integer 
@@ -102,7 +97,6 @@ class LoggerAppenderRollingFile extends LoggerAppenderFile {
     function getMaxBackupIndex() {
         return $this->maxBackupIndex;
     }
-
     /**
      * Get the maximum size that the output file is allowed to reach
      * before being rolled over to backup files.
@@ -111,7 +105,6 @@ class LoggerAppenderRollingFile extends LoggerAppenderFile {
     function getMaximumFileSize() {
         return $this->maxFileSize;
     }
-
     /**
      * Implements the usual roll over behaviour.
      *
@@ -162,8 +155,6 @@ class LoggerAppenderRollingFile extends LoggerAppenderFile {
         $this->expandedFileName = realpath($fileName);
         LoggerLog::debug("LoggerAppenderRollingFile::setFileName():filename=[{$fileName}]:expandedFileName=[{$this->expandedFileName}]");  
     }
-
-
     /**
      * Set the maximum number of backup files to keep around.
      * 
@@ -180,7 +171,6 @@ class LoggerAppenderRollingFile extends LoggerAppenderFile {
         if (is_numeric($maxBackups))
             $this->maxBackupIndex = abs((int)$maxBackups);
     }
-
     /**
      * Set the maximum size that the output file is allowed to reach
      * before being rolled over to backup files.
@@ -192,7 +182,6 @@ class LoggerAppenderRollingFile extends LoggerAppenderFile {
     {
         $this->setMaxFileSize($maxFileSize);
     }
-
     /**
      * Set the maximum size that the output file is allowed to reach
      * before being rolled over to backup files.
@@ -210,7 +199,6 @@ class LoggerAppenderRollingFile extends LoggerAppenderFile {
         $maxFileSize = null;
         $numpart = substr($value,0, strlen($value) -2);
         $suffix  = strtoupper(substr($value, -2));
-
         switch ($suffix) {
             case 'KB': $maxFileSize = (int)((int)$numpart * 1024); break;
             case 'MB': $maxFileSize = (int)((int)$numpart * 1024 * 1024); break;
@@ -227,7 +215,6 @@ class LoggerAppenderRollingFile extends LoggerAppenderFile {
             $this->maxFileSize = abs($maxFileSize);
         }
     }
-
     /**
      * @param LoggerLoggingEvent $event
      */

@@ -18,12 +18,10 @@
  * @license   http://framework.zend.com/license/new-bsd     New BSD License
  * @version   $Id: IsCompressed.php 23775 2011-03-01 17:25:24Z ralph $
  */
-
 /**
  * @see Zend_Validate_File_MimeType
  */
 require_once 'include/Zend/Validate/File/MimeType.php';
-
 /**
  * Validator which checks if the file already exists in the directory
  *
@@ -40,7 +38,6 @@ class Zend_Validate_File_IsCompressed extends Zend_Validate_File_MimeType
     const FALSE_TYPE   = 'fileIsCompressedFalseType';
     const NOT_DETECTED = 'fileIsCompressedNotDetected';
     const NOT_READABLE = 'fileIsCompressedNotReadable';
-
     /**
      * @var array Error message templates
      */
@@ -49,7 +46,6 @@ class Zend_Validate_File_IsCompressed extends Zend_Validate_File_MimeType
         self::NOT_DETECTED => "The mimetype of file '%value%' could not be detected",
         self::NOT_READABLE => "File '%value%' is not readable or does not exist",
     );
-
     /**
      * Sets validator options
      *
@@ -61,7 +57,6 @@ class Zend_Validate_File_IsCompressed extends Zend_Validate_File_MimeType
         if ($mimetype instanceof Zend_Config) {
             $mimetype = $mimetype->toArray();
         }
-
         $temp    = array();
         // http://de.wikipedia.org/wiki/Liste_von_Dateiendungen
             $default = array(
@@ -97,29 +92,23 @@ class Zend_Validate_File_IsCompressed extends Zend_Validate_File_MimeType
             'application/zoo',
             'multipart/x-gzip',
         );
-
         if (is_array($mimetype)) {
             $temp = $mimetype;
             if (array_key_exists('magicfile', $temp)) {
                 unset($temp['magicfile']);
             }
-
             if (array_key_exists('headerCheck', $temp)) {
                 unset($temp['headerCheck']);
             }
-
             if (empty($temp)) {
                 $mimetype += $default;
             }
         }
-
         if (empty($mimetype)) {
             $mimetype = $default;
         }
-
         parent::__construct($mimetype);
     }
-
     /**
      * Throws an error of the given type
      * Duplicates parent method due to OOP Problem with late static binding in PHP 5.2
@@ -142,7 +131,6 @@ class Zend_Validate_File_IsCompressed extends Zend_Validate_File_MimeType
                 $errorType = self::NOT_READABLE;
                 break;
         }
-
         $this->_error($errorType);
         return false;
     }

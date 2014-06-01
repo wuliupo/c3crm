@@ -18,12 +18,10 @@
  * @license   http://framework.zend.com/license/new-bsd     New BSD License
  * @version   $Id: Hash.php 23775 2011-03-01 17:25:24Z ralph $
  */
-
 /**
  * @see Zend_Validate_Abstract
  */
 require_once 'include/Zend/Validate/Abstract.php';
-
 /**
  * Validator for the hash of given files
  *
@@ -40,7 +38,6 @@ class Zend_Validate_File_Hash extends Zend_Validate_Abstract
     const DOES_NOT_MATCH = 'fileHashDoesNotMatch';
     const NOT_DETECTED   = 'fileHashHashNotDetected';
     const NOT_FOUND      = 'fileHashNotFound';
-
     /**
      * @var array Error message templates
      */
@@ -49,14 +46,12 @@ class Zend_Validate_File_Hash extends Zend_Validate_Abstract
         self::NOT_DETECTED   => "A hash could not be evaluated for the given file",
         self::NOT_FOUND      => "File '%value%' is not readable or does not exist"
     );
-
     /**
      * Hash of the file
      *
      * @var string
      */
     protected $_hash;
-
     /**
      * Sets validator options
      *
@@ -73,14 +68,11 @@ class Zend_Validate_File_Hash extends Zend_Validate_Abstract
             require_once 'include/Zend/Validate/Exception.php';
             throw new Zend_Validate_Exception('Invalid options to validator provided');
         }
-
         if (1 < func_num_args()) {
             $options['algorithm'] = func_get_arg(1);
         }
-
         $this->setHash($options);
     }
-
     /**
      * Returns the set hash values as array, the hash as key and the algorithm the value
      *
@@ -90,7 +82,6 @@ class Zend_Validate_File_Hash extends Zend_Validate_Abstract
     {
         return $this->_hash;
     }
-
     /**
      * Sets the hash for one or multiple files
      *
@@ -101,10 +92,8 @@ class Zend_Validate_File_Hash extends Zend_Validate_Abstract
     {
         $this->_hash  = null;
         $this->addHash($options);
-
         return $this;
     }
-
     /**
      * Adds the hash for one or multiple files
      *
@@ -119,7 +108,6 @@ class Zend_Validate_File_Hash extends Zend_Validate_Abstract
             require_once 'include/Zend/Validate/Exception.php';
             throw new Zend_Validate_Exception("False parameter given");
         }
-
         $known = hash_algos();
         if (!isset($options['algorithm'])) {
             $algorithm = 'crc32';
@@ -127,19 +115,15 @@ class Zend_Validate_File_Hash extends Zend_Validate_Abstract
             $algorithm = $options['algorithm'];
             unset($options['algorithm']);
         }
-
         if (!in_array($algorithm, $known)) {
             require_once 'include/Zend/Validate/Exception.php';
             throw new Zend_Validate_Exception("Unknown algorithm '{$algorithm}'");
         }
-
         foreach ($options as $value) {
             $this->_hash[$value] = $algorithm;
         }
-
         return $this;
     }
-
     /**
      * Defined by Zend_Validate_Interface
      *
@@ -156,7 +140,6 @@ class Zend_Validate_File_Hash extends Zend_Validate_Abstract
         if (!Zend_Loader::isReadable($value)) {
             return $this->_throw($file, self::NOT_FOUND);
         }
-
         $algos  = array_unique(array_values($this->_hash));
         $hashes = array_unique(array_keys($this->_hash));
         foreach ($algos as $algorithm) {
@@ -164,17 +147,14 @@ class Zend_Validate_File_Hash extends Zend_Validate_Abstract
             if ($filehash === false) {
                 return $this->_throw($file, self::NOT_DETECTED);
             }
-
             foreach($hashes as $hash) {
                 if ($filehash === $hash) {
                     return true;
                 }
             }
         }
-
         return $this->_throw($file, self::DOES_NOT_MATCH);
     }
-
     /**
      * Throws an error of the given type
      *
@@ -187,7 +167,6 @@ class Zend_Validate_File_Hash extends Zend_Validate_Abstract
         if ($file !== null) {
             $this->_value = $file['name'];
         }
-
         $this->_error($errorType);
         return false;
     }

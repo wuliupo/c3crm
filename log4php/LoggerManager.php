@@ -1,8 +1,6 @@
 <?php
-
 if (!defined('LOG4PHP_DIR')) define('LOG4PHP_DIR', dirname(__FILE__));
 require_once(LOG4PHP_DIR . '/NotLog.php');
-
 /**
  * Use the LoggerManager to get Logger instances.
  *
@@ -22,7 +20,7 @@ class LoggerManager {
      * @static
      * @return Logger
      */
-    function &getLogger($name, $factory = null)
+    static function &getLogger($name, $factory = null)
     {
         $log = new NotLog();
         return $log;

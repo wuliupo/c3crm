@@ -19,14 +19,10 @@
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  * @version    $Id: Sqlite.php 23775 2011-03-01 17:25:24Z ralph $
  */
-
-
 /**
  * @see Zend_Db_Adapter_Pdo_Abstract
  */
 require_once 'include/Zend/Db/Adapter/Pdo/Abstract.php';
-
-
 /**
  * Class for connecting to SQLite2 and SQLite3 databases and performing common operations.
  *
@@ -38,14 +34,12 @@ require_once 'include/Zend/Db/Adapter/Pdo/Abstract.php';
  */
 class Zend_Db_Adapter_Pdo_Sqlite extends Zend_Db_Adapter_Pdo_Abstract
 {
-
     /**
      * PDO type
      *
      * @var string
      */
      protected $_pdoType = 'sqlite';
-
     /**
      * Keys are UPPERCASE SQL datatypes or the constants
      * Zend_Db::INT_TYPE, Zend_Db::BIGINT_TYPE, or Zend_Db::FLOAT_TYPE.
@@ -64,7 +58,6 @@ class Zend_Db_Adapter_Pdo_Sqlite extends Zend_Db_Adapter_Pdo_Abstract
         'INTEGER'            => Zend_Db::BIGINT_TYPE,
         'REAL'               => Zend_Db::FLOAT_TYPE
     );
-
     /**
      * Constructor.
      *
@@ -86,14 +79,11 @@ class Zend_Db_Adapter_Pdo_Sqlite extends Zend_Db_Adapter_Pdo_Abstract
         if (isset($config['sqlite2']) && $config['sqlite2']) {
             $this->_pdoType = 'sqlite2';
         }
-
         // SQLite uses no username/password.  Stub to satisfy parent::_connect()
         $this->_config['username'] = null;
         $this->_config['password'] = null;
-
         return parent::__construct($config);
     }
-
     /**
      * Check for config options that are mandatory.
      * Throw exceptions if any are missing.
@@ -110,7 +100,6 @@ class Zend_Db_Adapter_Pdo_Sqlite extends Zend_Db_Adapter_Pdo_Abstract
             throw new Zend_Db_Adapter_Exception("Configuration array must have a key for 'dbname' that names the database instance");
         }
     }
-
     /**
      * DSN builder
      */
@@ -118,7 +107,6 @@ class Zend_Db_Adapter_Pdo_Sqlite extends Zend_Db_Adapter_Pdo_Abstract
     {
         return $this->_pdoType .':'. $this->_config['dbname'];
     }
-
     /**
      * Special configuration for SQLite behavior: make sure that result sets
      * contain keys like 'column' instead of 'table.column'.
@@ -133,9 +121,7 @@ class Zend_Db_Adapter_Pdo_Sqlite extends Zend_Db_Adapter_Pdo_Abstract
         if ($this->_connection) {
             return;
         }
-
         parent::_connect();
-
         $retval = $this->_connection->exec('PRAGMA full_column_names=0');
         if ($retval === false) {
             $error = $this->_connection->errorInfo();
@@ -143,7 +129,6 @@ class Zend_Db_Adapter_Pdo_Sqlite extends Zend_Db_Adapter_Pdo_Abstract
             require_once 'include/Zend/Db/Adapter/Exception.php';
             throw new Zend_Db_Adapter_Exception($error[2]);
         }
-
         $retval = $this->_connection->exec('PRAGMA short_column_names=1');
         if ($retval === false) {
             $error = $this->_connection->errorInfo();
@@ -152,7 +137,6 @@ class Zend_Db_Adapter_Pdo_Sqlite extends Zend_Db_Adapter_Pdo_Abstract
             throw new Zend_Db_Adapter_Exception($error[2]);
         }
     }
-
     /**
      * Returns a list of the tables in the database.
      *
@@ -163,10 +147,8 @@ class Zend_Db_Adapter_Pdo_Sqlite extends Zend_Db_Adapter_Pdo_Abstract
         $sql = "SELECT name FROM sqlite_master WHERE type='table' "
              . "UNION ALL SELECT name FROM sqlite_temp_master "
              . "WHERE type='table' ORDER BY name";
-
         return $this->fetchCol($sql);
     }
-
     /**
      * Returns the column descriptions for a table.
      *
@@ -198,29 +180,22 @@ class Zend_Db_Adapter_Pdo_Sqlite extends Zend_Db_Adapter_Pdo_Abstract
     public function describeTable($tableName, $schemaName = null)
     {
         $sql = 'PRAGMA ';
-
         if ($schemaName) {
             $sql .= $this->quoteIdentifier($schemaName) . '.';
         }
-
         $sql .= 'table_info('.$this->quoteIdentifier($tableName).')';
-
         $stmt = $this->query($sql);
-
         /**
          * Use FETCH_NUM so we are not dependent on the CASE attribute of the PDO connection
          */
         $result = $stmt->fetchAll(Zend_Db::FETCH_NUM);
-
         $cid        = 0;
         $name       = 1;
         $type       = 2;
         $notnull    = 3;
         $dflt_value = 4;
         $pk         = 5;
-
         $desc = array();
-
         $p = 1;
         foreach ($result as $key => $row) {
             list($length, $scale, $precision, $primary, $primaryPosition, $identity) =
@@ -261,7 +236,6 @@ class Zend_Db_Adapter_Pdo_Sqlite extends Zend_Db_Adapter_Pdo_Abstract
         }
         return $desc;
     }
-
     /**
      * Adds an adapter-specific LIMIT clause to the SELECT statement.
      *
@@ -278,20 +252,16 @@ class Zend_Db_Adapter_Pdo_Sqlite extends Zend_Db_Adapter_Pdo_Abstract
             require_once 'include/Zend/Db/Adapter/Exception.php';
             throw new Zend_Db_Adapter_Exception("LIMIT argument count=$count is not valid");
         }
-
         $offset = intval($offset);
         if ($offset < 0) {
             /** @see Zend_Db_Adapter_Exception */
             require_once 'include/Zend/Db/Adapter/Exception.php';
             throw new Zend_Db_Adapter_Exception("LIMIT argument offset=$offset is not valid");
         }
-
         $sql .= " LIMIT $count";
         if ($offset > 0) {
             $sql .= " OFFSET $offset";
         }
-
         return $sql;
     }
-
 }

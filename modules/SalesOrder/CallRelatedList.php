@@ -8,7 +8,6 @@
    * All Rights Reserved.
   *
    ********************************************************************************/
-
 require_once('include/CRMSmarty.php');
 require_once('modules/SalesOrder/SalesOrder.php');
 //Redirecting Header for single page layout
@@ -30,16 +29,12 @@ if(isset($_REQUEST['record']) && isset($_REQUEST['record'])) {
 $log->debug("id is ".$focus->id);
 $log->debug("name is ".$focus->name);
 }
-
 global $mod_strings;
 global $app_strings,$currentModule;
 global $theme;
 $theme_path="themes/".$theme."/";
 $image_path=$theme_path."images/";
-
-
 $smarty = new CRMSmarty();
-
 if(isset($_REQUEST['mode']) && $_REQUEST['mode'] != ' ') {
         $smarty->assign("OP_MODE",$_REQUEST['mode']);
 }
@@ -56,7 +51,6 @@ $smarty->assign("MOD",$mod_strings);
 $smarty->assign("APP",$app_strings);
 $smarty->assign("THEME", $theme);
 $smarty->assign("IMAGE_PATH", $image_path);
-
 $check_button = Button_Check($module);
 $smarty->assign("CHECK", $check_button);
 $smarty->display("RelatedLists.tpl");

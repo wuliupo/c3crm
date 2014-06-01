@@ -22,8 +22,6 @@
  * @license    http://www.gnu.org/licenses/old-licenses/lgpl-2.1.txt	LGPL
  * @version    1.7.2, 2010-01-11
  */
-
-
 /**
  * PHPExcel_IComparable
  *
@@ -39,5 +37,4 @@ interface PHPExcel_IComparable
 	 * @return string	Hash code
 	 */	
 	public function getHashCode();
-
 }

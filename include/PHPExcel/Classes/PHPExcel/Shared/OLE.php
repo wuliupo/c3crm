@@ -18,7 +18,6 @@
 // +----------------------------------------------------------------------+
 //
 // $Id: OLE.php,v 1.13 2007/03/07 14:38:25 schmidt Exp $
-
 /** PHPExcel root directory */
 if (!defined('PHPEXCEL_ROOT')) {
 	/**
@@ -26,20 +25,17 @@ if (!defined('PHPEXCEL_ROOT')) {
 	 */
 	define('PHPEXCEL_ROOT', dirname(__FILE__) . '/../../');
 }
-
 require_once PHPEXCEL_ROOT . 'PHPExcel/Shared/OLE.php';
 require_once PHPEXCEL_ROOT . 'PHPExcel/Shared/OLE/OLE_PPS.php';
 require_once PHPEXCEL_ROOT . 'PHPExcel/Shared/OLE/OLE_File.php';
 require_once PHPEXCEL_ROOT . 'PHPExcel/Shared/OLE/OLE_Root.php';
 require_once PHPEXCEL_ROOT . 'PHPExcel/Shared/OLE/ChainedBlockStream.php';
-
 /**
 * Array for storing OLE instances that are accessed from
 * OLE_ChainedBlockStream::stream_open().
 * @var  array
 */
 $GLOBALS['_OLE_INSTANCES'] = array();
-
 /**
 * OLE package base class.
 *
@@ -56,49 +52,41 @@ class PHPExcel_Shared_OLE
 	const OLE_DATA_SIZE_SMALL = 0x1000;
 	const OLE_LONG_INT_SIZE   =      4;
 	const OLE_PPS_SIZE        =   0x80;
-
 	/**
 	 * The file handle for reading an OLE container
 	 * @var resource
 	*/
 	public $_file_handle;
-
 	/**
 	* Array of PPS's found on the OLE container
 	* @var array
 	*/
 	public $_list = array();
-
 	/**
 	 * Root directory of OLE container
 	 * @var OLE_PPS_Root
 	*/
 	public $root;
-
 	/**
 	 * Big Block Allocation Table
 	 * @var array  (blockId => nextBlockId)
 	*/
 	public $bbat;
-
 	/**
 	 * Short Block Allocation Table
 	 * @var array  (blockId => nextBlockId)
 	*/
 	public $sbat;
-
 	/**
 	 * Size of big blocks. This is usually 512.
 	 * @var  int  number of octets per block.
 	*/
 	public $bigBlockSize;
-
 	/**
 	 * Size of small blocks. This is usually 64.
 	 * @var  int  number of octets per block
 	*/
 	public $smallBlockSize;
-
 	/**
 	 * Reads an OLE container from the contents of the file given.
 	 *
@@ -113,7 +101,6 @@ class PHPExcel_Shared_OLE
 			throw new Exception("Can't open file $file");
 		}
 		$this->_file_handle = $fh;
-
 		$signature = fread($fh, 8);
 		if ("\xD0\xCF\x11\xE0\xA1\xB1\x1A\xE1" != $signature) {
 			throw new Exception("File doesn't seem to be an OLE container.");
@@ -126,15 +113,12 @@ class PHPExcel_Shared_OLE
 		// Size of blocks and short blocks in bytes
 		$this->bigBlockSize = pow(2, $this->_readInt2($fh));
 		$this->smallBlockSize  = pow(2, $this->_readInt2($fh));
-
 		// Skip UID, revision number and version number
 		fseek($fh, 44);
 		// Number of blocks in Big Block Allocation Table
 		$bbatBlockCount = $this->_readInt4($fh);
-
 		// Root chain 1st block
 		$directoryFirstBlockId = $this->_readInt4($fh);
-
 		// Skip unused bytes
 		fseek($fh, 56);
 		// Streams shorter than this are stored using small blocks
@@ -148,14 +132,12 @@ class PHPExcel_Shared_OLE
 		// Number of blocks in Master Block Allocation Table
 		$mbbatBlockCount = $this->_readInt4($fh);
 		$this->bbat = array();
-
 		// Remaining 4 * 109 bytes of current block is beginning of Master
 		// Block Allocation Table
 		$mbatBlocks = array();
 		for ($i = 0; $i < 109; ++$i) {
 			$mbatBlocks[] = $this->_readInt4($fh);
 		}
-
 		// Read rest of Master Block Allocation Table (if any is left)
 		$pos = $this->_getBlockOffset($mbatFirstBlockId);
 		for ($i = 0; $i < $mbbatBlockCount; ++$i) {
@@ -166,7 +148,6 @@ class PHPExcel_Shared_OLE
 			// Last block id in each block points to next block
 			$pos = $this->_getBlockOffset($this->_readInt4($fh));
 		}
-
 		// Read Big Block Allocation Table according to chain specified by
 		// $mbatBlocks
 		for ($i = 0; $i < $bbatBlockCount; ++$i) {
@@ -176,7 +157,6 @@ class PHPExcel_Shared_OLE
 				$this->bbat[] = $this->_readInt4($fh);
 			}
 		}
-
 		// Read short block allocation table (SBAT)
 		$this->sbat = array();
 		$shortBlockCount = $sbbatBlockCount * $this->bigBlockSize / 4;
@@ -185,12 +165,9 @@ class PHPExcel_Shared_OLE
 			$this->sbat[$blockId] = $this->_readInt4($sbatFh);
 		}
 		fclose($sbatFh);
-
 		$this->_readPpsWks($directoryFirstBlockId);
-
 		return true;
 	}
-
 	/**
 	 * @param  int  block id
 	 * @param  int  byte offset from beginning of file
@@ -200,7 +177,6 @@ class PHPExcel_Shared_OLE
 	{
 		return 512 + $blockId * $this->bigBlockSize;
 	}
-
 	/**
 	* Returns a stream for use with fread() etc. External callers should
 	* use PHPExcel_Shared_OLE_PPS_File::getStream().
@@ -215,13 +191,11 @@ class PHPExcel_Shared_OLE
 				'PHPExcel_Shared_OLE_ChainedBlockStream');
 			$isRegistered = true;
 		}
-
 		// Store current instance in global array, so that it can be accessed
 		// in OLE_ChainedBlockStream::stream_open().
 		// Object is removed from self::$instances in OLE_Stream::close().
 		$GLOBALS['_OLE_INSTANCES'][] = $this;
 		$instanceId = end(array_keys($GLOBALS['_OLE_INSTANCES']));
-
 		$path = 'ole-chainedblockstream://oleInstanceId=' . $instanceId;
 		if ($blockIdOrPps instanceof PHPExcel_Shared_OLE_PPS) {
 			$path .= '&blockId=' . $blockIdOrPps->_StartBlock;
@@ -231,7 +205,6 @@ class PHPExcel_Shared_OLE
 		}
 		return fopen($path, 'r');
 	}
-
 	/**
 	 * Reads a signed char.
 	 * @param   resource  file handle
@@ -243,7 +216,6 @@ class PHPExcel_Shared_OLE
 		list(, $tmp) = unpack("c", fread($fh, 1));
 		return $tmp;
 	}
-
 	/**
 	 * Reads an unsigned short (2 octets).
 	 * @param   resource  file handle
@@ -255,7 +227,6 @@ class PHPExcel_Shared_OLE
 		list(, $tmp) = unpack("v", fread($fh, 2));
 		return $tmp;
 	}
-
 	/**
 	 * Reads an unsigned long (4 octets).
 	 * @param   resource  file handle
@@ -267,7 +238,6 @@ class PHPExcel_Shared_OLE
 		list(, $tmp) = unpack("V", fread($fh, 4));
 		return $tmp;
 	}
-
 	/**
 	* Gets information about all PPS's on the OLE container from the PPS WK's
 	* creates an OLE_PPS object for each one.
@@ -315,16 +285,13 @@ class PHPExcel_Shared_OLE
 			$pps->Size = $this->_readInt4($fh);
 			$pps->No = count($this->_list);
 			$this->_list[] = $pps;
-
 			// check if the PPS tree (starting from root) is complete
 			if (isset($this->root) &&
 				$this->_ppsTreeComplete($this->root->No)) {
-
 				break;
 			}
 		}
 		fclose($fh);
-
 		// Initialize $pps->children on directories
 		foreach ($this->_list as $pps) {
 			if ($pps->Type == self::OLE_PPS_TYPE_DIR || $pps->Type == self::OLE_PPS_TYPE_ROOT) {
@@ -341,10 +308,8 @@ class PHPExcel_Shared_OLE
 				}
 			}
 		}
-
 		return true;
 	}
-
 	/**
 	* It checks whether the PPS tree is complete (all PPS's read)
 	* starting with the given PPS (not necessarily root)
@@ -364,7 +329,6 @@ class PHPExcel_Shared_OLE
 			   ($pps->DirPps == -1 ||
 				$this->_ppsTreeComplete($pps->DirPps));
 	}
-
 	/**
 	* Checks whether a PPS is a File PPS or not.
 	* If there is no PPS for the index given, it will return false.
@@ -380,7 +344,6 @@ class PHPExcel_Shared_OLE
 		}
 		return false;
 	}
-
 	/**
 	* Checks whether a PPS is a Root PPS or not.
 	* If there is no PPS for the index given, it will return false.
@@ -396,7 +359,6 @@ class PHPExcel_Shared_OLE
 		}
 		return false;
 	}
-
 	/**
 	* Gives the total number of PPS's found in the OLE container.
 	*
@@ -407,7 +369,6 @@ class PHPExcel_Shared_OLE
 	{
 		return count($this->_list);
 	}
-
 	/**
 	* Gets data from a PPS
 	* If there is no PPS for the index given, it will return an empty string.
@@ -431,7 +392,6 @@ class PHPExcel_Shared_OLE
 		fclose($fh);
 		return $data;
 	}
-
 	/**
 	* Gets the data length from a PPS
 	* If there is no PPS for the index given, it will return 0.
@@ -447,7 +407,6 @@ class PHPExcel_Shared_OLE
 		}
 		return 0;
 	}
-
 	/**
 	* Utility function to transform ASCII text to Unicode
 	*
@@ -464,7 +423,6 @@ class PHPExcel_Shared_OLE
 		}
 		return $rawname;
 	}
-
 	/**
 	* Utility function
 	* Returns a string for the OLE container with the date given
@@ -479,10 +437,8 @@ class PHPExcel_Shared_OLE
 		if (!isset($date)) {
 			return "\x00\x00\x00\x00\x00\x00\x00\x00";
 		}
-
 		// factor used for separating numbers into 4 bytes parts
 		$factor = pow(2, 32);
-
 		// days from 1-1-1601 until the beggining of UNIX era
 		$days = 134774;
 		// calculate seconds
@@ -490,14 +446,11 @@ class PHPExcel_Shared_OLE
 											 date("m",$date),date("d",$date),date("Y",$date));
 		// multiply just to make MS happy
 		$big_date *= 10000000;
-
 		$high_part = floor($big_date / $factor);
 		// lower 4 bytes
 		$low_part = floor((($big_date / $factor) - $high_part) * $factor);
-
 		// Make HEX string
 		$res = '';
-
 		for ($i = 0; $i < 4; ++$i) {
 			$hex = $low_part % 0x100;
 			$res .= pack('c', $hex);
@@ -510,7 +463,6 @@ class PHPExcel_Shared_OLE
 		}
 		return $res;
 	}
-
 	/**
 	* Returns a timestamp from an OLE container's date
 	*
@@ -524,7 +476,6 @@ class PHPExcel_Shared_OLE
 		if (strlen($string) != 8) {
 			return new PEAR_Error("Expecting 8 byte string");
 		}
-
 		// factor used for separating numbers into 4 bytes parts
 		$factor = pow(2,32);
 		$high_part = 0;
@@ -544,10 +495,8 @@ class PHPExcel_Shared_OLE
 		$big_date = ($high_part * $factor) + $low_part;
 		// translate to seconds
 		$big_date /= 10000000;
-
 		// days from 1-1-1601 until the beggining of UNIX era
 		$days = 134774;
-
 		// translate to seconds from beggining of UNIX era
 		$big_date -= $days * 24 * 3600;
 		return floor($big_date);

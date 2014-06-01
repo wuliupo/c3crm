@@ -16,16 +16,13 @@
  * @package log4php
  * @subpackage helpers
  */
-
 /**
  * @ignore 
  */
 if (!defined('LOG4PHP_DIR')) define('LOG4PHP_DIR', dirname(__FILE__) . '/..');
-
 /**
  */
 require_once(LOG4PHP_DIR . '/LoggerLog.php');
-
 /**
  * Array for fast space padding
  * Used by {@link LoggerPatternConverter::spacePad()}.  
@@ -33,7 +30,6 @@ require_once(LOG4PHP_DIR . '/LoggerLog.php');
 $GLOBALS['log4php.LoggerPatternConverter.spaces'] = array(" ", "  ", "    ", "        ", //1,2,4,8 spaces
 			    "                ", // 16 spaces
 			    "                                " ); // 32 spaces
-
 /**
  * LoggerPatternConverter is an abstract class that provides the formatting 
  * functionality that derived classes need.
@@ -50,7 +46,6 @@ $GLOBALS['log4php.LoggerPatternConverter.spaces'] = array(" ", "  ", "    ", "  
  * @since 0.3
  */
 class LoggerPatternConverter {
-
     /**
      * @var LoggerPatternConverter next converter in converter chain
      */
@@ -59,7 +54,6 @@ class LoggerPatternConverter {
     var $min = -1;
     var $max = 0x7FFFFFFF;
     var $leftAlign = false;
-
     /**
      * Constructor 
      *
@@ -81,7 +75,6 @@ class LoggerPatternConverter {
      * @param LoggerLoggingEvent $event
      */
     function convert($event) {}
-
     /**
      * A template method for formatting in a converter specific way.
      *
@@ -119,8 +112,6 @@ class LoggerPatternConverter {
             $sbuf .= $s;
         }
     }	
-
-
     /**
      * Fast space padding method.
      *
@@ -143,27 +134,22 @@ class LoggerPatternConverter {
     	        $sbuf .= $GLOBALS['log4php.LoggerPatternConverter.spaces'][$i];
             }
         }
-
         // $sbuf = str_pad($sbuf, $length);
     }
 }
-
 // ---------------------------------------------------------------------
 //                      PatternConverters
 // ---------------------------------------------------------------------
-
 /**
  * @author VxR <vxr@vxr.it>
  * @package log4php
  * @subpackage helpers
  */
 class LoggerBasicPatternConverter extends LoggerPatternConverter {
-
     /**
      * @var integer
      */
     var $type;
-
     /**
      * Constructor
      *
@@ -177,7 +163,6 @@ class LoggerBasicPatternConverter extends LoggerPatternConverter {
       $this->LoggerPatternConverter($formattingInfo);
       $this->type = $type;
     }
-
     /**
      * @param LoggerLoggingEvent $event
      * @return string
@@ -192,14 +177,11 @@ class LoggerBasicPatternConverter extends LoggerPatternConverter {
                 
             case LOG4PHP_LOGGER_PATTERN_PARSER_THREAD_CONVERTER:
 	            return $event->getThreadName();
-
             case LOG4PHP_LOGGER_PATTERN_PARSER_LEVEL_CONVERTER:
                 $level = $event->getLevel();
 	            return $level->toString();
-
             case LOG4PHP_LOGGER_PATTERN_PARSER_NDC_CONVERTER:
 	            return $event->getNDC();
-
             case LOG4PHP_LOGGER_PATTERN_PARSER_MESSAGE_CONVERTER:
 	            return $event->getRenderedMessage();
                 
@@ -208,7 +190,6 @@ class LoggerBasicPatternConverter extends LoggerPatternConverter {
         }
     }
 }
-
 /**
  * @author VxR <vxr@vxr.it>
  * @package log4php
@@ -220,7 +201,6 @@ class LoggerLiteralPatternConverter extends LoggerPatternConverter {
      * @var string
      */
     var $literal;
-
     /**
      * Constructor
      *
@@ -232,7 +212,6 @@ class LoggerLiteralPatternConverter extends LoggerPatternConverter {
     
         $this->literal = $value;
     }
-
     /**
      * @param string &$sbuf
      * @param LoggerLoggingEvent $event
@@ -241,7 +220,6 @@ class LoggerLiteralPatternConverter extends LoggerPatternConverter {
     {
         $sbuf .= $this->literal;
     }
-
     /**
      * @param LoggerLoggingEvent $event
      * @return string
@@ -251,14 +229,12 @@ class LoggerLiteralPatternConverter extends LoggerPatternConverter {
       return $this->literal;
     }
 }
-
 /**
  * @author VxR <vxr@vxr.it>
  * @package log4php
  * @subpackage helpers
  */
 class LoggerDatePatternConverter extends LoggerPatternConverter {
-
     /**
      * @var string
      */
@@ -277,7 +253,6 @@ class LoggerDatePatternConverter extends LoggerPatternConverter {
         $this->LoggerPatternConverter($formattingInfo);
         $this->df = $df;
     }
-
     /**
      * @param LoggerLoggingEvent $event
      * @return string
@@ -292,19 +267,16 @@ class LoggerDatePatternConverter extends LoggerPatternConverter {
         
     }
 }
-
 /**
  * @author VxR <vxr@vxr.it>
  * @package log4php
  * @subpackage helpers
  */
 class LoggerMDCPatternConverter extends LoggerPatternConverter {
-
     /**
      * @var string
      */
     var $key;
-
     /**
      * Constructor
      *
@@ -314,11 +286,9 @@ class LoggerMDCPatternConverter extends LoggerPatternConverter {
     function LoggerMDCPatternConverter($formattingInfo, $key)
     {
       LoggerLog::debug("LoggerMDCPatternConverter::LoggerMDCPatternConverter() key='$key'");    
-
       $this->LoggerPatternConverter($formattingInfo);
       $this->key = $key;
     }
-
     /**
      * @param LoggerLoggingEvent $event
      * @return string
@@ -328,7 +298,6 @@ class LoggerMDCPatternConverter extends LoggerPatternConverter {
         return $event->getMDC($this->key);
     }
 }
-
 /**
  * @author VxR <vxr@vxr.it>
  * @package log4php
@@ -340,7 +309,6 @@ class LoggerLocationPatternConverter extends LoggerPatternConverter {
      * @var integer
      */
     var $type;
-
     /**
      * Constructor
      *
@@ -354,7 +322,6 @@ class LoggerLocationPatternConverter extends LoggerPatternConverter {
       $this->LoggerPatternConverter($formattingInfo);
       $this->type = $type;
     }
-
     /**
      * @param LoggerLoggingEvent $event
      * @return string
@@ -376,7 +343,6 @@ class LoggerLocationPatternConverter extends LoggerPatternConverter {
         }
     }
 }
-
 /**
  * @author VxR <vxr@vxr.it>
  * @package log4php
@@ -384,12 +350,10 @@ class LoggerLocationPatternConverter extends LoggerPatternConverter {
  * @abstract
  */
 class LoggerNamedPatternConverter extends LoggerPatternConverter {
-
     /**
      * @var integer
      */
     var $precision;
-
     /**
      * Constructor
      *
@@ -403,7 +367,6 @@ class LoggerNamedPatternConverter extends LoggerPatternConverter {
       $this->LoggerPatternConverter($formattingInfo);
       $this->precision =  $precision;
     }
-
     /**
      * @param LoggerLoggingEvent $event
      * @return string
@@ -414,7 +377,6 @@ class LoggerNamedPatternConverter extends LoggerPatternConverter {
         // abstract
         return;
     }
-
     /**
      * @param LoggerLoggingEvent $event
      * @return string
@@ -440,14 +402,12 @@ class LoggerNamedPatternConverter extends LoggerPatternConverter {
         }
     }
 }
-
 /**
  * @author VxR <vxr@vxr.it>
  * @package log4php
  * @subpackage helpers
  */
 class LoggerClassNamePatternConverter extends LoggerNamedPatternConverter {
-
     /**
      * Constructor
      *
@@ -460,7 +420,6 @@ class LoggerClassNamePatternConverter extends LoggerNamedPatternConverter {
     
         $this->LoggerNamedPatternConverter($formattingInfo, $precision);
     }
-
     /**
      * @param LoggerLoggingEvent $event
      * @return string
@@ -470,14 +429,12 @@ class LoggerClassNamePatternConverter extends LoggerNamedPatternConverter {
         return $event->fqcn;
     }
 }
-
 /**
  * @author VxR <vxr@vxr.it>
  * @package log4php
  * @subpackage helpers
  */
 class LoggerCategoryPatternConverter extends LoggerNamedPatternConverter {
-
     /**
      * Constructor
      *
@@ -490,7 +447,6 @@ class LoggerCategoryPatternConverter extends LoggerNamedPatternConverter {
     
         $this->LoggerNamedPatternConverter($formattingInfo, $precision);
     }
-
     /**
      * @param LoggerLoggingEvent $event
      * @return string
@@ -500,5 +456,4 @@ class LoggerCategoryPatternConverter extends LoggerNamedPatternConverter {
       return $event->getLoggerName();
     }
 }
-
 ?>

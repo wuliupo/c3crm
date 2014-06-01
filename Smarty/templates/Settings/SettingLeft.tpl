@@ -60,7 +60,6 @@
 					</a>
 				<li>
 				{/if}-->
-
 				{if $SETTYPE eq "SmsAccount"}
 				<li class="active">
 					<a href="index.php?module=Settings&action=SmsAccount">
@@ -74,8 +73,6 @@
 					</a>
 				<li>
 				{/if}
-
-
 				{if $SETTYPE eq "LayoutList"}
 				<li class="active">
 					<a href="index.php?module=Settings&action=LayoutList">
@@ -102,7 +99,6 @@
 					</a>
 				<li>
 				{/if}
-
 			</ul>
 		</div>
 	</div>

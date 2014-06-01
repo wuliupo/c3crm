@@ -36,6 +36,5 @@ $mod_strings = array (
   'ordername' =>'订单名称',
   'orderdate' =>'订单日期',
   'duedate' =>'合同到期日期',
-
 );
 ?>

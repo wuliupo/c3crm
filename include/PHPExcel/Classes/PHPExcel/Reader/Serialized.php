@@ -24,8 +24,6 @@
  * @license    http://www.gnu.org/licenses/old-licenses/lgpl-2.1.txt	LGPL
  * @version    1.7.2, 2010-01-11
  */
-
-
 /** PHPExcel root directory */
 if (!defined('PHPEXCEL_ROOT')) {
 	/**
@@ -33,17 +31,12 @@ if (!defined('PHPEXCEL_ROOT')) {
 	 */
 	define('PHPEXCEL_ROOT', dirname(__FILE__) . '/../../');
 }
-
 /** PHPExcel */
 require_once PHPEXCEL_ROOT . 'PHPExcel.php';
-
 /** PHPExcel_Reader_IReader */
 require_once PHPEXCEL_ROOT . 'PHPExcel/Reader/IReader.php';
-
 /** PHPExcel_Shared_File */
 require_once PHPEXCEL_ROOT . 'PHPExcel/Shared/File.php';
-
-
 /**
  * PHPExcel_Reader_Serialized
  *
@@ -82,15 +75,12 @@ class PHPExcel_Reader_Serialized implements PHPExcel_Reader_IReader
 		if (!file_exists($pFilename)) {
 			throw new Exception("Could not open " . $pFilename . " for reading! File does not exist.");
 		}
-
 		// Unserialize... First make sure the file supports it!
 		if (!$this->fileSupportsUnserializePHPExcel($pFilename)) {
 			throw new Exception("Invalid file format for PHPExcel_Reader_Serialized: " . $pFilename . ".");
 		}
-
 		return $this->_loadSerialized($pFilename);
 	}
-
 	/**
 	 * Load PHPExcel Serialized file
 	 *
@@ -100,7 +90,6 @@ class PHPExcel_Reader_Serialized implements PHPExcel_Reader_IReader
 	private function _loadSerialized($pFilename) {
 		$xmlData = simplexml_load_string(file_get_contents("zip://$pFilename#phpexcel.xml"));
 		$excel = unserialize(base64_decode((string)$xmlData->data));
-
 		// Update media links
 		for ($i = 0; $i < $excel->getSheetCount(); ++$i) {
 			for ($j = 0; $j < $excel->getSheet($i)->getDrawingCollection()->count(); ++$j) {
@@ -110,10 +99,8 @@ class PHPExcel_Reader_Serialized implements PHPExcel_Reader_IReader
 				}
 			}
 		}
-
 		return $excel;
 	}
-
     /**
      * Does a file support UnserializePHPExcel ?
      *
@@ -126,7 +113,6 @@ class PHPExcel_Reader_Serialized implements PHPExcel_Reader_IReader
 		if (!file_exists($pFilename)) {
 			throw new Exception("Could not open " . $pFilename . " for reading! File does not exist.");
 		}
-
 		// File exists, does it contain phpexcel.xml?
 		return PHPExcel_Shared_File::file_exists("zip://$pFilename#phpexcel.xml");
     }

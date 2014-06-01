@@ -19,25 +19,19 @@
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  * @version    $Id: Mbox.php 23775 2011-03-01 17:25:24Z ralph $
  */
-
-
 /**
  * @see Zend_Loader
  * May be used in constructor, but commented out for now
  */
 // require_once 'include/Zend/Loader.php';
-
 /**
  * @see Zend_Mail_Storage_Abstract
  */
 require_once 'include/Zend/Mail/Storage/Abstract.php';
-
 /**
  * @see Zend_Mail_Message_File
  */
 require_once 'include/Zend/Mail/Message/File.php';
-
-
 /**
  * @category   Zend
  * @package    Zend_Mail
@@ -52,31 +46,26 @@ class Zend_Mail_Storage_Mbox extends Zend_Mail_Storage_Abstract
      * @var null|resource
      */
     protected $_fh;
-
     /**
      * filename of mbox file for __wakeup
      * @var string
      */
     protected $_filename;
-
     /**
      * modification date of mbox file for __wakeup
      * @var int
      */
     protected $_filemtime;
-
     /**
      * start and end position of messages as array('start' => start, 'seperator' => headersep, 'end' => end)
      * @var array
      */
     protected $_positions;
-
     /**
      * used message class, change it in an extened class to extend the returned message class
      * @var string
      */
     protected $_messageClass = 'Zend_Mail_Message_File';
-
     /**
      * Count messages all messages in current box
      *
@@ -87,8 +76,6 @@ class Zend_Mail_Storage_Mbox extends Zend_Mail_Storage_Abstract
     {
         return count($this->_positions);
     }
-
-
     /**
      * Get a list of messages with number and size
      *
@@ -101,16 +88,12 @@ class Zend_Mail_Storage_Mbox extends Zend_Mail_Storage_Abstract
             $pos = $this->_positions[$id - 1];
             return $pos['end'] - $pos['start'];
         }
-
         $result = array();
         foreach ($this->_positions as $num => $pos) {
             $result[$num + 1] = $pos['end'] - $pos['start'];
         }
-
         return $result;
     }
-
-
     /**
      * Get positions for mail message or throw exeption if id is invalid
      *
@@ -127,11 +110,8 @@ class Zend_Mail_Storage_Mbox extends Zend_Mail_Storage_Abstract
             require_once 'include/Zend/Mail/Storage/Exception.php';
             throw new Zend_Mail_Storage_Exception('id does not exist');
         }
-
         return $this->_positions[$id - 1];
     }
-
-
     /**
      * Fetch a message
      *
@@ -148,9 +128,7 @@ class Zend_Mail_Storage_Mbox extends Zend_Mail_Storage_Abstract
             return new $this->_messageClass(array('file' => $this->_fh, 'startPos' => $messagePos['start'],
                                                   'endPos' => $messagePos['end']));
         }
-
         $bodyLines = 0; // TODO: need a way to change that
-
         $message = $this->getRawHeader($id);
         // file pointer is after headers now
         if ($bodyLines) {
@@ -159,10 +137,8 @@ class Zend_Mail_Storage_Mbox extends Zend_Mail_Storage_Abstract
                 $message .= fgets($this->_fh);
             }
         }
-
         return new $this->_messageClass(array('handler' => $this, 'id' => $id, 'headers' => $message));
     }
-
     /*
      * Get raw header of message or part
      *
@@ -187,7 +163,6 @@ class Zend_Mail_Storage_Mbox extends Zend_Mail_Storage_Abstract
         // TODO: toplines
         return stream_get_contents($this->_fh, $messagePos['separator'] - $messagePos['start'], $messagePos['start']);
     }
-
     /*
      * Get raw content of message or part
      *
@@ -210,7 +185,6 @@ class Zend_Mail_Storage_Mbox extends Zend_Mail_Storage_Abstract
         $messagePos = $this->_getPos($id);
         return stream_get_contents($this->_fh, $messagePos['end'] - $messagePos['separator'], $messagePos['separator']);
     }
-
     /**
      * Create instance with parameters
      * Supported parameters are:
@@ -224,7 +198,6 @@ class Zend_Mail_Storage_Mbox extends Zend_Mail_Storage_Abstract
         if (is_array($params)) {
             $params = (object)$params;
         }
-
         if (!isset($params->filename) /* || Zend_Loader::isReadable($params['filename']) */) {
             /**
              * @see Zend_Mail_Storage_Exception
@@ -232,12 +205,10 @@ class Zend_Mail_Storage_Mbox extends Zend_Mail_Storage_Abstract
             require_once 'include/Zend/Mail/Storage/Exception.php';
             throw new Zend_Mail_Storage_Exception('no valid filename given in params');
         }
-
         $this->_openMboxFile($params->filename);
         $this->_has['top']      = true;
         $this->_has['uniqueid'] = false;
     }
-
     /**
      * check if given file is a mbox file
      *
@@ -257,21 +228,16 @@ class Zend_Mail_Storage_Mbox extends Zend_Mail_Storage_Abstract
         } else {
             fseek($file, 0);
         }
-
         $result = false;
-
         $line = fgets($file);
         if (strpos($line, 'From ') === 0) {
             $result = true;
         }
-
         if ($fileIsString) {
             @fclose($file);
         }
-
         return $result;
     }
-
     /**
      * open given file as current mbox file
      *
@@ -284,7 +250,6 @@ class Zend_Mail_Storage_Mbox extends Zend_Mail_Storage_Abstract
         if ($this->_fh) {
             $this->close();
         }
-
         $this->_fh = @fopen($filename, 'r');
         if (!$this->_fh) {
             /**
@@ -295,7 +260,6 @@ class Zend_Mail_Storage_Mbox extends Zend_Mail_Storage_Abstract
         }
         $this->_filename = $filename;
         $this->_filemtime = filemtime($this->_filename);
-
         if (!$this->_isMboxFile($this->_fh, false)) {
             @fclose($this->_fh);
             /**
@@ -304,7 +268,6 @@ class Zend_Mail_Storage_Mbox extends Zend_Mail_Storage_Abstract
             require_once 'include/Zend/Mail/Storage/Exception.php';
             throw new Zend_Mail_Storage_Exception('file is not a valid mbox format');
         }
-
         $messagePos = array('start' => ftell($this->_fh), 'separator' => 0, 'end' => 0);
         while (($line = fgets($this->_fh)) !== false) {
             if (strpos($line, 'From ') === 0) {
@@ -319,14 +282,12 @@ class Zend_Mail_Storage_Mbox extends Zend_Mail_Storage_Abstract
                 $messagePos['separator'] = ftell($this->_fh);
             }
         }
-
         $messagePos['end'] = ftell($this->_fh);
         if (!$messagePos['separator']) {
             $messagePos['separator'] = $messagePos['end'];
         }
         $this->_positions[] = $messagePos;
     }
-
     /**
      * Close resource for mail lib. If you need to control, when the resource
      * is closed. Otherwise the destructor would call this.
@@ -338,8 +299,6 @@ class Zend_Mail_Storage_Mbox extends Zend_Mail_Storage_Abstract
         @fclose($this->_fh);
         $this->_positions = array();
     }
-
-
     /**
      * Waste some CPU cycles doing nothing.
      *
@@ -349,8 +308,6 @@ class Zend_Mail_Storage_Mbox extends Zend_Mail_Storage_Abstract
     {
         return true;
     }
-
-
     /**
      * stub for not supported message deletion
      *
@@ -365,7 +322,6 @@ class Zend_Mail_Storage_Mbox extends Zend_Mail_Storage_Abstract
         require_once 'include/Zend/Mail/Storage/Exception.php';
         throw new Zend_Mail_Storage_Exception('mbox is read-only');
     }
-
     /**
      * get unique id for one or all messages
      *
@@ -384,11 +340,9 @@ class Zend_Mail_Storage_Mbox extends Zend_Mail_Storage_Abstract
             $this->_getPos($id);
             return $id;
         }
-
         $range = range(1, $this->countMessages());
         return array_combine($range, $range);
     }
-
     /**
      * get a message number from a unique id
      *
@@ -405,7 +359,6 @@ class Zend_Mail_Storage_Mbox extends Zend_Mail_Storage_Abstract
         $this->_getPos($id);
         return $id;
     }
-
     /**
      * magic method for serialize()
      *
@@ -417,7 +370,6 @@ class Zend_Mail_Storage_Mbox extends Zend_Mail_Storage_Abstract
     {
         return array('_filename', '_positions', '_filemtime');
     }
-
     /**
      * magic method for unserialize()
      *
@@ -443,5 +395,4 @@ class Zend_Mail_Storage_Mbox extends Zend_Mail_Storage_Abstract
             }
         }
     }
-
 }

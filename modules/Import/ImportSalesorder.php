@@ -17,7 +17,6 @@
  * Description:  Defines the Account SugarBean Account entity with the necessary
  * methods and variables.
  ********************************************************************************/
-
 include_once('config.php');
 require_once('include/logging.php');
 require_once('include/database/PearDatabase.php');
@@ -25,19 +24,14 @@ require_once('modules/Notes/Notes.php');
 require_once('modules/Accounts/Accounts.php');
 require_once('modules/SalesOrder/SalesOrder.php');
 require_once('user_privileges/seqprefix_config.php');
-
 // Account is used to store ec_salesorder information.
 class ImportSalesorder extends SalesOrder {
 	 var $db;
-
 	// This is the list of ec_fields that are required.
 	var $required_fields =  array("subject"=>1);
-
 	// This is the list of the functions to run when importing
 	var $special_functions =  array();
-
 	var $importable_fields = Array();
-
 	/**   function used to set the assigned_user_id value in the column_fields when we map the username during import
          */
 	function assign_user()
@@ -53,7 +47,6 @@ class ImportSalesorder extends SalesOrder {
 			}
 			else
 			{
-
 				$row = $this->db->fetchByAssoc($result, -1, false);
 				if (isset($row['id']) && $row['id'] != -1)
         	    {
@@ -66,28 +59,22 @@ class ImportSalesorder extends SalesOrder {
 			}
 		}
 	}
-
-
 	/** Constructor which will set the importable_fields as $this->importable_fields[$key]=1 in this object where key is the fieldname in the field table
 	 */
 	function ImportSalesorder() {
-
 		$this->log = LoggerManager::getLogger('import_salesorder');
 		$this->db = & getSingleDBInstance();
 		$colf = getColumnFields("SalesOrder");
 		foreach($colf as $key=>$value)
 			$this->importable_fields[$key]=1;
 	}
-
 	function ClearColumnFields() {
-
 		$this->log = LoggerManager::getLogger('import_salesorder');
 		$this->db = & getSingleDBInstance();
 		$colf = getColumnFields("SalesOrder");
 		foreach($colf as $key=>$value)
 			$this->column_fields[$key]='';
 	}
-
 	function isExist()
 	{
 		$this->log->info("Entering into isExist function");
@@ -102,11 +89,8 @@ class ImportSalesorder extends SalesOrder {
 		$this->log->info("Exit isExist function");
 		return false;
 	}
-
-
 	function save($module) {
 		$this->log->info("begin salesorder save function");
-
 		$queryacc = "select accountid from ec_account where deleted=0 and  membername='".trim($this->column_fields['buyer_nick'])."'";
 		$resultacc =& $this->db->query($queryacc, false, "Retrieving record");
 		if ($this->db->getRowCount($resultacc ) >= 1) {
@@ -118,13 +102,11 @@ class ImportSalesorder extends SalesOrder {
 		
 		
 		$salesorderid = '';
-
 		if(isset($_SESSION['import_overwrite1']) && $_SESSION['import_overwrite1'] == 1) {
 		$this->log->info("salesorder save function(import_overwrite)");
 			if(!empty($this->column_fields['subject'])) {
 				$where_clause = "and ec_salesorder.subject='".trim($this->column_fields['subject'])."'";
 				$query = "SELECT ec_salesorder.salesorderid FROM ec_salesorder where deleted=0 $where_clause";
-
 				$result =& $this->db->query($query, false, "Retrieving record $where_clause");
 				if ($this->db->getRowCount($result ) >= 1) {
 					/*$this->log->info("salesorder save function(import_overwrite update)");
@@ -160,10 +142,8 @@ class ImportSalesorder extends SalesOrder {
 			}
 		}
 		$this->ClearColumnFields();
-
 		$this->log->info("end salesorder save function");
 	}
-
 	function SaveSalesOrder($salesorderid,$column_fields){
 		global $current_user;
 		global $salesorder_seqprefix;
@@ -218,7 +198,6 @@ class ImportSalesorder extends SalesOrder {
 	  global $log;
   	  global $current_user;
 	  $log->debug("Entering into function insertIntoEntityTable()");
-
       if(isset($this->column_fields['createdtime']) && $this->column_fields['createdtime'] != "") {
 			$createdtime = getDisplayDate_WithTime($this->column_fields['createdtime']);
 		} else {
@@ -251,7 +230,6 @@ class ImportSalesorder extends SalesOrder {
 		  }
 		  setSqlCacheData($key,$importColumns);
 	  }
-
 	  if($this->mode == 'edit') {
 		  $update = "";
 		  $iCount = 0;
@@ -279,7 +257,6 @@ class ImportSalesorder extends SalesOrder {
 		      $sql1 = "update ".$table_name." set modifiedby='".$current_user->id."',modifiedtime=NOW(),".$update." where ".$this->tab_name_index[$table_name]."=".$this->id;
 		      $this->db->query($sql1);
 		  }
-
 	  } else {
 		  $column = $this->tab_name_index[$table_name];
 	      $value = $this->id;
@@ -295,15 +272,11 @@ class ImportSalesorder extends SalesOrder {
 				  }
 			  }
 		  }
-
 		  $sql1 = "insert into ".$table_name." (".$column.",smcreatorid,smownerid,createdtime,modifiedtime) values(".$value.",'".$current_user->id."','".$current_user->id."',NOW(),NOW())";
 		  $this->db->query($sql1);
 	  }
 	  $log->debug("Exiting function insertIntoEntityTable()");
 	}
-
-
-
 	function saveentity($module)
 	{
 		global $current_user;
@@ -324,9 +297,5 @@ class ImportSalesorder extends SalesOrder {
 		$this->db->completeTransaction();
 		$this->db->println("TRANS saveentity ends");
 	}
-
 }
-
-
-
 ?>

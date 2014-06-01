@@ -9,7 +9,6 @@
 *
  ********************************************************************************/
 require_once('data/Tracker.php');
-
 global $mod_strings;
 global $app_list_strings;
 global $app_strings;
@@ -22,14 +21,11 @@ $error_msg = '';
 $theme_path="themes/".$theme."/";
 $image_path=$theme_path."images/";
 require_once('modules/CustomView/CustomView.php');
-
 $cv_module = $_REQUEST['module'];
-
 $recordid = "";
 if(isset($_REQUEST['record'])) {
 	$recordid = $_REQUEST['record'];
 }
-
 $smarty->assign("MOD", $mod_strings);
 $smarty->assign("CATEGORY", $_REQUEST['parenttab']);
 $smarty->assign("APP", $app_strings);
@@ -57,20 +53,16 @@ if($recordid == "")
 	if(isset($modulecollist))
 	{
 		//$choosecolhtml = getByModule_ColumnsHTML($cv_module,$modulecollist);
-
 		$choosecollectcolhtml=getByModule_ColumnsHTML($cv_module,$modulecollectcollist);
 	}
-
 	
 	//step2
 	$stdfilterhtml = $oCustomView->getStdFilterCriteria();
 	$log->info('CustomView :: Successfully got StandardFilter for the module'.$cv_module);
 	$stdfiltercolhtml = getStdFilterHTML($cv_module);
 	$stdfilterjs = $oCustomView->getCriteriaJS();
-
 	//step4
 	$advfilterhtml = getAdvCriteriaHTML();
-
 //	for($i=1;$i<10;$i++)
 //	{
 //		$choosecolhtml = getByModule_ColumnsHTML($cv_module,$modulecollist,$selectedcolumnslist[$i-1]);
@@ -92,7 +84,6 @@ if($recordid == "")
     }
     $smarty->assign("NEWVIEW","true");
     $smarty->assign("CHOOSECOLUMN",$choosecolumnHtml);
-
 	$smarty->assign("CHOOSECOLLECTCOLUMN",$choosecollectcolhtml);
 	$log->info('CustomView :: Successfully got AdvancedFilter for the module'.$cv_module);
 	for($i=1;$i<6;$i++)
@@ -100,11 +91,9 @@ if($recordid == "")
 		$smarty->assign("FOPTION".$i,$advfilterhtml);
 		$smarty->assign("BLOCK".$i,$choosecolhtml);
 	}
-
 	$smarty->assign("STDFILTERCOLUMNS",$stdfiltercolhtml);
 	$smarty->assign("STDFILTERCRITERIA",$stdfilterhtml);
 	$smarty->assign("STDFILTER_JAVASCRIPT",$stdfilterjs);
-
 	$smarty->assign("MANDATORYCHECK",implode(",",$oCustomView->mandatoryvalues));
 	$smarty->assign("SHOWVALUES",implode(",",$oCustomView->showvalues));
 }
@@ -126,9 +115,7 @@ else
 	$modulecollectcollist = $oCustomView->getModuleCollectColumnsList($cv_module);
 	$selectedcolumnslist = $oCustomView->getColumnsListByCvid($recordid);
 	$log->info('CustomView :: Successfully got ColumnsList for the Viewid'.$recordid);
-
 	$smarty->assign("VIEWNAME",$customviewdtls["viewname"]);
-
 	if($customviewdtls["setdefault"] == 1)
 	{
 		$smarty->assign("CHECKED","checked");
@@ -160,19 +147,16 @@ else
         $choosecolumnHtml[]=$entries;
     }
     $smarty->assign("CHOOSECOLUMN",$choosecolumnHtml);
-
 	$stdfilterlist = $oCustomView->getStdFilterByCvid($recordid);
 	$log->info('CustomView :: Successfully got Standard Filter for the Viewid'.$recordid);
 	$stdfilterhtml = $oCustomView->getStdFilterCriteria($stdfilterlist["stdfilter"]);
 	$stdfiltercolhtml = getStdFilterHTML($cv_module,$stdfilterlist["columnname"]);
 	$stdfilterjs = $oCustomView->getCriteriaJS();
-
 	if(isset($stdfilterlist["startdate"]) && isset($stdfilterlist["enddate"]))
 	{
 		$smarty->assign("STARTDATE",$stdfilterlist["startdate"]);
 		$smarty->assign("ENDDATE",$stdfilterlist["enddate"]);
 	}
-
 	$advfilterlist = $oCustomView->getAdvFilterByCvid($recordid);
 	$log->info('CustomView :: Successfully got Advanced Filter for the Viewid'.$recordid,'info');
 	for($i=1;$i<6;$i++)
@@ -183,7 +167,6 @@ else
 		$smarty->assign("BLOCK".$i,$advcolumnhtml);
 		$smarty->assign("VALUE".$i,$advfilterlist[$i-1]["value"]);
 	}
-
 	$smarty->assign("STDFILTERCOLUMNS",$stdfiltercolhtml);
 	$smarty->assign("STDFILTERCRITERIA",$stdfilterhtml);
 	$smarty->assign("STDFILTER_JAVASCRIPT",$stdfilterjs);
@@ -193,16 +176,12 @@ else
 	if(is_array($oCustomView->showvalues)) {
 		$smarty->assign("SHOWVALUES",implode(",",$oCustomView->showvalues));
 	}
-
 	$cactionhtml = "<input name='customaction' class='button' type='button' value='Create Custom Action' onclick=goto_CustomAction('".$cv_module."');>";
-
 	if($cv_module == "Leads" || $cv_module == "Accounts" || $cv_module == "Contacts")
 	{
 		$smarty->assign("CUSTOMACTIONBUTTON",$cactionhtml);
 	}
 }
-
-
 if(empty($customviewdtls)){
 	$publictype="private";
 }else{
@@ -212,7 +191,6 @@ if(empty($customviewdtls)){
 		$publictype="private";
 	}
 }
-
 $publicarr = array("public"=>"公用","private"=>"私用");
 $publichtml = '';
 $publichtml .='<select name="publictype">';
@@ -224,23 +202,17 @@ foreach($publicarr as $key=>$public){
 	}
 }
 $publichtml .='</select>';
-
 if(is_admin($current_user)){
 	$smarty->assign("ADMIN","on");
 }else{
 	$publichtml = "<input type=\"hidden\" value=\"private\" name=\"publictype\">";	
 }
-
-
 $smarty->assign("publichtml", $publichtml);
-
 $smarty->assign("RETURN_MODULE", $cv_module);
 $return_action = "index";
 	
 $smarty->assign("RETURN_ACTION", $return_action);
-
 $smarty->display("CustomView.tpl");
-
 /** to get the custom columns for the given module and columnlist  
   * @param $module (modulename):: type String 
   * @param $columnslist (Module columns list):: type Array 
@@ -302,7 +274,6 @@ $smarty->display("CustomView.tpl");
   *					      ), 
   *
   */
-
 function getByModule_ColumnsHTML($module,$columnslist,$selected="")
 {
 	global $oCustomView;
@@ -312,7 +283,6 @@ function getByModule_ColumnsHTML($module,$columnslist,$selected="")
 	$advfilter = array();
 	//changed by dingjianting on 2006-11-8 for simplized chinese
 	$mod_strings = return_specified_module_language($current_language,$module);
-
 	foreach($oCustomView->module_list[$module] as $key=>$value)
 	{
 		$advfilter = array();			
@@ -370,8 +340,6 @@ function getByModule_ColumnsHTML($module,$columnslist,$selected="")
 	}
 	return $advfilter_out;
 }
-
-
        /** to get the standard filter criteria  
 	* @param $module(module name) :: Type String 
 	* @param $elected (selection status) :: Type String (optional)
@@ -387,7 +355,6 @@ function getStdFilterHTML($module,$selected="")
 	$stdfilter = array();
 	$result = $oCustomView->getStdCriteriaByModule($module);
 	$mod_strings = return_specified_module_language($current_language,$module);
-
 	if(isset($result))
 	{
 		foreach($result as $key=>$value)
@@ -422,10 +389,8 @@ function getStdFilterHTML($module,$selected="")
 			$stdfilter[]=$filter;
 		}
 	}
-
 	return $stdfilter;
 }
-
       /** to get the Advanced filter criteria  
 	* @param $selected :: Type String (optional)
 	* @returns  $AdvCriteria Array in the following format
@@ -454,9 +419,7 @@ function getAdvCriteriaHTML($selected="")
 		}
 		$AdvCriteria[] = $advfilter_criteria;
 	}
-
 	return $AdvCriteria;
 }
 //step4
-
 ?>

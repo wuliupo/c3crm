@@ -1,22 +1,17 @@
 <?php
-
 /*
 ********************************************************
 TinyButStrong plug-in: HTML (requires TBS >= 3.3.0)
 Version 1.0.6, on 2008-02-29, by Skrol29
 ********************************************************
 */
-
 define('TBS_HTML','clsTbsPlugInHtml');
 $GLOBALS['_TBS_AutoInstallPlugIns'][] = TBS_HTML; // Auto-install
-
 class clsTbsPlugInHtml {
-
 function OnInstall() {
 	$this->Version = '1.0.6';
 	return array('OnOperation');
 }
-
 function OnOperation($FieldName,&$Value,&$PrmLst,&$Source,&$PosBeg,&$PosEnd,&$Loc) {
 	if ($PrmLst['ope']!=='html') return;
 	if (isset($PrmLst['select'])) {
@@ -32,7 +27,6 @@ function OnOperation($FieldName,&$Value,&$PrmLst,&$Source,&$PosBeg,&$PosEnd,&$Lo
 		}
 	}
 }
-
 function f_Html_InsertAttribute(&$Txt,&$Attr,$Pos) {
 	// Check for XHTML end characters
 	if ($Txt[$Pos-1]==='/') {
@@ -42,12 +36,9 @@ function f_Html_InsertAttribute(&$Txt,&$Attr,$Pos) {
 	// Insert the parameter
 	$Txt = substr_replace($Txt,$Attr,$Pos,0);
 }
-
 function f_Html_MergeItems(&$Txt,$ValueLst,$PrmLst,$PosBeg,$PosEnd) {
 // Select items of a list, or radio or check buttons.
-
 	$TBS =& $this->TBS;
-
 	if ($PrmLst['select']===true) { // Means set with no value
 		$IsList = true;
 		$ParentTag = 'select';
@@ -66,24 +57,18 @@ function f_Html_MergeItems(&$Txt,$ValueLst,$PrmLst,$PosBeg,$PosEnd) {
 		$ValueLst = array($ValueLst);
 		$ValNbr = 1;
 	}
-
 	$AddMissing = ($IsList and isset($PrmLst['addmissing']));
 	if ($AddMissing) $Missing = $ValueLst;
 	if (isset($PrmLst['selbounds'])) $ParentTag = $PrmLst['selbounds'];
 	$ItemPrmZ = ' '.$ItemPrm.'="'.$ItemPrm.'"';
-
 	$TagO = $TBS->f_Xml_FindTag($Txt,$ParentTag,true,$PosBeg-1,false,1,false);
-
 	if ($TagO!==false) {
-
 		$TagC = $TBS->f_Xml_FindTag($Txt,$ParentTag,false,$PosEnd+1,true,-1,false);
 		if ($TagC!==false) {
-
 			// We will work on the zone only
 			$ZoneSrc = substr($Txt,$TagO->PosEnd+1,$TagC->PosBeg - $TagO->PosEnd -1);
 			$PosBegZ = $PosBeg - $TagO->PosEnd - 1;
 			$PosEndZ = $PosEnd - $TagO->PosEnd - 1;
-
 			$DelTbsTag = true;
 			// Save and delete the option item that contains the TBS tag
 			if ($IsList) {
@@ -114,17 +99,13 @@ function f_Html_MergeItems(&$Txt,$ValueLst,$PrmLst,$PosBeg,$PosEnd) {
 						$ZoneSrc = substr_replace($ZoneSrc,'',$ItemLoc->PosBeg,$len); // Delete the item
 					}
 				}
-
 			}
 			
 			if ($DelTbsTag) $ZoneSrc = substr_replace($ZoneSrc,'',$PosBegZ,$PosEndZ-$PosBegZ+1);
-
 			// Now, we going to scan all of the item tags
 			$Pos = 0;
 			$SelNbr = 0;
-
 			while ($ItemLoc = $TBS->f_Xml_FindTag($ZoneSrc,$ItemTag,true,$Pos,true,false,true)) {
-
 				// we get the value of the item
 				$ItemValue = false;
 			
@@ -150,7 +131,6 @@ function f_Html_MergeItems(&$Txt,$ValueLst,$PrmLst,$PosBeg,$PosEnd) {
 					}
 					$Pos = $ItemLoc->PosEnd;
 				}
-
 				// Check the value and select the current item 
 				if ($ItemValue!==false) {
 					$x = array_search($ItemValue,$ValueLst,false);
@@ -167,28 +147,19 @@ function f_Html_MergeItems(&$Txt,$ValueLst,$PrmLst,$PosBeg,$PosEnd) {
 							break;
 						}
 					}
-
 				}
-
 			} //--> while ($ItemLoc = ... ) {
-
 			if ($AddMissing and isset($OptSave)) {
 				foreach ($Missing as $x) {
 					$ZoneSrc = $ZoneSrc.substr($OptSave,0,$PosBegS).$x.substr($OptSave,$PosEndS+1);
 				}
 			}
-
 			$Txt = substr_replace($Txt,$ZoneSrc,$TagO->PosEnd+1,$TagC->PosBeg-$TagO->PosEnd-1);
-
 		} //--> if ($TagC!==false) {
 	} //--> if ($TagO!==false) {
-
-
 }
-
 function f_Html_IsHtml(&$Txt) {
 // This function returns True if the text seems to have some HTML tags.
-
 	// Search for opening and closing tags
 	$pos = strpos($Txt,'<');
 	if ( ($pos!==false) and ($pos<strlen($Txt)-1) ) {
@@ -201,7 +172,6 @@ function f_Html_IsHtml(&$Txt) {
 			}
 		}
 	}
-
 	// Search for special char
 	$pos = strpos($Txt,'&');
 	if ( ($pos!==false) and ($pos<strlen($Txt)-1) ) {
@@ -213,17 +183,12 @@ function f_Html_IsHtml(&$Txt) {
 			}
 		}
 	}
-
 	// Look for a simple tag
 	$Loc1 = $this->TBS->f_Xml_FindTag($Txt,'BR',true,0,true,false,false); // line break
 	if ($Loc1!==false) return true;
 	$Loc1 = $this->TBS->f_Xml_FindTag($Txt,'HR',true,0,true,false,false); // horizontal line
 	if ($Loc1!==false) return true;
-
 	return false;
-
 }
-
 }
-
 ?>

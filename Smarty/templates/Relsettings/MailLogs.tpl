@@ -44,7 +44,6 @@
 				</table>
 				{/if}
 			</div>
-
 			<div style="margin-top:25px">
 				<!--	! Search	-->
 				<input type="hidden" value="{$maillistsid}"   name="maillistsid"/>
@@ -75,7 +74,6 @@
 				</table>
 				<!--	/ Search	-->
 			</div>
-
 			<div style="margin:5px 5px">
 				<!--	! List	-->
 				<table class="table table-bordered table-hover table-condensed table-striped">
@@ -101,13 +99,10 @@
 					</tbody>
 				</table>
 				<!--	/ List	-->
-
 				<table class="table table-bordered table-hover table-condensed"><tbody>
 					<tr><td colspan="15" style="margin:0px;vertical-align: center;" >
 						<div class="span7 pull-left" style="margin-top:8px;">
-
 						</div>
-
 						<div class="span5" style="margin-top:8px;">
 							<div class="pagination pagination-mini pagination-right" style="margin:0px;">
 							<small style="color:#999999;">{$RECORD_COUNTS}&nbsp;</small>
@@ -116,17 +111,13 @@
 						</div>
 					</td></tr>
 				</table>
-
 			<input type="hidden" value="{$search_url}"   name="search_url"  id="search_url"/>
 		</div>
 					
 				</div>
 			</div>
 		</div>
-
-
 	
-
 <script>
 {literal}
 function getListViewEntries_js(module,url)
@@ -151,4 +142,3 @@ function getListViewWithPageSize(module,pageElement)
 } 
 {/literal}
 </script>
-

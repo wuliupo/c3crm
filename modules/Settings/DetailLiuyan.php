@@ -15,32 +15,24 @@ global $mod_strings;
 global $app_strings;
 global $app_list_strings;
 global $current_user;
-
 //Display the mail send status
 $smarty = new CRMSmarty();
-
 global $adb;
 global $theme;
 $theme_path="themes/".$theme."/";
 $image_path=$theme_path."images/";
-
-
 $id = $_REQUEST['id'];
 if(!empty($id)){
 	
 }else{
 	die("Id is empty!");
 }
-
-
 if(isset($_REQUEST['change']) && $_REQUEST['change'] == 1){
 	$updatesql = "update ec_liuyan set reply=1,replytime='".date("Y-m-d H:i:s")."' where id='".$id."' ";
 	$adb->query($updatesql);
 }
-
 $sql="select * from ec_liuyan where  id='".$id."' "; 
 $row = $adb->getFirstLine($sql);
-
 if(!empty($row)){
 	$name = $row['name'];
 	$tel = $row['tel'];
@@ -56,14 +48,9 @@ $smarty->assign("content", $content);
 $smarty->assign("createdtime", $createdtime);
 $smarty->assign("reply", $reply);
 $smarty->assign("replytime", $replytime);
-
-
 $smarty->assign("MOD", return_module_language($current_language,'Settings'));
 $smarty->assign("IMAGE_PATH",$image_path);
 $smarty->assign("APP", $app_strings);
 $smarty->assign("CMOD", $mod_strings);
 $smarty->display("Settings/DetailLiuyan.tpl");
-
-
-
 ?>

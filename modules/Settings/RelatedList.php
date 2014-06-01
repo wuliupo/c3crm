@@ -11,7 +11,6 @@
 require_once('include/CRMSmarty.php');
 require_once('include/database/PearDatabase.php');
 require_once('include/CustomFieldUtil.php');
-
 global $mod_strings;
 global $app_strings;
 $smarty = new CRMSmarty();
@@ -20,7 +19,6 @@ $smarty->assign("APP",$app_strings);
 global $theme;
 $theme_path="themes/".$theme."/";
 $image_path=$theme_path."images/";
-
 $smarty->assign("IMAGE_PATH", $image_path);
 $module_array = getCustomFieldSupportedModules(); 
 $smarty->assign("MODULES",$module_array);
@@ -30,16 +28,13 @@ else
 	$fld_module = 'Accounts';
 $smarty->assign("MODULE",$fld_module);
 $smarty->assign("RELATEDENTRY",getRelatedListEntries($fld_module));
-
 if($_REQUEST['mode'] !='')
 	$mode = $_REQUEST['mode'];
 $smarty->assign("MODE", $mode);
-
 if($_REQUEST['ajax'] != 'true')
 	$smarty->display('Settings/RelatedList.tpl');	
 else
 	$smarty->display('Settings/RelatedEntries.tpl');
-
 	/**
 	* Function to get customfield entries
 	* @param string $module - Module name
@@ -84,11 +79,8 @@ function getRelatedListEntries($module)
     }
 	return $relatedlist;
 }
-
-
 /* function to get the modules supports Custom Fields
 */
-
 function getCustomFieldSupportedModules()
 {
 	global $adb;

@@ -22,9 +22,7 @@ $theme_path="themes/".$theme."/";
 	$ret_action = $_REQUEST['return_action'];
 	$ret_module = $_REQUEST['return_module']; 
 	$ret_id = $_REQUEST['return_id'];
-
 ?>
-
 <INPUT TYPE="hidden" NAME="module" VALUE="uploads">
 <INPUT TYPE="hidden" NAME="action" VALUE="add2db">
 <INPUT TYPE="hidden" NAME="return_module" VALUE="<?php echo $ret_module ?>">

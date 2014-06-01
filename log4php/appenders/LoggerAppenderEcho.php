@@ -16,7 +16,6 @@
  * @package log4php
  * @subpackage appenders
  */
-
 /**
  * @ignore 
  */
@@ -26,7 +25,6 @@ if (!defined('LOG4PHP_DIR')) define('LOG4PHP_DIR', dirname(__FILE__) . '/..');
  */
 require_once(LOG4PHP_DIR . '/LoggerAppenderSkeleton.php');
 require_once(LOG4PHP_DIR . '/LoggerLog.php');
-
 /**
  * LoggerAppenderEcho uses {@link PHP_MANUAL#echo echo} function to output events. 
  * 
@@ -38,12 +36,10 @@ require_once(LOG4PHP_DIR . '/LoggerLog.php');
  * @subpackage appenders
  */
 class LoggerAppenderEcho extends LoggerAppenderSkeleton {
-
     /**
      * @access private 
      */
     var $requiresLayout = true;
-
     /**
      * @var boolean used internally to mark first append 
      * @access private 
@@ -59,7 +55,6 @@ class LoggerAppenderEcho extends LoggerAppenderSkeleton {
     {
         $this->LoggerAppenderSkeleton($name);
     }
-
     function activateOptions()
     {
         return;
@@ -71,7 +66,6 @@ class LoggerAppenderEcho extends LoggerAppenderSkeleton {
             echo $this->layout->getFooter();
         $this->closed = true;    
     }
-
     function append($event)
     {
         LoggerLog::debug("LoggerAppenderEcho::append()");
@@ -85,5 +79,4 @@ class LoggerAppenderEcho extends LoggerAppenderSkeleton {
         } 
     }
 }
-
 ?>

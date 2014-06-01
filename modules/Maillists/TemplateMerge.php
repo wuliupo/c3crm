@@ -1,5 +1,4 @@
 <?php
-
 //require_once('include/utils/CommonUtils.php');
 function getTemplateDetails2($templateid)
 {
@@ -13,7 +12,6 @@ function getTemplateDetails2($templateid)
         $log->debug("Exiting from getTemplateDetails($templateid) method ...");
         return $returndata;
 }
-
 if(isset($_REQUEST['templateid']) && $_REQUEST['templateid'] !='')
 {
 	$templatedetails = getTemplateDetails2($_REQUEST['templateid']);

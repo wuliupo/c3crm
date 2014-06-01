@@ -6,7 +6,6 @@
 <input name="entityid" type="hidden" value="">
 <input name="popuptype" id="popup_type" type="hidden" value="{$POPUPTYPE}">
 <input name="idlist" type="hidden" value="">
-
 <div style="margin-top:0px;margin-bottom:0px;">
    <table class="table table-bordered table-hover table-condensed table-striped">
     <thead>
@@ -38,7 +37,6 @@
           <td colspan="{$smarty.foreach.listviewforeach.iteration+1}">{$APP.LBL_FOUND}</td>
         </tr> 
        {/foreach}
-
     </tbody>
   </table>
   </div>
@@ -62,8 +60,6 @@
       </table>
   </div> 
 </form>
-
-
 <script language="JavaScript" type="text/javascript">
 {literal}
 $(function() {
@@ -75,7 +71,6 @@ $(function() {
     $selected_id.click(function(){
         $("#selectedAll").prop("checked",$selected_id.length == $selected_id.filter(":checked").length.length ? true : false);
     });
-
 });
 {/literal}
 </script>

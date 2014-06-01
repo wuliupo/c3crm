@@ -8,7 +8,6 @@
  * All Rights Reserved.
 * 
  ********************************************************************************/
-
 require_once('include/database/PearDatabase.php');
 require_once('include/utils/utils.php');
 require_once('include/logging.php');
@@ -62,7 +61,6 @@ if(isset($_POST['filename']) && is_array($_POST['filename'])) {
 					$sql1 = "insert into ec_seattachmentsrel values('";
 					$sql1 .= $crmid."','".$current_id."')";
 					$result = $adb->query($sql1);
-
 					echo '<script>window.opener.location.href = window.opener.location.href;self.close();</script>';		
 			}
 			

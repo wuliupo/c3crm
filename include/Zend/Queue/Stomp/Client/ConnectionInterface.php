@@ -19,7 +19,6 @@
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  * @version    $Id: ConnectionInterface.php 23775 2011-03-01 17:25:24Z ralph $
  */
-
 /**
  * The Stomp client interacts with a Stomp server.
  *
@@ -39,13 +38,11 @@ interface Zend_Queue_Stomp_Client_ConnectionInterface
      * @return boolean
      */
     public function open($scheme, $host, $port);
-
     /**
      * @param  boolean $destructor
      * @return void
      */
     public function close($destructor = false);
-
     /**
      * Check whether we are connected to the server
      *
@@ -53,7 +50,6 @@ interface Zend_Queue_Stomp_Client_ConnectionInterface
      * @throws Zend_Queue_Exception
      */
     public function ping();
-
     /**
      * write a frame to the stomp server
      *
@@ -63,12 +59,10 @@ interface Zend_Queue_Stomp_Client_ConnectionInterface
      * @return $this
      */
     public function write(Zend_Queue_Stomp_FrameInterface $frame);
-
     /**
      * tests the socket to see if there is data for us
      */
     public function canRead();
-
     /**
      * reads in a frame from the socket or returns false.
      *
@@ -76,7 +70,6 @@ interface Zend_Queue_Stomp_Client_ConnectionInterface
      * @throws Zend_Queue_Exception
      */
     public function read();
-
     /**
      * Set the frame class to be used
      *
@@ -86,14 +79,12 @@ interface Zend_Queue_Stomp_Client_ConnectionInterface
      * @return Zend_Queue_Stomp_Client_ConnectionInterface;
      */
     public function setFrameClass($class);
-
     /**
      * Get the frameClass
      *
      * @return string
      */
     public function getFrameClass();
-
     /**
      * create an empty frame
      *

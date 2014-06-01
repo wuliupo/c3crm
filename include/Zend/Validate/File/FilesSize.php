@@ -18,12 +18,10 @@
  * @license   http://framework.zend.com/license/new-bsd     New BSD License
  * @version   $Id: FilesSize.php 23775 2011-03-01 17:25:24Z ralph $
  */
-
 /**
  * @see Zend_Validate_File_Size
  */
 require_once 'include/Zend/Validate/File/Size.php';
-
 /**
  * Validator for the size of all files which will be validated in sum
  *
@@ -40,7 +38,6 @@ class Zend_Validate_File_FilesSize extends Zend_Validate_File_Size
     const TOO_BIG      = 'fileFilesSizeTooBig';
     const TOO_SMALL    = 'fileFilesSizeTooSmall';
     const NOT_READABLE = 'fileFilesSizeNotReadable';
-
     /**
      * @var array Error message templates
      */
@@ -49,14 +46,12 @@ class Zend_Validate_File_FilesSize extends Zend_Validate_File_Size
         self::TOO_SMALL    => "All files in sum should have a minimum size of '%min%' but '%size%' were detected",
         self::NOT_READABLE => "One or more files can not be read",
     );
-
     /**
      * Internal file array
      *
      * @var array
      */
     protected $_files;
-
     /**
      * Sets validator options
      *
@@ -70,7 +65,6 @@ class Zend_Validate_File_FilesSize extends Zend_Validate_File_Size
     {
         $this->_files = array();
         $this->_setSize(0);
-
         if ($options instanceof Zend_Config) {
             $options = $options->toArray();
         } elseif (is_scalar($options)) {
@@ -79,7 +73,6 @@ class Zend_Validate_File_FilesSize extends Zend_Validate_File_Size
             require_once 'include/Zend/Validate/Exception.php';
             throw new Zend_Validate_Exception('Invalid options to validator provided');
         }
-
         if (1 < func_num_args()) {
             $argv = func_get_args();
             array_shift($argv);
@@ -88,10 +81,8 @@ class Zend_Validate_File_FilesSize extends Zend_Validate_File_Size
                 $options['bytestring'] = array_shift($argv);
             }
         }
-
         parent::__construct($options);
     }
-
     /**
      * Defined by Zend_Validate_Interface
      *
@@ -108,7 +99,6 @@ class Zend_Validate_File_FilesSize extends Zend_Validate_File_Size
         if (is_string($value)) {
             $value = array($value);
         }
-
         $min  = $this->getMin(true);
         $max  = $this->getMax(true);
         $size = $this->_getSize();
@@ -118,14 +108,12 @@ class Zend_Validate_File_FilesSize extends Zend_Validate_File_Size
                 $this->_throw($file, self::NOT_READABLE);
                 continue;
             }
-
             if (!isset($this->_files[$files])) {
                 $this->_files[$files] = $files;
             } else {
                 // file already counted... do not count twice
                 continue;
             }
-
             // limited to 2GB files
             $size += @filesize($files);
             $this->_size = $size;
@@ -141,7 +129,6 @@ class Zend_Validate_File_FilesSize extends Zend_Validate_File_Size
                 }
             }
         }
-
         // Check that aggregate files are >= minimum size
         if (($min !== null) && ($size < $min)) {
             if ($this->useByteString()) {
@@ -154,11 +141,9 @@ class Zend_Validate_File_FilesSize extends Zend_Validate_File_Size
                 $this->_throw($file, self::TOO_SMALL);
             }
         }
-
         if (count($this->_messages) > 0) {
             return false;
         }
-
         return true;
     }
 }

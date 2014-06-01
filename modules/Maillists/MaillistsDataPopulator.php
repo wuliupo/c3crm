@@ -4,23 +4,19 @@ require_once('include/logging.php');
 require_once('include/database/PearDatabase.php');
 require_once('data/CRMEntity.php');
 require_once('include/utils/utils.php');
-
 /** 
  ** Class to populate the module required data during installation  
  */
-
 class MaillistsDataPopulator extends CRMEntity {
 		
 	function MaillistsDataPopulator() {
 		$this->log = LoggerManager::getLogger('MaillistsDataPopulator');
 		$this->db = & getSingleDBInstance();
 	}
-
 	var $new_schema = true;
 	function create_tables() {
 		
 	}
-
 	/** 
 	 **Function to populate the default required data during installation  
  	*/

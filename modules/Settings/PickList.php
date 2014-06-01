@@ -10,35 +10,27 @@
  ********************************************************************************/
 require_once('include/CRMSmarty.php');
 require_once('include/database/PearDatabase.php');
-
 global $mod_strings;
 global $app_strings;
 global $app_list_strings;
 global $current_language, $currentModule;
-
 if(isset($_REQUEST['fld_module']) && $_REQUEST['fld_module'] != '')
 	$fld_module = $_REQUEST['fld_module'];
 else	
 	$fld_module = 'Accounts';
-
 if(isset($_REQUEST['uitype']) && $_REQUEST['uitype'] != '')
 	$uitype = $_REQUEST['uitype'];
-
 $smarty = new CRMSmarty();
 $smarty->assign("MODULE_LISTS",getPickListModules());
-
 $picklists_entries = getUserFldArray($fld_module);
 if((sizeof($picklists_entries) %3) != 0)
 	$value = (sizeof($picklists_entries) + 3 - (sizeof($picklists_entries))%3); 
 else
 	$value = sizeof($picklists_entries);
-
 if($fld_module == 'Events')
-
 	$temp_module_strings = return_module_language($current_language, 'Calendar');
 else
 	$temp_module_strings = return_module_language($current_language, $fld_module);
-
 $smarty->assign("TEMP_MOD", $temp_module_strings);
 if(is_array($picklists_entries) && count($picklists_entries) > 0) {
 	$picklist_fields = array_chunk(array_pad($picklists_entries,$value,''),3);
@@ -51,7 +43,6 @@ $smarty->assign("APP", $app_strings);
 $smarty->assign("CMOD", $mod_strings);
 $smarty->assign("UITYPE", $uitype);
 $smarty->assign("SETTYPE","PickList");
-
 if($_REQUEST['directmode'] != 'ajax')
 	$smarty->display("Settings/PickList.tpl");
 else
@@ -62,7 +53,6 @@ else
 	 *  It gets the picklist details array for the given module in the given format
 	 *  			$fieldlist = Array(Array('fieldlabel'=>$fieldlabel,'generatedtype'=>$generatedtype,'columnname'=>$columnname,'fieldname'=>$fieldname,'value'=>picklistvalues))	
 	 */
-
 function getUserFldArray($fld_module)
 {
 	global $adb;
@@ -105,13 +95,11 @@ function getUserFldArray($fld_module)
     }
     return $fieldlist;
 }
-
 	/** Function to get picklist values for the given field  
 	 *  @ param $tablename
 	 *  It gets the picklist values for the given fieldname
 	 *  			$fldVal = Array(0=>value,1=>value1,-------------,n=>valuen)	
 	 */
-
 function getPickListValues($tablename)
 {
 	global $adb;	

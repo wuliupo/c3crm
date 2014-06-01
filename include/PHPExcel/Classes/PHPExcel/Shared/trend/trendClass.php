@@ -1,5 +1,4 @@
 <?php
-
 /** PHPExcel root directory */
 if (!defined('PHPEXCEL_ROOT')) {
 	/**
@@ -7,14 +6,11 @@ if (!defined('PHPEXCEL_ROOT')) {
 	 */
 	define('PHPEXCEL_ROOT', dirname(__FILE__) . '/../../../');
 }
-
 require_once PHPEXCEL_ROOT . 'PHPExcel/Shared/trend/linearBestFitClass.php';
 require_once PHPEXCEL_ROOT . 'PHPExcel/Shared/trend/logarithmicBestFitClass.php';
 require_once PHPEXCEL_ROOT . 'PHPExcel/Shared/trend/exponentialBestFitClass.php';
 require_once PHPEXCEL_ROOT . 'PHPExcel/Shared/trend/powerBestFitClass.php';
 require_once PHPEXCEL_ROOT . 'PHPExcel/Shared/trend/polynomialBestFitClass.php';
-
-
 class trendClass
 {
 	const TREND_LINEAR				= 'Linear';
@@ -28,7 +24,6 @@ class trendClass
 	const TREND_POLYNOMIAL_6		= 'Polynomial_6';
 	const TREND_BEST_FIT			= 'Bestfit';
 	const TREND_BEST_FIT_NO_POLY	= 'Bestfit_no_Polynomials';
-
 	private static $_trendTypes = array( self::TREND_LINEAR,
 										 self::TREND_LOGARITHMIC,
 										 self::TREND_EXPONENTIAL,
@@ -40,15 +35,11 @@ class trendClass
 												  self::TREND_POLYNOMIAL_5,
 												  self::TREND_POLYNOMIAL_6
 											    );
-
 	private static $_trendCache = array();
-
-
 	public static function calculate($trendType=self::TREND_BEST_FIT, $yValues, $xValues=array(), $const=True) {
 		//	Calculate number of points in each dataset
 		$nY = count($yValues);
 		$nX = count($xValues);
-
 		//	Define X Values if necessary
 		if ($nX == 0) {
 			$xValues = range(1,$nY);
@@ -57,7 +48,6 @@ class trendClass
 			//	Ensure both arrays of points are the same size
 			trigger_error("trend(): Number of elements in coordinate arrays do not match.", E_USER_ERROR);
 		}
-
 		$key = md5($trendType.$const.serialize($yValues).serialize($xValues));
 		//	Determine which trend method has been requested
 		switch ($trendType) {
@@ -112,5 +102,4 @@ class trendClass
 				return false;
 		}
 	}	//	function calculate()
-
 }	//	class trendClass

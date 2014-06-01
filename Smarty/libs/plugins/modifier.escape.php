@@ -4,8 +4,6 @@
  * @package Smarty
  * @subpackage plugins
  */
-
-
 /**
  * Smarty escape modifier plugin
  *
@@ -24,20 +22,16 @@ function smarty_modifier_escape($string, $esc_type = 'html', $char_set = 'ISO-88
     switch ($esc_type) {
         case 'html':
             return htmlspecialchars($string, ENT_QUOTES, $char_set);
-
         case 'htmlall':
             return htmlentities($string, ENT_QUOTES, $char_set);
-
         case 'url':
             return rawurlencode($string);
-
         case 'urlpathinfo':
             return str_replace('%2F','/',rawurlencode($string));
             
         case 'quotes':
             // escape unescaped single quotes
             return preg_replace("%(?<!\\\\)'%", "\\'", $string);
-
         case 'hex':
             // escape every character into hex
             $return = '';
@@ -52,14 +46,12 @@ function smarty_modifier_escape($string, $esc_type = 'html', $char_set = 'ISO-88
                 $return .= '&#x' . bin2hex($string[$x]) . ';';
             }
             return $return;
-
         case 'decentity':
             $return = '';
             for ($x=0; $x < strlen($string); $x++) {
                 $return .= '&#' . ord($string[$x]) . ';';
             }
             return $return;
-
         case 'javascript':
             // escape quotes and backslashes, newlines, etc.
             return strtr($string, array('\\'=>'\\\\',"'"=>"\\'",'"'=>'\\"',"\r"=>'\\r',"\n"=>'\\n','</'=>'<\/'));
@@ -82,12 +74,9 @@ function smarty_modifier_escape($string, $esc_type = 'html', $char_set = 'ISO-88
                }
            }
            return $_res;
-
         default:
             return $string;
     }
 }
-
 /* vim: set expandtab: */
-
 ?>

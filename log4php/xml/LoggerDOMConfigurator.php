@@ -16,7 +16,6 @@
  * @package log4php
  * @subpackage xml
  */
-
 /**
  * @ignore 
  */
@@ -29,15 +28,12 @@ require_once(LOG4PHP_DIR . '/LoggerAppender.php');
 require_once(LOG4PHP_DIR . '/LoggerLayout.php');
 require_once(LOG4PHP_DIR . '/LoggerLog.php');
 require_once(LOG4PHP_DIR . '/LoggerManager.php');
-
 define('LOG4PHP_LOGGER_DOM_CONFIGURATOR_APPENDER_STATE',    1000);
 define('LOG4PHP_LOGGER_DOM_CONFIGURATOR_LAYOUT_STATE',      1010);
 define('LOG4PHP_LOGGER_DOM_CONFIGURATOR_ROOT_STATE',        1020);
 define('LOG4PHP_LOGGER_DOM_CONFIGURATOR_LOGGER_STATE',      1030);
 define('LOG4PHP_LOGGER_DOM_CONFIGURATOR_FILTER_STATE',      1040);
-
 define('LOG4PHP_LOGGER_DOM_CONFIGURATOR_DEFAULT_FILENAME',  './log4php.xml');
-
 /**
  * @var string the default configuration document
  */
@@ -52,12 +48,10 @@ define('LOG4PHP_LOGGER_DOM_CONFIGURATOR_DEFAULT_CONFIGURATION',
         <appender_ref ref="A1" />
     </root>
 </log4php:configuration>');
-
 /**
  * @var string the elements namespace
  */
 define('LOG4PHP_LOGGER_DOM_CONFIGURATOR_XMLNS', 'HTTP://WWW.VXR.IT/LOG4PHP/'); 
-
 /**
  * Use this class to initialize the log4php environment using expat parser.
  *
@@ -83,7 +77,6 @@ define('LOG4PHP_LOGGER_DOM_CONFIGURATOR_XMLNS', 'HTTP://WWW.VXR.IT/LOG4PHP/');
  * @since 0.4 
  */
 class LoggerDOMConfigurator extends LoggerConfigurator {
-
     /**
      * @var LoggerHierarchy
      */
@@ -93,7 +86,6 @@ class LoggerDOMConfigurator extends LoggerConfigurator {
      * @var array state stack 
      */
     var $state;
-
     /**
      * @var Logger parsed Logger  
      */
@@ -185,7 +177,6 @@ class LoggerDOMConfigurator extends LoggerConfigurator {
     {
         // LoggerManager::resetConfiguration();
         $this->repository =& $repository;
-
         $parser = xml_parser_create_ns();
     
         xml_set_object($parser, &$this);
@@ -222,7 +213,6 @@ class LoggerDOMConfigurator extends LoggerConfigurator {
             case LOG4PHP_LOGGER_DOM_CONFIGURATOR_XMLNS.':CONFIGURATION':
             
                 LoggerLog::debug("LoggerDOMConfigurator::tagOpen() CONFIGURATION");
-
                 if (isset($attribs['THRESHOLD'])) {
                 
                     $this->repository->setThreshold(
@@ -293,7 +283,6 @@ class LoggerDOMConfigurator extends LoggerConfigurator {
                             
                 unset($this->filter);
                 $this->filter = null;
-
                 $filterName = basename($this->subst(@$attribs['CLASS']));
                 if (!empty($filterName)) {
                     if (!class_exists($filterName)) {
@@ -314,9 +303,7 @@ class LoggerDOMConfigurator extends LoggerConfigurator {
             case LOG4PHP_LOGGER_DOM_CONFIGURATOR_XMLNS.':LAYOUT':
             
                 $class = @$attribs['CLASS'];
-
                 LoggerLog::debug("LoggerDOMConfigurator::tagOpen() LAYOUT class='{$class}'");
-
                 $this->layout = LoggerLayout::factory($this->subst($class));
                 if ($this->layout === null)
                     LoggerLog::warn("LoggerDOMConfigurator::tagOpen() LAYOUT unable to instanciate class='{$class}'");
@@ -412,7 +399,6 @@ class LoggerDOMConfigurator extends LoggerConfigurator {
             
             case 'PARAM':
             case LOG4PHP_LOGGER_DOM_CONFIGURATOR_XMLNS.':PARAM':
-
                 LoggerLog::debug("LoggerDOMConfigurator::tagOpen() PARAM");
                 
                 if (!isset($attribs['NAME'])) {
@@ -468,7 +454,6 @@ class LoggerDOMConfigurator extends LoggerConfigurator {
             
             case 'RENDERER':
             case LOG4PHP_LOGGER_DOM_CONFIGURATOR_XMLNS.':RENDERER':
-
                 $renderedClass   = $this->subst(@$attribs['RENDEREDCLASS']);
                 $renderingClass  = $this->subst(@$attribs['RENDERINGCLASS']);
         
@@ -499,8 +484,6 @@ class LoggerDOMConfigurator extends LoggerConfigurator {
         }
          
     }
-
-
     /**
      * @param mixed $parser
      * @param string $tag
@@ -550,9 +533,7 @@ class LoggerDOMConfigurator extends LoggerConfigurator {
                 
             case 'LAYOUT':
             case LOG4PHP_LOGGER_DOM_CONFIGURATOR_XMLNS.':LAYOUT':
-
                 LoggerLog::debug("LoggerDOMConfigurator::tagClose() LAYOUT");
-
                 if ($this->appender !== null and $this->layout !== null and $this->appender->requiresLayout()) {
                     $this->layout->activateOptions();
                     $this->appender->setLayout($this->layout);
@@ -565,7 +546,6 @@ class LoggerDOMConfigurator extends LoggerConfigurator {
             case LOG4PHP_LOGGER_DOM_CONFIGURATOR_XMLNS.':LOGGER':
             
                 LoggerLog::debug("LoggerDOMConfigurator::tagClose() LOGGER");        
-
                 array_pop($this->state);
                 break;
             
@@ -573,7 +553,6 @@ class LoggerDOMConfigurator extends LoggerConfigurator {
             case LOG4PHP_LOGGER_DOM_CONFIGURATOR_XMLNS.':ROOT':
             
                 LoggerLog::debug("LoggerDOMConfigurator::tagClose() ROOT");
-
                 array_pop($this->state);
                 break;
         }
@@ -604,6 +583,5 @@ class LoggerDOMConfigurator extends LoggerConfigurator {
     {
         return LoggerOptionConverter::substVars($value);
     }
-
 }
 ?>

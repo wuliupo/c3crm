@@ -1,7 +1,5 @@
 <?php
-
 global $adb;
-
 //report type:1.半自定义报表 2.完全自定义
 $customreporttype=1;
 //报表相对位置（数字越小越靠前）

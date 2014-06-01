@@ -24,8 +24,6 @@
  * @license    http://www.gnu.org/licenses/old-licenses/lgpl-2.1.txt	LGPL
  * @version    1.7.2, 2010-01-11
  */
-
-
 /** PHPExcel root directory */
 if (!defined('PHPEXCEL_ROOT')) {
 	/**
@@ -33,14 +31,10 @@ if (!defined('PHPEXCEL_ROOT')) {
 	 */
 	define('PHPEXCEL_ROOT', dirname(__FILE__) . '/../../');
 }
-
 /** PHPExcel_Style_Color */
 require_once PHPEXCEL_ROOT . 'PHPExcel/Style/Color.php';
-
 /** PHPExcel_IComparable */
 require_once PHPEXCEL_ROOT . 'PHPExcel/IComparable.php';
-
-
 /**
  * PHPExcel_Style_Fill
  *
@@ -72,7 +66,6 @@ class PHPExcel_Style_Fill implements PHPExcel_IComparable
 	const FILL_PATTERN_LIGHTUP				= 'lightUp';
 	const FILL_PATTERN_LIGHTVERTICAL		= 'lightVertical';
 	const FILL_PATTERN_MEDIUMGRAY			= 'mediumGray';
-
 	/**
 	 * Fill type
 	 *
@@ -107,21 +100,18 @@ class PHPExcel_Style_Fill implements PHPExcel_IComparable
 	 * @var _parentPropertyName string
 	 */
 	private $_parentPropertyName;
-
 	/**
 	 * Supervisor?
 	 *
 	 * @var boolean
 	 */
 	private $_isSupervisor;
-
 	/**
 	 * Parent. Only used for supervisor
 	 *
 	 * @var PHPExcel_Style
 	 */
 	private $_parent;
-
     /**
      * Create a new PHPExcel_Style_Fill
      */
@@ -129,20 +119,17 @@ class PHPExcel_Style_Fill implements PHPExcel_IComparable
     {
     	// Supervisor?
 		$this->_isSupervisor = $isSupervisor;
-
     	// Initialise values
     	$this->_fillType			= PHPExcel_Style_Fill::FILL_NONE;
     	$this->_rotation			= 0;
 		$this->_startColor			= new PHPExcel_Style_Color(PHPExcel_Style_Color::COLOR_WHITE, $isSupervisor);
 		$this->_endColor			= new PHPExcel_Style_Color(PHPExcel_Style_Color::COLOR_BLACK, $isSupervisor);
-
 		// bind parent if we are a supervisor
 		if ($isSupervisor) {
 			$this->_startColor->bindParent($this, '_startColor');
 			$this->_endColor->bindParent($this, '_endColor');
 		}
     }
-
 	/**
 	 * Bind parent. Only used for supervisor
 	 *
@@ -154,7 +141,6 @@ class PHPExcel_Style_Fill implements PHPExcel_IComparable
 		$this->_parent = $parent;
 		return $this;
 	}
-
 	/**
 	 * Is this a supervisor or a real style component?
 	 *
@@ -164,7 +150,6 @@ class PHPExcel_Style_Fill implements PHPExcel_IComparable
 	{
 		return $this->_isSupervisor;
 	}
-
 	/**
 	 * Get the shared style component for the currently active cell in currently active sheet.
 	 * Only used for style supervisor
@@ -175,7 +160,6 @@ class PHPExcel_Style_Fill implements PHPExcel_IComparable
 	{
 		return $this->_parent->getSharedComponent()->getFill();
 	}
-
 	/**
 	 * Get the currently active sheet. Only used for supervisor
 	 *
@@ -185,7 +169,6 @@ class PHPExcel_Style_Fill implements PHPExcel_IComparable
 	{
 		return $this->_parent->getActiveSheet();
 	}
-
 	/**
 	 * Get the currently active cell coordinate in currently active sheet.
 	 * Only used for supervisor
@@ -196,7 +179,6 @@ class PHPExcel_Style_Fill implements PHPExcel_IComparable
 	{
 		return $this->getActiveSheet()->getSelectedCells();
 	}
-
 	/**
 	 * Get the currently active cell coordinate in currently active sheet.
 	 * Only used for supervisor
@@ -207,7 +189,6 @@ class PHPExcel_Style_Fill implements PHPExcel_IComparable
 	{
 		return $this->getActiveSheet()->getActiveCell();
 	}
-
 	/**
 	 * Build style array from subcomponents
 	 *
@@ -218,7 +199,6 @@ class PHPExcel_Style_Fill implements PHPExcel_IComparable
 	{
 		return array('fill' => $array);
 	}
-
     /**
      * Apply styles from array
      * 
@@ -381,7 +361,6 @@ class PHPExcel_Style_Fill implements PHPExcel_IComparable
 		}
 		return $this;
     }
-
 	/**
 	 * Get hash code
 	 *

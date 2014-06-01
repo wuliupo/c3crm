@@ -8,8 +8,6 @@
  * All Rights Reserved.
 *
  ********************************************************************************/
-
-
 require_once('include/CRMSmarty.php');
 require_once('modules/Notes/Notes.php');
 require_once('include/utils/utils.php');
@@ -30,16 +28,12 @@ if(isset($_REQUEST['record']) && $_REQUEST['record']!='') {
     $focus->id = $_REQUEST['record'];
     $focus->notes_title=$focus->column_fields['notes_title'];
 }
-
 global $mod_strings;
 global $app_strings;
 global $theme;
 $theme_path="themes/".$theme."/";
 $image_path=$theme_path."images/";
-
-
 $smarty = new CRMSmarty();
-
 if(isset($_REQUEST['isDuplicate']) && $_REQUEST['isDuplicate'] == 'true') {
         $focus->id = "";
 }
@@ -50,7 +44,6 @@ if(isset($_REQUEST['mode']) && $_REQUEST['mode'] != ' ') {
  {
        unset($_SESSION['rlvs']);
  }
-
 $category = getParentTab();
 $smarty->assign("CATEGORY",$category);
 $smarty->assign("UPDATEINFO",updateInfo($focus->id));
@@ -64,10 +57,8 @@ $smarty->assign("MOD",$mod_strings);
 $smarty->assign("APP",$app_strings);
 $smarty->assign("THEME", $theme);
 $smarty->assign("IMAGE_PATH", $image_path);
-
 $check_button = Button_Check($module);
 $smarty->assign("CHECK", $check_button);
-
 $smarty->display("RelatedLists.tpl");
 }
 ?>

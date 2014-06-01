@@ -150,18 +150,15 @@ $app_strings = array (
   'less_or_equal' => '小于等于',
   'greater_or_equal' => '大于等于',
   'No Data' => '数据为空',
-
   // Quick Edit Feature
   'LBL_QUICKEDIT_FORM_HEADER'=>'批量修改',
   'LBL_QUICKEDIT_BUTTON_LABEL'=>'批量修改',
-
   'LBL_PAGE' => '页',
   'LBL_PAGENO' => '第',
   'LBL_FIRST' => '首页',
   'LBL_PREVIOUS' => '上一页',
   'LBL_NEXT' => '下一页',
   'LBL_LAST' => '末页',
-
   //Export Records STARTS--->
   'LBL_EXPORT_TYPE_1'=>'导出类型1:',
   'LBL_EXPORT_TYPE_2'=>'导出类型2:',
@@ -237,7 +234,6 @@ $app_strings = array (
   'LBL_SHOWING'=>'显示 ',
   'Category' =>'分类',
   'LBL_NONE_INCLUDED'=>'无相关信息',
-
   //add from /cache/application/language/zh_cn.lang.php
   'Sales' => '销售',
   'Product' => '产品',
@@ -280,8 +276,4 @@ $app_list_strings = array (
 	  
   )
 );
-
-
-
-
 ?>

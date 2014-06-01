@@ -1,5 +1,4 @@
 <script type="text/javascript" src="modules/{$MODULE}/{$SINGLE_MOD}.js"></script>
-
 {if $RETURN_ACTION=="CallRelatedList"}
 <div class="modal-header">
 	<button class="close" data-dismiss="modal" type="button" aria-hidden="true" >&times;</button>
@@ -7,10 +6,8 @@
 </div>
 <div class="modal-body" style="max-height:500px">
 {/if}
-
 	{*<!-- Contents -->*}
 	{include file='EditViewHidden.tpl'}
-
 	<!-- center start -->
 		 <div class="container-fluid">
 			<div class="row-fluid">
@@ -57,13 +54,11 @@
 		 </div>
 		 <!-- center end -->
 	</form>
-
 {if $RETURN_ACTION=="CallRelatedList"}	
 </div>
 <div class="modal-footer">
 </div>
 {/if}
-
 <script>	
         var fieldname = new Array({$VALIDATION_DATA_FIELDNAME})
         var fieldlabel = new Array({$VALIDATION_DATA_FIELDLABEL})

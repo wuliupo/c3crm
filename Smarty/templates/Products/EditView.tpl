@@ -1,6 +1,5 @@
 <script type="text/javascript" src="modules/{$MODULE}/{$SINGLE_MOD}.js"></script>
 <script type="text/javascript" src="include/js/Inventory.js"></script>
-
 {*<!-- Contents -->*}
 <form name="EditView" method="POST" ENCTYPE="multipart/form-data" action="index.php">
 	<input type="hidden" name="activity_mode" value="{$ACTIVITY_MODE}">
@@ -14,7 +13,6 @@
 	<input type="hidden" name="return_id" value="{$RETURN_ID}">
 	<input type="hidden" name="return_action" value="{$RETURN_ACTION}">
 	<input type="hidden" name="return_viewname" value="{$RETURN_VIEWNAME}">
-
 <!-- center start -->
      <div class="container-fluid clearfix">
         <div class="row-fluid">
@@ -58,7 +56,6 @@
      </div>
      <!-- center end -->
 </form>
-
 <script>	
         var fieldname = new Array({$VALIDATION_DATA_FIELDNAME})
         var fieldlabel = new Array({$VALIDATION_DATA_FIELDLABEL})
@@ -72,6 +69,5 @@
 			//getObj("productcode").setAttribute("readOnly","true");
 		{rdelim}
 	{rdelim}
-
 </script>
  

@@ -10,5 +10,4 @@ $module_enname = 'maillisttmp';
 $module_cnname = '邮件模板';
 $module_parenttabid = '1';
 $module_displayorder = '10';
-
 ?>

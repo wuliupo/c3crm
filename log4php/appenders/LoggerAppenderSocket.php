@@ -16,20 +16,16 @@
  * @package log4php
  * @subpackage appenders
  */
-
 /**
  * @ignore 
  */
 if (!defined('LOG4PHP_DIR')) define('LOG4PHP_DIR', dirname(__FILE__) . '/..');
-
 define('LOG4PHP_LOGGER_APPENDER_SOCKET_DEFAULT_PORT',       4446);
 define('LOG4PHP_LOGGER_APPENDER_SOCKET_DEFAULT_TIMEOUT',    30);
-
 require_once(LOG4PHP_DIR . '/LoggerAppenderSkeleton.php');
 require_once(LOG4PHP_DIR . '/helpers/LoggerOptionConverter.php');
 require_once(LOG4PHP_DIR . '/LoggerLayout.php');
 require_once(LOG4PHP_DIR . '/LoggerLog.php');
-
 /**
  * Serialize events and send them to a network socket.
  *
@@ -42,7 +38,6 @@ require_once(LOG4PHP_DIR . '/LoggerLog.php');
  * @subpackage appenders
  */ 
 class LoggerAppenderSocket extends LoggerAppenderSkeleton {
-
     /**
      * @var mixed socket connection resource
      * @access private
@@ -81,7 +76,6 @@ class LoggerAppenderSocket extends LoggerAppenderSkeleton {
      *              Ignored if {@link $useXml} is <i>false</i>.
      */
     var $log4jNamespace = false;
-
     /**
      * @var LoggerXmlLayout
      * @access private
@@ -103,7 +97,6 @@ class LoggerAppenderSocket extends LoggerAppenderSkeleton {
     {
         $this->LoggerAppenderSkeleton($name);
     }
-
     /**
      * Create a socket connection using defined parameters
      */
@@ -138,7 +131,6 @@ class LoggerAppenderSocket extends LoggerAppenderSkeleton {
         @fclose($this->sp);
         $this->closed = true;
     }
-
     /**
      * @return string
      */
@@ -162,7 +154,6 @@ class LoggerAppenderSocket extends LoggerAppenderSkeleton {
     {
         return $this->log4jNamespace;
     }
-
     /**
      * @return integer
      */
@@ -197,7 +188,6 @@ class LoggerAppenderSocket extends LoggerAppenderSkeleton {
         $this->close();
         parent::reset();
     }
-
     /**
      * @param string
      * @deprecated Please, use {@link setRemoteHost}
@@ -214,7 +204,6 @@ class LoggerAppenderSocket extends LoggerAppenderSkeleton {
     {
         $this->locationInfo = LoggerOptionConverter::toBoolean($flag, $this->getLocationInfo());
     } 
-
     /**
      * @param mixed
      */
@@ -275,11 +264,9 @@ class LoggerAppenderSocket extends LoggerAppenderSkeleton {
             } else {
                 @fwrite($this->sp, $this->xmlLayout->format($event));
             }            
-
             // not sure about it...
             @fflush ($this->sp);
         } 
     }
 }
-
 ?>

@@ -61,8 +61,6 @@ class ListViewReport
         }
         return $typeopts;
     }
-
-
     function getTitle()
     {
         global $app_strings;
@@ -414,8 +412,6 @@ class ListViewReport
         return $return;
     }
     */
-
-
     function getSingleCustomReportInf($basefile,$showinreport)
     {
         $modulename=$this->reportmodule;
@@ -457,7 +453,6 @@ class ListViewReport
     }
     
 }
-
 function reportparamscmp($a,$b)
 {
     if($a[0][0]==$b[0][0])

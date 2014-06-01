@@ -9,11 +9,9 @@ function clean_incoming_data() {
 		$post = array_map("securexss", $_POST);
 		$get  = array_map("securexss", $_GET);
 	}
-
 	// PHP cannot stomp out superglobals reliably
 	foreach($post as $k => $v) { $_POST[$k] = $v; }
 	foreach($get  as $k => $v) { $_GET[$k] = $v; }
-
 	foreach($req  as $k => $v) {
 		 $_REQUEST[$k] = $v;
 		 //ensure the keys are safe as well

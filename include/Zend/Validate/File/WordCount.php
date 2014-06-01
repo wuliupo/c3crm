@@ -18,12 +18,10 @@
  * @license   http://framework.zend.com/license/new-bsd     New BSD License
  * @version   $Id: WordCount.php 23775 2011-03-01 17:25:24Z ralph $
  */
-
 /**
  * @see Zend_Validate_File_Count
  */
 require_once 'include/Zend/Validate/File/Count.php';
-
 /**
  * Validator for counting all words in a file
  *
@@ -41,7 +39,6 @@ class Zend_Validate_File_WordCount extends Zend_Validate_File_Count
     const TOO_LESS  = 'fileWordCountTooLess';
     const NOT_FOUND = 'fileWordCountNotFound';
     /**#@-*/
-
     /**
      * @var array Error message templates
      */
@@ -50,7 +47,6 @@ class Zend_Validate_File_WordCount extends Zend_Validate_File_Count
         self::TOO_LESS => "Too less words, minimum '%min%' are expected but '%count%' were counted",
         self::NOT_FOUND => "File '%value%' is not readable or does not exist",
     );
-
     /**
      * Defined by Zend_Validate_Interface
      *
@@ -68,20 +64,16 @@ class Zend_Validate_File_WordCount extends Zend_Validate_File_Count
         if (!Zend_Loader::isReadable($value)) {
             return $this->_throw($file, self::NOT_FOUND);
         }
-
         $content = file_get_contents($value);
         $this->_count = str_word_count($content);
         if (($this->_max !== null) && ($this->_count > $this->_max)) {
             return $this->_throw($file, self::TOO_MUCH);
         }
-
         if (($this->_min !== null) && ($this->_count < $this->_min)) {
             return $this->_throw($file, self::TOO_LESS);
         }
-
         return true;
     }
-
     /**
      * Throws an error of the given type
      *
@@ -94,7 +86,6 @@ class Zend_Validate_File_WordCount extends Zend_Validate_File_Count
         if ($file !== null) {
             $this->_value = $file['name'];
         }
-
         $this->_error($errorType);
         return false;
     }

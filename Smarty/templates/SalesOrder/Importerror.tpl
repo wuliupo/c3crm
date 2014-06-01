@@ -9,14 +9,11 @@
   *
  ********************************************************************************/
 -->*}
-
 {include file='Buttons_List1.tpl'}	
-
 <table align="center" border="0" cellpadding="0" cellspacing="0" width="98%" class="small">
    <tr>
 	<td valign="top"><img src="{$IMAGE_PATH}showPanelTopLeft.gif" /></td>
 	<td class="showPanelBg" valign="top" width="100%">
-
 		<table  cellpadding="0" cellspacing="0" width="100%">
 		   <tr>
 			<td width="75%" valign=top>
@@ -27,10 +24,8 @@
 				<input type="hidden" name="parenttab" value="{$CATEGORY}">
 				<input type="hidden" name="step" value="1">
 				<input type="hidden" name="action" value="Import">
-
 				<!-- IMPORT ERROR STARTS HERE  -->
 				<br /><br /><br />
-
 				<table align="center" cellpadding="5" cellspacing="0" width="95%" class="mailClient importLeadUI small">
 				   <tr>
 					<td colspan="2"  height="50" valign="middle" align="left" class="mailClientBg genHeaderSmall">{$MOD.LBL_MODULE_NAME} {$APP.$MODULE}</td>
@@ -48,7 +43,6 @@
 				   <tr>
 					<td align="left" valign="top" colspan="2" style="padding-left:80px;"><font color="red" size="2px">{$MESSAGE}</font></td>
 				   </tr>
-
 				   <tr><td colspan="2" height="50">&nbsp;</td></tr>
 				   <tr>
 					<td colspan="2" align="right" style="padding-right:40px;" class="reportCreateBottom" >
@@ -56,13 +50,11 @@
 					</td>
 				   </tr>
 				</table>
-
 				<br />
 				</form>
 			</td>
 		   </tr>
 		</table>
-
 	</td>
 	<td valign="top"><img src="{$IMAGE_PATH}showPanelTopRight.gif" /></td>
    </tr>

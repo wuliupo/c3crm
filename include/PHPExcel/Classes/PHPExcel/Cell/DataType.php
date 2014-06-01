@@ -24,8 +24,6 @@
  * @license    http://www.gnu.org/licenses/old-licenses/lgpl-2.1.txt	LGPL
  * @version    1.7.2, 2010-01-11
  */
-
-
 /** PHPExcel root directory */
 if (!defined('PHPEXCEL_ROOT')) {
 	/**
@@ -33,11 +31,8 @@ if (!defined('PHPEXCEL_ROOT')) {
 	 */
 	define('PHPEXCEL_ROOT', dirname(__FILE__) . '/../../');
 }
-
 /** PHPExcel_Cell_DefaultValueBinder */
 require_once PHPEXCEL_ROOT . 'PHPExcel/Cell/DefaultValueBinder.php';
-
-
 /**
  * PHPExcel_Cell_DataType
  *
@@ -55,14 +50,12 @@ class PHPExcel_Cell_DataType
     const TYPE_NULL			= 's';
     const TYPE_INLINE		= 'inlineStr';
 	const TYPE_ERROR		= 'e';
-
 	/**
 	 * List of error codes
 	 *
 	 * @var array
 	 */
 	private static $_errorCodes	= array('#NULL!' => 0, '#DIV/0!' => 1, '#VALUE!' => 2, '#REF!' => 3, '#NAME?' => 4, '#NUM!' => 5, '#N/A' => 6);
-
 	/**
 	 * Get list of error codes
 	 *
@@ -82,7 +75,6 @@ class PHPExcel_Cell_DataType
 	public static function dataTypeForValue($pValue = null) {
 		return PHPExcel_Cell_DefaultValueBinder::dataTypeForValue($pValue);
 	}
-
 	/**
 	 * Check a string that it satisfies Excel requirements
 	 *
@@ -95,16 +87,12 @@ class PHPExcel_Cell_DataType
 			// TODO: Sanitize Rich-Text string (max. character count is 32,767)
 			return $pValue;
 		}
-
 		// string must never be longer than 32,767 characters, truncate if necessary
 		$pValue = PHPExcel_Shared_String::Substring($pValue, 0, 32767);
-
 		// we require that newline is represented as "\n" in core, not as "\r\n" or "\r"
 		$pValue = str_replace(array("\r\n", "\r"), "\n", $pValue);
-
 		return $pValue;
 	}
-
 	/**
 	 * Check a value that it is a valid error code
 	 *
@@ -114,12 +102,9 @@ class PHPExcel_Cell_DataType
 	public static function checkErrorCode($pValue = null)
 	{
 		$pValue = (string)$pValue;
-
 		if ( !array_key_exists($pValue, self::$_errorCodes) ) {
 			$pValue = '#NULL!';
 		}
-
 		return $pValue;
 	}
-
 }

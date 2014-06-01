@@ -5,14 +5,12 @@ require_once('include/utils/UserInfoUtil.php');
 require_once('include/RelatedListView.php');
 class CRMEntity
 {
-
   function saveentity($module)
   {
 	global $current_user;
 	$insertion_mode = $this->mode;
 	$this->db->println("TRANS saveentity starts $module");
 	$this->db->startTransaction();	
-
 	foreach($this->tab_name as $table_name)
 	{				
 		if($table_name == "ec_crmentity")
@@ -24,9 +22,7 @@ class CRMEntity
 			$this->insertIntoEntityTable($table_name, $module);			
 		}
 	}
-
 	$this->save_module($module);
-
 	$this->db->completeTransaction();
     $this->db->println("TRANS saveentity ends");
 	// vtlib customization: Hook provide to enable generic module relation.
@@ -36,7 +32,6 @@ class CRMEntity
 		if(is_file("modules/$for_module/$for_module.php")) {
 			require_once("modules/$for_module/$for_module.php");
 			$on_focus = new $for_module();
-
 			// Do conditional check && call only for Custom Module at present
 			// TOOD: $on_focus->IsCustomModule is not required if save_related_module function
 			// is used for core modules as well.
@@ -48,7 +43,6 @@ class CRMEntity
 		}
 	}
   }
-
   /** Function to insert values in the ec_crmentity for the specified module
   	  * @param $module -- module:: Type varchar
   */	
@@ -68,8 +62,6 @@ class CRMEntity
     }    
 	$log->info("Exit function insertIntoCrmEntity ".$module);
   }
-
-
 	/** Function to insert values in the specifed table for the specified module
   	  * @param $table_name -- table name:: Type varchar
   	  * @param $module -- module:: Type varchar
@@ -124,7 +116,6 @@ class CRMEntity
 				  {
 					  $fldvalue = 0;
 				  }
-
 			  }
 			  elseif($uitype == 33)
 			  {
@@ -170,7 +161,6 @@ class CRMEntity
 			  $sql1 = "update ".$table_name." set modifiedby='".$current_user->id."',modifiedtime=NOW(),".$update." where ".$this->tab_name_index[$table_name]."=".$this->id;
 			  $this->db->query($sql1);
 		  }
-
 		  
 	  }
 	  else
@@ -193,7 +183,6 @@ class CRMEntity
 		//echo "value:".$value."<br>";
 		//echo "column:".$column."<br>";
 	    $sql1 = "insert into ".$table_name." (".$this->tab_name_index[$table_name]."".$column.",smcreatorid,createdtime,modifiedtime) values(".$this->id."".$value.",'".$smcreatorid."',".$this->db->formatDate($createdtime).",".$this->db->formatDate($modifiedtime).")";
-
 	    $this->db->query($sql1);
 		if($current_user->id != $ownerid) {
 			global $app_strings;
@@ -202,7 +191,6 @@ class CRMEntity
 			sendMessage($content,$to_username);
 		}
 	  }
-
   }
 	/** Function to delete a record in the specifed table 
   	  * @param $table_name -- table name:: Type varchar
@@ -213,13 +201,11 @@ function deleteRelation($table_name)
          $check_query = "select * from ".$table_name." where ".$this->tab_name_index[$table_name]."=".$this->id;
          $check_result=$this->db->query($check_query);
          $num_rows = $this->db->num_rows($check_result);
-
          if($num_rows == 1)
          {
                 $del_query = "DELETE from ".$table_name." where ".$this->tab_name_index[$table_name]."=".$this->id;
                 $this->db->query($del_query);
          }
-
 }
 	/** Function to attachment filename of the given entity 
   	  * @param $notesid -- crmid:: Type Integer
@@ -248,13 +234,7 @@ function getOldFileName($notesid)
 	
 	
 	
-
-
-
-
-
 // Code included by Jaguar - Ends 
-
 	/** Function to retrive the information of the given recordid ,module 
   	  * @param $record -- Id:: Type Integer
   	  * @param $module -- module:: Type varchar
@@ -267,7 +247,6 @@ function getOldFileName($notesid)
     $result = Array();
 	//after deleting accounts with potential , when selecting potentail in quote and order , there are someting wrong with LBL_RECORD_DELETE error info
 	//if(isset($_REQUEST['action']) && $_REQUEST['action']=='DetailView') {
-
 	if($record != "") {
 		foreach($this->tab_name_index as $table_name=>$index)
 		{
@@ -276,7 +255,6 @@ function getOldFileName($notesid)
 			if($this->db->query_result($result[$table_name],0,"deleted") == 1)
 			die("<br><br><center>".$app_strings['LBL_RECORD_DELETE']." <a href='javascript:goback()'>".$app_strings['LBL_GO_BACK'].".</a></center>");
 		}
-
 		//}
 		
 		//$sql1 = "select * from ec_field inner join ec_def_org_field on ec_def_org_field.fieldid=ec_field.fieldid";
@@ -284,7 +262,6 @@ function getOldFileName($notesid)
 		//changed by dingjianting on 2007-11-11 for performance
 		$key = "module_columnnames_".$module;
 		$rows = getSqlCacheData($key);
-
 		if(!$rows) {
 			$tabid = getTabid($module);
 			$sql1 =  "select columnname,tablename,fieldname from ec_field where tabid=".$tabid;
@@ -300,7 +277,6 @@ function getOldFileName($notesid)
 			}
 			setSqlCacheData($key,$rows);
 		}
-
 		foreach($rows as $row)
 		{
 			$fieldcolname = $row["columnname"];
@@ -312,7 +288,6 @@ function getOldFileName($notesid)
 			$fld_value = $this->db->query_result($result[$tablename],0,$fieldcolname);
 			$this->column_fields[$fieldname] = $fld_value;				
 		}
-
 		if($module == 'Users')
 		{
 			foreach($rows as $row)
@@ -330,7 +305,6 @@ function getOldFileName($notesid)
 	}
 	$log->info("Exiting function retrieve_entity_info()");
   }
-
 	/** Function to saves the values in all the tables mentioned in the class variable $tab_name for the specified module
   	  * @param $module -- module:: Type varchar
  	 */
@@ -354,12 +328,10 @@ function getOldFileName($notesid)
 		$this->saveentity($module_name);
 		$action = "";
 		if(isset($_REQUEST["action"])) $action = $_REQUEST["action"];
-
 		$log->info("Exit save method");
 		
 		
 	}
-
   
 	
 	
@@ -373,10 +345,7 @@ function getOldFileName($notesid)
 		$query = "UPDATE ".$tablename." set deleted=1 where ".$entityidfield."='$id'";
 		$this->db->query($query, true,"Error marking record deleted: ");
         $log->debug("Exiting mark_deleted method ...");
-
 	}
-
-
 	function retrieve_by_string_fields($fields_array, $encode=true) 
 	{ 
 		$where_clause = $this->get_where($fields_array);
@@ -397,13 +366,11 @@ function getOldFileName($notesid)
 		} 
 		return $this;
 	}
-
 	// this method is called during an import before inserting a bean
 	// define an associative array called $special_fields
 	// the keys are user defined, and don't directly map to the bean's ec_fields
 	// the value is the method name within that bean that will do extra
 	// processing for that ec_field. example: 'full_name'=>'get_names_from_full_name'
-
 	function process_special_fields() 
 	{ 
 		foreach ($this->special_functions as $func_name) 
@@ -414,7 +381,6 @@ function getOldFileName($notesid)
 			} 
 		} 
 	}
-
 	/**
          * Function to check if the custom ec_field ec_table exists
          * return true or false
@@ -445,11 +411,9 @@ function getOldFileName($notesid)
 					ON ec_attachments.smcreatorid = ec_users.id
 				INNER JOIN ec_seattachmentsrel ON ec_seattachmentsrel.attachmentsid = ec_attachments.attachmentsid
 				WHERE  ec_attachments.deleted=0 and ec_seattachmentsrel.crmid = ".$id;			
-
 			$log->debug("Exiting get_attachments method ...");
 			return getAttachments($this->module_name,$query,$id);
 		}
-
 	/**
 	 * function to construct the query to fetch the custom ec_fields
 	 * return the query to fetch the custom ec_fields
@@ -474,16 +438,13 @@ function getOldFileName($notesid)
                         {
                                 $sql3 .= ", ".$tablename.".".$columnName. " '" .$fieldlable."'";
                         }
-
                 }
                 if($numRows>0)
                 {
                         $sql3=$sql3.',';
                 }
                 return $sql3;
-
         }
-
 	/**
 	 * Track the viewing of a detail record.  This leverages get_summary_text() which is object specific
 	 * params $user_id - The user that is viewing the record.
@@ -498,7 +459,6 @@ function getOldFileName($notesid)
 		$tracker = new Tracker();
 		$tracker->track_view($user_id, $current_module, $id, '');
 	}
-
 	/**
 	 * Save the related module record information. Triggered from CRMEntity->saveentity method or updateRelations.php
 	 * @param String This module name
@@ -517,7 +477,6 @@ function getOldFileName($notesid)
 			
 		}
 	}
-
 	/**
 	 * Delete the related module record information. Triggered from updateRelations.php
 	 * @param String This module name
@@ -531,7 +490,6 @@ function getOldFileName($notesid)
 			$this->db->query("DELETE FROM ec_moduleentityrel WHERE crmid = '$crmid' AND module = '$module' AND relcrmid = '$relcrmid' AND relmodule = '$with_module'");
 		}
 	}
-
 	/** Function to unlink an entity with given Id from another entity */
 	function unlinkRelationship($id, $return_module, $return_id) {
 		global $log;
@@ -539,7 +497,6 @@ function getOldFileName($notesid)
 		$query = "DELETE FROM ec_moduleentityrel WHERE (crmid='$id' AND relmodule='$return_module' AND relcrmid='$return_id') OR (relcrmid='$id' AND module='$return_module' AND crmid='$return_id')";
 		$this->db->query($query);
 	}
-
 	/**
 	 * Function to get related child custom module record (one to many)
 	 * @param  integer   $id - currentModule id
@@ -575,7 +532,6 @@ function getOldFileName($notesid)
 		$log->debug("Exiting get_child_list method ...");
 		return GetRelatedList($currentModule,$related_tabname,$focus,$query,$button,$returnset);
 	}
-
 	/**
 	 * Function to get related parent custom module record (one to many)
 	 * @param  integer   $id - currentModule id
@@ -609,7 +565,6 @@ function getOldFileName($notesid)
 		$log->debug("Exiting get_parent_list method ...");
 		return GetRelatedList($currentModule,$related_tabname,$focus,$query,$button,$returnset);
 	}
-
 	/**
 	* Function to get related custom module records
 	* @param  integer   $id  - current tab record id

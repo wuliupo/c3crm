@@ -4,9 +4,7 @@ require_once('modules/Maillists/Maillists.php');
 require_once('include/database/PearDatabase.php');
 require_once('modules/Maillists/ModuleConfig.php');
 global $adb;
-
 $local_log =& LoggerManager::getLogger('MaillistsAjax');
-
 $ajaxaction = $_REQUEST["ajxaction"];
 if($ajaxaction == "DETAILVIEW")
 {

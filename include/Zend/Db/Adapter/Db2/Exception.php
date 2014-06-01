@@ -19,12 +19,10 @@
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  * @version    $Id: Exception.php 23775 2011-03-01 17:25:24Z ralph $
  */
-
 /**
  * Zend_Db_Adapter_Exception
  */
 require_once 'include/Zend/Db/Adapter/Exception.php';
-
 /**
  * Zend_Db_Adapter_Db2_Exception
  *
@@ -37,7 +35,6 @@ class Zend_Db_Adapter_Db2_Exception extends Zend_Db_Adapter_Exception
 {
    protected $code = '00000';
    protected $message = 'unknown exception';
-
    function __construct($message = 'unknown exception', $code = '00000', Exception $e = null)
    {
        parent::__construct($message, $code, $e);

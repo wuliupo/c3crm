@@ -10,7 +10,6 @@ if(isset($_SESSION['import_skipped_rows']) && $_SESSION['import_skipped_rows'] !
 {
 	$skipped_rows = $_SESSION['import_skipped_rows'];
 }
-
 $focus=new ImportSalesOrder();
 $focus->setAccountFile("php://output");
 $focus->createXls($skipped_rows);

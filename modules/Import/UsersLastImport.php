@@ -23,21 +23,17 @@ include_once('config.php');
 require_once('include/logging.php');
 require_once('include/database/PearDatabase.php');
 require_once('data/CRMEntity.php');
-
 $imported_ids = array();
-
 // Contact is used to store customer information.
 class UsersLastImport extends CRMEntity
 {
 	var $log;
 	var $db;
-
 	// Stored ec_fields
 	var $id;
 	var $assigned_user_id;
 	var $bean_type;
 	var $bean_id;
-
 	var $table_name = "ec_users_last_import";
 	var $object_name = "UsersLastImport";
 	var $column_fields = Array(
@@ -47,11 +43,8 @@ class UsersLastImport extends CRMEntity
 					,"bean_id"
 					,"deleted"
 				  );
-
 	var $new_schema = true;
-
 	var $additional_column_fields = Array();
-
 	var $list_fields = Array();
 	var $list_fields_name = Array();
 	var $list_link_field;
@@ -62,7 +55,6 @@ class UsersLastImport extends CRMEntity
 		$this->log = LoggerManager::getLogger('UsersLastImport');
 		$this->db = & getSingleDBInstance();
 	}
-
 	/**	function used to delete ie., update the deleted as 1 in ec_users_last_import table
 	 *	@param int $user_id - user id to whom's last imported records to delete
 	 *	@return void
@@ -72,7 +64,6 @@ class UsersLastImport extends CRMEntity
                 $query = "UPDATE $this->table_name set deleted=1 where assigned_user_id='$user_id'";
                 $this->db->query($query,true,"Error marking last imported ec_accounts deleted: ");
         }
-
 	/**	function used to get the list query of the imported records
 	 *	@param reference &$order_by - reference of the variable order_by to add with the query
 	 *	@param reference &$where - where condition to add with the query
@@ -82,9 +73,7 @@ class UsersLastImport extends CRMEntity
 	{
 		global $current_user;
 		$query = '';
-
 		$this->db->println("create list bean_type = ".$this->bean_type." where = ".$where);
-
 		if ($this->bean_type == 'Contacts')
 		{
 				$query = "SELECT distinct crmid,
@@ -108,7 +97,6 @@ class UsersLastImport extends CRMEntity
 				WHERE ec_users_last_import.assigned_user_id= '{$current_user->id}'  
 				AND ec_users_last_import.bean_type='Contacts' 
 				AND ec_users_last_import.deleted=0  AND ec_crmentity.deleted=0";
-
 		} 
 		else if ($this->bean_type == 'Accounts')
 		{
@@ -146,7 +134,6 @@ class UsersLastImport extends CRMEntity
 				AND ec_users_last_import.deleted=0
 				AND ec_crmentity.deleted=0 
 				AND ec_users.status='Active'";
-
 		}
 		else if($this->bean_type == 'Leads')
 		{
@@ -167,12 +154,9 @@ class UsersLastImport extends CRMEntity
 				AND ec_crmentity.deleted=0
 				AND ec_users.status='Active'";
 		}
-
 		
 		return $query;
-
 	}
-
 	/*
 	function list_view_parse_additional_sections(&$list_form)
 	{
@@ -188,7 +172,6 @@ class UsersLastImport extends CRMEntity
 			}
 		}
                 return $list_form;
-
         }
 	*/
 	
@@ -199,16 +182,13 @@ class UsersLastImport extends CRMEntity
 	function undo($user_id)
 	{
 		$count = 0;
-
 		$count += $this->undo_contacts($user_id);
 		$count += $this->undo_accounts($user_id);
 		$count += $this->undo_opportunities($user_id);
 		$count += $this->undo_leads($user_id);
 		$count += $this->undo_products($user_id);
-
 		return $count;
 	}
-
 	/**	function used to delete (update deleted=1 in crmentity table) the last imported contacts of the current user
 	 *	@param int $user_id - user id, whose last imported contacts want to be deleted
 	 *	@return int $count - return the number of deleted contacts 
@@ -217,25 +197,18 @@ class UsersLastImport extends CRMEntity
 	{
 		$count = 0;
 		$query1 = "select bean_id from ec_users_last_import where assigned_user_id='$user_id' AND bean_type='Contacts' AND deleted=0";
-
 		$this->log->info($query1); 
-
 		$result1 = $this->db->query($query1) or die("Error getting last import for undo: ".mysql_error()); 
-
 		while ( $row1 = $this->db->fetchByAssoc($result1))
 		{
 			$query2 = "update ec_crmentity set deleted=1 where crmid='{$row1['bean_id']}'";
-
 			$this->log->info($query2); 
-
 			$result2 = $this->db->query($query2) or die("Error undoing last import: ".mysql_error()); 
-
 			$count++;
 			
 		}
 		return $count;
 	}
-
 	/**	function used to delete (update deleted=1 in crmentity table) the last imported leads of the current user
 	 *	@param int $user_id - user id, whose last imported leads want to be deleted
 	 *	@return int $count - return the number of deleted leads
@@ -244,25 +217,18 @@ class UsersLastImport extends CRMEntity
 	{
 		$count = 0;
 		$query1 = "select bean_id from ec_users_last_import where assigned_user_id='$user_id' AND bean_type='Leads' AND deleted=0";
-
 		$this->log->info($query1); 
-
 		$result1 = $this->db->query($query1) or die("Error getting last import for undo: ".mysql_error()); 
-
 		while ( $row1 = $this->db->fetchByAssoc($result1))
 		{
 			$query2 = "update ec_crmentity set deleted=1 where crmid='{$row1['bean_id']}'";
-
 			$this->log->info($query2); 
-
 			$result2 = $this->db->query($query2) or die("Error undoing last import: ".mysql_error()); 
-
 			$count++;
 			
 		}
 		return $count;
 	}
-
 	/**	function used to delete (update deleted=1 in crmentity table) the last imported accounts of the current user
 	 *	@param int $user_id - user id, whose last imported accounts want to be deleted
 	 *	@return int $count - return the number of deleted accounts
@@ -272,25 +238,17 @@ class UsersLastImport extends CRMEntity
 		// this should just be a loop foreach module type
 		$count = 0;
 		$query1 = "select bean_id from ec_users_last_import where assigned_user_id='$user_id' AND bean_type='Accounts' AND deleted=0";
-
 		$this->log->info($query1); 
-
 		$result1 = $this->db->query($query1) or die("Error getting last import for undo: ".mysql_error()); 
-
 		while ( $row1 = $this->db->fetchByAssoc($result1))
 		{
 			$query2 = "update ec_crmentity set deleted=1 where crmid='{$row1['bean_id']}'";
-
 			$this->log->info($query2); 
-
 			$result2 = $this->db->query($query2) or die("Error undoing last import: ".mysql_error()); 
-
 			$count++;
-
 		}
 		return $count;
 	}
-
 	/**	function used to delete (update deleted=1 in crmentity table) the last imported potentials of the current user
 	 *	@param int $user_id - user id, whose last imported potentials want to be deleted
 	 *	@return int $count - return the number of deleted potentials
@@ -300,25 +258,17 @@ class UsersLastImport extends CRMEntity
 		// this should just be a loop foreach module type
 		$count = 0;
 		$query1 = "select bean_id from ec_users_last_import where assigned_user_id='$user_id' AND bean_type='Potentials' AND deleted=0";
-
 		$this->log->info($query1); 
-
 		$result1 = $this->db->query($query1) or die("Error getting last import for undo: ".mysql_error()); 
-
 		while ( $row1 = $this->db->fetchByAssoc($result1))
 		{
 			$query2 = "update ec_crmentity set deleted=1 where crmid='{$row1['bean_id']}'";
-
 			$this->log->info($query2); 
-
 			$result2 = $this->db->query($query2) or die("Error undoing last import: ".mysql_error()); 
-
 			$count++;
-
 		}
 		return $count;
 	}
-
 	/**	function used to delete (update deleted=1 in crmentity table) the last imported products of the current user
 	 *	@param int $user_id - user id, whose last imported products want to be deleted
 	 *	@return int $count - return the number of deleted products
@@ -327,25 +277,16 @@ class UsersLastImport extends CRMEntity
 	{
 		$count = 0;
 		$query1 = "select bean_id from ec_users_last_import where assigned_user_id='$user_id' AND bean_type='Products' AND deleted=0";
-
 		$this->log->info($query1); 
-
 		$result1 = $this->db->query($query1) or die("Error getting last import for undo: ".mysql_error()); 
-
 		while ( $row1 = $this->db->fetchByAssoc($result1))
 		{
 			$query2 = "update ec_crmentity set deleted=1 where crmid='{$row1['bean_id']}'";
-
 			$this->log->info($query2); 
-
 			$result2 = $this->db->query($query2) or die("Error undoing last import: ".mysql_error()); 
-
 			$count++;
 		}
 		return $count;
 	}
-
 }
-
-
 ?>

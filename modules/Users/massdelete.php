@@ -1,6 +1,4 @@
 <?php
-
-
 /*********************************************************************************
 ** The contents of this file are subject to the vtiger CRM Public License Version 1.0
  * ("License"); You may not use this file except in compliance with the License
@@ -10,8 +8,6 @@
  * All Rights Reserved.
 *
  ********************************************************************************/
-
-
 require_once('include/database/PearDatabase.php');
 require_once('include/utils/UserInfoUtil.php');
 require_once('include/utils/CommonUtils.php');
@@ -26,7 +22,6 @@ $ids_list = array();
 $modulerel=getEntityTable($returnmodule);
 $tablename=$modulerel['tablename'];
 $fieldid=$modulerel['entityidfield'];
-
 foreach($storearray as $id)
 {
         if(isPermitted($returnmodule,'Delete',$id) == 'yes')
@@ -44,7 +39,6 @@ foreach($storearray as $id)
                 $ids_list[] = $id;
         }
 }
-
 $ret = getEntityName($returnmodule,$ids_list);
 if(count($ret) > 0)
 {
@@ -53,7 +47,6 @@ if(count($ret) > 0)
 {
        $errormsg = '';
 }
-
 if(isset($_REQUEST['smodule']) && ($_REQUEST['smodule']!=''))
 {
 	$smod = "&smodule=".$_REQUEST['smodule'];
@@ -74,7 +67,6 @@ elseif($return_action == 'ActivityAjax')
 	$subtab = $_REQUEST['subtab'];
 	header("Location: index.php?module=".$returnmodule."&action=".$return_action."&view=".$_REQUEST['view']."&hour=".$_REQUEST['hour']."&day=".$_REQUEST['day']."&month=".$_REQUEST['month']."&year=".$_REQUEST['year']."&type=".$_REQUEST['type']."&viewOption=".$_REQUEST['viewOption']."&subtab=".$subtab);
 }
-
 elseif($returnmodule!='Faq')
 {
 	header("Location: index.php?module=".$returnmodule."&action=".$returnmodule."Ajax&ajax=delete&file=ListView&viewname=".$viewid."&errormsg=".$errormsg);
@@ -84,4 +76,3 @@ else
 	header("Location: index.php?module=".$returnmodule."&action=".$returnmodule."Ajax&ajax=delete&file=ListView&errormsg=".$errormsg);
 }
 ?>
-

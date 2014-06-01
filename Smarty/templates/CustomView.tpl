@@ -33,10 +33,8 @@ function goto_CustomAction(module)
 {ldelim}
         document.location.href = "index.php?module="+module+"&action=CustomAction&record={$CUSTOMVIEWID}";
 {rdelim}
-
 function mandatoryCheck()
 {ldelim}
-
         var mandatorycheck = false;
         var i,j;
         var manCheck = new Array({$MANDATORYCHECK});
@@ -93,7 +91,6 @@ function mandatoryCheck()
 <input type="hidden" name="return_module" value="{$RETURN_MODULE}">
 <input type="hidden" name="record" value="{$CUSTOMVIEWID}">
 <input type="hidden" name="return_action" value="{$RETURN_ACTION}">
-
 <div class="container-fluid">
 <div style="margin-left:0px;margin-right:10px;">
   <ul class="breadcrumb" style="margin-bottom:10px;">
@@ -436,9 +433,6 @@ function mandatoryCheck()
       </table>
 </div>
 </div>
-
-
-
 </form>
 {$STDFILTER_JAVASCRIPT}
 {$JAVASCRIPT}
@@ -486,7 +480,6 @@ function checkDuplicate()
             xx.selectedIndex = 0;
             return false;
           }
-
         }
       }
     }

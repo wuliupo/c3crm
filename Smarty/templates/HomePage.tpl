@@ -3,7 +3,6 @@
 <script type="text/javascript" language="JavaScript" src="include/js/general.js"></script>
 <script language="javascript">
 function getHomeActivities(mode,view)
-
 {ldelim}
         $("status").style.display="inline";
         new Ajax.Request(
@@ -21,11 +20,8 @@ function getHomeActivities(mode,view)
                 {rdelim}
         );
 {rdelim}
-
 </script>
-
 {*<!--Home Page Entries  -->*}
-
 	<TABLE border=0 cellspacing=0 cellpadding=0 width=100% class=small>
 	<tr>
 		<td style="height:2px" colspan="2"></td>
@@ -57,9 +53,6 @@ function getHomeActivities(mode,view)
 	</tr>
 	<tr><td style="height:2px"></td></tr>
 </TABLE>
-
-
-
 {* Main Contents Start Here *}
 <table width="98%" cellpadding="0" cellspacing="0" border="0" class="small showPanelBg" align="center" valign="top">
 	<tr>
@@ -130,10 +123,8 @@ function getHomeActivities(mode,view)
 			<td class="tagCloudDisplay" valign=top> <span id="tagfields">{$ALL_TAG}</span></td>
 			</tr>
 			</table>
-
 		</td>
 		</table>
-
 {literal}
 <script  language="javascript">
 Sortable.create("MainMatrix",
@@ -142,9 +133,7 @@ onUpdate:function(){
 //	alert(Sortable.serialize('MainMatrix')); 
 }
 });
-
 //new Sortable.create('MainMatrix','div');
-
 function fetch_homeDB()
 {
 	new Ajax.Request(
@@ -173,11 +162,9 @@ hide(tab)
 else
 show(tab)
 {rdelim}
-
 {if $IS_HOMEDASH eq 'true'}
 //fetch_homeDB();
 {/if}
 </script>
-
 	
 			

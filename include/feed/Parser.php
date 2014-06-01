@@ -1,13 +1,11 @@
 <?php
 require_once('simplepie.inc');
-
 /**
  * Extends SimplePie (feed parser library for Rss, Atom, etc)
  */
 class EC_Feed_Parser extends SimplePie {
 	var $ec_cachelocation = 'cache';
 	var $ec_fetchdone = false;
-
 	/**
 	 * Parse the feed url.
 	 * @param String Feed url (RSS, ATOM etc)
@@ -21,7 +19,6 @@ class EC_Feed_Parser extends SimplePie {
 		$this->init();
 		$this->ec_fetchdone = true;
 	}
-
 	/**
 	 * Parse the content as feed.
 	 * @param String Feed content

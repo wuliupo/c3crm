@@ -6,7 +6,6 @@
     <h3>新增纪念日</h3>
 </div>
 {/if}
-
 {if $RETURN_ACTION eq "RelateLists"}
 <div class="modal-body">
 {/if}
@@ -22,7 +21,6 @@
 	<input type="hidden" name="return_action" value="{$RETURN_ACTION}">
 	<input type="hidden" name="return_viewname" value="{$RETURN_VIEWNAME}">
 	<input type="hidden" name="moduletype" value="Memdays">
-
 	<!-- center start -->
 		 <div class="container-fluid">
 			<div class="row-fluid">
@@ -70,10 +68,6 @@
     <button type="submit" class="btn btn-small" data-dismiss="modal">关闭</button>
 </div>
 {/if}
-
-
-
-
 <script>	
         var fieldname = new Array({$VALIDATION_DATA_FIELDNAME})
         var fieldlabel = new Array({$VALIDATION_DATA_FIELDLABEL})
@@ -113,7 +107,6 @@
 				}
 			};
 		}
-
 		function changeDate(){
 			setYearOpts(curryear);
 			var calendar = document.EditView.memday1004;

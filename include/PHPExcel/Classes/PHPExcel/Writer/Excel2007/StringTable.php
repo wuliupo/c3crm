@@ -24,8 +24,6 @@
  * @license    http://www.gnu.org/licenses/old-licenses/lgpl-2.1.txt	LGPL
  * @version    1.7.2, 2010-01-11
  */
-
-
 /** PHPExcel root directory */
 if (!defined('PHPEXCEL_ROOT')) {
 	/**
@@ -33,23 +31,16 @@ if (!defined('PHPEXCEL_ROOT')) {
 	 */
 	define('PHPEXCEL_ROOT', dirname(__FILE__) . '/../../../');
 }
-
 /** PHPExcel_Writer_Excel2007 */
 require_once PHPEXCEL_ROOT . 'PHPExcel/Writer/Excel2007.php';
-
 /** PHPExcel_Writer_Excel2007_WriterPart */
 require_once PHPEXCEL_ROOT . 'PHPExcel/Writer/Excel2007/WriterPart.php';
-
 /** PHPExcel_Cell_DataType */
 require_once PHPEXCEL_ROOT . 'PHPExcel/Cell/DataType.php';
-
 /** PHPExcel_Shared_XMLWriter */
 require_once PHPEXCEL_ROOT . 'PHPExcel/Shared/XMLWriter.php';
-
 /** PHPExcel_Shared_String */
 require_once PHPEXCEL_ROOT . 'PHPExcel/Shared/String.php';
-
-
 /**
  * PHPExcel_Writer_Excel2007_StringTable
  *
@@ -103,7 +94,6 @@ class PHPExcel_Writer_Excel2007_StringTable extends PHPExcel_Writer_Excel2007_Wr
 					$aFlippedStringTable[$cell->getValue()->getHashCode()] = 1;
 	        	}
 	        }
-
 	        // Return
 	        return $aStringTable;
 		} else {
@@ -157,14 +147,12 @@ class PHPExcel_Writer_Excel2007_StringTable extends PHPExcel_Writer_Excel2007_Wr
 				}
 				
 			$objWriter->endElement();
-
 			// Return
 			return $objWriter->getData();
 		} else {
 			throw new Exception("Invalid string table array passed.");
 		}
 	}
-
 	/**
 	 * Write Rich Text
 	 *
@@ -184,7 +172,6 @@ class PHPExcel_Writer_Excel2007_StringTable extends PHPExcel_Writer_Excel2007_Wr
 				if ($element instanceof PHPExcel_RichText_Run) {
 					// rPr
 					$objWriter->startElement('rPr');
-
 						// rFont
 						$objWriter->startElement('rFont');
 						$objWriter->writeAttribute('val', $element->getFont()->getName());
@@ -262,7 +249,6 @@ class PHPExcel_Writer_Excel2007_StringTable extends PHPExcel_Writer_Excel2007_Wr
 				$returnValue[$value->getHashCode()] = $key;
 			}
 		}
-
 		// Return
 		return $returnValue;
 	}

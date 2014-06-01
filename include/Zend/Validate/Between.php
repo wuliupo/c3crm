@@ -18,12 +18,10 @@
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  * @version    $Id: Between.php 23775 2011-03-01 17:25:24Z ralph $
  */
-
 /**
  * @see Zend_Validate_Abstract
  */
 require_once 'include/Zend/Validate/Abstract.php';
-
 /**
  * @category   Zend
  * @package    Zend_Validate
@@ -36,12 +34,10 @@ class Zend_Validate_Between extends Zend_Validate_Abstract
      * Validation failure message key for when the value is not between the min and max, inclusively
      */
     const NOT_BETWEEN        = 'notBetween';
-
     /**
      * Validation failure message key for when the value is not strictly between the min and max
      */
     const NOT_BETWEEN_STRICT = 'notBetweenStrict';
-
     /**
      * Validation failure message template definitions
      *
@@ -51,7 +47,6 @@ class Zend_Validate_Between extends Zend_Validate_Abstract
         self::NOT_BETWEEN        => "'%value%' is not between '%min%' and '%max%', inclusively",
         self::NOT_BETWEEN_STRICT => "'%value%' is not strictly between '%min%' and '%max%'"
     );
-
     /**
      * Additional variables available for validation failure messages
      *
@@ -61,21 +56,18 @@ class Zend_Validate_Between extends Zend_Validate_Abstract
         'min' => '_min',
         'max' => '_max'
     );
-
     /**
      * Minimum value
      *
      * @var mixed
      */
     protected $_min;
-
     /**
      * Maximum value
      *
      * @var mixed
      */
     protected $_max;
-
     /**
      * Whether to do inclusive comparisons, allowing equivalence to min and/or max
      *
@@ -85,7 +77,6 @@ class Zend_Validate_Between extends Zend_Validate_Abstract
      * @var boolean
      */
     protected $_inclusive;
-
     /**
      * Sets validator options
      * Accepts the following option keys:
@@ -106,28 +97,22 @@ class Zend_Validate_Between extends Zend_Validate_Abstract
             if (!empty($options)) {
                 $temp['max'] = array_shift($options);
             }
-
             if (!empty($options)) {
                 $temp['inclusive'] = array_shift($options);
             }
-
             $options = $temp;
         }
-
         if (!array_key_exists('min', $options) || !array_key_exists('max', $options)) {
             require_once 'include/Zend/Validate/Exception.php';
             throw new Zend_Validate_Exception("Missing option. 'min' and 'max' has to be given");
         }
-
         if (!array_key_exists('inclusive', $options)) {
             $options['inclusive'] = true;
         }
-
         $this->setMin($options['min'])
              ->setMax($options['max'])
              ->setInclusive($options['inclusive']);
     }
-
     /**
      * Returns the min option
      *
@@ -137,7 +122,6 @@ class Zend_Validate_Between extends Zend_Validate_Abstract
     {
         return $this->_min;
     }
-
     /**
      * Sets the min option
      *
@@ -149,7 +133,6 @@ class Zend_Validate_Between extends Zend_Validate_Abstract
         $this->_min = $min;
         return $this;
     }
-
     /**
      * Returns the max option
      *
@@ -159,7 +142,6 @@ class Zend_Validate_Between extends Zend_Validate_Abstract
     {
         return $this->_max;
     }
-
     /**
      * Sets the max option
      *
@@ -171,7 +153,6 @@ class Zend_Validate_Between extends Zend_Validate_Abstract
         $this->_max = $max;
         return $this;
     }
-
     /**
      * Returns the inclusive option
      *
@@ -181,7 +162,6 @@ class Zend_Validate_Between extends Zend_Validate_Abstract
     {
         return $this->_inclusive;
     }
-
     /**
      * Sets the inclusive option
      *
@@ -193,7 +173,6 @@ class Zend_Validate_Between extends Zend_Validate_Abstract
         $this->_inclusive = $inclusive;
         return $this;
     }
-
     /**
      * Defined by Zend_Validate_Interface
      *
@@ -206,7 +185,6 @@ class Zend_Validate_Between extends Zend_Validate_Abstract
     public function isValid($value)
     {
         $this->_setValue($value);
-
         if ($this->_inclusive) {
             if ($this->_min > $value || $value > $this->_max) {
                 $this->_error(self::NOT_BETWEEN);
@@ -220,5 +198,4 @@ class Zend_Validate_Between extends Zend_Validate_Abstract
         }
         return true;
     }
-
 }

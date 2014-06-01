@@ -30,7 +30,6 @@
 	<input type="hidden" name="source_module">
 	<input type="hidden" name="entity_id">
 	{$HIDDEN_PARENTS_LIST}
-
 {elseif $MODULE eq 'Contacts'}
 	<input type="hidden" name="module" value="{$MODULE}">
 	<input type="hidden" name="record" value="{$ID}">
@@ -201,5 +200,3 @@
         <input type="hidden" name="return_action">
         <input type="hidden" name="return_id">
 {/if}
-
-

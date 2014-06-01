@@ -24,7 +24,6 @@
  * @license    http://www.gnu.org/licenses/old-licenses/lgpl-2.1.txt	LGPL
  * @version    1.7.2, 2010-01-11
  */
-
 // Original file header of PEAR::Spreadsheet_Excel_Writer_BIFFwriter (used as the base for this class):
 // -----------------------------------------------------------------------------------------
 // *  Module written/ported by Xavier Noguer <xnoguer@rezebra.com>
@@ -58,8 +57,6 @@
 // *    License along with this library; if not, write to the Free Software
 // *    Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 // */
-
-
 /**
  * PHPExcel_Writer_Excel5_BIFFwriter
  *
@@ -74,32 +71,27 @@ class PHPExcel_Writer_Excel5_BIFFwriter
 	 * @var integer
 	 */
 	var $_BIFF_version = 0x0500;
-
 	/**
 	 * The byte order of this architecture. 0 => little endian, 1 => big endian
 	 * @var integer
 	 */
 	private static $_byte_order;
-
 	/**
 	 * The string containing the data of the BIFF stream
 	 * @var string
 	 */
 	var $_data;
-
 	/**
 	 * The size of the data in bytes. Should be the same as strlen($this->_data)
 	 * @var integer
 	 */
 	var $_datasize;
-
 	/**
 	 * The maximum length for a BIFF record (excluding record header and length field). See _addContinue()
 	 * @var integer
 	 * @see _addContinue()
 	 */
 	var $_limit;
-
 	/**
 	 * Constructor
 	 */
@@ -109,7 +101,6 @@ class PHPExcel_Writer_Excel5_BIFFwriter
 		$this->_datasize   = 0;
 		$this->_limit      = 2080;
 	}
-
 	/**
 	 * Determine the byte order and store it as class data to avoid
 	 * recalculating it for each call to new().
@@ -133,10 +124,8 @@ class PHPExcel_Writer_Excel5_BIFFwriter
 			}
 			self::$_byte_order = $byte_order;
 		}
-
 		return self::$_byte_order;
 	}
-
 	/**
 	 * General storage function
 	 *
@@ -151,7 +140,6 @@ class PHPExcel_Writer_Excel5_BIFFwriter
 		$this->_data      = $this->_data.$data;
 		$this->_datasize += strlen($data);
 	}
-
 	/**
 	 * General storage function like _append, but returns string instead of modifying $this->_data
 	 *
@@ -167,7 +155,6 @@ class PHPExcel_Writer_Excel5_BIFFwriter
 		
 		return $data;
 	}
-
 	/**
 	 * Writes Excel BOF record to indicate the beginning of a stream or
 	 * sub-stream in the BIFF file.
@@ -179,7 +166,6 @@ class PHPExcel_Writer_Excel5_BIFFwriter
 	function _storeBof($type)
 	{
 		$record  = 0x0809;        // Record identifier
-
 		// According to the SDK $build and $year should be set to zero.
 		// However, this throws a warning in Excel 5. So, use magic numbers.
 		if ($this->_BIFF_version == 0x0500) {
@@ -189,20 +175,16 @@ class PHPExcel_Writer_Excel5_BIFFwriter
 			$year    = 0x07C9;
 		} elseif ($this->_BIFF_version == 0x0600) {
 			$length  = 0x0010;
-
 			// by inspection of real files, MS Office Excel 2007 writes the following 
 			$unknown = pack("VV", 0x000100D1, 0x00000406);
-
 			$build   = 0x0DBB;
 			$year    = 0x07CC;
 		}
 		$version = $this->_BIFF_version;
-
 		$header  = pack("vv",   $record, $length);
 		$data    = pack("vvvv", $version, $type, $build, $year);
 		$this->_append($header . $data . $unknown);
 	}
-
 	/**
 	 * Writes Excel EOF record to indicate the end of a BIFF stream.
 	 *
@@ -215,7 +197,6 @@ class PHPExcel_Writer_Excel5_BIFFwriter
 		$header    = pack("vv", $record, $length);
 		$this->_append($header);
 	}
-
 	/**
 	 * Writes Excel EOF record to indicate the end of a BIFF stream.
 	 *
@@ -228,7 +209,6 @@ class PHPExcel_Writer_Excel5_BIFFwriter
 		$header    = pack("vv", $record, $length);
 		return $this->writeData($header);
 	}
-
 	/**
 	 * Excel limits the size of BIFF records. In Excel 5 the limit is 2084 bytes. In
 	 * Excel 97 the limit is 8228 bytes. Records that are longer than these limits
@@ -245,26 +225,20 @@ class PHPExcel_Writer_Excel5_BIFFwriter
 	{
 		$limit  = $this->_limit;
 		$record = 0x003C;         // Record identifier
-
 		// The first 2080/8224 bytes remain intact. However, we have to change
 		// the length field of the record.
 		$tmp = substr($data, 0, 2) . pack("v", $limit) . substr($data, 4, $limit);
-
 		$header = pack("vv", $record, $limit);  // Headers for continue records
-
 		// Retrieve chunks of 2080/8224 bytes +4 for the header.
 		$data_length = strlen($data);
 		for ($i = $limit + 4; $i < ($data_length - $limit); $i += $limit) {
 			$tmp .= $header;
 			$tmp .= substr($data, $i, $limit);
 		}
-
 		// Retrieve the last chunk of data
 		$header  = pack("vv", $record, strlen($data) - $i);
 		$tmp    .= $header;
 		$tmp    .= substr($data, $i, strlen($data) - $i);
-
 		return $tmp;
 	}
-
 }

@@ -516,7 +516,6 @@ $mod_strings = array (
   'APPROVE_OK' => 'Approve',
   'APPROVE_REJECT' => 'Reject',
   'REJECT_REASON' => 'Description:',
-
   'LBL_CONTACTS_LASTNAME' => 'Contact:Name',
   'LBL_CONTACTS_SALUTATIONTYPE' => 'Contact:Salutation',
   'LBL_CONTACTS_TITLE' => 'Contact:Title',
@@ -526,6 +525,5 @@ $mod_strings = array (
   'LBL_CONTACTS_PHONE' => 'Contact:Phone',
   'LBL_CONTACTS_MOBILE' => 'Contact:Mobile',
   'LBL_VARIABLE' => 'Variable',
-
 );
 ?>

@@ -6,7 +6,6 @@ global $mod_strings;
 global $app_strings;
 global $adb;
 global $current_user;
-
 if($_REQUEST['startdate'] && !empty($_REQUEST['startdate'])){
 	$startdate = $_REQUEST['startdate'];
 }
@@ -28,7 +27,6 @@ if($where && !empty($where)){
 }
 $query .= "group by {$groupsql} ";
 $query .= "order by {$order} {$desc} ";
-
 $result = $adb->query($query);
 $num_rows = $adb->num_rows($result);
 $reportData .= "\"序号\"";
@@ -46,11 +44,9 @@ if($num_rows && $num_rows > 0){
 		$for_i ++;
 	}
 }
-
 $reportData .= "\"\",\"小计\"";
 $reportData .= ",\"".$sumtotalcols."\"";
 $reportData .= "\r\n";
-
 ob_clean();
 header("Pragma: cache");
 header("Content-type: application/octet-stream; charset=GBK");
@@ -62,7 +58,6 @@ header("Cache-Control: post-check=0, pre-check=0", false );
 header("Content-Length: ".strlen($reportData));
 $reportData = iconv_ec("UTF-8","GBK",$reportData);
 print $reportData;
-
 exit;
 	
 ?>

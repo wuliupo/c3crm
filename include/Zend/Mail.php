@@ -18,29 +18,22 @@
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  * @version    $Id: Mail.php 23775 2011-03-01 17:25:24Z ralph $
  */
-
-
 /**
  * @see Zend_Mail_Transport_Abstract
  */
 require_once 'include/Zend/Mail/Transport/Abstract.php';
-
 /**
  * @see Zend_Mime
  */
 require_once 'include/Zend/Mime.php';
-
 /**
  * @see Zend_Mime_Message
  */
 require_once 'include/Zend/Mime/Message.php';
-
 /**
  * @see Zend_Mime_Part
  */
 require_once 'include/Zend/Mime/Part.php';
-
-
 /**
  * Class for sending an email.
  *
@@ -54,124 +47,102 @@ class Zend_Mail extends Zend_Mime_Message
     /**#@+
      * @access protected
      */
-
     /**
      * @var Zend_Mail_Transport_Abstract
      * @static
      */
     protected static $_defaultTransport = null;
-
     /**
      * @var array
      * @static
      */
     protected static $_defaultFrom;
-
     /**
      * @var array
      * @static
      */
     protected static $_defaultReplyTo;
-
     /**
      * Mail character set
      * @var string
      */
     protected $_charset = 'iso-8859-1';
-
     /**
      * Mail headers
      * @var array
      */
     protected $_headers = array();
-
     /**
      * Encoding of Mail headers
      * @var string
      */
     protected $_headerEncoding = Zend_Mime::ENCODING_QUOTEDPRINTABLE;
-
     /**
      * From: address
      * @var string
      */
     protected $_from = null;
-
     /**
      * To: addresses
      * @var array
      */
     protected $_to = array();
-
     /**
      * Array of all recipients
      * @var array
      */
     protected $_recipients = array();
-
     /**
      * Reply-To header
      * @var string
      */
     protected $_replyTo = null;
-
     /**
      * Return-Path header
      * @var string
      */
     protected $_returnPath = null;
-
     /**
      * Subject: header
      * @var string
      */
     protected $_subject = null;
-
     /**
      * Date: header
      * @var string
      */
     protected $_date = null;
-
     /**
      * Message-ID: header
      * @var string
      */
     protected $_messageId = null;
-
     /**
      * text/plain MIME part
      * @var false|Zend_Mime_Part
      */
     protected $_bodyText = false;
-
     /**
      * text/html MIME part
      * @var false|Zend_Mime_Part
      */
     protected $_bodyHtml = false;
-
     /**
      * MIME boundary string
      * @var string
      */
     protected $_mimeBoundary = null;
-
     /**
      * Content type of the message
      * @var string
      */
     protected $_type = null;
-
     /**#@-*/
-
     /**
      * Flag: whether or not email has attachments
      * @var boolean
      */
     public $hasAttachments = false;
-
-
     /**
      * Sets the default mail transport for all following uses of
      * Zend_Mail::send();
@@ -184,7 +155,6 @@ class Zend_Mail extends Zend_Mime_Message
     {
         self::$_defaultTransport = $transport;
     }
-
     /**
      * Gets the default mail transport for all following uses of
      * unittests
@@ -196,7 +166,6 @@ class Zend_Mail extends Zend_Mime_Message
     {
         return self::$_defaultTransport;
     }
-
     /**
      * Clear the default transport property
      */
@@ -204,7 +173,6 @@ class Zend_Mail extends Zend_Mime_Message
     {
         self::$_defaultTransport = null;
     }
-
     /**
      * Public constructor
      *
@@ -217,7 +185,6 @@ class Zend_Mail extends Zend_Mime_Message
             $this->_charset = $charset;
         }
     }
-
     /**
      * Return charset string
      *
@@ -227,7 +194,6 @@ class Zend_Mail extends Zend_Mime_Message
     {
         return $this->_charset;
     }
-
     /**
      * Set content type
      *
@@ -251,11 +217,9 @@ class Zend_Mail extends Zend_Mime_Message
             require_once 'include/Zend/Mail/Exception.php';
             throw new Zend_Mail_Exception('Invalid content type "' . $type . '"');
         }
-
         $this->_type = $type;
         return $this;
     }
-
     /**
      * Get content type of the message
      *
@@ -265,7 +229,6 @@ class Zend_Mail extends Zend_Mime_Message
     {
         return $this->_type;
     }
-
     /**
      * Set an arbitrary mime boundary for the message
      *
@@ -277,10 +240,8 @@ class Zend_Mail extends Zend_Mime_Message
     public function setMimeBoundary($boundary)
     {
         $this->_mimeBoundary = $boundary;
-
         return $this;
     }
-
     /**
      * Return the boundary string used for the message
      *
@@ -290,7 +251,6 @@ class Zend_Mail extends Zend_Mime_Message
     {
         return $this->_mimeBoundary;
     }
-
     /**
      * Return encoding of mail headers
      *
@@ -301,7 +261,6 @@ class Zend_Mail extends Zend_Mime_Message
     {
         return $this->getHeaderEncoding();
     }
-
     /**
      * Return the encoding of mail headers
      *
@@ -313,7 +272,6 @@ class Zend_Mail extends Zend_Mime_Message
     {
         return $this->_headerEncoding;
     }
-
     /**
      * Set the encoding of mail headers
      *
@@ -325,7 +283,6 @@ class Zend_Mail extends Zend_Mime_Message
     {
         return $this->setHeaderEncoding($encoding);
     }
-
     /**
      * Set the encoding of mail headers
      *
@@ -346,10 +303,8 @@ class Zend_Mail extends Zend_Mime_Message
             throw new Zend_Mail_Exception('Invalid encoding "' . $encoding . '"');
         }
         $this->_headerEncoding = $encoding;
-
         return $this;
     }
-
     /**
      * Sets the text body for the message.
      *
@@ -363,18 +318,14 @@ class Zend_Mail extends Zend_Mime_Message
         if ($charset === null) {
             $charset = $this->_charset;
         }
-
         $mp = new Zend_Mime_Part($txt);
         $mp->encoding = $encoding;
         $mp->type = Zend_Mime::TYPE_TEXT;
         $mp->disposition = Zend_Mime::DISPOSITION_INLINE;
         $mp->charset = $charset;
-
         $this->_bodyText = $mp;
-
         return $this;
     }
-
     /**
      * Return text body Zend_Mime_Part or string
      *
@@ -387,10 +338,8 @@ class Zend_Mail extends Zend_Mime_Message
             $body = $this->_bodyText;
             return $body->getContent();
         }
-
         return $this->_bodyText;
     }
-
     /**
      * Sets the HTML body for the message
      *
@@ -404,18 +353,14 @@ class Zend_Mail extends Zend_Mime_Message
         if ($charset === null) {
             $charset = $this->_charset;
         }
-
         $mp = new Zend_Mime_Part($html);
         $mp->encoding = $encoding;
         $mp->type = Zend_Mime::TYPE_HTML;
         $mp->disposition = Zend_Mime::DISPOSITION_INLINE;
         $mp->charset = $charset;
-
         $this->_bodyHtml = $mp;
-
         return $this;
     }
-
     /**
      * Return Zend_Mime_Part representing body HTML
      *
@@ -428,10 +373,8 @@ class Zend_Mail extends Zend_Mime_Message
             $body = $this->_bodyHtml;
             return $body->getContent();
         }
-
         return $this->_bodyHtml;
     }
-
     /**
      * Adds an existing attachment to the mail message
      *
@@ -442,10 +385,8 @@ class Zend_Mail extends Zend_Mime_Message
     {
         $this->addPart($attachment);
         $this->hasAttachments = true;
-
         return $this;
     }
-
     /**
      * Creates a Zend_Mime_Part attachment
      *
@@ -466,18 +407,14 @@ class Zend_Mail extends Zend_Mime_Message
                                      $encoding    = Zend_Mime::ENCODING_BASE64,
                                      $filename    = null)
     {
-
         $mp = new Zend_Mime_Part($body);
         $mp->encoding = $encoding;
         $mp->type = $mimeType;
         $mp->disposition = $disposition;
         $mp->filename = $filename;
-
         $this->addAttachment($mp);
-
         return $mp;
     }
-
     /**
      * Return a count of message parts
      *
@@ -487,7 +424,6 @@ class Zend_Mail extends Zend_Mime_Message
     {
         return count($this->_parts);
     }
-
     /**
      * Encode header fields
      *
@@ -506,10 +442,8 @@ class Zend_Mail extends Zend_Mime_Message
                 $value = Zend_Mime::encodeBase64Header($value, $this->getCharset(), Zend_Mime::LINELENGTH, Zend_Mime::LINEEND);
             }
         }
-
         return $value;
     }
-
     /**
      * Add a header to the message
      *
@@ -527,13 +461,10 @@ class Zend_Mail extends Zend_Mime_Message
         } else {
             $this->_headers[$headerName] = array($value);
         }
-
         if ($append) {
             $this->_headers[$headerName]['append'] = true;
         }
-
     }
-
     /**
      * Clear header from the message
      *
@@ -544,7 +475,6 @@ class Zend_Mail extends Zend_Mime_Message
     {
         $this->clearHeader($headerName);
     }
-
     /**
      * Helper function for adding a recipient and the corresponding header
      *
@@ -560,7 +490,6 @@ class Zend_Mail extends Zend_Mime_Message
         $this->_recipients[$email] = 1;
         $this->_storeHeader($headerName, $this->_formatAddress($email, $name), true);
     }
-
     /**
      * Adds To-header and recipient, $email can be an array, or a single string address
      *
@@ -573,15 +502,12 @@ class Zend_Mail extends Zend_Mime_Message
         if (!is_array($email)) {
             $email = array($name => $email);
         }
-
         foreach ($email as $n => $recipient) {
             $this->_addRecipientAndHeader('To', $recipient, is_int($n) ? '' : $n);
             $this->_to[] = $recipient;
         }
-
         return $this;
     }
-
     /**
      * Adds Cc-header and recipient, $email can be an array, or a single string address
      *
@@ -594,14 +520,11 @@ class Zend_Mail extends Zend_Mime_Message
         if (!is_array($email)) {
             $email = array($name => $email);
         }
-
         foreach ($email as $n => $recipient) {
             $this->_addRecipientAndHeader('Cc', $recipient, is_int($n) ? '' : $n);
         }
-
         return $this;
     }
-
     /**
      * Adds Bcc recipient, $email can be an array, or a single string address
      *
@@ -613,14 +536,11 @@ class Zend_Mail extends Zend_Mime_Message
         if (!is_array($email)) {
             $email = array($email);
         }
-
         foreach ($email as $recipient) {
             $this->_addRecipientAndHeader('Bcc', $recipient, '');
         }
-
         return $this;
     }
-
     /**
      * Return list of recipient email addresses
      *
@@ -630,7 +550,6 @@ class Zend_Mail extends Zend_Mime_Message
     {
         return array_keys($this->_recipients);
     }
-
     /**
      * Clear header from the message
      *
@@ -644,7 +563,6 @@ class Zend_Mail extends Zend_Mime_Message
         }
         return $this;
     }
-
     /**
      * Clears list of recipient email addresses
      *
@@ -654,14 +572,11 @@ class Zend_Mail extends Zend_Mime_Message
     {
         $this->_recipients = array();
         $this->_to = array();
-
         $this->clearHeader('To');
         $this->clearHeader('Cc');
         $this->clearHeader('Bcc');
-
         return $this;
     }
-
     /**
      * Sets From-header and sender of the message
      *
@@ -679,15 +594,12 @@ class Zend_Mail extends Zend_Mime_Message
             require_once 'include/Zend/Mail/Exception.php';
             throw new Zend_Mail_Exception('From Header set twice');
         }
-
         $email = $this->_filterEmail($email);
         $name  = $this->_filterName($name);
         $this->_from = $email;
         $this->_storeHeader('From', $this->_formatAddress($email, $name), true);
-
         return $this;
     }
-
     /**
      * Set Reply-To Header
      *
@@ -705,15 +617,12 @@ class Zend_Mail extends Zend_Mime_Message
             require_once 'include/Zend/Mail/Exception.php';
             throw new Zend_Mail_Exception('Reply-To Header set twice');
         }
-
         $email = $this->_filterEmail($email);
         $name  = $this->_filterName($name);
         $this->_replyTo = $email;
         $this->_storeHeader('Reply-To', $this->_formatAddress($email, $name), true);
-
         return $this;
     }
-
     /**
      * Returns the sender of the mail
      *
@@ -723,7 +632,6 @@ class Zend_Mail extends Zend_Mime_Message
     {
         return $this->_from;
     }
-
     /**
      * Returns the current Reply-To address of the message
      *
@@ -733,7 +641,6 @@ class Zend_Mail extends Zend_Mime_Message
     {
         return $this->_replyTo;
     }
-
     /**
      * Clears the sender from the mail
      *
@@ -743,10 +650,8 @@ class Zend_Mail extends Zend_Mime_Message
     {
         $this->_from = null;
         $this->clearHeader('From');
-
         return $this;
     }
-
      /**
       * Clears the current Reply-To address from the message
       *
@@ -756,10 +661,8 @@ class Zend_Mail extends Zend_Mime_Message
     {
         $this->_replyTo = null;
         $this->clearHeader('Reply-To');
-
         return $this;
     }
-
     /**
      * Sets Default From-email and name of the message
      *
@@ -771,7 +674,6 @@ class Zend_Mail extends Zend_Mime_Message
     {
         self::$_defaultFrom = array('email' => $email, 'name' => $name);
     }
-
     /**
      * Returns the default sender of the mail
      *
@@ -781,7 +683,6 @@ class Zend_Mail extends Zend_Mime_Message
     {
         return self::$_defaultFrom;
     }
-
     /**
      * Clears the default sender from the mail
      *
@@ -791,7 +692,6 @@ class Zend_Mail extends Zend_Mime_Message
     {
         self::$_defaultFrom = null;
     }
-
     /**
      * Sets From-name and -email based on the defaults
      *
@@ -804,12 +704,9 @@ class Zend_Mail extends Zend_Mime_Message
             throw new Zend_Mail_Exception(
                 'No default From Address set to use');
         }
-
         $this->setFrom($from['email'], $from['name']);
-
         return $this;
     }
-
     /**
      * Sets Default ReplyTo-address and -name of the message
      *
@@ -821,7 +718,6 @@ class Zend_Mail extends Zend_Mime_Message
     {
         self::$_defaultReplyTo = array('email' => $email, 'name' => $name);
     }
-
     /**
      * Returns the default Reply-To Address and Name of the mail
      *
@@ -831,7 +727,6 @@ class Zend_Mail extends Zend_Mime_Message
     {
         return self::$_defaultReplyTo;
     }
-
     /**
      * Clears the default ReplyTo-address and -name from the mail
      *
@@ -841,7 +736,6 @@ class Zend_Mail extends Zend_Mime_Message
     {
         self::$_defaultReplyTo = null;
     }
-
     /**
      * Sets ReplyTo-name and -email based on the defaults
      *
@@ -854,12 +748,9 @@ class Zend_Mail extends Zend_Mime_Message
             throw new Zend_Mail_Exception(
                 'No default Reply-To Address set to use');
         }
-
         $this->setReplyTo($replyTo['email'], $replyTo['name']);
-
         return $this;
     }
-
     /**
      * Sets the Return-Path header of the message
      *
@@ -882,7 +773,6 @@ class Zend_Mail extends Zend_Mime_Message
         }
         return $this;
     }
-
     /**
      * Returns the current Return-Path address of the message
      *
@@ -895,10 +785,8 @@ class Zend_Mail extends Zend_Mime_Message
         if (null !== $this->_returnPath) {
             return $this->_returnPath;
         }
-
         return $this->_from;
     }
-
     /**
      * Clears the current Return-Path address from the message
      *
@@ -908,10 +796,8 @@ class Zend_Mail extends Zend_Mime_Message
     {
         $this->_returnPath = null;
         $this->clearHeader('Return-Path');
-
         return $this;
     }
-
     /**
      * Sets the subject of the message
      *
@@ -934,7 +820,6 @@ class Zend_Mail extends Zend_Mime_Message
         }
         return $this;
     }
-
     /**
      * Returns the encoded subject of the message
      *
@@ -944,7 +829,6 @@ class Zend_Mail extends Zend_Mime_Message
     {
         return $this->_subject;
     }
-
     /**
      * Clears the encoded subject from the message
      *
@@ -954,10 +838,8 @@ class Zend_Mail extends Zend_Mime_Message
     {
         $this->_subject = null;
         $this->clearHeader('Subject');
-
         return $this;
     }
-
     /**
      * Sets Date-header
      *
@@ -1004,7 +886,6 @@ class Zend_Mail extends Zend_Mime_Message
         }
         return $this;
     }
-
     /**
      * Returns the formatted date of the message
      *
@@ -1014,7 +895,6 @@ class Zend_Mail extends Zend_Mime_Message
     {
         return $this->_date;
     }
-
     /**
      * Clears the formatted date from the message
      *
@@ -1024,10 +904,8 @@ class Zend_Mail extends Zend_Mime_Message
     {
         $this->_date = null;
         $this->clearHeader('Date');
-
         return $this;
     }
-
     /**
      * Sets the Message-ID of the message
      *
@@ -1046,7 +924,6 @@ class Zend_Mail extends Zend_Mime_Message
         } elseif ($id === true) {
             $id = $this->createMessageId();
         }
-
         if ($this->_messageId === null) {
             $id = $this->_filterOther($id);
             $this->_messageId = $id;
@@ -1058,10 +935,8 @@ class Zend_Mail extends Zend_Mime_Message
             require_once 'include/Zend/Mail/Exception.php';
             throw new Zend_Mail_Exception('Message-ID set twice');
         }
-
         return $this;
     }
-
     /**
      * Returns the Message-ID of the message
      *
@@ -1071,8 +946,6 @@ class Zend_Mail extends Zend_Mime_Message
     {
         return $this->_messageId;
     }
-
-
     /**
      * Clears the Message-ID from the message
      *
@@ -1082,19 +955,15 @@ class Zend_Mail extends Zend_Mime_Message
     {
         $this->_messageId = null;
         $this->clearHeader('Message-Id');
-
         return $this;
     }
-
     /**
      * Creates the Message-ID
      *
      * @return string
      */
     public function createMessageId() {
-
         $time = time();
-
         if ($this->_from !== null) {
             $user = $this->_from;
         } elseif (isset($_SERVER['REMOTE_ADDR'])) {
@@ -1102,24 +971,19 @@ class Zend_Mail extends Zend_Mime_Message
         } else {
             $user = getmypid();
         }
-
         $rand = mt_rand();
-
         if ($this->_recipients !== array()) {
             $recipient = array_rand($this->_recipients);
         } else {
             $recipient = 'unknown';
         }
-
         if (isset($_SERVER["SERVER_NAME"])) {
             $hostName = $_SERVER["SERVER_NAME"];
         } else {
             $hostName = php_uname('n');
         }
-
         return sha1($time . $user . $rand . $recipient) . '@' . $hostName;
     }
-
     /**
      * Add a custom header to the message
      *
@@ -1142,14 +1006,11 @@ class Zend_Mail extends Zend_Mime_Message
             require_once 'include/Zend/Mail/Exception.php';
             throw new Zend_Mail_Exception('Cannot set standard header from addHeader()');
         }
-
         $value = $this->_filterOther($value);
         $value = $this->_encodeHeader($value);
         $this->_storeHeader($name, $value, $append);
-
         return $this;
     }
-
     /**
      * Return mail headers
      *
@@ -1159,7 +1020,6 @@ class Zend_Mail extends Zend_Mime_Message
     {
         return $this->_headers;
     }
-
     /**
      * Sends this email using the given transport or a previously
      * set DefaultTransport or the internal mail function if no
@@ -1178,24 +1038,18 @@ class Zend_Mail extends Zend_Mime_Message
                 $transport = self::$_defaultTransport;
             }
         }
-
         if ($this->_date === null) {
             $this->setDate();
         }
-
         if(null === $this->_from && null !== self::getDefaultFrom()) {
             $this->setFromToDefaultFrom();
         }
-
         if(null === $this->_replyTo && null !== self::getDefaultReplyTo()) {
             $this->setReplyToFromDefault();
         }
-
         $transport->send($this);
-
         return $this;
     }
-
     /**
      * Filter of email data
      *
@@ -1212,10 +1066,8 @@ class Zend_Mail extends Zend_Mime_Message
                       '<'  => '',
                       '>'  => '',
         );
-
         return strtr($email, $rule);
     }
-
     /**
      * Filter of name data
      *
@@ -1231,10 +1083,8 @@ class Zend_Mail extends Zend_Mime_Message
                       '<'  => '[',
                       '>'  => ']',
         );
-
         return trim(strtr($name, $rule));
     }
-
     /**
      * Filter of other data
      *
@@ -1247,10 +1097,8 @@ class Zend_Mail extends Zend_Mime_Message
                       "\n" => '',
                       "\t" => '',
         );
-
         return strtr($data, $rule);
     }
-
     /**
      * Formats e-mail address
      *
@@ -1272,5 +1120,4 @@ class Zend_Mail extends Zend_Mime_Message
             return sprintf($format, $encodedName, $email);
         }
     }
-
 }

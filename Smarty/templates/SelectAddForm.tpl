@@ -9,8 +9,6 @@
   *
  ********************************************************************************/
 -->*}
-
-
 <table border=0 cellspacing=0 cellpadding=5 width=95% align=center> 
 	<tr>
 		<td class=small >		
@@ -43,4 +41,3 @@
 		</td>
 	</tr>
 </table>
-

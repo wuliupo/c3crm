@@ -18,12 +18,10 @@
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  * @version    $Id: StringLength.php 23775 2011-03-01 17:25:24Z ralph $
  */
-
 /**
  * @see Zend_Validate_Abstract
  */
 require_once 'include/Zend/Validate/Abstract.php';
-
 /**
  * @category   Zend
  * @package    Zend_Validate
@@ -35,7 +33,6 @@ class Zend_Validate_StringLength extends Zend_Validate_Abstract
     const INVALID   = 'stringLengthInvalid';
     const TOO_SHORT = 'stringLengthTooShort';
     const TOO_LONG  = 'stringLengthTooLong';
-
     /**
      * @var array
      */
@@ -44,7 +41,6 @@ class Zend_Validate_StringLength extends Zend_Validate_Abstract
         self::TOO_SHORT => "'%value%' is less than %min% characters long",
         self::TOO_LONG  => "'%value%' is more than %max% characters long",
     );
-
     /**
      * @var array
      */
@@ -52,14 +48,12 @@ class Zend_Validate_StringLength extends Zend_Validate_Abstract
         'min' => '_min',
         'max' => '_max'
     );
-
     /**
      * Minimum length
      *
      * @var integer
      */
     protected $_min;
-
     /**
      * Maximum length
      *
@@ -68,14 +62,12 @@ class Zend_Validate_StringLength extends Zend_Validate_Abstract
      * @var integer|null
      */
     protected $_max;
-
     /**
      * Encoding to use
      *
      * @var string|null
      */
     protected $_encoding;
-
     /**
      * Sets validator options
      *
@@ -92,28 +84,22 @@ class Zend_Validate_StringLength extends Zend_Validate_Abstract
             if (!empty($options)) {
                 $temp['max'] = array_shift($options);
             }
-
             if (!empty($options)) {
                 $temp['encoding'] = array_shift($options);
             }
-
             $options = $temp;
         }
-
         if (!array_key_exists('min', $options)) {
             $options['min'] = 0;
         }
-
         $this->setMin($options['min']);
         if (array_key_exists('max', $options)) {
             $this->setMax($options['max']);
         }
-
         if (array_key_exists('encoding', $options)) {
             $this->setEncoding($options['encoding']);
         }
     }
-
     /**
      * Returns the min option
      *
@@ -123,7 +109,6 @@ class Zend_Validate_StringLength extends Zend_Validate_Abstract
     {
         return $this->_min;
     }
-
     /**
      * Sets the min option
      *
@@ -144,7 +129,6 @@ class Zend_Validate_StringLength extends Zend_Validate_Abstract
         $this->_min = max(0, (integer) $min);
         return $this;
     }
-
     /**
      * Returns the max option
      *
@@ -154,7 +138,6 @@ class Zend_Validate_StringLength extends Zend_Validate_Abstract
     {
         return $this->_max;
     }
-
     /**
      * Sets the max option
      *
@@ -176,10 +159,8 @@ class Zend_Validate_StringLength extends Zend_Validate_Abstract
         } else {
             $this->_max = (integer) $max;
         }
-
         return $this;
     }
-
     /**
      * Returns the actual encoding
      *
@@ -189,7 +170,6 @@ class Zend_Validate_StringLength extends Zend_Validate_Abstract
     {
         return $this->_encoding;
     }
-
     /**
      * Sets a new encoding to use
      *
@@ -205,14 +185,11 @@ class Zend_Validate_StringLength extends Zend_Validate_Abstract
                 require_once 'include/Zend/Validate/Exception.php';
                 throw new Zend_Validate_Exception('Given encoding not supported on this OS!');
             }
-
             iconv_set_encoding('internal_encoding', $orig);
         }
-
         $this->_encoding = $encoding;
         return $this;
     }
-
     /**
      * Defined by Zend_Validate_Interface
      *
@@ -228,22 +205,18 @@ class Zend_Validate_StringLength extends Zend_Validate_Abstract
             $this->_error(self::INVALID);
             return false;
         }
-
         $this->_setValue($value);
         if ($this->_encoding !== null) {
             $length = iconv_strlen($value, $this->_encoding);
         } else {
             $length = iconv_strlen($value);
         }
-
         if ($length < $this->_min) {
             $this->_error(self::TOO_SHORT);
         }
-
         if (null !== $this->_max && $this->_max < $length) {
             $this->_error(self::TOO_LONG);
         }
-
         if (count($this->_messages)) {
             return false;
         } else {

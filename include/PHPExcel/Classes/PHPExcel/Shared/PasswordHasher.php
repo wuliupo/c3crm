@@ -24,8 +24,6 @@
  * @license    http://www.gnu.org/licenses/old-licenses/lgpl-2.1.txt	LGPL
  * @version    1.7.2, 2010-01-11
  */
-
-
 /**
  * PHPExcel_Shared_PasswordHasher
  *
@@ -48,7 +46,6 @@ class PHPExcel_Shared_PasswordHasher
 	public static function hashPassword($pPassword = '') {
         $password = 0x0000;
         $i        = 1;       // char position
-
         // split the plain text password in its component characters
         $chars = preg_split('//', $pPassword, -1, PREG_SPLIT_NO_EMPTY);
         foreach ($chars as $char) {
@@ -58,10 +55,8 @@ class PHPExcel_Shared_PasswordHasher
             $password    ^= ($value | $rotated_bits);
             ++$i;
         }
-
         $password ^= strlen($pPassword);
         $password ^= 0xCE4B;
-
         return(strtoupper(dechex($password)));
 	}
 }

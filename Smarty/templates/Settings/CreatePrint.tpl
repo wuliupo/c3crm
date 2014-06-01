@@ -11,7 +11,6 @@
 -->*}
 <script language="JAVASCRIPT" type="text/javascript" src="include/js/smoothscroll.js"></script>
 <script language="JavaScript" type="text/javascript" src="include/js/menu.js"></script>
-
 <table align="center" border="0" cellpadding="0" cellspacing="0" width="98%">
 <tbody><tr>
         <td valign="top"><img src="{$IMAGE_PATH}showPanelTopLeft.gif"></td>
@@ -85,7 +84,6 @@
 	</table>
 		
 	</div>
-
 </td>
         <td valign="top"><img src="{$IMAGE_PATH}showPanelTopRight.gif"></td>
    </tr>

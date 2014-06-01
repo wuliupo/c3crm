@@ -16,7 +16,6 @@
  * @package log4php
  * @subpackage appenders
  */
-
 /**
  * @ignore 
  */
@@ -26,7 +25,6 @@ require_once(LOG4PHP_DIR . '/LoggerAppenderSkeleton.php');
 require_once(LOG4PHP_DIR . '/helpers/LoggerOptionConverter.php');
 require_once(LOG4PHP_DIR . '/LoggerLog.php');
 require_once('DB.php');
-
 /**
  * Appends log events to a db table using PEAR::DB class.
  *
@@ -41,7 +39,6 @@ require_once('DB.php');
  * @since 0.3
  */
 class LoggerAppenderDb extends LoggerAppenderSkeleton {
-
     /**
      * Create the log table if it does not exists (optional).
      * @var boolean
@@ -92,7 +89,6 @@ class LoggerAppenderDb extends LoggerAppenderSkeleton {
     {
         $this->LoggerAppenderSkeleton($name);
     }
-
     /**
      * Setup db connection.
      * Based on defined options, this method connects to db defined in {@link $dsn}
@@ -102,13 +98,11 @@ class LoggerAppenderDb extends LoggerAppenderSkeleton {
     function activateOptions()
     {
         $this->db = DB::connect($this->dsn);
-
         if (DB::isError($this->db)) {
             LoggerLog::debug("LoggerAppenderDb::activateOptions() DB Connect Error [".$this->db->getMessage()."]");            
             $this->db = null;
             $this->closed = true;
             $this->canAppend = false;
-
         } else {
         
             $this->layout = LoggerLayout::factory('LoggerPatternLayout');
@@ -118,7 +112,6 @@ class LoggerAppenderDb extends LoggerAppenderSkeleton {
             $tableInfo = $this->db->tableInfo($this->table, $mode = null);
             if (DB::isError($tableInfo) and $this->getCreateTable()) {
                 $query = "CREATE TABLE {$this->table} (timestamp varchar(32),logger varchar(32),level varchar(32),message varchar(64),thread varchar(32),file varchar(64),line varchar(4) );";
-
                 LoggerLog::debug("LoggerAppenderDb::activateOptions() creating table '{$this->table}'... using sql='$query'");
                          
                 $result = $this->db->query($query);
@@ -130,17 +123,13 @@ class LoggerAppenderDb extends LoggerAppenderSkeleton {
             }
             $this->canAppend = true;            
         }
-
     }
     
     function append($event)
     {
         if ($this->canAppend) {
-
             $query = $this->layout->format($event);
-
             LoggerLog::debug("LoggerAppenderDb::append() query='$query'");
-
             $this->db->query($query);
         }
     }
@@ -205,5 +194,4 @@ class LoggerAppenderDb extends LoggerAppenderSkeleton {
     }
     
 }
-
 ?>

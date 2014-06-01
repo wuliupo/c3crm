@@ -24,8 +24,6 @@
  * @license    http://www.gnu.org/licenses/old-licenses/lgpl-2.1.txt	LGPL
  * @version    1.7.2, 2010-01-11
  */
-
-
 /** PHPExcel root directory */
 if (!defined('PHPEXCEL_ROOT')) {
 	/**
@@ -33,20 +31,14 @@ if (!defined('PHPEXCEL_ROOT')) {
 	 */
 	define('PHPEXCEL_ROOT', dirname(__FILE__) . '/../../');
 }
-
 /** PHPExcel_Cell */
 require_once PHPEXCEL_ROOT . 'PHPExcel/Cell.php';
-
 /** PHPExcel_Cell_IValueBinder */
 require_once PHPEXCEL_ROOT . 'PHPExcel/Cell/IValueBinder.php';
-
 /** PHPExcel_Cell_DataType */
 require_once PHPEXCEL_ROOT . 'PHPExcel/Cell/DataType.php';
-
 /** PHPExcel_Shared_String */
 require_once PHPEXCEL_ROOT . 'PHPExcel/Shared/String.php';
-
-
 /**
  * PHPExcel_Cell_DefaultValueBinder
  *
@@ -69,7 +61,6 @@ class PHPExcel_Cell_DefaultValueBinder implements PHPExcel_Cell_IValueBinder
 		if (is_string($value)) {
 			$value = PHPExcel_Shared_String::SanitizeUTF8($value);
 		}
-
 		// Set value explicit
 		$cell->setValueExplicit( $value, PHPExcel_Cell_DataType::dataTypeForValue($value) );
 		
@@ -87,31 +78,22 @@ class PHPExcel_Cell_DefaultValueBinder implements PHPExcel_Cell_IValueBinder
 		// Match the value against a few data types
 		if (is_null($pValue)) {
 			return PHPExcel_Cell_DataType::TYPE_NULL;
-
 		} elseif ($pValue === '') {
 			return PHPExcel_Cell_DataType::TYPE_STRING;
-
 		} elseif ($pValue instanceof PHPExcel_RichText) {
 			return PHPExcel_Cell_DataType::TYPE_STRING;
-
 		} elseif ($pValue{0} === '=') {
 			return PHPExcel_Cell_DataType::TYPE_FORMULA;
-
 		} elseif (is_bool($pValue)) {
 			return PHPExcel_Cell_DataType::TYPE_BOOL;
-
 		} elseif (is_float($pValue) || is_int($pValue)) {
 			return PHPExcel_Cell_DataType::TYPE_NUMERIC;
-
 		} elseif (preg_match('/^\-?([0-9]+\\.?[0-9]*|[0-9]*\\.?[0-9]+)$/', $pValue)) {
 			return PHPExcel_Cell_DataType::TYPE_NUMERIC;
-
 		} elseif (is_string($pValue) && array_key_exists($pValue, PHPExcel_Cell_DataType::getErrorCodes())) {
 			return PHPExcel_Cell_DataType::TYPE_ERROR;
-
 		} else {
 			return PHPExcel_Cell_DataType::TYPE_STRING;
-
 		}
 	}
 }

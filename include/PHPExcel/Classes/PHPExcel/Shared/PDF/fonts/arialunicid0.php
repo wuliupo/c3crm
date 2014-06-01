@@ -1743,25 +1743,20 @@ $cw=array(
 	40869=>1000);
 $diff='';
 $originalsize=23275812;
-
 // CID Information
 // Select your language
 // unicode to cid conversion table is from
 // ftp://ftp.oreilly.com/pub/examples/nutshell/cjkv/adobe/
 // cid2code.txt in ac16.tar.Z,ag15.tar.Z,ak12.tar.Z and aj16.tar.Z.
-
 //$enc='UniCNS-UTF16-H';
 //$cidinfo=array('Registry'=>'Adobe','Ordering'=>'CNS1','Supplement'=>0);
 //include(dirname(__FILE__).'/uni2cid_ac15.php');
-
 //$enc='UniGB-UTF16-H';
 //$cidinfo=array('Registry'=>'Adobe','Ordering'=>'GB1','Supplement'=>2);
 //include(dirname(__FILE__).'/uni2cid_ag15.php');
-
 //$enc='UniKS-UTF16-H';
 //$cidinfo=array('Registry'=>'Adobe','Ordering'=>'Korea1','Supplement'=>0);
 //include(dirname(__FILE__).'/uni2cid_ak12.php');
-
 $enc='UniJIS-UTF16-H';
 $cidinfo=array('Registry'=>'Adobe','Ordering'=>'Japan1','Supplement'=>5);
 include(dirname(__FILE__).'/uni2cid_aj16.php');

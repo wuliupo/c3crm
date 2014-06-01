@@ -4,22 +4,17 @@
  * @package Smarty
  * @subpackage plugins
  */
-
 /**
  * Load requested plugins
  *
  * @param array $plugins
  */
-
 // $plugins
-
 function smarty_core_load_plugins($params, &$smarty)
 {
-
     foreach ($params['plugins'] as $_plugin_info) {
         list($_type, $_name, $_tpl_file, $_tpl_line, $_delayed_loading) = $_plugin_info;
         $_plugin = &$smarty->_plugins[$_type][$_name];
-
         /*
          * We do not load plugin more than once for each instance of Smarty.
          * The following code checks for that. The plugin can also be
@@ -53,13 +48,10 @@ function smarty_core_load_plugins($params, &$smarty)
                 continue;
             }
         }
-
         $_plugin_file = $smarty->_get_plugin_filepath($_type, $_name);
-
         if (! $_found = ($_plugin_file != false)) {
             $_message = "could not load plugin file '$_type.$_name.php'\n";
         }
-
         /*
          * If plugin file is found, it -must- provide the properly named
          * plugin function. In case it doesn't, simply output the error and
@@ -67,7 +59,6 @@ function smarty_core_load_plugins($params, &$smarty)
          */
         if ($_found) {
             include_once $_plugin_file;
-
             $_plugin_func = 'smarty_' . $_type . '_' . $_name;
             if (!function_exists($_plugin_func)) {
                 $smarty->_trigger_fatal_error("[plugin] function $_plugin_func() not found in $_plugin_file", $_tpl_file, $_tpl_line, __FILE__, __LINE__);
@@ -82,7 +73,6 @@ function smarty_core_load_plugins($params, &$smarty)
             $_plugin_func = 'smarty_' . $_type . '_' . $_name;
             $_found = true;
         }
-
         /*
          * Plugin specific processing and error checking.
          */
@@ -110,7 +100,6 @@ function smarty_core_load_plugins($params, &$smarty)
                 $_message = "unknown tag - '$_name'";
             }
         }
-
         if ($_found) {
             $smarty->_plugins[$_type][$_name] = array($_plugin_func, $_tpl_file, $_tpl_line, true, true);
         } else {
@@ -119,7 +108,5 @@ function smarty_core_load_plugins($params, &$smarty)
         }
     }
 }
-
 /* vim: set expandtab: */
-
 ?>

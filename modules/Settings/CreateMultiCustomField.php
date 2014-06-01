@@ -11,15 +11,9 @@
  
 require_once('include/CustomFieldUtil.php');
 require_once('include/CRMSmarty.php');
-
-
 global $mod_strings,$app_strings,$app_list_strings,$theme,$adb;
-
 $theme_path="themes/".$theme."/";
 $image_path=$theme_path."images/";
-
-
-
 $tabid=$_REQUEST['tabid'];
 $fieldid=$_REQUEST['fieldid'];
 if(isset($_REQUEST['uitype']) && $_REQUEST['uitype'] != '')
@@ -78,14 +72,11 @@ elseif($fieldid == '')
 {
 	$selectedvalue = "0";
 }
-
 if($mode == 'edit')
 	$disable_str = 'disabled' ;
 else
 	$disable_str = '' ;
-
 $output = '';
-
 $combo_output = '';
 for($i=0;$i<count($cftextcombo);$i++)
 {
@@ -94,7 +85,6 @@ for($i=0;$i<count($cftextcombo);$i++)
         else
                 $sel_val = '';
 	$combo_output.= '<a href="javascript:void(0);" onClick="makeFieldSelected(this,'.$i.');" id="field'.$i.'" style="text-decoration:none;background-image:url('.$cfimagecombo[$i].');" class="customMnu" '.$disable_str.'>'.$cftextcombo[$i].'</a>';
-
 }
 $output .= '<div id="orgLay" style="display:block;width:350px" class="layerPopup"><script language="JavaScript" type="text/javascript" src="include/js/customview.js"></script>
 	<form action="index.php" method="post" name="addtodb" onSubmit="return theformvalidate()">
@@ -106,7 +96,6 @@ $output .= '<div id="orgLay" style="display:block;width:350px" class="layerPopup
 	  <input type="hidden" name="column" value="'.$customfield_columnname.'">
 	  <input type="hidden" name="mode" id="cfedit_mode" value="'.$mode.'">
 	  <input type="hidden" name="cfcombo" id="selectedfieldtype" value="">
-
 	  
 		<table width="100%" border="0" cellpadding="5" cellspacing="0" class="layerHeadingULine">
 			<tr>';

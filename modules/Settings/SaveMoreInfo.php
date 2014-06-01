@@ -33,7 +33,6 @@ if(empty($userid)){
 	}
 	$adb->query($updatesql);
 }
-
 //redirect("index.php?module=Settings&parenttab=Settings&action=EditMoreInfo&userid=".$userid);
 redirect("index.php?module=Settings&parenttab=Settings&action=SmsUser");
 ?>

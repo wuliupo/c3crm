@@ -3,7 +3,6 @@ require_once("include/database/PearDatabase.php");
 global $adb;
 $del_id =  $_REQUEST['delete_user_id'];
 $tran_id = $_REQUEST['transfer_user_id'];
-
 if($del_id == 1) {
 	redirect("index.php?module=Home&action=index");
 }
@@ -32,17 +31,13 @@ foreach($tab_arr as $tab)
 //deleting from ec_tracker
 $sql4 = "delete from ec_tracker where user_id='".$del_id."'";
 $adb->query($sql4);
-
 //updating the ec_import_maps ec_table
 $sql5 ="update ec_import_maps set assigned_user_id='".$tran_id."' where assigned_user_id='".$del_id."'";
 $adb->query($sql5);
-
 //update assigned_user_id in ec_users_last_import
 $sql6 = "update ec_users_last_import set assigned_user_id='".$tran_id."' where assigned_user_id='".$del_id."'";
 $adb->query($sql6);
-
 //delete from user ec_table;
 $sql7 = "update ec_users set deleted=1,status='Inactive' where id=".$del_id;
 $adb->query($sql7);
-
 ?>

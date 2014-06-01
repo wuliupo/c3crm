@@ -8,20 +8,17 @@
 <script type="text/javascript" src="swfup/Uploadjs/fileprogress.js"></script>
 <script type="text/javascript">
 		var swfu;
-
 		window.onload = function () {
 			swfu = new SWFUpload({
 				// Backend settings (后端 设置)
 				upload_url: "swfupload.php",
 				file_post_name: "attachement_file",
-
 				// Flash file settings (Flash 文件 设置)
 				file_size_limit : "20480",  // 文件 大小 限制
 				file_types : "*.*",			// or you could use something like: "*.doc;*.wpd;*.pdf",(或者你可以使用类似："*.doc;*.wpd;*.pdf")
 				file_types_description : "All Files",// 文件 类型 描述
 				file_upload_limit : 0, // 文件 上传 限制
 				file_queue_limit : 1,  // 文件 队列 限制
-
 				// Event handler settings (事件 处理程序 设置)
 				swfupload_loaded_handler : swfUploadLoaded,			// 指定 swfupload 页面加载 处理程序			
 				
@@ -39,7 +36,6 @@
 				upload_error_handler : uploadError,			// 上传错误处理程序 (* --txtFileName)
 				upload_success_handler : uploadSuccess,		// 上传成功的处理程序 (* --hidFileID)
 				upload_complete_handler : uploadComplete,	// 上传完成处理程序 (*)
-
 				// Button Settings (按钮 设置)
 				button_image_url : "swfup/Uploadjs/XPButtonUploadText_61x22.png",
 				button_placeholder_id : "spanButtonPlaceholder",
@@ -52,7 +48,6 @@
 				// Flash Settings (Flash 设置)
 				flash_url : "swfup/Uploadjs/swfupload.swf",
 				flash9_url : "swfup/Uploadjs/swfupload_fp9.swf",
-
 				custom_settings : { //自定义 设置
 					progress_target : "fsUploadProgress",	// progress target:发展目标
 					upload_successful : false           	//上传成功
@@ -61,7 +56,6 @@
 				// Debug settings (调试 设置)
 				debug: false
 			});
-
 		};
 	</script>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8"></head>

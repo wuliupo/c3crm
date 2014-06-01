@@ -19,12 +19,10 @@
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  * @version    $Id: Null.php 23775 2011-03-01 17:25:24Z ralph $
  */
-
 /**
  * @see Zend_Queue_Adapter_AdapterAbstract
  */
 require_once 'include/Zend/Queue/Adapter/AdapterAbstract.php';
-
 /**
  * Class testing.  No supported functions.  Also used to disable a Zend_Queue.
  *
@@ -47,11 +45,9 @@ class Zend_Queue_Adapter_Null extends Zend_Queue_Adapter_AdapterAbstract
     {
         parent::__construct($options, $queue);
     }
-
     /********************************************************************
      * Queue management functions
      *********************************************************************/
-
     /**
      * Does a queue already exist?
      *
@@ -62,8 +58,6 @@ class Zend_Queue_Adapter_Null extends Zend_Queue_Adapter_AdapterAbstract
         require_once 'include/Zend/Queue/Exception.php';
         throw new Zend_Queue_Exception(__FUNCTION__ . '() is not supported by ' . get_class($this));
     }
-
-
     /**
      * Create a new queue
      *
@@ -74,7 +68,6 @@ class Zend_Queue_Adapter_Null extends Zend_Queue_Adapter_AdapterAbstract
         require_once 'include/Zend/Queue/Exception.php';
         throw new Zend_Queue_Exception(__FUNCTION__ . '() is not supported by ' . get_class($this));
     }
-
     /**
      * Delete a queue and all of it's messages
      *
@@ -85,7 +78,6 @@ class Zend_Queue_Adapter_Null extends Zend_Queue_Adapter_AdapterAbstract
         require_once 'include/Zend/Queue/Exception.php';
         throw new Zend_Queue_Exception(__FUNCTION__ . '() is not supported by ' . get_class($this));
     }
-
     /**
      * Get an array of all available queues
      *
@@ -96,7 +88,6 @@ class Zend_Queue_Adapter_Null extends Zend_Queue_Adapter_AdapterAbstract
         require_once 'include/Zend/Queue/Exception.php';
         throw new Zend_Queue_Exception(__FUNCTION__ . '() is not supported by ' . get_class($this));
     }
-
     /**
      * Return the approximate number of messages in the queue
      *
@@ -107,11 +98,9 @@ class Zend_Queue_Adapter_Null extends Zend_Queue_Adapter_AdapterAbstract
         require_once 'include/Zend/Queue/Exception.php';
         throw new Zend_Queue_Exception(__FUNCTION__ . '() is not supported by ' . get_class($this));
     }
-
     /********************************************************************
      * Messsage management functions
      *********************************************************************/
-
     /**
      * Send a message to the queue
      *
@@ -122,7 +111,6 @@ class Zend_Queue_Adapter_Null extends Zend_Queue_Adapter_AdapterAbstract
         require_once 'include/Zend/Queue/Exception.php';
         throw new Zend_Queue_Exception(__FUNCTION__ . '() is not supported by ' . get_class($this));
     }
-
     /**
      * Get messages in the queue
      *
@@ -133,7 +121,6 @@ class Zend_Queue_Adapter_Null extends Zend_Queue_Adapter_AdapterAbstract
         require_once 'include/Zend/Queue/Exception.php';
         throw new Zend_Queue_Exception(__FUNCTION__ . '() is not supported by ' . get_class($this));
     }
-
     /**
      * Delete a message from the queue
      *
@@ -144,11 +131,9 @@ class Zend_Queue_Adapter_Null extends Zend_Queue_Adapter_AdapterAbstract
         require_once 'include/Zend/Queue/Exception.php';
         throw new Zend_Queue_Exception(__FUNCTION__ . '() is not supported by ' . get_class($this));
     }
-
     /********************************************************************
      * Supporting functions
      *********************************************************************/
-
     /**
      * Return a list of queue capabilities functions
      *

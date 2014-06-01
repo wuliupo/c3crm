@@ -18,12 +18,10 @@
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  * @version    $Id: Iban.php 23775 2011-03-01 17:25:24Z ralph $
  */
-
 /**
  * @see Zend_Validate_Abstract
  */
 require_once 'include/Zend/Validate/Abstract.php';
-
 /**
  * Validates IBAN Numbers (International Bank Account Numbers)
  *
@@ -37,7 +35,6 @@ class Zend_Validate_Iban extends Zend_Validate_Abstract
     const NOTSUPPORTED = 'ibanNotSupported';
     const FALSEFORMAT  = 'ibanFalseFormat';
     const CHECKFAILED  = 'ibanCheckFailed';
-
     /**
      * Validation failure message template definitions
      *
@@ -48,14 +45,12 @@ class Zend_Validate_Iban extends Zend_Validate_Abstract
         self::FALSEFORMAT  => "'%value%' has a false IBAN format",
         self::CHECKFAILED  => "'%value%' has failed the IBAN check",
     );
-
     /**
      * Optional locale
      *
      * @var string|Zend_Locale|null
      */
     protected $_locale;
-
     /**
      * IBAN regexes by region
      *
@@ -102,7 +97,6 @@ class Zend_Validate_Iban extends Zend_Validate_Abstract
         'TN' => '/^TN[0-9]{2}[0-9]{5}[0-9]{15}$/',
         'TR' => '/^TR[0-9]{2}[0-9]{5}[A-Z0-9]{17}$/'
     );
-
     /**
      * Sets validator options
      *
@@ -114,7 +108,6 @@ class Zend_Validate_Iban extends Zend_Validate_Abstract
         if ($locale instanceof Zend_Config) {
             $locale = $locale->toArray();
         }
-
         if (is_array($locale)) {
             if (array_key_exists('locale', $locale)) {
                 $locale = $locale['locale'];
@@ -122,19 +115,16 @@ class Zend_Validate_Iban extends Zend_Validate_Abstract
                 $locale = null;
             }
         }
-
         if (empty($locale)) {
             require_once 'include/Zend/Registry.php';
             if (Zend_Registry::isRegistered('Zend_Locale')) {
                 $locale = Zend_Registry::get('Zend_Locale');
             }
         }
-
         if ($locale !== null) {
             $this->setLocale($locale);
         }
     }
-
     /**
      * Returns the locale option
      *
@@ -144,7 +134,6 @@ class Zend_Validate_Iban extends Zend_Validate_Abstract
     {
         return $this->_locale;
     }
-
     /**
      * Sets the locale option
      *
@@ -161,11 +150,9 @@ class Zend_Validate_Iban extends Zend_Validate_Abstract
                 throw new Zend_Validate_Exception('Region must be given for IBAN validation');
             }
         }
-
         $this->_locale = $locale;
         return $this;
     }
-
     /**
      * Defined by Zend_Validate_Interface
      *
@@ -178,25 +165,21 @@ class Zend_Validate_Iban extends Zend_Validate_Abstract
     {
         $value = strtoupper($value);
         $this->_setValue($value);
-
         if (empty($this->_locale)) {
             $region = substr($value, 0, 2);
         } else {
             $region = new Zend_Locale($this->_locale);
             $region = $region->getRegion();
         }
-
         if (!array_key_exists($region, $this->_ibanregex)) {
             $this->_setValue($region);
             $this->_error(self::NOTSUPPORTED);
             return false;
         }
-
         if (!preg_match($this->_ibanregex[$region], $value)) {
             $this->_error(self::FALSEFORMAT);
             return false;
         }
-
         $format = substr($value, 4) . substr($value, 0, 4);
         $format = str_replace(
             array('A',  'B',  'C',  'D',  'E',  'F',  'G',  'H',  'I',  'J',  'K',  'L',  'M',
@@ -204,7 +187,6 @@ class Zend_Validate_Iban extends Zend_Validate_Abstract
             array('10', '11', '12', '13', '14', '15', '16', '17', '18', '19', '20', '21', '22',
                   '23', '24', '25', '26', '27', '28', '29', '30', '31', '32', '33', '34', '35'),
             $format);
-
         $temp = intval(substr($format, 0, 1));
         $len  = strlen($format);
         for ($x = 1; $x < $len; ++$x) {
@@ -212,12 +194,10 @@ class Zend_Validate_Iban extends Zend_Validate_Abstract
             $temp += intval(substr($format, $x, 1));
             $temp %= 97;
         }
-
         if ($temp != 1) {
             $this->_error(self::CHECKFAILED);
             return false;
         }
-
         return true;
     }
 }

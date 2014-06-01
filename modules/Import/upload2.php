@@ -1,25 +1,19 @@
 <?php
 include("../../config.php");
-
 //设置默认服务端文件名
 $filename = "orderdetail".GetID( ".csv" );
-
 $s = new SaeStorage();
-
-
 if (isset($_FILES["Filedata"]) && is_uploaded_file($_FILES["Filedata"]["tmp_name"]) && $_FILES["Filedata"]["error"] == 0) {
 	//上传文件赋值给$upload_file
 	$upload_file=$_FILES["Filedata"];
 	
 	$ret = $s->upload( 'upload' , $filename , $upload_file["tmp_name"] );
-
 	if($ret == false){
 		echo 'error';
 	}else{
 		echo $filename;
 	}
 } else {
-
 	echo ''; // I have to return something or SWFUpload won't fire uploadSuccess
 }
 // 生成随机文件名
@@ -38,5 +32,4 @@ function GetID($prefix) {
   
    return $filename;
 }
-
 ?>

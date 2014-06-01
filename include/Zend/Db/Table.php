@@ -19,17 +19,14 @@
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  * @version    $Id: Table.php 23775 2011-03-01 17:25:24Z ralph $
  */
-
 /**
  * @see Zend_Db_Table_Abstract
  */
 require_once 'include/Zend/Db/Table/Abstract.php';
-
 /**
  * @see Zend_Db_Table_Definition
  */
 require_once 'include/Zend/Db/Table/Definition.php';
-
 /**
  * Class for SQL table interface.
  *
@@ -41,7 +38,6 @@ require_once 'include/Zend/Db/Table/Definition.php';
  */
 class Zend_Db_Table extends Zend_Db_Table_Abstract
 {
-
     /**
      * __construct() - For concrete implementation of Zend_Db_Table
      *
@@ -54,7 +50,6 @@ class Zend_Db_Table extends Zend_Db_Table_Abstract
         if ($definition !== null && is_array($definition)) {
             $definition = new Zend_Db_Table_Definition($definition);
         }
-
         if (is_string($config)) {
             if (Zend_Registry::isRegistered($config)) {
                 trigger_error(__CLASS__ . '::' . __METHOD__ . '(\'registryName\') is not valid usage of Zend_Db_Table, '
@@ -73,7 +68,6 @@ class Zend_Db_Table extends Zend_Db_Table_Abstract
                 }
             }
         }
-
         parent::__construct($config);
     }
 }

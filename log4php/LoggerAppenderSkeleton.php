@@ -15,7 +15,6 @@
  * 
  * @package log4php
  */
-
 /**
  * @ignore 
  */
@@ -26,7 +25,6 @@ if (!defined('LOG4PHP_DIR')) define('LOG4PHP_DIR', dirname(__FILE__));
 require_once(LOG4PHP_DIR . '/LoggerAppender.php');
 require_once(LOG4PHP_DIR . '/LoggerLog.php');
 require_once(LOG4PHP_DIR . '/helpers/LoggerOptionConverter.php');
-
 /**
  * Abstract superclass of the other appenders in the package.
  *  
@@ -40,7 +38,6 @@ require_once(LOG4PHP_DIR . '/helpers/LoggerOptionConverter.php');
  * @abstract
  */
 class LoggerAppenderSkeleton extends LoggerAppender {
-
     /**
      * @var boolean closed appender flag
      */
@@ -98,7 +95,6 @@ class LoggerAppenderSkeleton extends LoggerAppender {
         $this->name = $name;
         $this->clearFilters();
     }
-
     /**
      * @param LoggerFilter $newFilter add a new LoggerFilter
      * @see LoggerAppender::addFilter()
@@ -120,7 +116,6 @@ class LoggerAppenderSkeleton extends LoggerAppender {
      */
     function activateOptions() 
     { 
-
     }
     
     /**
@@ -187,7 +182,6 @@ class LoggerAppenderSkeleton extends LoggerAppender {
     {
         return $this->headFilter;
     } 
-
     /** 
      * Return the first filter in the filter chain for this Appender. 
      * The return value may be <i>null</i> if no is filter is set.
@@ -249,7 +243,6 @@ class LoggerAppenderSkeleton extends LoggerAppender {
     function doAppend($event)
     {
         LoggerLog::debug("LoggerAppenderSkeleton::doAppend()"); 
-
         if ($this->closed) {
             LoggerLog::debug("LoggerAppenderSkeleton::doAppend() Attempted to append to closed appender named [{$this->name}].");
             return;
@@ -258,7 +251,6 @@ class LoggerAppenderSkeleton extends LoggerAppender {
             LoggerLog::debug("LoggerAppenderSkeleton::doAppend() event level is less severe than threshold.");
             return;
         }
-
         $f = $this->getFirstFilter();
     
         while($f !== null) {

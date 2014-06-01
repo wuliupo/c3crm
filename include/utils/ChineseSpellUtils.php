@@ -4,7 +4,6 @@
  * @package Util
  */
 class ChineseSpell {
-
 	/**
 	 * @var array $chineseSpellList 拼音编码对应表
 	 * @access private
@@ -448,7 +447,6 @@ class ChineseSpell {
         }
 		return $spell;
 	}
-
 	/**
 	 * 取一个汉字码对应的拼音
 	 * @param int $num 汉字码
@@ -468,7 +466,6 @@ class ChineseSpell {
 			return $result;
 		}
 	}
-
 	/**
 	 * 取汉字拼音
 	 * @param string $chinese 要转换的汉字

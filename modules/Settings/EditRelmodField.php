@@ -2,14 +2,10 @@
 require_once('include/database/PearDatabase.php');
 require_once('include/utils/UserInfoUtil.php');
 require_once('include/utils/utils.php');
-
 global $mod_strings;
 global $app_strings;
 global $app_list_strings;
-
 $smarty = new CRMSmarty();
-
-
 global $adb;
 global $theme;
 global $theme_path;
@@ -31,14 +27,10 @@ foreach($field_module as $fld_module)
 	$language_strings = return_module_language($current_language,$fld_module);
 	$allfields[$fld_module] = getStdOutput($fld_module,$language_strings);
 }
-
 if($_REQUEST['fld_module'] != '')
 	$smarty->assign("DEF_MODULE",$_REQUEST['fld_module']);
 else
 	$smarty->assign("DEF_MODULE",'Quotes');
-
-
-
 /** Function to get the field label/permission array to construct the default orgnization field UI for the specified profile
   * @param $fieldListResult -- mysql query result that contains the field label and uitype:: Type array
   * @param $lang_strings -- i18n language mod strings array:: Type array
@@ -71,8 +63,6 @@ function getStdOutput($fld_module, $lang_strings)
 			$standCustFld []= $mandatory.' '.$lang_strings[$fieldlabel];
 		else
 			$standCustFld []= $mandatory.' '.$fieldlabel;
-
-
               if($adb->query_result($result,$i,"fieldname") !='' )
 		{
 			$visible = "checked";
@@ -96,13 +86,11 @@ function getStdOutput($fld_module, $lang_strings)
                 $widthid = text.''.$fieldid.''.$fld_module;
 		$standCustFld []= '<input type="checkbox"  name="'.$nameid.'" '.$visible.'>';
                 $standCustFld []='<input type="text" name ="'.$widthid.'" value="'.$width.'" style="width:25px" maxlength="2">';
-
 	}
 	$standCustFld=array_chunk($standCustFld,3);
 	$standCustFld=array_chunk($standCustFld,4);
 	return $standCustFld;
 }
-
 $smarty->assign("FIELD_INFO",$field_module);
 $smarty->assign("FIELD_LISTS",$allfields);
 $smarty->assign("MOD", return_module_language($current_language,'Settings'));

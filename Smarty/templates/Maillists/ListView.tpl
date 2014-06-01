@@ -1,7 +1,6 @@
  <script language="JavaScript" type="text/javascript" src="include/js/ListView.js"></script>
 <script language="JavaScript" type="text/javascript" src="include/js/search.js"></script>
 <script language="JavaScript" type="text/javascript" src="modules/{$MODULE}/{$SINGLE_MOD}.js"></script>
-
 <script  language="JavaScript" type="text/javascript" src="include/kindeditor/kindeditor.js"></script>
 <script>
 {literal}	
@@ -16,7 +15,6 @@
 		});
 {/literal}	
 </script>
-
  <div class="container-fluid clearfix"> 
       <div class="row-fluid">
         <div class="span12" style="margin-left:0px;">
@@ -26,7 +24,6 @@
                 <li class="nav-header" style="padding-left:0px;padding-right:5px;">
                   <i class="icon-th-list"></i> 
                 </li>
-
                  {foreach name="listviewforeach" key=id item=viewname from=$CUSTOMVIEW_OPTION}
                   {if $id eq $VIEWID} 
                     <li class="active"><a href="javascript:;" onclick="javascript:getTableViewForFenzu('{$MODULE}','viewname={$id}',this,{$id});" >{$viewname}</a></li>
@@ -48,23 +45,16 @@
 				{/if}
               </ul>
           </div>
-
            <div id="ListViewContents" class="small" style="width:100%;position:relative;">
             {include file="$MODULE/ListViewEntries.tpl"}
           </div>
-
         </div>
       </div>
-
     </div>
-
 <div id="selecttmpdiv" class="modal hide fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" style="width:800px;margin-left:-400px;"></div>
 <div id="createtmpdiv" class="modal hide fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" style="width:800px;margin-left:-400px;"></div>
-
-
 <script language="javascript" type="text/javascript">
 {literal}
-
 function uploadAttInfo(sjid){  
 	
 	$("#status").prop("display","inline");
@@ -78,10 +68,8 @@ function uploadAttInfo(sjid){
 		   	 $("#maillistattinfo").html(msg); 
 		   }  
 	});   
-
 }
 function DeleteMaillistAtt(sjid,attachmentsid){
-
 	$("#status").prop("display","inline");
 	alert("删除成功");
 	$.ajax({  
@@ -108,7 +96,6 @@ function SelectTmp(){
   }); 
   $('#selecttmpdiv').modal('show');
 }
-
 function CreateTmp(){
 	var url = 'index.php?module=Maillists&action=MaillistsAjax&file=CreateTmps';
   $("#status").prop("display","inline");
@@ -123,6 +110,5 @@ function CreateTmp(){
   }); 
   $('#createtmpdiv').modal('show');
 }
-
 {/literal}
 </script>

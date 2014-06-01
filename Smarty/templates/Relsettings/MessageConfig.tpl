@@ -27,7 +27,6 @@
 		  </tr>
 		</tbody>
 	</table>
-
 	<table class="table table-condensed table-bordered table-hover">
 		<thead>
 		  <tr>  
@@ -50,7 +49,6 @@
 		  </tr>
 		</tbody>
 	</table>
-
 	<table class="table table-condensed table-bordered table-hover">
 		<thead>
 		  <tr>  

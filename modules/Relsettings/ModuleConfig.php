@@ -10,5 +10,4 @@ $module_enname = 'relsetting';
 $module_cnname = '相关设置';
 $module_parenttabid = '1';
 $module_displayorder = '10';
-
 ?>

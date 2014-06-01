@@ -9,9 +9,7 @@
   *
  ********************************************************************************/
 -->*}
-
 <script language="JAVASCRIPT" type="text/javascript" src="include/js/smoothscroll.js"></script>
-
 <br>
 <table align="center" border="0" cellpadding="0" cellspacing="0" width="98%">
 <tbody><tr>
@@ -22,8 +20,6 @@
 <input type='hidden' name='return_action' value='ListView'>
 <input type='hidden' name='return_module' value='Users'>
 <input type='hidden' name='parenttab' value='Settings'>
-
-
 	<div align=center>
 			{include file='SetMenu.tpl'}
 				<!-- DISPLAY -->
@@ -91,16 +87,13 @@
 	</table>
 		
 	</div>
-
 </td>
    </tr>
 </tbody>
 </form>
 </table>
-
 {literal}
 <script>
-
 function auditenabled(ochkbox)
 {
 	if(ochkbox.checked == true)
@@ -134,14 +127,12 @@ function auditenabled(ochkbox)
 			
 	setTimeout("hide('audit_info')",3000);
 }
-
 function showAuditTrail()
 {
 	
 	var userid = $('user_list').options[$('user_list').selectedIndex].value;
 	window.open("index.php?module=Users&action=UsersAjax&file=ShowAuditTrail&userid="+userid,"","width=645,height=750,resizable=0,scrollbars=1,left=100");
 	
-
 }
 </script>
 {/literal}

@@ -1,5 +1,4 @@
 <script type="text/javascript" src="modules/{$MODULE}/{$SINGLE_MOD}.js"></script>
-
 {*<!-- Contents -->*}
 <form name="EditView" method="POST" action="index.php">
 <input type="hidden" name="module" value="{$MODULE}">
@@ -11,14 +10,12 @@
 <input type="hidden" name="return_id" value="{$RETURN_ID}">
 <input type="hidden" name="return_action" value="{$RETURN_ACTION}">
 <input type="hidden" name="return_viewname" value="{$RETURN_VIEWNAME}">
-
 <!-- center start -->
      <div class="container-fluid">
         <div class="row-fluid">
           <div class="span2">
               <div class="accordion" id="accordion2" style="margin-top:0px;margin-bottom:0px;">
                 {include file="$MODULE/DetailLeft.tpl"}
-
              </div>
           </div>
           <div class="span10">
@@ -68,7 +65,6 @@
      </div>
      <!-- center end -->
 </form>
-
 <script>	
         var fieldname = new Array({$VALIDATION_DATA_FIELDNAME})
         var fieldlabel = new Array({$VALIDATION_DATA_FIELDLABEL})
@@ -82,6 +78,5 @@
 			//getObj("customernum").setAttribute("readOnly","true");
 		{rdelim}
 	{rdelim}
-
 </script>
  

@@ -85,7 +85,6 @@ function SaveSmsLogs($sendresult,$content,$flag,$result) {
 	}
 }
 */
-
 function SaveSmsLogs($sendresult,$content,$flag,$result) {
 	global $adb,$current_user;
 	$sendtime = date("Y-m-d H:i:s");

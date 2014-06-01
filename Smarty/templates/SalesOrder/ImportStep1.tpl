@@ -9,8 +9,6 @@
 *
  ********************************************************************************/
 -->*}
-
-
 <script language="javascript">
 {literal}
 function verify_data() {
@@ -23,14 +21,10 @@ function verify_data() {
 }
 {/literal}
 </script>
-
-
-
 <table align="center" border="0" cellpadding="0" cellspacing="0" width="98%" class="small">
    <tr>
 	<td valign="top"><img src="{$IMAGE_PATH}showPanelTopLeft.gif" /></td>
 	<td class="showPanelBg" valign="top" width="100%">
-
 		<!-- Import UI Starts -->
 		<table  cellpadding="0" cellspacing="0" width="100%" border=0>
 		   <tr>
@@ -46,7 +40,6 @@ function verify_data() {
 				<input type="hidden" name="return_id" value="{$RETURN_ID}">
 				<input type="hidden" name="return_action" value="{$RETURN_ACTION}">
 				<input type="hidden" name="parenttab" value="{$CATEGORY}">
-
 				<!-- IMPORT LEADS STARTS HERE  -->
 				<br />
 				<table align="center" cellpadding="5" cellspacing="0" width="80%" class="mailClient importLeadUI small" border="0">
@@ -106,7 +99,6 @@ function verify_data() {
 			</td>
 		   </tr>
 		</table>
-
 	</td>
 	<td valign="top"><img src="{$IMAGE_PATH}showPanelTopRight.gif" /></td>
    </tr>

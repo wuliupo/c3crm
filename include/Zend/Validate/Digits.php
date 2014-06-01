@@ -18,12 +18,10 @@
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  * @version    $Id: Digits.php 23775 2011-03-01 17:25:24Z ralph $
  */
-
 /**
  * @see Zend_Validate_Abstract
  */
 require_once 'include/Zend/Validate/Abstract.php';
-
 /**
  * @category   Zend
  * @package    Zend_Validate
@@ -35,14 +33,12 @@ class Zend_Validate_Digits extends Zend_Validate_Abstract
     const NOT_DIGITS   = 'notDigits';
     const STRING_EMPTY = 'digitsStringEmpty';
     const INVALID      = 'digitsInvalid';
-
     /**
      * Digits filter used for validation
      *
      * @var Zend_Filter_Digits
      */
     protected static $_filter = null;
-
     /**
      * Validation failure message template definitions
      *
@@ -53,7 +49,6 @@ class Zend_Validate_Digits extends Zend_Validate_Abstract
         self::STRING_EMPTY => "'%value%' is an empty string",
         self::INVALID      => "Invalid type given. String, integer or float expected",
     );
-
     /**
      * Defined by Zend_Validate_Interface
      *
@@ -68,24 +63,19 @@ class Zend_Validate_Digits extends Zend_Validate_Abstract
             $this->_error(self::INVALID);
             return false;
         }
-
         $this->_setValue((string) $value);
-
         if ('' === $this->_value) {
             $this->_error(self::STRING_EMPTY);
             return false;
         }
-
         if (null === self::$_filter) {
             require_once 'include/Zend/Filter/Digits.php';
             self::$_filter = new Zend_Filter_Digits();
         }
-
         if ($this->_value !== self::$_filter->filter($this->_value)) {
             $this->_error(self::NOT_DIGITS);
             return false;
         }
-
         return true;
     }
 }

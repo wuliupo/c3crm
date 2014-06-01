@@ -18,12 +18,10 @@
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  * @version    $Id: InArray.php 23775 2011-03-01 17:25:24Z ralph $
  */
-
 /**
  * @see Zend_Validate_Abstract
  */
 require_once 'include/Zend/Validate/Abstract.php';
-
 /**
  * @category   Zend
  * @package    Zend_Validate
@@ -33,35 +31,30 @@ require_once 'include/Zend/Validate/Abstract.php';
 class Zend_Validate_InArray extends Zend_Validate_Abstract
 {
     const NOT_IN_ARRAY = 'notInArray';
-
     /**
      * @var array
      */
     protected $_messageTemplates = array(
         self::NOT_IN_ARRAY => "'%value%' was not found in the haystack",
     );
-
     /**
      * Haystack of possible values
      *
      * @var array
      */
     protected $_haystack;
-
     /**
      * Whether a strict in_array() invocation is used
      *
      * @var boolean
      */
     protected $_strict = false;
-
     /**
      * Whether a recursive search should be done
      *
      * @var boolean
      */
     protected $_recursive = false;
-
     /**
      * Sets validator options
      *
@@ -92,17 +85,14 @@ class Zend_Validate_InArray extends Zend_Validate_Abstract
                 }
             }
         }
-
         $this->setHaystack($options['haystack']);
         if (array_key_exists('strict', $options)) {
             $this->setStrict($options['strict']);
         }
-
         if (array_key_exists('recursive', $options)) {
             $this->setRecursive($options['recursive']);
         }
     }
-
     /**
      * Returns the haystack option
      *
@@ -112,7 +102,6 @@ class Zend_Validate_InArray extends Zend_Validate_Abstract
     {
         return $this->_haystack;
     }
-
     /**
      * Sets the haystack option
      *
@@ -124,7 +113,6 @@ class Zend_Validate_InArray extends Zend_Validate_Abstract
         $this->_haystack = $haystack;
         return $this;
     }
-
     /**
      * Returns the strict option
      *
@@ -134,7 +122,6 @@ class Zend_Validate_InArray extends Zend_Validate_Abstract
     {
         return $this->_strict;
     }
-
     /**
      * Sets the strict option
      *
@@ -146,7 +133,6 @@ class Zend_Validate_InArray extends Zend_Validate_Abstract
         $this->_strict = (boolean) $strict;
         return $this;
     }
-
     /**
      * Returns the recursive option
      *
@@ -156,7 +142,6 @@ class Zend_Validate_InArray extends Zend_Validate_Abstract
     {
         return $this->_recursive;
     }
-
     /**
      * Sets the recursive option
      *
@@ -168,7 +153,6 @@ class Zend_Validate_InArray extends Zend_Validate_Abstract
         $this->_recursive = (boolean) $recursive;
         return $this;
     }
-
     /**
      * Defined by Zend_Validate_Interface
      *
@@ -197,7 +181,6 @@ class Zend_Validate_InArray extends Zend_Validate_Abstract
                 return true;
             }
         }
-
         $this->_error(self::NOT_IN_ARRAY);
         return false;
     }

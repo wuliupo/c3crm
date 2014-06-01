@@ -19,14 +19,10 @@
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  * @version    $Id: Plain.php 23775 2011-03-01 17:25:24Z ralph $
  */
-
-
 /**
  * @see Zend_Mail_Protocol_Smtp
  */
 require_once 'include/Zend/Mail/Protocol/Smtp.php';
-
-
 /**
  * Performs PLAIN authentication
  *
@@ -44,16 +40,12 @@ class Zend_Mail_Protocol_Smtp_Auth_Plain extends Zend_Mail_Protocol_Smtp
      * @var string
      */
     protected $_username;
-
-
     /**
      * PLAIN password
      *
      * @var string
      */
     protected $_password;
-
-
     /**
      * Constructor.
      *
@@ -72,11 +64,8 @@ class Zend_Mail_Protocol_Smtp_Auth_Plain extends Zend_Mail_Protocol_Smtp
                 $this->_password = $config['password'];
             }
         }
-
         parent::__construct($host, $port, $config);
     }
-
-
     /**
      * Perform PLAIN authentication with supplied credentials
      *
@@ -86,7 +75,6 @@ class Zend_Mail_Protocol_Smtp_Auth_Plain extends Zend_Mail_Protocol_Smtp
     {
         // Ensure AUTH has not already been initiated.
         parent::auth();
-
         $this->_send('AUTH PLAIN');
         $this->_expect(334);
         $this->_send(base64_encode("\0" . $this->_username . "\0" . $this->_password));

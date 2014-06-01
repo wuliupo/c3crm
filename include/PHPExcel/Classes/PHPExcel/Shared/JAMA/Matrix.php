@@ -2,10 +2,8 @@
 /**
  * @package JAMA
  */
-
 define('RAND_MAX', mt_getrandmax());
 define('RAND_MIN', 0);
-
 /** PHPExcel root directory */
 if (!defined('PHPEXCEL_ROOT')) {
 	/**
@@ -13,7 +11,6 @@ if (!defined('PHPEXCEL_ROOT')) {
 	 */
 	define('PHPEXCEL_ROOT', dirname(__FILE__) . '/../../../');
 }
-
 require_once PHPEXCEL_ROOT . 'PHPExcel/Shared/JAMA/utils/Error.php';
 require_once PHPEXCEL_ROOT . 'PHPExcel/Shared/JAMA/utils/Maths.php';
 require_once PHPEXCEL_ROOT . 'PHPExcel/Shared/JAMA/CholeskyDecomposition.php';
@@ -23,7 +20,6 @@ require_once PHPEXCEL_ROOT . 'PHPExcel/Shared/JAMA/EigenvalueDecomposition.php';
 require_once PHPEXCEL_ROOT . 'PHPExcel/Shared/JAMA/SingularValueDecomposition.php';
 require_once PHPEXCEL_ROOT . 'PHPExcel/Shared/String.php';
 require_once PHPEXCEL_ROOT . 'PHPExcel/Calculation/Functions.php';
-
 /*
  *	Matrix class
  *
@@ -36,7 +32,6 @@ require_once PHPEXCEL_ROOT . 'PHPExcel/Calculation/Functions.php';
  *	@see http://math.nist.gov/javanumerics/jama/
  */
 class Matrix {
-
 	/**
 	 *	Matrix storage
 	 *
@@ -44,7 +39,6 @@ class Matrix {
 	 *	@access public
 	 */
 	public $A = array();
-
 	/**
 	 *	Matrix row dimension
 	 *
@@ -52,7 +46,6 @@ class Matrix {
 	 *	@access private
 	 */
 	private $m;
-
 	/**
 	 *	Matrix column dimension
 	 *
@@ -60,8 +53,6 @@ class Matrix {
 	 *	@access private
 	 */
 	private $n;
-
-
 	/**
 	 *	Polymorphic constructor
 	 *
@@ -71,7 +62,6 @@ class Matrix {
 		if (func_num_args() > 0) {
 			$args = func_get_args();
 			$match = implode(",", array_map('gettype', $args));
-
 			switch($match) {
 				//Square matrix - n x n
 				case 'integer':
@@ -135,8 +125,6 @@ class Matrix {
 			throw new Exception(JAMAError(PolymorphicArgumentException));
 		}
 	}	//	function __construct()
-
-
 	/**
 	 *	getArray
 	 *
@@ -145,8 +133,6 @@ class Matrix {
 	public function getArray() {
 		return $this->A;
 	}	//	function getArray()
-
-
 	/**
 	 *	getArrayCopy
 	 *
@@ -155,8 +141,6 @@ class Matrix {
 	public function getArrayCopy() {
 		return $this->A;
 	}	//	function getArrayCopy()
-
-
 	/**
 	 *	constructWithCopy
 	 *	Construct a matrix from a copy of a 2-D array.
@@ -178,8 +162,6 @@ class Matrix {
 		}
 		return $newCopyMatrix;
 	}	//	function constructWithCopy()
-
-
 	/**
 	 *	getColumnPackedCopy
 	 *
@@ -195,8 +177,6 @@ class Matrix {
 		}
 		return $P;
 	}	//	function getColumnPackedCopy()
-
-
 	/**
 	 *	getRowPackedCopy
 	 *
@@ -212,8 +192,6 @@ class Matrix {
 		}
 		return $P;
 	}	//	function getRowPackedCopy()
-
-
 	/**
 	 *	getRowDimension
 	 *
@@ -222,8 +200,6 @@ class Matrix {
 	public function getRowDimension() {
 		return $this->m;
 	}	//	function getRowDimension()
-
-
 	/**
 	 *	getColumnDimension
 	 *
@@ -232,8 +208,6 @@ class Matrix {
 	public function getColumnDimension() {
 		return $this->n;
 	}	//	function getColumnDimension()
-
-
 	/**
 	 *	get
 	 *
@@ -245,8 +219,6 @@ class Matrix {
 	public function get($i = null, $j = null) {
 		return $this->A[$i][$j];
 	}	//	function get()
-
-
 	/**
 	 *	getMatrix
 	 *
@@ -261,7 +233,6 @@ class Matrix {
 		if (func_num_args() > 0) {
 			$args = func_get_args();
 			$match = implode(",", array_map('gettype', $args));
-
 			switch($match) {
 				//A($i0...; $j0...)
 				case 'integer,integer':
@@ -349,8 +320,6 @@ class Matrix {
 			throw new Exception(JAMAError(PolymorphicArgumentException));
 		}
 	}	//	function getMatrix()
-
-
 	/**
 	 *	setMatrix
 	 *
@@ -365,7 +334,6 @@ class Matrix {
 		if (func_num_args() > 0) {
 			$args = func_get_args();
 			$match = implode(",", array_map('gettype', $args));
-
 			switch($match) {
 				case 'integer,integer,object':
 						if ($args[2] instanceof Matrix) { $M = $args[2]; } else { throw new Exception(JAMAError(ArgumentTypeException)); }
@@ -395,8 +363,6 @@ class Matrix {
 			throw new Exception(JAMAError(PolymorphicArgumentException));
 		}
 	}	//	function setMatrix()
-
-
 	/**
 	 *	checkMatrixDimensions
 	 *
@@ -415,9 +381,6 @@ class Matrix {
 			throw new Exception(JAMAError(ArgumentTypeException));
 		}
 	}	//	function checkMatrixDimensions()
-
-
-
 	/**
 	 *	set
 	 *
@@ -443,8 +406,6 @@ class Matrix {
 		}
 		*/
 	}	//	function set()
-
-
 	/**
 	 *	identity
 	 *
@@ -456,8 +417,6 @@ class Matrix {
 	public function identity($m = null, $n = null) {
 		return $this->diagonal($m, $n, 1);
 	}	//	function identity()
-
-
 	/**
 	 *	diagonal
 	 *
@@ -474,8 +433,6 @@ class Matrix {
 		}
 		return $R;
 	}	//	function diagonal()
-
-
 	/**
 	 *	filled
 	 *
@@ -493,7 +450,6 @@ class Matrix {
 			throw new Exception(JAMAError(ArgumentTypeException));
 		}
 	}	//	function filled()
-
 	/**
 	 *	random
 	 *
@@ -515,8 +471,6 @@ class Matrix {
 			throw new Exception(JAMAError(ArgumentTypeException));
 		}
 	}	//	function random()
-
-
 	/**
 	 *	packed
 	 *
@@ -526,8 +480,6 @@ class Matrix {
 	public function packed() {
 		return $this->getRowPacked();
 	}	//	function packed()
-
-
 	/**
 	 *	getMatrixByRow
 	 *
@@ -547,8 +499,6 @@ class Matrix {
 			throw new Exception(JAMAError(ArgumentTypeException));
 		}
 	}	//	function getMatrixByRow()
-
-
 	/**
 	 *	getMatrixByCol
 	 *
@@ -568,8 +518,6 @@ class Matrix {
 			throw new Exception(JAMAError(ArgumentTypeException));
 		}
 	}	//	function getMatrixByCol()
-
-
 	/**
 	 *	transpose
 	 *
@@ -585,8 +533,6 @@ class Matrix {
 		}
 		return $R;
 	}	//	function transpose()
-
-
 	/**
 	 *	norm1
 	 *
@@ -604,8 +550,6 @@ class Matrix {
 		}
 		return $r;
 	}	//	function norm1()
-
-
 	/**
 	 *	norm2
 	 *
@@ -614,8 +558,6 @@ class Matrix {
 	 */
 	public function norm2() {
 	}	//	function norm2()
-
-
 	/**
 	 *	normInf
 	 *
@@ -633,8 +575,6 @@ class Matrix {
 		}
 		return $r;
 	}	//	function normInf()
-
-
 	/**
 	 *	normF
 	 *
@@ -650,8 +590,6 @@ class Matrix {
 		}
 		return $f;
 	}	//	function normF()
-
-
 	/**
 	 *	Matrix rank
 	 *
@@ -661,8 +599,6 @@ class Matrix {
 		$svd = new SingularValueDecomposition($this);
 		return $svd->rank();
 	}	//	function rank ()
-
-
 	/**
 	 *	Matrix condition (2 norm)
 	 *
@@ -672,8 +608,6 @@ class Matrix {
 		$svd = new SingularValueDecomposition($this);
 		return $svd->cond();
 	}	//	function cond ()
-
-
 	/**
 	 *	trace
 	 *
@@ -688,8 +622,6 @@ class Matrix {
 		}
 		return $s;
 	}	//	function trace()
-
-
 	/**
 	 *	uminus
 	 *
@@ -698,8 +630,6 @@ class Matrix {
 	 */
 	public function uminus() {
 	}	//	function uminus()
-
-
 	/**
 	 *	plus
 	 *
@@ -711,7 +641,6 @@ class Matrix {
 		if (func_num_args() > 0) {
 			$args = func_get_args();
 			$match = implode(",", array_map('gettype', $args));
-
 			switch($match) {
 				case 'object':
 						if ($args[0] instanceof Matrix) { $M = $args[0]; } else { throw new Exception(JAMAError(ArgumentTypeException)); }
@@ -734,8 +663,6 @@ class Matrix {
 			throw new Exception(JAMAError(PolymorphicArgumentException));
 		}
 	}	//	function plus()
-
-
 	/**
 	 *	plusEquals
 	 *
@@ -747,7 +674,6 @@ class Matrix {
 		if (func_num_args() > 0) {
 			$args = func_get_args();
 			$match = implode(",", array_map('gettype', $args));
-
 			switch($match) {
 				case 'object':
 						if ($args[0] instanceof Matrix) { $M = $args[0]; } else { throw new Exception(JAMAError(ArgumentTypeException)); }
@@ -784,8 +710,6 @@ class Matrix {
 			throw new Exception(JAMAError(PolymorphicArgumentException));
 		}
 	}	//	function plusEquals()
-
-
 	/**
 	 *	minus
 	 *
@@ -797,7 +721,6 @@ class Matrix {
 		if (func_num_args() > 0) {
 			$args = func_get_args();
 			$match = implode(",", array_map('gettype', $args));
-
 			switch($match) {
 				case 'object':
 						if ($args[0] instanceof Matrix) { $M = $args[0]; } else { throw new Exception(JAMAError(ArgumentTypeException)); }
@@ -820,8 +743,6 @@ class Matrix {
 			throw new Exception(JAMAError(PolymorphicArgumentException));
 		}
 	}	//	function minus()
-
-
 	/**
 	 *	minusEquals
 	 *
@@ -833,7 +754,6 @@ class Matrix {
 		if (func_num_args() > 0) {
 			$args = func_get_args();
 			$match = implode(",", array_map('gettype', $args));
-
 			switch($match) {
 				case 'object':
 						if ($args[0] instanceof Matrix) { $M = $args[0]; } else { throw new Exception(JAMAError(ArgumentTypeException)); }
@@ -870,8 +790,6 @@ class Matrix {
 			throw new Exception(JAMAError(PolymorphicArgumentException));
 		}
 	}	//	function minusEquals()
-
-
 	/**
 	 *	arrayTimes
 	 *
@@ -884,7 +802,6 @@ class Matrix {
 		if (func_num_args() > 0) {
 			$args = func_get_args();
 			$match = implode(",", array_map('gettype', $args));
-
 			switch($match) {
 				case 'object':
 						if ($args[0] instanceof Matrix) { $M = $args[0]; } else { throw new Exception(JAMAError(ArgumentTypeException)); }
@@ -907,8 +824,6 @@ class Matrix {
 			throw new Exception(JAMAError(PolymorphicArgumentException));
 		}
 	}	//	function arrayTimes()
-
-
 	/**
 	 *	arrayTimesEquals
 	 *
@@ -921,7 +836,6 @@ class Matrix {
 		if (func_num_args() > 0) {
 			$args = func_get_args();
 			$match = implode(",", array_map('gettype', $args));
-
 			switch($match) {
 				case 'object':
 						if ($args[0] instanceof Matrix) { $M = $args[0]; } else { throw new Exception(JAMAError(ArgumentTypeException)); }
@@ -958,8 +872,6 @@ class Matrix {
 			throw new Exception(JAMAError(PolymorphicArgumentException));
 		}
 	}	//	function arrayTimesEquals()
-
-
 	/**
 	 *	arrayRightDivide
 	 *
@@ -972,7 +884,6 @@ class Matrix {
 		if (func_num_args() > 0) {
 			$args = func_get_args();
 			$match = implode(",", array_map('gettype', $args));
-
 			switch($match) {
 				case 'object':
 						if ($args[0] instanceof Matrix) { $M = $args[0]; } else { throw new Exception(JAMAError(ArgumentTypeException)); }
@@ -1014,8 +925,6 @@ class Matrix {
 			throw new Exception(JAMAError(PolymorphicArgumentException));
 		}
 	}	//	function arrayRightDivide()
-
-
 	/**
 	 *	arrayRightDivideEquals
 	 *
@@ -1028,7 +937,6 @@ class Matrix {
 		if (func_num_args() > 0) {
 			$args = func_get_args();
 			$match = implode(",", array_map('gettype', $args));
-
 			switch($match) {
 				case 'object':
 						if ($args[0] instanceof Matrix) { $M = $args[0]; } else { throw new Exception(JAMAError(ArgumentTypeException)); }
@@ -1051,8 +959,6 @@ class Matrix {
 			throw new Exception(JAMAError(PolymorphicArgumentException));
 		}
 	}	//	function arrayRightDivideEquals()
-
-
 	/**
 	 *	arrayLeftDivide
 	 *
@@ -1065,7 +971,6 @@ class Matrix {
 		if (func_num_args() > 0) {
 			$args = func_get_args();
 			$match = implode(",", array_map('gettype', $args));
-
 			switch($match) {
 				case 'object':
 						if ($args[0] instanceof Matrix) { $M = $args[0]; } else { throw new Exception(JAMAError(ArgumentTypeException)); }
@@ -1088,8 +993,6 @@ class Matrix {
 			throw new Exception(JAMAError(PolymorphicArgumentException));
 		}
 	}	//	function arrayLeftDivide()
-
-
 	/**
 	 *	arrayLeftDivideEquals
 	 *
@@ -1102,7 +1005,6 @@ class Matrix {
 		if (func_num_args() > 0) {
 			$args = func_get_args();
 			$match = implode(",", array_map('gettype', $args));
-
 			switch($match) {
 				case 'object':
 						if ($args[0] instanceof Matrix) { $M = $args[0]; } else { throw new Exception(JAMAError(ArgumentTypeException)); }
@@ -1125,8 +1027,6 @@ class Matrix {
 			throw new Exception(JAMAError(PolymorphicArgumentException));
 		}
 	}	//	function arrayLeftDivideEquals()
-
-
 	/**
 	 *	times
 	 *
@@ -1138,7 +1038,6 @@ class Matrix {
 		if (func_num_args() > 0) {
 			$args  = func_get_args();
 			$match = implode(",", array_map('gettype', $args));
-
 			switch($match) {
 				case 'object':
 						if ($args[0] instanceof Matrix) { $B = $args[0]; } else { throw new Exception(JAMAError(ArgumentTypeException)); }
@@ -1216,8 +1115,6 @@ class Matrix {
 			throw new Exception(PolymorphicArgumentException);
 		}
 	}	//	function times()
-
-
 	/**
 	 *	power
 	 *
@@ -1229,7 +1126,6 @@ class Matrix {
 		if (func_num_args() > 0) {
 			$args = func_get_args();
 			$match = implode(",", array_map('gettype', $args));
-
 			switch($match) {
 				case 'object':
 						if ($args[0] instanceof Matrix) { $M = $args[0]; } else { throw new Exception(JAMAError(ArgumentTypeException)); }
@@ -1266,8 +1162,6 @@ class Matrix {
 			throw new Exception(JAMAError(PolymorphicArgumentException));
 		}
 	}	//	function power()
-
-
 	/**
 	 *	concat
 	 *
@@ -1279,7 +1173,6 @@ class Matrix {
 		if (func_num_args() > 0) {
 			$args = func_get_args();
 			$match = implode(",", array_map('gettype', $args));
-
 			switch($match) {
 				case 'object':
 						if ($args[0] instanceof Matrix) { $M = $args[0]; } else { throw new Exception(JAMAError(ArgumentTypeException)); }
@@ -1302,8 +1195,6 @@ class Matrix {
 			throw new Exception(JAMAError(PolymorphicArgumentException));
 		}
 	}	//	function concat()
-
-
 	/**
 	 *	chol
 	 *
@@ -1313,8 +1204,6 @@ class Matrix {
 	public function chol() {
 		return new CholeskyDecomposition($this);
 	}	//	function chol()
-
-
 	/**
 	 *	lu
 	 *
@@ -1324,8 +1213,6 @@ class Matrix {
 	public function lu() {
 		return new LUDecomposition($this);
 	}	//	function lu()
-
-
 	/**
 	 *	qr
 	 *
@@ -1335,8 +1222,6 @@ class Matrix {
 	public function qr() {
 		return new QRDecomposition($this);
 	}	//	function qr()
-
-
 	/**
 	 *	eig
 	 *
@@ -1346,8 +1231,6 @@ class Matrix {
 	public function eig() {
 		return new EigenvalueDecomposition($this);
 	}	//	function eig()
-
-
 	/**
 	 *	svd
 	 *
@@ -1357,8 +1240,6 @@ class Matrix {
 	public function svd() {
 		return new SingularValueDecomposition($this);
 	}	//	function svd()
-
-
 	/**
 	 *	Solve A*X = B.
 	 *
@@ -1374,8 +1255,6 @@ class Matrix {
 			return $QR->solve($B);
 		}
 	}	//	function solve()
-
-
 	/**
 	 *	Matrix inverse or pseudoinverse.
 	 *
@@ -1384,8 +1263,6 @@ class Matrix {
 	public function inverse() {
 		return $this->solve($this->identity($this->m, $this->m));
 	}	//	function inverse()
-
-
 	/**
 	 *	det
 	 *
@@ -1396,8 +1273,6 @@ class Matrix {
 		$L = new LUDecomposition($this);
 		return $L->det();
 	}	//	function det()
-
-
 	/**
 	 *	Older debugging utility for backwards compatability.
 	 *
@@ -1407,7 +1282,6 @@ class Matrix {
 		$m = count($A);
 		$n = count($A[0]);
 		$spacing = str_repeat('&nbsp;',$width);
-
 		for ($i = 0; $i < $m; ++$i) {
 			for ($j = 0; $j < $n; ++$j) {
 				$formatted = sprintf($format, $A[$i][$j]);
@@ -1416,8 +1290,6 @@ class Matrix {
 			echo "<br />";
 		}
 	}	//	function mprint()
-
-
 	/**
 	 *	Debugging utility.
 	 *
@@ -1434,5 +1306,4 @@ class Matrix {
 		}
 		print('</table>');
 	}	//	function toHTML()
-
 }	//	class Matrix

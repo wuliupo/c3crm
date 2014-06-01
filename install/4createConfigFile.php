@@ -1,17 +1,9 @@
 <?php
 include('ecversion.php');
-
-
 session_start();
-
-
-
 // vtiger CRM version number; do not edit!
-
 $ec_version = "5.0.2";
 $release_date = "31 October 2006";
-
-
 if (isset($_REQUEST['db_hostname']))
 {
 	if(strpos($_REQUEST['db_hostname'], ":"))
@@ -28,21 +20,13 @@ if (isset($_REQUEST['db_hostname']))
 	}	
 }
 if (isset($_REQUEST['db_username']))$db_username = $_REQUEST['db_username'];
-
 if (isset($_REQUEST['db_password']))$db_password = $_REQUEST['db_password'];
-
 if (isset($_REQUEST['db_name']))$db_name = $_REQUEST['db_name'];
-
 if (isset($_REQUEST['db_type'])) $db_type = $_REQUEST['db_type'];
-
 if (isset($_REQUEST['db_drop_tables'])) $db_drop_tables = $_REQUEST['db_drop_tables'];
-
 if (isset($_REQUEST['db_create'])) $db_create = $_REQUEST['db_create'];
-
 if (isset($_REQUEST['db_populate'])) $db_populate = $_REQUEST['db_populate'];
-
 if (isset($_REQUEST['site_URL'])) $site_URL = $_REQUEST['site_URL'];
-
 // update default port
 if ($db_port == '')
 {
@@ -51,9 +35,7 @@ if ($db_port == '')
 		$db_port = "3306";
 	}
 }
-
 $cache_dir = 'cache/';
-
 $parameter = "";
 if (isset($db_hostname))  $parameter .= "db_hostname=".$db_hostname."&";
 if (isset($db_username))  $parameter .= "db_username=".$db_username."&";
@@ -63,8 +45,6 @@ if (isset($db_drop_tables))  $parameter .= "db_drop_tables=".$db_drop_tables."&"
 if (isset($db_create))  $parameter .= "db_create=".$db_create."&";
 if (isset($db_populate)) $parameter .= "db_populate=".$db_populate."&";
 $parameter .= "file=5createTables.php";
-
-
 ?>
 	
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
@@ -74,12 +54,9 @@ $parameter .= "file=5createTables.php";
 	<title>易客CRM - 安装向导 - 创建配置文件</title>
 	<link href="include/install/install.css" rel="stylesheet" type="text/css">
 </head>
-
 <body class="small cwPageBg" topmargin="0" leftmargin="0" marginheight="0" marginwidth="0">
-
 <br><br>
 	<!-- Table for cfgwiz starts -->
-
 	<table border=0 cellspacing=0 cellpadding=0 width=80% align=center>
 	<tr>
 		<td class="cwHeadBg" align=left><img src="include/install/images/configwizard.gif" alt="Configuration Wizard" hspace="20" title="Configuration Wizard"></td>
@@ -89,7 +66,6 @@ $parameter .= "file=5createTables.php";
 	<table border=0 cellspacing=0 cellpadding=0 width=80% align=center>
 	<tr>
 		<td background="include/install/images/topInnerShadow.gif" align=left><img src="include/install/images/topInnerShadow.gif" ></td>
-
 	</tr>
 	</table>
 	<table border=0 cellspacing=0 cellpadding=10 width=80% align=center>
@@ -99,7 +75,6 @@ $parameter .= "file=5createTables.php";
 			<table border=0 cellspacing=0 cellpadding=0 width=97%>
 			<tr>
 				<td width=20% valign=top>
-
 				<!-- Left side tabs -->
 					<table border=0 cellspacing=0 cellpadding=10 width=100%>
 					<tr><td class="small cwUnSelectedTab" align=right><div align="left">欢迎使用易客CRM</div></td></tr>
@@ -126,7 +101,6 @@ $parameter .= "file=5createTables.php";
 					    	$is_writable = is_writable('config.inc.php');
 					else
 	      					$is_writable = is_writable('.');
-
 	      				/* open template configuration file read only */
 	      				$templateFilename = 'config.template.php';
 	      				$templateHandle = fopen($templateFilename, "r");
@@ -137,7 +111,6 @@ $parameter .= "file=5createTables.php";
 		      				if($includeHandle) {
 			      			   while (!feof($templateHandle)) {
 				      			$buffer = fgets($templateHandle);
-
 				     			/* replace _DBC_ variable */
 				      			$buffer = str_replace( "_DBC_SERVER_", $db_hostname, $buffer);
 				      			$buffer = str_replace( "_DBC_PORT_", $db_port, $buffer);
@@ -145,26 +118,20 @@ $parameter .= "file=5createTables.php";
 				      			$buffer = str_replace( "_DBC_PASS_", $db_password, $buffer);
 				      			$buffer = str_replace( "_DBC_NAME_", $db_name, $buffer);
 				      			$buffer = str_replace( "_DBC_TYPE_", $db_type, $buffer);
-
 				      			$buffer = str_replace( "_SITE_URL_", $site_URL, $buffer);
-
 				      			/* replace dir variable */
 				      			$buffer = str_replace( "_VT_ROOTDIR_", $root_directory, $buffer);
 				      			$buffer = str_replace( "_VT_CACHEDIR_", $cache_dir, $buffer);
 				      			$buffer = str_replace( "_VT_TMPDIR_", $cache_dir."images/", $buffer);
 				      			$buffer = str_replace( "_VT_UPLOADDIR_", $cache_dir."upload/", $buffer);
-
 						      	$buffer = str_replace( "_DB_STAT_", "true", $buffer);
-
 						      	/* replace the application unique key variable */
 					      		$buffer = str_replace( "_VT_APP_UNIQKEY_", md5($root_directory), $buffer);
 	
 					      		fwrite($includeHandle, $buffer);
 					      		}
-
 				      		fclose($includeHandle);
 				      		}
-
 				      	fclose($templateHandle);
 				      	}
 	//更新catmail的配置文件
@@ -189,7 +156,6 @@ $parameter .= "file=5createTables.php";
 		umask($old_umask);
     }
 	
-
 	//更新ajax im的配置文件
 	$im_configpath = "im/config.php";
 	if (!file_exists($im_configpath) || !is_file($im_configpath)) {
@@ -257,52 +223,39 @@ $parameter .= "file=5createTables.php";
  	$config .= "\$dbconfig['db_name'] =             '".$db_name."';\n";
  	$config .= "\$dbconfig['db_type'] = '".$db_type."';\n";
 	$config .= "\$dbconfig['db_status'] = 'true';\n";
-
 	$config .= "// TODO: test if port is empty\n";
 	$config .= "// TODO: set db_hostname dependending on db_type\n";
  	$config .= "\$dbconfig['db_hostname'] = \$dbconfig['db_server'].\$dbconfig['db_port'];\n\n";
-
 	
 	$config .= "// log_sql default value = false\n";
 	$config .= "\$dbconfig['log_sql'] = false;\n\n";
 	
 	$config .= "// persistent default value = true\n";
 	$config .= "\$dbconfigoption['persistent'] = true;\n\n";
-
 	$config .= "// autofree default value = false\n";
 	$config .= "\$dbconfigoption['autofree'] = false;\n\n";
 	
 	$config .= "// debug default value = 0\n";
 	$config .= "\$dbconfigoption['debug'] = 0;\n\n";
-
 	$config .= "// seqname_format default value = '%s_seq'\n";
 	$config .= "\$dbconfigoption['seqname_format'] = '%s_seq';\n\n";
-
 	$config .= "// portability default value = 0\n";
 	$config .= "\$dbconfigoption['portability'] = 0;\n\n";
-
 	$config .= "// ssl default value = false\n";
 	$config .= "\$dbconfigoption['ssl'] = false;\n\n";
-
 	$config .= "\$host_name = \$dbconfig['db_hostname'];\n\n";
 	
 	$config .= "\$site_URL ='$site_URL';\n\n";
-
 	$config .= "// root directory path\n";
 	$config .= "\$root_directory = '$root_directory';\n\n";
-
 	$config .= "// cache direcory path\n";
 	$config .= "\$cache_dir = '$cache_dir';\n\n";
-
 	$config .= "// tmp_dir default value prepended by cache_dir = images/\n";
 	$config .= "\$tmp_dir = '$cache_dir"."images/';\n\n";
-
 	$config .= "// import_dir default value prepended by cache_dir = import/\n";
 	$config .= "\$tmp_dir = '$cache_dir"."import/';\n\n";
-
 	$config .= "// upload_dir default value prepended by cache_dir = upload/\n";
 	$config .= "\$tmp_dir = '$cache_dir"."upload/';\n\n";
-
 	$config .= "// mail server parameters\n";
 	$config .= "\$mail_server = '$mail_server';\n";
 	$config .= "\$mail_server_username = '$mail_server_username';\n";
@@ -311,25 +264,21 @@ $parameter .= "file=5createTables.php";
 	$config .= "// maximum file size for uploaded files in bytes also used when uploading import files\n";
 	$config .= "// upload_maxsize default value = 3000000\n";
 	$config .= "\$upload_maxsize = 3000000;\n\n";
-
 	$config .= "// flag to allow export functionality\n";
 	$config .= "// 'all' to allow anyone to use exports \n";
 	$config .= "// 'admin' to only allow admins to export\n";
 	$config .= "// 'none' to block exports completely\n";
 	$config .= "// allow_exports default value = all\n";
 	$config .= "\$allow_exports = 'all';\n\n";
-
  	$config .= "// Files with one of these extensions will have '.txt' appended to their filename on upload\n";
 	$config .= "// upload_badext default value = php, php3, php4, php5, pl, cgi, py, asp, cfm, js, vbs, html, htm\n";
  	$config .= "\$upload_badext = array('php', 'php3', 'php4', 'php5', 'pl', 'cgi', 'py', 'asp', 'cfm', 'js', 'vbs', 'html', 'htm');\n\n";
-
  	$config .= "// This is the full path to the include directory including the trailing slash\n";
 	$config .= "// includeDirectory default value = $root_directory..'include/\n";
  	$config .= "\$includeDirectory = \$root_directory.'include/';\n\n";
 	
 	$config .= "// list_max_entries_per_page default value = 20\n";
 	$config .= "\$list_max_entries_per_page = '20';\n\n";
-
  	$config .= "// change this number to whatever you want. This is the number of pages that will appear in the pagination. by Raju \n";
  	$config .= "\$limitpage_navigation = '9';\n\n";
 	
@@ -339,27 +288,21 @@ $parameter .= "file=5createTables.php";
  	$config .= "// Map Sugar language codes to jscalendar language codes\n";
  	$config .= "// Unimplemented until jscalendar language files are fixed\n";
  	$config .= "// \$cal_codes = array('en_us'=>'en', 'ja'=>'jp', 'sp_ve'=>'sp', 'it_it'=>'it', 'tw_zh'=>'zh', 'pt_br'=>'pt', 'se'=>'sv', 'cn_zh'=>'zh', 'ge_ge'=>'de', 'ge_ch'=>'de', 'fr'=>'fr');\n\n";
-
 	$config .= "//set default module and action\n";
  	$config .= "\$default_module = 'Home';\n";
  	$config .= "\$default_action = 'index';\n\n";
-
  	$config .= "//set default theme\n";
  	$config .= "\$default_theme = 'bluelagoon';\n\n";
-
  	$config .= "// If true, the time to compose each page is placed in the browser.\n";
  	$config .= "\$calculate_response_time = true;\n";
-
  	$config .= "// Default Username - The default text that is placed initially in the login form for user name.\n";
  	$config .= "\$default_user_name = '';\n";
 	
  	$config .= "// Default Password - The default text that is placed initially in the login form for password.\n";
  	$config .= "\$default_password = '';\n";
-
  	$config .= "// Create default user - If true, a user with the default username and password is created.\n";
  	$config .= "\$create_default_user = false;\n";
  	$config .= "\$default_user_is_admin = false;\n";
-
  	$config .= "// disable persistent connections - If your MySQL/PHP configuration does not support persistent connections set this to true to avoid a large performance slowdown\n";
  	$config .= "\$disable_persistent_connections = false;\n";
  	$config .= "// Defined languages available.  The key must be the language file prefix.  E.g. 'en_us' is the prefix for every 'en_us.lang.php' file. \n";
@@ -392,7 +335,6 @@ $parameter .= "file=5createTables.php";
  	
  	$config .= "//Option to hide empty home blocks if no entries.\n";
  	$config .= "\$display_empty_home_blocks = false;\n\n";
-
  	$config .= "// Generating Unique Application Key\n";
  	$config .= "\$application_unique_key = '".md5($root_directory)."';\n\n";
  	$config .= "?>";
@@ -412,7 +354,6 @@ $parameter .= "file=5createTables.php";
 					
 				</td>
 			</tr>
-
 			</table>
 		</td>
 	</tr>
@@ -424,7 +365,6 @@ $parameter .= "file=5createTables.php";
 	</table>
 	<table border=0 cellspacing=0 cellpadding=0 width=80% align=center>
 	<tr>
-
 		<td background="include/install/images/bottomGradient.gif"><img src="include/install/images/bottomGradient.gif"></td>
 	</tr>
 	</table>

@@ -1,5 +1,4 @@
 <?php
-
 /**
  * PHPExcel
  *
@@ -25,8 +24,6 @@
  * @license	http://www.gnu.org/licenses/old-licenses/lgpl-2.1.txt	LGPL
  * @version	1.7.2, 2010-01-11
  */
-
-
 /** PHPExcel root directory */
 if (!defined('PHPEXCEL_ROOT')) {
 	/**
@@ -34,14 +31,10 @@ if (!defined('PHPEXCEL_ROOT')) {
 	 */
 	define('PHPEXCEL_ROOT', dirname(__FILE__) . '/../../');
 }
-
 /** PHPExcel_Cell */
 require_once PHPEXCEL_ROOT . 'PHPExcel/Cell.php';
-
 /** PHPExcel_Style_NumberFormat */
 require_once PHPEXCEL_ROOT . 'PHPExcel/Style/NumberFormat.php';
-
-
 /**
  * PHPExcel_Shared_Date
  *
@@ -54,12 +47,8 @@ class PHPExcel_Shared_Date
 	/** constants */
 	const CALENDAR_WINDOWS_1900 = 1900;		//	Base date of 1st Jan 1900 = 1.0
 	const CALENDAR_MAC_1904 = 1904;			//	Base date of 2nd Jan 1904 = 1.0
-
 	private static $ExcelBaseDate	= self::CALENDAR_WINDOWS_1900;
-
 	public static $dateTimeObjectType	= 'DateTime';
-
-
 	/**
 	 * Set the Excel calendar (Windows 1900 or Mac 1904)
 	 *
@@ -74,8 +63,6 @@ class PHPExcel_Shared_Date
 		}
 		return False;
 	}	//	function setExcelCalendar()
-
-
 	/**
 	 * Return the Excel calendar (Windows 1900 or Mac 1904)
 	 *
@@ -84,8 +71,6 @@ class PHPExcel_Shared_Date
 	public static function getExcelCalendar() {
 		return self::$ExcelBaseDate;
 	}	//	function getExcelCalendar()
-
-
 	/**
 	 * Convert a date from Excel to PHP
 	 *
@@ -102,7 +87,6 @@ class PHPExcel_Shared_Date
 		} else {
 			$myExcelBaseDate = 24107;
 		}
-
 		// Perform conversion
 		if ($dateValue >= 1) {
 			$utcDays = $dateValue - $myExcelBaseDate;
@@ -116,12 +100,9 @@ class PHPExcel_Shared_Date
 			$secs = round($dateValue * 24 * 60 * 60) - round($hours * 60 * 60) - round($mins * 60);
 			$returnValue = (integer) gmmktime($hours, $mins, $secs);
 		}
-
 		// Return
 		return $returnValue;
 	}	//	function ExcelToPHP()
-
-
 	/**
 	 * Convert a date from Excel to a PHP Date/Time object
 	 *
@@ -135,14 +116,10 @@ class PHPExcel_Shared_Date
 		$hours = round($time / 3600);
 		$minutes = round($time / 60) - ($hours * 60);
 		$seconds = round($time) - ($hours * 3600) - ($minutes * 60);
-
 		$dateObj = date_create('1-Jan-1970+'.$days.' days');
 		$dateObj->setTime($hours,$minutes,$seconds);
-
 		return $dateObj;
 	}	//	function ExcelToPHPObject()
-
-
 	/**
 	 * Convert a date from PHP to Excel
 	 *
@@ -164,11 +141,8 @@ class PHPExcel_Shared_Date
 												 );
 		}
 		date_default_timezone_set($saveTimeZone);
-
 		return $retValue;
 	}	//	function PHPToExcel()
-
-
 	/**
 	 * FormattedPHPToExcel
 	 *
@@ -193,7 +167,6 @@ class PHPExcel_Shared_Date
 			$myExcelBaseDate = 2416481;
 			$excel1900isLeapYear = False;
 		}
-
 		//	Julian base date Adjustment
 		if ($month > 2) {
 			$month = $month - 3;
@@ -201,18 +174,13 @@ class PHPExcel_Shared_Date
 			$month = $month + 9;
 			--$year;
 		}
-
 		//	Calculate the Julian Date, then subtract the Excel base date (JD 2415020 = 31-Dec-1899 Giving Excel Date of 0)
 		$century = substr($year,0,2);
 		$decade = substr($year,2,2);
 		$excelDate = floor((146097 * $century) / 4) + floor((1461 * $decade) / 4) + floor((153 * $month + 2) / 5) + $day + 1721119 - $myExcelBaseDate + $excel1900isLeapYear;
-
 		$excelTime = (($hours * 3600) + ($minutes * 60) + $seconds) / 86400;
-
 		return (float) $excelDate + $excelTime;
 	}	//	function FormattedPHPToExcel()
-
-
 	/**
 	 * Is a given cell a date/time?
 	 *
@@ -222,8 +190,6 @@ class PHPExcel_Shared_Date
 	public static function isDateTime(PHPExcel_Cell $pCell) {
 		return self::isDateTimeFormat($pCell->getParent()->getStyle($pCell->getCoordinate())->getNumberFormat());
 	}	//	function isDateTime()
-
-
 	/**
 	 * Is a given number format a date/time?
 	 *
@@ -233,10 +199,7 @@ class PHPExcel_Shared_Date
 	public static function isDateTimeFormat(PHPExcel_Style_NumberFormat $pFormat) {
 		return self::isDateTimeFormatCode($pFormat->getFormatCode());
 	}	//	function isDateTimeFormat()
-
-
 	private static	$possibleDateFormatCharacters = 'ymdHis';
-
 	/**
 	 * Is a given number format code a date/time?
 	 *
@@ -270,12 +233,10 @@ class PHPExcel_Shared_Date
 			case PHPExcel_Style_NumberFormat::FORMAT_DATE_XLSX22:
 				return true;
 		}
-
 		// Try checking for any of the date formatting characters that don't appear within square braces
 		if (preg_match('/(^|\])[^\[]*['.self::$possibleDateFormatCharacters.']/i',$pFormatCode)) {
 			return true;
 		}
-
 		// No date...
 		return false;
 	}	//	function isDateTimeFormatCode()

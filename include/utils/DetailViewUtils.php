@@ -2,8 +2,6 @@
 require_once('include/database/PearDatabase.php');
 require_once('include/utils/CommonUtils.php'); //new
 require_once('include/FormValidationUtil.php');
-
-
 /** This function returns the detail view form ec_field and and its properties in array format.
   * Param $uitype - UI type of the ec_field
   * Param $fieldname - Form ec_field name
@@ -13,7 +11,6 @@ require_once('include/FormValidationUtil.php');
   * Param $tabid - ec_tab id to which the Field belongs to (default is "")
   * Return type is an array
   */
-
 function getDetailViewOutputHtml($uitype, $fieldname, $fieldlabel, $col_fields,$generatedtype,$tabid='')
 {	
 	global $log;
@@ -50,7 +47,6 @@ function getDetailViewOutputHtml($uitype, $fieldname, $fieldlabel, $col_fields,$
 	{
 		$label_fld[] =$mod_strings[$fieldlabel];
 		$cur_date_val = $col_fields[$fieldname];
-
 		if(!isValidDate($cur_date_val))
 		{
 			$display_val = '';	
@@ -89,7 +85,6 @@ function getDetailViewOutputHtml($uitype, $fieldname, $fieldlabel, $col_fields,$
 				$rel_entityid = $adb->query_result($fldmod_result,0,'entityidfield');
 				$module_entityname = getEntityNameForTen($rel_tablename,$rel_entityname,$fieldname,$value);
 			}
-
 		}
 		$label_fld[] = $module_entityname;
 		$label_fld["secid"] = $value;
@@ -147,7 +142,6 @@ function getDetailViewOutputHtml($uitype, $fieldname, $fieldlabel, $col_fields,$
 		$user_name = getUserName($user_id);
 		$label_fld[] =$mod_strings[$fieldlabel];
 		$label_fld[] =$user_name;
-
 	}
 	elseif($uitype == 1004) //display creator in editview page
 	{
@@ -199,7 +193,6 @@ function getDetailViewOutputHtml($uitype, $fieldname, $fieldlabel, $col_fields,$
 		$label_fld[] = $product_name;
 		$label_fld["secid"] = $product_id;
 		$label_fld["link"] = "index.php?module=Products&action=DetailView&record=".$product_id;
-
 	}
 	elseif($uitype == 71 || $uitype == 72)
 	{
@@ -258,19 +251,16 @@ function getDetailViewOutputHtml($uitype, $fieldname, $fieldlabel, $col_fields,$
 		 $label_fld[] =$mod_strings[$fieldlabel];
 		 if($col_fields[$fieldname]=='0') $col_fields[$fieldname]='';
 		 $label_fld[] = $col_fields[$fieldname];
-
 	}
 	$label_fld[]=$uitype;
 	$log->debug("Exiting getDetailViewOutputHtml method ...");
 	return $label_fld;
 }
-
 /** This function returns the related ec_tab details for a given entity or a module.
 * Param $module - module name
 * Param $focus - module object
 * Return type is an array
 */
-
 function getRelatedLists($module,$focus)
 {  
 	
@@ -296,7 +286,6 @@ function getRelatedLists($module,$focus)
 		$function_name = $adb->query_result($result,$i,"name");  
 		$label = $adb->query_result($result,$i,"label");
 		if(method_exists($focus,$function_name)) {
-
 			if($function_name != "get_generalmodules" && $function_name != "get_child_list" && $function_name != "get_parent_list") {
 				$focus_list[$label] = $focus->$function_name($focus->id);
 			} else {
@@ -316,7 +305,6 @@ function getRelatedLists($module,$focus)
    
 	return $focus_list;
 }
-
 /** This function returns the detailed block information of a record in a module.
 * Param $module - module name
 * Param $block - block id
@@ -324,7 +312,6 @@ function getRelatedLists($module,$focus)
 * Param $tabid - ec_tab id
 * Return type is an array
 */
-
 function getDetailBlockInformation($module, $result,$col_fields,$tabid,$block_label)
 {
 	global $log;
@@ -368,10 +355,8 @@ function getDetailBlockInformation($module, $result,$col_fields,$tabid,$block_la
 			$displaytype = $adb->query_result($result,$i,"displaytype");
 			$tabid = $adb->query_result($result,$i,"tabid"); 
 			$custfld = getDetailViewOutputHtml($uitype, $fieldname, $fieldlabel, $col_fields,$generatedtype,$tabid);
-
 			if(is_array($custfld))
 			{
-
 				$link = isset($custfld["link"]) ? $custfld["link"] : "";
 				$label_data[$block][] = array($custfld[0]=>array("value"=>$custfld[1],"ui"=>$custfld[2],"link"=>$link,"fldname"=>$fieldname));
 			}
@@ -414,7 +399,6 @@ function getDetailBlockInformation($module, $result,$col_fields,$tabid,$block_la
 			if(isset($mod_strings[$label])) {
 				$label = $mod_strings[$label];
 			}
-
 			if(isset($returndata[$label]) && is_array($returndata[$label])) {
 				$returndata_arr = $returndata[$label];
 			} else {
@@ -427,10 +411,7 @@ function getDetailBlockInformation($module, $result,$col_fields,$tabid,$block_la
 	}
 	$log->debug("Exiting getDetailBlockInformation method ...");
 	return $returndata;
-
-
 }
-
 function detailViewNavigation($module,$record,$isNext=false){
 	if(isset($_SESSION[$module.'_listquery'])){
 		global $list_max_entries_per_page,$adb,$log;
@@ -443,7 +424,6 @@ function detailViewNavigation($module,$record,$isNext=false){
 		//Postgres 8 fixes
 		if( $adb->dbType == "pgsql")
 			 $query = fixPostgresQuery( $query, $log, 0);
-
 		$start_rec = $navigation_array['start'];
 		$end_rec = $navigation_array['end_val'];
 		//limiting the query
@@ -480,11 +460,9 @@ function detailViewNavigation($module,$record,$isNext=false){
 					 $precrmid = $adb->query_result($list_result,($i-1),"crmid");
 					 return $precrmid;
 				 }
-
 			 }
 		 }
 	}
 	return false;
 }
-
 ?>

@@ -15,7 +15,6 @@
  * 
  * @package log4php
  */
-
 /**
  * @ignore 
  */
@@ -24,20 +23,15 @@ if (!defined('LOG4PHP_DIR')) define('LOG4PHP_DIR', dirname(__FILE__));
 /**
  */
 require_once(LOG4PHP_DIR . '/LoggerLog.php');
-
 define('LOGGER_NDC_HT_SIZE', 7);
-
 /**
  * This is the global repository of NDC stack
  */
 $GLOBALS['log4php.LoggerNDC.ht'] = array();
-
 /**
  * This is the max depth of NDC stack
  */
 $GLOBALS['log4php.LoggerNDC.maxDepth'] = LOGGER_NDC_HT_SIZE;
-
-
 /**
  * The NDC class implements <i>nested diagnostic contexts</i> as
  * defined by Neil Harrison in the article "Patterns for Logging
@@ -96,7 +90,6 @@ $GLOBALS['log4php.LoggerNDC.maxDepth'] = LOGGER_NDC_HT_SIZE;
  * @since 0.3
  */
 class LoggerNDC {
-
     /**
      * Clear any nested diagnostic information if any. This method is
      * useful in cases where the same thread can be potentially used
@@ -113,7 +106,6 @@ class LoggerNDC {
         
         $GLOBALS['log4php.LoggerNDC.ht'] = array();
     }
-
     /**
      * Never use this method directly, use the {@link LoggerLoggingEvent::getNDC()} method instead.
      * @static
@@ -139,7 +131,6 @@ class LoggerNDC {
     
         return sizeof($GLOBALS['log4php.LoggerNDC.ht']);      
     }
-
     /**
      * Clients should call this method before leaving a diagnostic
      * context.
@@ -160,7 +151,6 @@ class LoggerNDC {
             return '';
         }
     }
-
     /**
      * Looks at the last diagnostic context at the top of this NDC
      * without removing it.
@@ -196,7 +186,6 @@ class LoggerNDC {
     
         array_push($GLOBALS['log4php.LoggerNDC.ht'], (string)$message);
     }
-
     /**
      * Remove the diagnostic context for this thread.
      * @static
@@ -207,7 +196,6 @@ class LoggerNDC {
     
         LoggerNDC::clear();
     }
-
     /**
      * Set maximum depth of this diagnostic context. If the current
      * depth is smaller or equal to <var>maxDepth</var>, then no

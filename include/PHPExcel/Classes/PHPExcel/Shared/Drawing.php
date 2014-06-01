@@ -24,8 +24,6 @@
  * @license    http://www.gnu.org/licenses/old-licenses/lgpl-2.1.txt	LGPL
  * @version    1.7.2, 2010-01-11
  */
-
-
 /** PHPExcel root */
 if (!defined('PHPEXCEL_ROOT')) {
 	/**
@@ -33,11 +31,8 @@ if (!defined('PHPEXCEL_ROOT')) {
 	 */
 	define('PHPEXCEL_ROOT', dirname(__FILE__) . '/../../');
 }
-
 /** PHPExcel_Shared_String */
 require_once PHPEXCEL_ROOT . 'PHPExcel/Shared/Font.php';
-
-
 /**
  * PHPExcel_Shared_Drawing
  *
@@ -84,7 +79,6 @@ class PHPExcel_Shared_Drawing
 		// Font name and size
 		$name = $pDefaultFont->getName();
 		$size = $pDefaultFont->getSize();
-
 		if (isset(PHPExcel_Shared_Font::$defaultColumnWidths[$name][$size])) {
 			// Exact width can be determined
 			$colWidth = $pValue
@@ -97,10 +91,8 @@ class PHPExcel_Shared_Drawing
 				* PHPExcel_Shared_Font::$defaultColumnWidths['Calibri'][11]['width']
 				/ PHPExcel_Shared_Font::$defaultColumnWidths['Calibri'][11]['px'] / $size;
 		}
-
 		return $colWidth;
 	}
-
 	/**
 	 * Convert column width from (intrinsic) Excel units to pixels
 	 *
@@ -112,13 +104,11 @@ class PHPExcel_Shared_Drawing
 		// Font name and size
 		$name = $pDefaultFont->getName();
 		$size = $pDefaultFont->getSize();
-
 		if (isset(PHPExcel_Shared_Font::$defaultColumnWidths[$name][$size])) {
 			// Exact width can be determined
 			$colWidth = $pValue
 				* PHPExcel_Shared_Font::$defaultColumnWidths[$name][$size]['px']
 				/ PHPExcel_Shared_Font::$defaultColumnWidths[$name][$size]['width'];
-
 		} else {
 			// We don't have data for this particular font and size, use approximation by
 			// extrapolating from Calibri 11
@@ -126,13 +116,10 @@ class PHPExcel_Shared_Drawing
 				* PHPExcel_Shared_Font::$defaultColumnWidths['Calibri'][11]['px']
 				/ PHPExcel_Shared_Font::$defaultColumnWidths['Calibri'][11]['width'] / 11;
 		}
-
 		// Round pixels to closest integer
 		$colWidth = (int) round($colWidth);
-
 		return $colWidth;
 	}
-
 	/**
 	 * Convert pixels to points
 	 *
@@ -156,7 +143,6 @@ class PHPExcel_Shared_Drawing
 			return 0;
 		}
 	}
-
 	/**
 	 * Convert degrees to angle
 	 *

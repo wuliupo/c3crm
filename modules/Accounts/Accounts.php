@@ -2,22 +2,15 @@
 require_once('include/logging.php');
 require_once('include/database/PearDatabase.php');
 require_once('data/CRMEntity.php');
-
 // Account is used to store ec_account information.
 class Accounts extends CRMEntity {
 	var $log;
 	var $db;
-
     var $entity_table = "ec_account";
 	var $tab_name = Array('ec_crmentity','ec_account');
 	var $tab_name_index = Array('ec_crmentity'=>'crmid','ec_account'=>'accountid');
-
-
 	var $column_fields = Array();
-
 	var $sortby_fields = Array('accountname','city','website','phone','smownerid');
-
-
 	// This is the list of ec_fields that are in the lists.
 	var $list_fields = Array(
 			'Account Name'=>Array('ec_account'=>'accountname'),
@@ -25,7 +18,6 @@ class Accounts extends CRMEntity {
 			'Phone'=>Array('ec_account'=> 'phone'),
 			'Email'=>Array('ec_account'=>'email')
 			);
-
 	var $list_fields_name = Array(
 			'Account Name'=>'accountname',
 			'MemberName'=>'membername',
@@ -33,32 +25,26 @@ class Accounts extends CRMEntity {
 			'Email'=>'email'
 			);
 	var $list_link_field= 'accountname';
-
 	var $search_fields = Array(
 			'Account Name'=>Array('ec_account'=>'accountname'),
 			'MemberName'=>Array('ec_account'=>'membername'),
 		    'Phone'=>Array('ec_account'=> 'phone'),
 		    'Email'=>Array('ec_account'=>'email')
 			);
-
 	var $search_fields_name = Array(
 			'Account Name'=>'accountname',
 			'MemberName'=>'membername',
             'Phone'=>'phone',
 		    'Email'=>'email'
 			);
-
-
 	//Added these variables which are used as default order by and sortorder in ListView
 	var $default_order_by = 'modifiedtime';
 	var $default_sort_order = 'DESC';
-
 	function Accounts() {
 		$this->log =LoggerManager::getLogger('account');
 		$this->db = & getSingleDBInstance();
 		$this->column_fields = getColumnFields('Accounts');
 	}
-
 	/** Function to handle module specific operations when saving a entity
 	*/
 	function save_module($module)
@@ -71,8 +57,6 @@ class Accounts extends CRMEntity {
 		    $this->db->query($query);
 		}
 	}
-
-
 	// Mike Crowe Mod --------------------------------------------------------Default ordering for us
 	/**
 	 * Function to get sort order
@@ -104,22 +88,17 @@ class Accounts extends CRMEntity {
 		$log->debug("Exiting getOrderBy method ...");
 		return $order_by;
 	}
-
 	function get_opportunities($id)
 	{
 		global $log, $singlepane_view;
                 $log->debug("Entering get_opportunities(".$id.") method ...");
 		global $mod_strings;
-
 		$focus = new Potentials();
 		$button = '';
-
-
 		if($singlepane_view == 'true')
 			$returnset = '&return_module=Accounts&return_action=DetailView&return_id='.$id;
 		else
 			$returnset = '&return_module=Accounts&return_action=CallRelatedList&return_id='.$id;
-
 		$query = "SELECT ec_potential.*,ec_users.user_name,ec_potential.potentialid as crmid FROM ec_potential
 			LEFT join ec_moduleentityrel
 					ON ec_moduleentityrel.crmid = ec_potential.potentialid
@@ -128,12 +107,9 @@ class Accounts extends CRMEntity {
 			WHERE ec_potential.deleted = 0
 			AND (ec_potential.accountid = '".$id."' or ec_moduleentityrel.relcrmid='".$id."')";
 		$log->debug("Exiting get_opportunities method ...");
-
 		return GetRelatedList('Accounts','Potentials',$focus,$query,$button,$returnset);
 	}
-
 	
-
 	/**
 	 * Function to get Account related Attachments
  	 * @param  integer   $id      - accountid
@@ -150,7 +126,6 @@ class Accounts extends CRMEntity {
 			$returnset = '&return_module=Accounts&return_action=DetailView&return_id='.$id;
 		else
 			$returnset = '&return_module=Accounts&return_action=CallRelatedList&return_id='.$id;
-
 		$query = "SELECT ec_notes.*,ec_account.accountname,ec_users.user_name,ec_notes.notesid as crmid
 			FROM ec_notes
 			LEFT JOIN ec_account
@@ -159,7 +134,6 @@ class Accounts extends CRMEntity {
 				ON ec_notes.smownerid = ec_users.id
 			WHERE ec_account.accountid = ".$id."
 			AND ec_notes.deleted = 0 ";
-
 		$log->debug("Exiting get_notes method ...");
 		return GetRelatedList('Accounts','Notes',$focus,$query,$button,$returnset);
 	}
@@ -177,10 +151,8 @@ class Accounts extends CRMEntity {
 				ON ec_notes.smownerid = ec_users.id
 			WHERE ec_account.accountid = ".$id."
 			AND ec_notes.deleted = 0 order by ec_notes.modifiedtime desc";
-
 		$list_result = $adb->getList($query);
 		$num_rows = $adb->num_rows($list_result);
-
  
  		$header = array();
 		$header[] = "主题";
@@ -215,7 +187,6 @@ class Accounts extends CRMEntity {
 		}
 	}
 	
-
 	/**
 	* Function to get Account related SalesOrder
 	* @param  integer   $id      - accountid
@@ -227,15 +198,12 @@ class Accounts extends CRMEntity {
         $log->debug("Entering get_salesorder(".$id.") method ...");
 		require_once('modules/SalesOrder/SalesOrder.php');
 		global $app_strings;
-
 		$focus = new SalesOrder();
-
 		$button = '';
 		if($singlepane_view == 'true')
 			$returnset = '&return_module=Accounts&return_action=DetailView&return_id='.$id;
 		else
 			$returnset = '&return_module=Accounts&return_action=CallRelatedList&return_id='.$id;
-
 		$query = "SELECT ec_salesorder.*,ec_salesorder.salesorderid as crmid,
 			ec_account.accountname,
 			ec_users.user_name
@@ -266,10 +234,8 @@ class Accounts extends CRMEntity {
 		ec_products.productname,ec_inventoryproductrel.quantity as salesum,ec_inventoryproductrel.listprice as price,ec_products.detail_url from ec_products
 		inner join ec_inventoryproductrel on ec_inventoryproductrel.productid = ec_products.productid 
 		inner join ec_salesorder on ec_salesorder.salesorderid = ec_inventoryproductrel.id where ec_salesorder.accountid = ".$id." and ec_salesorder.deleted=0 order by ec_salesorder.salesorderid asc"; 
-
 		$list_result = $adb->getList($query);
 		$num_rows = $adb->num_rows($list_result);
-
 		$header = array();
 		$header[] = "订单编号";
 		$header[] = "订单日期";
@@ -303,7 +269,6 @@ class Accounts extends CRMEntity {
 			return $return_data; 
 		}
 	}
-
 	/**
 	* Function to get Account related Products
 	* @param  integer   $id      - accountid
@@ -315,15 +280,12 @@ class Accounts extends CRMEntity {
                 $log->debug("Entering get_products(".$id.") method ...");
 		require_once('modules/Products/Products.php');
 		global $app_strings;
-
 		$focus = new Products();
-
 		$button = '';
 		if($singlepane_view == 'true')
 			$returnset = '&return_module=Accounts&return_action=DetailView&return_id='.$id;
 		else
 			$returnset = '&return_module=Accounts&return_action=CallRelatedList&return_id='.$id;
-
 		$query = "SELECT ec_products.productid, ec_products.productname,
 			ec_products.productcode, ec_products.commissionrate,
 			ec_products.qty_per_unit, ec_inventoryproductrel.listprice as unit_price,ec_products.productid as crmid
@@ -338,9 +300,7 @@ class Accounts extends CRMEntity {
 		$log->debug("Exiting get_products method ...");
 		return GetRelatedList('Accounts','Products',$focus,$query,$button,$returnset);
 	}
-
 	
-
 	/** Function to export the account records in CSV Format
 	* @param reference variable - order by is passed when the query is executed
 	* @param reference variable - where condition is passed when the query is executed
@@ -351,9 +311,7 @@ class Accounts extends CRMEntity {
 		global $log;
 		global $current_user; 
         $log->debug("Entering create_export_query(".$order_by.",".$where.") method ...");
-
 		include("include/utils/ExportUtils.php");
-
 		//To get the Permitted fields query and the permitted fields list
 		$sql = getPermittedFieldsQuery("Accounts", "detail_view");
 		global $mod_strings;
@@ -362,16 +320,12 @@ class Accounts extends CRMEntity {
 			$mod_strings = return_module_language($current_language,"Accounts");
 		}
 		$fields_list = getFieldsListFromQuery($sql,$mod_strings);
-
 		$query = "SELECT $fields_list FROM ec_account
 				LEFT JOIN ec_users
 					ON ec_account.smownerid = ec_users.id
 				LEFT JOIN ec_users as ucreator
 					ON ec_account.smcreatorid = ucreator.id ";
-
-
 		$where_auto = " ec_account.deleted = 0 ";
-
 		if($where != "")
 			$query .= "WHERE ($where)  AND ".$where_auto;
 		else
@@ -383,15 +337,10 @@ class Accounts extends CRMEntity {
 		
 		if(!empty($order_by))
 			$query .= " ORDER BY $order_by";
-
 		$log->debug("Exiting create_export_query method ...");
 		return $query;
 	}
-
-
 	
-
-
 	function get_next_id() {
 		$query = "select count(*) as num from ec_account";
 		$result = $this->db->query($query);
@@ -401,7 +350,6 @@ class Accounts extends CRMEntity {
 		elseif($num > 9) return "0".$num;
 		else return "00".$num;
 	}
-
 	function get_generalmodules($id,$related_tabname)
 	{
 		global $log, $singlepane_view;
@@ -432,9 +380,7 @@ class Accounts extends CRMEntity {
 		$log->debug("Exiting get_generalmodules method ...");
 		return GetRelatedList("Accounts",$related_tabname,$focus,$query,$button,$returnset);
 	}
-
 	
-
 	function get_maillists($id)
 	{
 		global $log, $singlepane_view;
@@ -450,7 +396,6 @@ class Accounts extends CRMEntity {
 							order by ec_maillogs.sendtime asc ";  //and ec_maillogs.flag=1 
 		$list_result = $adb->getList($query);
 		$num_rows = $adb->num_rows($list_result);
-
 		$header = array();
 		$header[] = "接收人";
 		$header[] = "接收人邮件";
@@ -479,7 +424,6 @@ class Accounts extends CRMEntity {
 			return $return_data; 
 		}
 	}
-
 	function get_qunfas_fromsae($id)
 	{
 		global $log, $singlepane_view;
@@ -498,7 +442,6 @@ class Accounts extends CRMEntity {
 		
 		$list_result =  getUserSmsLogs($current_user->id,$phone);
 		$num_rows = count($list_result);
-
 		$header = array();
 		$header[] = "#";
 		$header[] = "接收人";
@@ -544,7 +487,6 @@ class Accounts extends CRMEntity {
 							order by ec_smslogs.sendtime asc ";  //and ec_smslogs.flag=1  
 		$list_result = $adb->getList($query);
 		$num_rows = $adb->num_rows($list_result);
-
 		$header = array();
 		$header[] = "接收人";
 		$header[] = "接收人手机";
@@ -571,7 +513,6 @@ class Accounts extends CRMEntity {
 			return $return_data; 
 		}
 	}
-
 	function getSortView($modname){ 
 		global $adb;
 		$entityname = getModTabName($modname);
@@ -588,7 +529,6 @@ class Accounts extends CRMEntity {
 		$treeproj[] = $tree;
 		if($numrows > 0){
 			$mod_strings = return_specified_module_language("zh_cn",$modname);
-
 			for($i=0;$i<$numrows;$i++){
 				$fieldid = $adb->query_result($result,$i,"fieldid");
 				$columnname = $adb->query_result($result,$i,"columnname");
@@ -633,9 +573,5 @@ class Accounts extends CRMEntity {
 		$jsontree = $json->encode($treeproj);
 		return $jsontree;
 	}
-
-
-
 }
-
 ?>

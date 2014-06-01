@@ -24,8 +24,6 @@
  * @license    http://www.gnu.org/licenses/old-licenses/lgpl-2.1.txt	LGPL
  * @version    1.7.2, 2010-01-11
  */
-
-
 /** PHPExcel root directory */
 if (!defined('PHPEXCEL_ROOT')) {
 	/**
@@ -33,26 +31,18 @@ if (!defined('PHPEXCEL_ROOT')) {
 	 */
 	define('PHPEXCEL_ROOT', dirname(__FILE__) . '/../../');
 }
-
 /** PHPExcel_Cell */
 require_once PHPEXCEL_ROOT . 'PHPExcel/Cell.php';
-
 /** PHPExcel_Cell_IValueBinder */
 require_once PHPEXCEL_ROOT . 'PHPExcel/Cell/IValueBinder.php';
-
 /** PHPExcel_Cell_DefaultValueBinder */
 require_once PHPEXCEL_ROOT . 'PHPExcel/Cell/DefaultValueBinder.php';
-
 /** PHPExcel_Style_NumberFormat */
 require_once PHPEXCEL_ROOT . 'PHPExcel/Style/NumberFormat.php';
-
 /** PHPExcel_Shared_Date */
 require_once PHPEXCEL_ROOT . 'PHPExcel/Shared/Date.php';
-
 /** PHPExcel_Shared_String */
 require_once PHPEXCEL_ROOT . 'PHPExcel/Shared/String.php';
-
-
 /**
  * PHPExcel_Cell_AdvancedValueBinder
  *
@@ -75,7 +65,6 @@ class PHPExcel_Cell_AdvancedValueBinder extends PHPExcel_Cell_DefaultValueBinder
 		if (is_string($value)) {
 			$value = PHPExcel_Shared_String::SanitizeUTF8($value);
 		}
-
 		// Find out data type
 		$dataType = parent::dataTypeForValue($value);
 		
@@ -124,7 +113,6 @@ class PHPExcel_Cell_AdvancedValueBinder extends PHPExcel_Cell_DefaultValueBinder
 				return true;
 			}
 		}
-
 		// Not bound yet? Use parent...
 		return parent::bindValue($cell, $value);
 	}

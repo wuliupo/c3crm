@@ -24,7 +24,6 @@
  * @license    http://www.gnu.org/licenses/old-licenses/lgpl-2.1.txt	LGPL
  * @version    1.7.2, 2010-01-11
  */
-
 /**
  * PHPExcel_Shared_Escher
  *
@@ -40,14 +39,12 @@ class PHPExcel_Shared_Escher
 	 * @var PHPExcel_Shared_Escher_DggContainer
 	 */
 	private $_dggContainer;
-
 	/**
 	 * Drawing Container
 	 *
 	 * @var PHPExcel_Shared_Escher_DgContainer
 	 */
 	private $_dgContainer;
-
 	/**
 	 * Get Drawing Group Container
 	 *
@@ -57,7 +54,6 @@ class PHPExcel_Shared_Escher
 	{
 		return $this->_dggContainer;
 	}
-
 	/**
 	 * Set Drawing Group Container
 	 *
@@ -67,7 +63,6 @@ class PHPExcel_Shared_Escher
 	{
 		return $this->_dggContainer = $dggContainer;
 	}
-
 	/**
 	 * Get Drawing Container
 	 *
@@ -77,7 +72,6 @@ class PHPExcel_Shared_Escher
 	{
 		return $this->_dgContainer;
 	}
-
 	/**
 	 * Set Drawing Container
 	 *
@@ -87,5 +81,4 @@ class PHPExcel_Shared_Escher
 	{
 		return $this->_dgContainer = $dgContainer;
 	}
-
 }

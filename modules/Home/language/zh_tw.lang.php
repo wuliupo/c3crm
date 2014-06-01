@@ -31,6 +31,5 @@ $mod_strings = array (
   'Last Week' => '上個禮拜',
   'Last 2 Days' => '過去 2 天',
   'Last Ten Days' => '過去10 天',
-
 );
 ?>

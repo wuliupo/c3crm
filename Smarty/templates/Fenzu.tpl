@@ -33,16 +33,13 @@ function goto_CustomAction(module)
 {ldelim}
         document.location.href = "index.php?module="+module+"&action=CustomAction&record={$CUSTOMVIEWID}";
 {rdelim}
-
 function checkpublic(form,setpublic)
 {ldelim}
         if(setpublic) form.roleid.disabled = true;
 	else form.roleid.disabled = false;
 {rdelim}
-
 function mandatoryCheck()
 {ldelim}
-
         var mandatorycheck = false;
         var i,j;
         var manCheck = new Array({$MANDATORYCHECK});
@@ -99,7 +96,6 @@ function mandatoryCheck()
 <input type="hidden" name="return_module" value="{$RETURN_MODULE}">
 <input type="hidden" name="record" value="{$FenzuID}">
 <input type="hidden" name="return_action" value="{$RETURN_ACTION}">
-
 <div class="container-fluid">
 <div style="margin-left:0px;margin-right:10px;">
   <ul class="breadcrumb" style="margin-bottom:10px;">
@@ -402,7 +398,6 @@ function checkDuplicate()
 						$(cvselect_array[iloop]).selectedIndex = 0;
 						return false;
 					}
-
 				}
 			}
 		}

@@ -9,23 +9,19 @@
 *
  ********************************************************************************/
 -->*}
-
 <link href="swfupload/css/default2.css" rel="stylesheet" type="text/css" />
 <script type="text/javascript" src="swfupload/js/swfupload.js"></script>
 <script type="text/javascript" src="swfupload/js/swfupload.queue.js"></script>
 <script type="text/javascript" src="swfupload/js/fileprogress.js"></script>
 <script type="text/javascript" src="swfupload/js/handlers2.js"></script>
 <script type="text/javascript">
-
 {literal}
 var upload1, upload2;
-
 window.onload = function() {
 	upload1 = new SWFUpload({
 		// Backend Settings
 		upload_url: "modules/Import/upload1.php",	// Relative to the SWF file (or you can use absolute paths)
 		post_params: {"PHPSESSID" : ""},
-
 		
 		// File Upload Settings
 		file_size_limit : "2048",	// 2MB
@@ -33,7 +29,6 @@ window.onload = function() {
 		file_types_description : "All Files",
 		file_upload_limit : "1",
 		file_queue_limit : "0",
-
 		// Event Handler Settings (all my handlers are in the Handler.js file)
 		file_dialog_start_handler : fileDialogStart,
 		file_queued_handler : fileQueued,
@@ -44,7 +39,6 @@ window.onload = function() {
 		upload_error_handler : uploadError,
 		upload_success_handler : uploadSuccess,
 		upload_complete_handler : uploadComplete,
-
 		// Button Settings
 		button_image_url : "swfupload/images/XPButtonUploadText_61x21.png",
 		button_placeholder_id : "spanButtonPlaceholder1",
@@ -54,7 +48,6 @@ window.onload = function() {
 		// Flash Settings
 		flash_url : "swfupload/swf/swfupload.swf",
 		
-
 		custom_settings : {
 			progressTarget : "fsUploadProgress1",
 			cancelButtonId : "btnCancel1"
@@ -63,19 +56,16 @@ window.onload = function() {
 		// Debug Settings
 		debug: false
 	});
-
 	upload2 = new SWFUpload({
 		// Backend Settings
 		upload_url: "modules/Import/upload2.php",	// Relative to the SWF file (or you can use absolute paths)
 		post_params: {"PHPSESSID" : ""},
-
 		// File Upload Settings
 		file_size_limit : "2048",	// 30MB
 		file_types : "*.csv",
 		file_types_description : "All Files",
 		file_upload_limit : "1",
 		file_queue_limit : "0",
-
 		// Event Handler Settings (all my handlers are in the Handler.js file)
 		file_dialog_start_handler : fileDialogStart,
 		file_queued_handler : fileQueued2,
@@ -86,7 +76,6 @@ window.onload = function() {
 		upload_error_handler : uploadError,
 		upload_success_handler : uploadSuccess2,
 		upload_complete_handler : uploadComplete,
-
 		// Button Settings
 		button_image_url : "swfupload/images/XPButtonUploadText_61x21.png",
 		button_placeholder_id : "spanButtonPlaceholder2",
@@ -95,32 +84,23 @@ window.onload = function() {
 		
 		// Flash Settings
 		flash_url : "swfupload/swf/swfupload.swf",
-
 		swfupload_element_id : "flashUI2",		// Setting from graceful degradation plugin
 		degraded_element_id : "degradedUI2",	// Setting from graceful degradation plugin
-
 		custom_settings : {
 			progressTarget : "fsUploadProgress2",
 			cancelButtonId : "btnCancel2"
 		},
-
 		// Debug Settings
 		debug: false
 	});
-
 }
-
  {/literal}
 </script>
-
-
 <!-- header - level 2 tabs -->
 {include file='Buttons_List.tpl'}	
-
 <table align="center" border="0" cellpadding="0" cellspacing="0" width="98%" class="small">
    <tr>
 	<td class="showPanelBg" valign="top" width="100%">
-
 		<table  cellpadding="0" cellspacing="0" width="100%" border=0>
 		   <tr>
 			<td width="75%" valign=top>
@@ -191,7 +171,6 @@ window.onload = function() {
 			</td>
 		   </tr>
 		</table>
-
 	</td>
    </tr>
 </table>

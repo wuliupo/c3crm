@@ -12,7 +12,6 @@ require_once('modules/Import/ImportMap.php');
 require_once('include/database/PearDatabase.php');
 require_once('include/CustomFieldUtil.php');
 require_once('include/utils/CommonUtils.php');
-
 @session_unregister('column_position_to_field');
 @session_unregister('totalrows');
 @session_unregister('recordcount');
@@ -24,7 +23,6 @@ $_SESSION['totalrows'] = '';
 $_SESSION['recordcount'] = 200;
 $_SESSION['startval'] = 0;
 $width = 500; 
-
 $mod_strings = return_module_language("zh_cn","Import");
 global $mod_list_strings;
 global $app_strings;
@@ -34,7 +32,6 @@ global $import_file_name;
 global $upload_maxsize;
 global $root_directory;
 global $import_dir;
-
 switch($_REQUEST['module']){
     case "Accounts":
     $focus_impacc = new ImportAccount();
@@ -43,23 +40,17 @@ switch($_REQUEST['module']){
     $focus_impacc = new ImportContact();
     break;
 }
-
 $focus = 0;
 $delimiter = ',';
 $max_lines = 500;//最大行数
-
 global $theme;
 $theme_path="themes/".$theme."/";
 $image_path=$theme_path."images/";
-
-
 $smarty = new CRMSmarty();
-
 $smarty->assign("MOD", $mod_strings);
 $smarty->assign("APP", $app_strings);
 $smarty->assign("IMP", $import_mod_strings);
 $smarty->assign("MODULE", $_REQUEST['module']);
-
 //added by ligangze 2013-08-09
 $filepath = $_REQUEST['filename'];//临时文件的路径
 $filepath = str_replace("\\","/",$filepath);
@@ -73,7 +64,6 @@ if(!isset($filepath)){
     show_error_import( $mod_strings['LBL_IMPORT_MODULE_ERROR_LARGE_FILE'] . " ". $upload_maxsize. " ". $mod_strings['LBL_IMPORT_MODULE_ERROR_LARGE_FILE_END']);
 	exit;
 }
-
 // noted by ligangze 2013-08-09
 //if (!is_uploaded_file($_FILES['userfile']['tmp_name']) )
 //{
@@ -90,18 +80,12 @@ if( !is_writable( $import_dir ))
 	show_error_import($mod_strings['LBL_IMPORT_MODULE_NO_DIRECTORY'].$import_dir.$mod_strings['LBL_IMPORT_MODULE_NO_DIRECTORY_END']);
 	exit;
 }
-
 // noted by ligangze 2013-08-09
 //$tmp_file_name = $import_dir. "IMPORT_".$current_user->id;
 //move_uploaded_file($_FILES['userfile']['tmp_name'], $tmp_file_name);
-
-
 $ret_value = 0;
-
 //$ret_value = parse_import_csv_new($filepath,$delimiter,$max_lines,1);//excel
 $ret_value = parse_import_csv($filepath,$delimiter,$max_lines,1);//changed by ligangze 2013-08-09
-
-
 if ($ret_value == -1)
 {
 	show_error_import( $mod_strings['LBL_CANNOT_OPEN'] );
@@ -129,11 +113,8 @@ else if ($ret_value == -5){
 }
 @session_unregister('import_has_header');
 $_SESSION['import_has_header'] =1;
-
 @session_unregister('import_overwrite');
 $_SESSION['import_overwrite'] = 1;
-
-
 $rows = $ret_value['rows'];
 $count = $ret_value['field_count'];
 switch($_REQUEST['module']){
@@ -145,12 +126,9 @@ switch($_REQUEST['module']){
         $head = array("姓名","客户","性别","职位","手机","Email","电话","传真","QQ","MSN","旺旺","微博","备注");
     break;
 }
-
-
 $accfieldarr = $rows[0];
 //var_dump($rows);//怎么只有两行？
 //exit();
-
 foreach($accfieldarr as $key=>$accfield){
 	if($accfield != $head[$key]){
 		show_error_import( "文件标题不正确: \"".$accfield."\" 出错，请检查。" );
@@ -158,14 +136,11 @@ foreach($accfieldarr as $key=>$accfield){
 	}
 }
 $filed_lable = getColumnField();
-
 $focus_impacc->ClearColumnFields();
 //var_dump($focus_impacc);
 //exit();
-
 $pix1 = $width / $count; 
 $progress1 = 0;
-
 //header('Content-Type: text/html; charset=utf-8');
 flush();
 ?>
@@ -227,13 +202,10 @@ updateProgress("操作完成!", <?php echo $width; ?>);
 </script>
 <?php
 	flush();	
-
 $smarty->assign("success_account_insert", $success_account_insert);
 $smarty->assign("failed_account_insert", $failed_account_insert);
 $smarty->assign("tiaoguo_account", $tiaoguo_account);
-
 $smarty->display("ImportStepNew2.tpl");
-
 function getColumnField(){
 	global $adb;
 	//$mods = return_module_language("zh_cn","Accounts");
@@ -256,10 +228,7 @@ function getColumnField(){
 //	var_dump($arr);
 //    exit();
 	return $arr;
-
 }
-
-
 ?>
 <script language="javascript" type="text/javascript">
 function validate_import_map()
@@ -270,7 +239,6 @@ function validate_import_map()
 	var required_fields = new Array();
 	var required_fields_name = new Array();
 	var seq_string = '';
-
 	<?php
 		foreach($focus->required_fields as $name => $index)
 		{
@@ -285,7 +253,6 @@ function validate_import_map()
 	{
 		tagName = document.getElementById('colnum'+loop_count);
 		optionData = tagName.options[tagName.selectedIndex].value;
-
 		if(optionData != -1)
 		{
 			tmp = seq_string.indexOf("\""+optionData+"\"");
@@ -300,9 +267,7 @@ function validate_import_map()
 				return false;
 			}
 		}
-
 	}
-
 	//check whether the mandatory ec_fields have been mapped.
 	for(inner_loop = 0; inner_loop<required_fields.length;inner_loop++)
 	{
@@ -312,7 +277,6 @@ function validate_import_map()
 			return false;
 		}
 	}
-
 	//This is to check whether the save map name has been given or not when save map check box is checked
 	if(document.getElementById("save_map").checked == true)
 	{
@@ -323,17 +287,12 @@ function validate_import_map()
 			return false;
 		}
 	}
-
 	return true;
 }
-
 function updateProgress(sMsg, iWidth)
 { 
 document.getElementById("status").innerHTML = sMsg;
 document.getElementById("progress").style.width = iWidth + "px";
 document.getElementById("percent").innerHTML = parseInt(iWidth / <?php echo $width; ?> * 100) + "%";
 }
-
-
-
 </script>

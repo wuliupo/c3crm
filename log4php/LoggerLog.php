@@ -15,12 +15,10 @@
  * 
  * @package log4php
  */
-
 /**
  * @ignore 
  */
 if (!defined('LOG4PHP_DIR')) define('LOG4PHP_DIR', dirname(__FILE__)); 
-
 /**
  * Helper class for internal logging
  *
@@ -33,7 +31,6 @@ if (!defined('LOG4PHP_DIR')) define('LOG4PHP_DIR', dirname(__FILE__));
  * @package log4php
  */
 class LoggerLog {
-
     /**
      * Log if debug is enabled.
      *
@@ -53,7 +50,6 @@ class LoggerLog {
     function internalDebugging($value = null)
     {
         static $debug = false;
-
         if (is_bool($value))
             $debug = $value;
         return $debug;
@@ -94,6 +90,5 @@ class LoggerLog {
     {
         trigger_error($message, E_USER_WARNING);
     }
-
 }
 ?>

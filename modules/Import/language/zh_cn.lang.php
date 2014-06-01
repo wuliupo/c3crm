@@ -180,15 +180,12 @@ $mod_strings = array (
   'LBL_STEP_3_3' => '第三步(共三步) : ',
   'LBL_MAPPING_RESULTS' => '导入结果',
   'LBL_LAST_IMPORTED' => '最新导入的',
-
   'ERR_MAP_TWICE' => '被映射多次，请检查字段映射。',
   'ERR_MAP_MANDORY' => '请映射必填字段',
   'ERR_SAVE_MAP' => '请输入字段映射表名称',
   'LBL_OVERWRITE' => '覆盖重复记录',
   'LBL_FILE_ORDERLIST_CSV' =>'上传要导入订单列表Csv文件',
   'LBL_FILE_ORDERDETAILLIST_CSV' =>'上传要导入宝贝列表Csv文件'
-
-
 );
 $mod_list_strings = array (
   'contacts_import_fields' =>
@@ -288,6 +285,5 @@ $mod_list_strings = array (
     'notecontent' => '內容',
 	'assigned_user_id' => '负责人',
   ),
-
 );
 ?>

@@ -4,7 +4,6 @@ require_once('include/utils/utils.php');
 require_once('include/utils/CommonUtils.php');
 require_once('include/database/SaeMysql.php');
 $log = LoggerManager::getLogger('VT');
-
 class PreparedQMark2SqlValue {
 	// Constructor
 	function PreparedQMark2SqlValue($vals){
@@ -25,7 +24,6 @@ class PreparedQMark2SqlValue {
             } 
     } 
 }
-
 class PearDatabase extends SaeMysql{ 
     var $database = null;
     var $dieOnError = false;
@@ -50,19 +48,13 @@ class PearDatabase extends SaeMysql{
 			$log->info("PearDatabase ->".$msg);
 		}
     }
-
    
-
     public function startTransaction()
     {
-
     }
-
     public function completeTransaction()
     {	
-
     }
-
     public function hasFailedTransaction(){
     	return false;
     }
@@ -81,12 +73,10 @@ class PearDatabase extends SaeMysql{
 		}
 		return false;
     }
-
     public function change_key_case($arr)
     {
 		return is_array($arr)?array_change_key_case($arr):$arr;
     }
-
     var $req_flist;	
     public function query($sql, $dieOnError=false, $msg='')
     {
@@ -131,13 +121,10 @@ class PearDatabase extends SaeMysql{
 		if ($is_string) return 'null';
 		else return null;
     }
-
     public function updateBlob($tablename, $colname, $id, $data)	
     {
 		return $this->query("UPDATE ".$tablename." SET ".$colname."='".$data."' WHERE ".$id);
     }
-
-
     public function limitQuery2($sql,$start,$count,$orderby='',$sorder='',$dieOnError=false, $msg='')
     {
 		global $log;
@@ -153,7 +140,6 @@ class PearDatabase extends SaeMysql{
 		}
 		return $result;
     }
-
     public function limitQuery($sql,$start,$count, $dieOnError=false, $msg='')
     {
 		global $log;		
@@ -176,7 +162,6 @@ class PearDatabase extends SaeMysql{
 //		if($result === false) $this->checkError($msg.' Get one Query Failed:' . $sql . '::', $dieOnError);
 //		return $result;	
 //    }
-
     public function getFieldsArray($result)
     {
 		$field_array = array();
@@ -194,12 +179,10 @@ class PearDatabase extends SaeMysql{
 		}
 		return $rows;			
     }
-
     public function num_rows($result)
     {
 		return $this->getRowCount($result);
     }
-
     public function num_fields(&$result)
     {
 		$field_array = array();
@@ -210,7 +193,6 @@ class PearDatabase extends SaeMysql{
 		$num = count($field_array);
 		return $num;
     }
-
     public function sql_quote($data)
     {
 		if (is_array($data))
@@ -244,7 +226,6 @@ class PearDatabase extends SaeMysql{
 			    throw new Exception("unsupported dbtype \"".$this->dbType."\"");
 	    }
     }
-
     public function query_result($result, $row, $col=0)
     {
 		$coldata = "";
@@ -253,19 +234,14 @@ class PearDatabase extends SaeMysql{
 		}		
 		return $coldata;
     }
-
-
     public function requireSingleResult($sql, $dieOnError=false,$msg='', $encode=true)
     {
 		$result = $this->query($sql, $dieOnError, $msg);
-
 		if($this->getRowCount($result) == 1)				
 			return $result;
 		$this->log->error('Rows Returned:'. $this->getRowCount($result) .' More than 1 row returned for '. $sql);
 		return false;
     } 
-
-
     public function quote($string){
 		return $this->qstr($string);	
     }
@@ -279,7 +255,6 @@ class PearDatabase extends SaeMysql{
 		$s = str_replace('\\"','"',$s);
 		return "'$s'";
 	}
-
     public function disconnect() {
 		$this->closeDb();
     }
@@ -330,7 +305,6 @@ class PearDatabase extends SaeMysql{
 		}
 		return $str;
     }
-
     public function formatDate($datetime, $strip_quotes=false)
     {
 		$date = date("Y-m-d H:i:s", strtotime($datetime));
@@ -340,7 +314,6 @@ class PearDatabase extends SaeMysql{
 		if($date == 'null' || $date == 'NULL') return $this->quote('');
 		return "'".$date."'";
     }
-
     public function getUniqueID($seqname)
     {
 		$seqname = $seqname."_seq";
@@ -358,7 +331,6 @@ class PearDatabase extends SaeMysql{
 		$this->genID = $this->lastId();
 		return $this->genID;
     }
-
 	public function getOne($sql) {
 		return $this->getVar($sql);
 	}
@@ -390,7 +362,6 @@ class PearDatabase extends SaeMysql{
 		}
 		return false;		
 	}
-
 	/**
 	 * Convert PreparedStatement to SQL statement
 	 */
@@ -413,7 +384,6 @@ class PearDatabase extends SaeMysql{
 		$sql = preg_replace_callback("/('[^']*')|(\"[^\"]*\")|([?])/", array(new PreparedQMark2SqlValue($vals),"call"), $ps); 
 		return $sql;
 	}
-
 	function pquery($sql, $params, $dieOnError=false, $msg='') {		
 		global $log;
 		$log->debug('Prepared sql query being executed : '.$sql);
@@ -425,7 +395,6 @@ class PearDatabase extends SaeMysql{
 		$result = $this->query($sql);	
 		return $result;	
 	}
-
 	/**
 	 * Flatten the composite array into single value.
 	 * Example:
@@ -503,7 +472,6 @@ class PearDatabase extends SaeMysql{
 			$this->close_db();
 	}
 } /* End of class */
-
 function getSingleDBInstance(){
 	static $db = false;
     if ($db === false)

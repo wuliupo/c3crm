@@ -40,6 +40,5 @@ $mod_strings = array (
   'Address' => '地址',
   'Account Name' => '客戶',
   'Contact Date' => '聯繫日期',
-
 );
 ?>

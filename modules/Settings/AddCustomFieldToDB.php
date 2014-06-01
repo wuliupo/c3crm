@@ -1,21 +1,15 @@
 <?php
 require_once('include/database/PearDatabase.php');
-
 $fldmodule=$_REQUEST['fld_module'];
 $fldlabel=$_REQUEST['fldLabel'];
 $fldType= $_REQUEST['fieldType'];
 $parenttab=$_REQUEST['parenttab'];
 $mode=$_REQUEST['mode'];
-
-
 $tabid = getTabid($fldmodule);
-
 if(get_magic_quotes_gpc() == 1)
 {
 	$fldlabel = stripslashes($fldlabel);
 }
-
-
 //checking if the user is trying to create a custom ec_field which already exists  
 if($mode != 'edit')
 {
@@ -26,7 +20,6 @@ else
 {
 	$checkresult=0;
 }
-
 if($adb->num_rows($checkresult) != 0)
 {
 	
@@ -64,7 +57,6 @@ if($adb->num_rows($checkresult) != 0)
 	}
 	
 	redirect("index.php?module=Settings&action=CustomFieldList&fld_module=".$fldmodule."&fldType=".$fldType."&fldlabel=".$fldlabel."&fldlength=".$fldlength."&flddecimal=".$flddecimal."&fldPickList=".$fldPickList."&parenttab=".$parenttab."&duplicate=yes");
-
 }
 else
 {
@@ -81,7 +73,6 @@ else
 	$fieldName = $columnName;
 	$entityArr = getEntityTable($fldmodule);
 	$tableName = $entityArr["tablename"];
-
 	//Assigning the uitype
 	$fldlength=$_REQUEST['fldLength'];
 	$uitype='';
@@ -117,7 +108,6 @@ else
 	elseif($fldType == 'Number')
 	{
 		$uitype = 7;
-
 		//this may sound ridiculous passing decimal but that is the way adodb wants
 		$dbfldlength = $fldlength + $decimal + 1;
  
@@ -250,12 +240,8 @@ else
 		$columnSize = "50";
 	}
 	// No Decimal Pleaces Handling
-
         
-
-
         
-
         //1. add the customfield ec_table to the ec_field ec_table as Block4
         //2. fetch the contents of the custom ec_field and show in the UI
         
@@ -278,7 +264,6 @@ else
 		{
 			$uichekdata = str_replace("~O","~M",$uichekdata);//field mandatory
 		}
-
         if(is_numeric($blockid))
         {
 		if($_REQUEST['fieldid'] == '')
@@ -309,13 +294,10 @@ else
 				$sql2 = "insert into ec_profile2field values(".$profileid.", ".$tabid.", ".$custfld_fieldid.", 0, 1)";
 				$adb->query($sql2);	 	
 			}
-
 			//Inserting values into def_org ec_tables
 			$sql_def = "insert into ec_def_org_field values(".$tabid.", ".$custfld_fieldid.", 0, 1)";
 			$adb->query($sql_def);
 		}
-
-
 		if($fldType == 'Picklist' || $fldType == 'MultiSelectCombo')
 		{
 			if($_REQUEST['fieldid'] != '' && $mode == 'edit')

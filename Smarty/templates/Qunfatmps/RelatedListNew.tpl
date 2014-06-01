@@ -1,5 +1,4 @@
 {*<!--
-
 /*********************************************************************************
 ** The contents of this file are subject to the vtiger CRM Public License Version 1.0
  * ("License"); You may not use this file except in compliance with the License
@@ -9,7 +8,6 @@
  * All Rights Reserved.
 *
  ********************************************************************************/
-
 -->*}
 <script type="text/javascript" src="modules/{$MODULE}/{$SINGLE_MOD}.js"></script>
 <!-- Contents -->
@@ -44,11 +42,9 @@
 				</td>
 			</tr>
 	<!-- PUBLIC CONTENTS STOPS-->
-
 <script>
 function OpenWindow(url)
 {ldelim}
 	openPopUp('xAttachFile',this,url,'attachfileWin',380,375,'menubar=no,toolbar=no,location=no,status=no,resizable=no');	
 {rdelim}
 </script>
-

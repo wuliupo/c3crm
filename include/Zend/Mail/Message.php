@@ -18,18 +18,14 @@
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  * @version    $Id: Message.php 24163 2011-06-29 15:24:10Z adamlundrigan $
  */
-
-
 /**
  * Zend_Mail_Part
  */
 require_once 'include/Zend/Mail/Part.php';
-
 /**
  * Zend_Mail_Message_Interface
  */
 require_once 'include/Zend/Mail/Message/Interface.php';
-
 /**
  * @category   Zend
  * @package    Zend_Mail
@@ -43,7 +39,6 @@ class Zend_Mail_Message extends Zend_Mail_Part implements Zend_Mail_Message_Inte
      * @var array
      */
     protected $_flags = array();
-
     /**
      * Public constructor
      *
@@ -70,15 +65,12 @@ class Zend_Mail_Message extends Zend_Mail_Part implements Zend_Mail_Message_Inte
                 $params['raw'] = stream_get_contents($params['file']);
             }
         }
-
         if (!empty($params['flags'])) {
             // set key and value to the same value for easy lookup
             $this->_flags = array_merge($this->_flags, array_combine($params['flags'],$params['flags']));
         }
-
         parent::__construct($params);
     }
-
     /**
      * return toplines as found after headers
      *
@@ -88,7 +80,6 @@ class Zend_Mail_Message extends Zend_Mail_Part implements Zend_Mail_Message_Inte
     {
         return $this->_topLines;
     }
-
     /**
      * check if flag is set
      *
@@ -99,7 +90,6 @@ class Zend_Mail_Message extends Zend_Mail_Part implements Zend_Mail_Message_Inte
     {
         return isset($this->_flags[$flag]);
     }
-
     /**
      * get all set flags
      *

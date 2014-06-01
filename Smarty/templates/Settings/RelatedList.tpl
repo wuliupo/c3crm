@@ -14,10 +14,7 @@ function getRelatedList(customField)
 		{rdelim}
 	);	
 {rdelim}
-
 {literal}
-
-
 function getCreateRelatedListForm(fld_module,relation_id,label,sequence,presence)
 {
 	new Ajax.Request(
@@ -31,7 +28,6 @@ function getCreateRelatedListForm(fld_module,relation_id,label,sequence,presence
 			}
 		}
 	);
-
 }
 function validate_relatedlist() {
 		if(document.addtodb.label.value == "") {
@@ -60,7 +56,6 @@ function validate_relatedlist() {
 <tbody><tr>
         <td class="showPanelBg" style="padding: 10px;" valign="top" width="100%">
         <br>
-
 	<div align=center>
 			{include file='SetMenu.tpl'}
 			<!-- DISPLAY -->
@@ -73,7 +68,6 @@ function validate_relatedlist() {
 					<td rowspan="2" valign="top" width="50"><img src="{$IMAGE_PATH}relatedinfo.gif" alt="Users" title="Users" border="0" height="48" width="48"></td>
 					<td class="heading2" valign="bottom"><b><a href="index.php?module=Settings&action=index&parenttab=Settings">{$MOD.LBL_SETTINGS}</a> &gt; {$MOD.LBL_RELATED_LIST}</b></td>
 				</tr>
-
 				<tr>
 					<td class="small" valign="top">{$MOD.LBL_RELATED_LIST_DESCRIPTION}</td>
 				</tr>
@@ -83,7 +77,6 @@ function validate_relatedlist() {
 				<table border="0" cellpadding="10" cellspacing="0" width="100%">
 				<tbody><tr>
 				<td>
-
 				<table class="tableHeading" border="0" cellpadding="5" cellspacing="0" width="100%">
 				<tbody><tr>
 					<td class="small" align="left">
@@ -108,7 +101,6 @@ function validate_relatedlist() {
 				</div>	
 			<table border="0" cellpadding="5" cellspacing="0" width="100%">
 			<tr>
-
 		  	<td class="small" align="right" nowrap="nowrap"><a href="#top">{$MOD.LBL_SCROLL}</a></td>
 			</tr>
 			</table>
@@ -124,7 +116,6 @@ function validate_relatedlist() {
         </tr>
         </table>
         </div>
-
         </td>
         </tr>
 </tbody>

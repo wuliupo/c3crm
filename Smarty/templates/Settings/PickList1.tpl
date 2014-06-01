@@ -58,7 +58,6 @@ function validate() {
 				return false
 			}
 		}
-
 		//duplicate values' validation
 		for (i=0;i<picklistary.length;i++) {
 			for (j=i+1;j<picklistary.length;j++) {
@@ -69,11 +68,9 @@ function validate() {
 				}
 			}
 		}
-
 		return true;
 	}
 }
-
 {/literal}
 </script>
 <br>
@@ -84,16 +81,12 @@ function validate() {
 				{include file='Settings/SettingLeft.tpl'}
 			</div>
 		</div>
-
 		<div class="span10">
 			
 		</div>
 	</div>
 </div>
-
 <!--waiting -->
-
-
 <table align="center" border="0" cellpadding="0" cellspacing="0" width="98%">
 <tbody><tr>
         <td class="showPanelBg" style="padding: 10px;" valign="top" width="100%">
@@ -164,7 +157,6 @@ function validate() {
 	</table>
 		
 	</div>
-
 </td>
    </tr>
 </tbody>
@@ -178,7 +170,6 @@ function SavePickList(fieldname,module,uitype)
 	//Effect.Puff($('editdiv'),{duration:2});
 	var body = escape($("picklist_values").value);
 	var post_url = 'index.php?action=SettingsAjax&module=Settings&directmode=ajax&file=UpdateComboValues&table_name='+fieldname+'&fld_module='+module+'&listarea='+body+'&uitype='+uitype;
-
 	new Ajax.Request(
         	post_url,
 	        {queue: {position: 'end', scope: 'command'},
@@ -230,7 +221,6 @@ function fetchEditPickList(module,fieldname,uitype)
         );
 	
 }
-
 function picklist_validate(mode,fieldname,module,uitype)
 {
 	
@@ -255,7 +245,6 @@ function picklist_validate(mode,fieldname,module,uitype)
 			}
 		}
 		i = curr_iter		
-
 	}
 	if(mode == 'edit')
 	{
@@ -268,8 +257,6 @@ function picklist_validate(mode,fieldname,module,uitype)
 	}
 	SavePickList(fieldname,module,uitype)	
 }
-
-
 function splitvalues() {
 	var picklistobj=getobj("listarea")
 	var picklistcontent=picklistobj.value
@@ -322,7 +309,6 @@ function validate() {
 				return false
 			}
 		}
-
 		//duplicate values' validation
 		for (i=0;i<picklistary.length;i++) {
 			for (j=i+1;j<picklistary.length;j++) {
@@ -333,7 +319,6 @@ function validate() {
 				}
 			}
 		}
-
 		return true;
 	}
 }

@@ -20,29 +20,23 @@
  * @version    $Id: Db2.php 23775 2011-03-01 17:25:24Z ralph $
  *
  */
-
 /**
  * @see Zend_Db
  */
 require_once 'include/Zend/Db.php';
-
 /**
  * @see Zend_Db_Adapter_Abstract
  */
 require_once 'include/Zend/Db/Adapter/Abstract.php';
-
 /**
  * @see Zend_Db_Statement_Db2
  */
 require_once 'include/Zend/Db/Statement/Db2.php';
-
-
 /**
  * @package    Zend_Db
  * @copyright  Copyright (c) 2005-2011 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  */
-
 class Zend_Db_Adapter_Db2 extends Zend_Db_Adapter_Abstract
 {
     /**
@@ -73,14 +67,12 @@ class Zend_Db_Adapter_Db2 extends Zend_Db_Adapter_Abstract
         'os'           => null,
         'schema'       => null
     );
-
     /**
      * Execution mode
      *
      * @var int execution flag (DB2_AUTOCOMMIT_ON or DB2_AUTOCOMMIT_OFF)
      */
     protected $_execute_mode = DB2_AUTOCOMMIT_ON;
-
     /**
      * Default class name for a DB statement.
      *
@@ -88,7 +80,6 @@ class Zend_Db_Adapter_Db2 extends Zend_Db_Adapter_Abstract
      */
     protected $_defaultStmtClass = 'Zend_Db_Statement_Db2';
     protected $_isI5 = false;
-
     /**
      * Keys are UPPERCASE SQL datatypes or the constants
      * Zend_Db::INT_TYPE, Zend_Db::BIGINT_TYPE, or Zend_Db::FLOAT_TYPE.
@@ -110,7 +101,6 @@ class Zend_Db_Adapter_Db2 extends Zend_Db_Adapter_Abstract
         'DECIMAL'            => Zend_Db::FLOAT_TYPE,
         'NUMERIC'            => Zend_Db::FLOAT_TYPE
     );
-
     /**
      * Creates a connection resource.
      *
@@ -122,7 +112,6 @@ class Zend_Db_Adapter_Db2 extends Zend_Db_Adapter_Abstract
             // connection already exists
             return;
         }
-
         if (!extension_loaded('ibm_db2')) {
             /**
              * @see Zend_Db_Adapter_Db2_Exception
@@ -130,7 +119,6 @@ class Zend_Db_Adapter_Db2 extends Zend_Db_Adapter_Abstract
             require_once 'include/Zend/Db/Adapter/Db2/Exception.php';
             throw new Zend_Db_Adapter_Db2_Exception('The IBM DB2 extension is required for this adapter but the extension is not loaded');
         }
-
         $this->_determineI5();
         if ($this->_config['persistent']) {
             // use persistent connection
@@ -139,12 +127,10 @@ class Zend_Db_Adapter_Db2 extends Zend_Db_Adapter_Abstract
             // use "normal" connection
             $conn_func_name = 'db2_connect';
         }
-
         if (!isset($this->_config['driver_options']['autocommit'])) {
             // set execution mode
             $this->_config['driver_options']['autocommit'] = &$this->_execute_mode;
         }
-
         if (isset($this->_config['options'][Zend_Db::CASE_FOLDING])) {
             $caseAttrMap = array(
                 Zend_Db::CASE_NATURAL => DB2_CASE_NATURAL,
@@ -153,7 +139,6 @@ class Zend_Db_Adapter_Db2 extends Zend_Db_Adapter_Abstract
             );
             $this->_config['driver_options']['DB2_ATTR_CASE'] = $caseAttrMap[$this->_config['options'][Zend_Db::CASE_FOLDING]];
         }
-
         if ($this->_isI5 && isset($this->_config['driver_options']['i5_naming'])) {
             if ($this->_config['driver_options']['i5_naming']) {
                 $this->_config['driver_options']['i5_naming'] = DB2_I5_NAMING_ON;
@@ -161,7 +146,6 @@ class Zend_Db_Adapter_Db2 extends Zend_Db_Adapter_Abstract
                 $this->_config['driver_options']['i5_naming'] = DB2_I5_NAMING_OFF;
             }
         }
-
         if ($this->_config['host'] !== 'localhost' && !$this->_isI5) {
             // if the host isn't localhost, use extended connection params
             $dbname = 'DRIVER={IBM DB2 ODBC DRIVER}' .
@@ -186,7 +170,6 @@ class Zend_Db_Adapter_Db2 extends Zend_Db_Adapter_Abstract
                 $this->_config['driver_options']
             );
         }
-
         // check the connection
         if (!$this->_connection) {
             /**
@@ -196,7 +179,6 @@ class Zend_Db_Adapter_Db2 extends Zend_Db_Adapter_Abstract
             throw new Zend_Db_Adapter_Db2_Exception(db2_conn_errormsg(), db2_conn_error());
         }
     }
-
     /**
      * Test if a connection is active
      *
@@ -207,7 +189,6 @@ class Zend_Db_Adapter_Db2 extends Zend_Db_Adapter_Abstract
         return ((bool) (is_resource($this->_connection)
                      && get_resource_type($this->_connection) == 'DB2 Connection'));
     }
-
     /**
      * Force the connection to close.
      *
@@ -220,7 +201,6 @@ class Zend_Db_Adapter_Db2 extends Zend_Db_Adapter_Abstract
         }
         $this->_connection = null;
     }
-
     /**
      * Returns an SQL statement for preparation.
      *
@@ -239,7 +219,6 @@ class Zend_Db_Adapter_Db2 extends Zend_Db_Adapter_Abstract
         $stmt->setFetchMode($this->_fetchMode);
         return $stmt;
     }
-
     /**
      * Gets the execution mode
      *
@@ -249,7 +228,6 @@ class Zend_Db_Adapter_Db2 extends Zend_Db_Adapter_Abstract
     {
         return $this->_execute_mode;
     }
-
     /**
      * @param integer $mode
      * @return void
@@ -271,7 +249,6 @@ class Zend_Db_Adapter_Db2 extends Zend_Db_Adapter_Abstract
                 break;
         }
     }
-
     /**
      * Quote a raw string.
      *
@@ -293,7 +270,6 @@ class Zend_Db_Adapter_Db2 extends Zend_Db_Adapter_Abstract
         }
         return parent::_quote($value);
     }
-
     /**
      * @return string
      */
@@ -311,7 +287,6 @@ class Zend_Db_Adapter_Db2 extends Zend_Db_Adapter_Abstract
         }
         return $identQuote;
     }
-
     /**
      * Returns a list of the tables in the database.
      * @param string $schema OPTIONAL
@@ -320,13 +295,10 @@ class Zend_Db_Adapter_Db2 extends Zend_Db_Adapter_Abstract
     public function listTables($schema = null)
     {
         $this->_connect();
-
         if ($schema === null && $this->_config['schema'] != null) {
             $schema = $this->_config['schema'];
         }
-
         $tables = array();
-
         if (!$this->_isI5) {
             if ($schema) {
                 $stmt = db2_tables($this->_connection, null, $schema);
@@ -339,11 +311,8 @@ class Zend_Db_Adapter_Db2 extends Zend_Db_Adapter_Abstract
         } else {
             $tables = $this->_i5listTables($schema);
         }
-
         return $tables;
     }
-
-
     /**
      * Returns the column descriptions for a table.
      *
@@ -377,13 +346,10 @@ class Zend_Db_Adapter_Db2 extends Zend_Db_Adapter_Abstract
     {
         // Ensure the connection is made so that _isI5 is set
         $this->_connect();
-
         if ($schemaName === null && $this->_config['schema'] != null) {
             $schemaName = $this->_config['schema'];
         }
-
         if (!$this->_isI5) {
-
             $sql = "SELECT DISTINCT c.tabschema, c.tabname, c.colname, c.colno,
                 c.typename, c.default, c.nulls, c.length, c.scale,
                 c.identity, tc.type AS tabconsttype, k.colseq
@@ -397,15 +363,11 @@ class Zend_Db_Adapter_Db2 extends Zend_Db_Adapter_Abstract
                     AND c.colname = k.colname)
                 WHERE "
                 . $this->quoteInto('UPPER(c.tabname) = UPPER(?)', $tableName);
-
             if ($schemaName) {
                $sql .= $this->quoteInto(' AND UPPER(c.tabschema) = UPPER(?)', $schemaName);
             }
-
             $sql .= " ORDER BY c.colno";
-
         } else {
-
             // DB2 On I5 specific query
             $sql = "SELECT DISTINCT C.TABLE_SCHEMA, C.TABLE_NAME, C.COLUMN_NAME, C.ORDINAL_POSITION,
                 C.DATA_TYPE, C.COLUMN_DEFAULT, C.NULLS ,C.LENGTH, C.SCALE, LEFT(C.IDENTITY,1),
@@ -420,22 +382,17 @@ class Zend_Db_Adapter_Db2 extends Zend_Db_Adapter_Abstract
                        AND C.COLUMN_NAME = k.COLUMN_NAME)
                 WHERE "
                 . $this->quoteInto('UPPER(C.TABLE_NAME) = UPPER(?)', $tableName);
-
             if ($schemaName) {
                 $sql .= $this->quoteInto(' AND UPPER(C.TABLE_SCHEMA) = UPPER(?)', $schemaName);
             }
-
             $sql .= " ORDER BY C.ORDINAL_POSITION FOR FETCH ONLY";
         }
-
         $desc = array();
         $stmt = $this->query($sql);
-
         /**
          * To avoid case issues, fetch using FETCH_NUM
          */
         $result = $stmt->fetchAll(Zend_Db::FETCH_NUM);
-
         /**
          * The ordering of columns is defined by the query so we can map
          * to variables to improve readability
@@ -452,7 +409,6 @@ class Zend_Db_Adapter_Db2 extends Zend_Db_Adapter_Abstract
         $identityCol    = 9;
         $tabconstType   = 10;
         $colseq         = 11;
-
         foreach ($result as $key => $row) {
             list ($primary, $primaryPosition, $identity) = array(false, null, false);
             if ($row[$tabconstType] == 'P') {
@@ -466,7 +422,6 @@ class Zend_Db_Adapter_Db2 extends Zend_Db_Adapter_Abstract
             if ($row[$identityCol] == 'Y') {
                 $identity = true;
             }
-
             // only colname needs to be case adjusted
             $desc[$this->foldCase($row[$colname])] = array(
                 'SCHEMA_NAME'      => $this->foldCase($row[$tabschema]),
@@ -485,10 +440,8 @@ class Zend_Db_Adapter_Db2 extends Zend_Db_Adapter_Abstract
                 'IDENTITY'         => $identity
             );
         }
-
         return $desc;
     }
-
     /**
      * Return the most recent value from the specified sequence in the database.
      * This is supported only on RDBMS brands that support sequences
@@ -500,7 +453,6 @@ class Zend_Db_Adapter_Db2 extends Zend_Db_Adapter_Abstract
     public function lastSequenceId($sequenceName)
     {
         $this->_connect();
-
         if (!$this->_isI5) {
             $quotedSequenceName = $this->quoteIdentifier($sequenceName, true);
             $sql = 'SELECT PREVVAL FOR ' . $quotedSequenceName . ' AS VAL FROM SYSIBM.SYSDUMMY1';
@@ -508,11 +460,9 @@ class Zend_Db_Adapter_Db2 extends Zend_Db_Adapter_Abstract
             $quotedSequenceName = $sequenceName;
             $sql = 'SELECT PREVVAL FOR ' . $this->quoteIdentifier($sequenceName, true) . ' AS VAL FROM QSYS2.QSQPTABL';
         }
-
         $value = $this->fetchOne($sql);
         return (string) $value;
     }
-
     /**
      * Generate a new value from the specified sequence in the database, and return it.
      * This is supported only on RDBMS brands that support sequences
@@ -528,7 +478,6 @@ class Zend_Db_Adapter_Db2 extends Zend_Db_Adapter_Abstract
         $value = $this->fetchOne($sql);
         return (string) $value;
     }
-
     /**
      * Gets the last ID generated automatically by an IDENTITY/AUTOINCREMENT column.
      *
@@ -547,15 +496,12 @@ class Zend_Db_Adapter_Db2 extends Zend_Db_Adapter_Abstract
      * @param string $idType OPTIONAL used for i5 platform to define sequence/idenity unique value
      * @return string
      */
-
     public function lastInsertId($tableName = null, $primaryKey = null, $idType = null)
     {
         $this->_connect();
-
         if ($this->_isI5) {
             return (string) $this->_i5LastInsertId($tableName, $idType);
         }
-
         if ($tableName !== null) {
             $sequenceName = $tableName;
             if ($primaryKey) {
@@ -564,12 +510,10 @@ class Zend_Db_Adapter_Db2 extends Zend_Db_Adapter_Abstract
             $sequenceName .= '_seq';
             return $this->lastSequenceId($sequenceName);
         }
-
         $sql = 'SELECT IDENTITY_VAL_LOCAL() AS VAL FROM SYSIBM.SYSDUMMY1';
         $value = $this->fetchOne($sql);
         return (string) $value;
     }
-
     /**
      * Begin a transaction.
      *
@@ -579,7 +523,6 @@ class Zend_Db_Adapter_Db2 extends Zend_Db_Adapter_Abstract
     {
         $this->_setExecuteMode(DB2_AUTOCOMMIT_OFF);
     }
-
     /**
      * Commit a transaction.
      *
@@ -596,10 +539,8 @@ class Zend_Db_Adapter_Db2 extends Zend_Db_Adapter_Abstract
                 db2_conn_errormsg($this->_connection),
                 db2_conn_error($this->_connection));
         }
-
         $this->_setExecuteMode(DB2_AUTOCOMMIT_ON);
     }
-
     /**
      * Rollback a transaction.
      *
@@ -618,7 +559,6 @@ class Zend_Db_Adapter_Db2 extends Zend_Db_Adapter_Abstract
         }
         $this->_setExecuteMode(DB2_AUTOCOMMIT_ON);
     }
-
     /**
      * Set the fetch mode.
      *
@@ -651,7 +591,6 @@ class Zend_Db_Adapter_Db2 extends Zend_Db_Adapter_Abstract
                 break;
         }
     }
-
     /**
      * Adds an adapter-specific LIMIT clause to the SELECT statement.
      *
@@ -670,7 +609,6 @@ class Zend_Db_Adapter_Db2 extends Zend_Db_Adapter_Abstract
             require_once 'include/Zend/Db/Adapter/Db2/Exception.php';
             throw new Zend_Db_Adapter_Db2_Exception("LIMIT argument count=$count is not valid");
         }
-
         $offset = intval($offset);
         if ($offset < 0) {
             /**
@@ -679,12 +617,10 @@ class Zend_Db_Adapter_Db2 extends Zend_Db_Adapter_Abstract
             require_once 'include/Zend/Db/Adapter/Db2/Exception.php';
             throw new Zend_Db_Adapter_Db2_Exception("LIMIT argument offset=$offset is not valid");
         }
-
         if ($offset == 0) {
             $limit_sql = $sql . " FETCH FIRST $count ROWS ONLY";
             return $limit_sql;
         }
-
         /**
          * DB2 does not implement the LIMIT clause as some RDBMS do.
          * We have to simulate it with subqueries and ROWNUM.
@@ -701,7 +637,6 @@ class Zend_Db_Adapter_Db2 extends Zend_Db_Adapter_Abstract
             WHERE z2.zend_db_rownum BETWEEN " . ($offset+1) . " AND " . ($offset+$count);
         return $limit_sql;
     }
-
     /**
      * Check if the adapter supports real SQL parameters.
      *
@@ -713,11 +648,9 @@ class Zend_Db_Adapter_Db2 extends Zend_Db_Adapter_Abstract
         if ($type == 'positional') {
             return true;
         }
-
         // if its 'named' or anything else
         return false;
     }
-
     /**
      * Retrieve server version in PHP style
      *
@@ -737,7 +670,6 @@ class Zend_Db_Adapter_Db2 extends Zend_Db_Adapter_Abstract
             return null;
         }
     }
-
     /**
      * Return whether or not this is running on i5
      *
@@ -748,10 +680,8 @@ class Zend_Db_Adapter_Db2 extends Zend_Db_Adapter_Abstract
         if ($this->_isI5 === null) {
             $this->_determineI5();
         }
-
         return (bool) $this->_isI5;
     }
-
     /**
      * Check the connection parameters according to verify
      * type of used OS
@@ -762,7 +692,6 @@ class Zend_Db_Adapter_Db2 extends Zend_Db_Adapter_Abstract
     {
         // first us the compiled flag.
         $this->_isI5 = (php_uname('s') == 'OS400') ? true : false;
-
         // if this is set, then us it
         if (isset($this->_config['os'])){
             if (strtolower($this->_config['os']) === 'i5') {
@@ -772,9 +701,7 @@ class Zend_Db_Adapter_Db2 extends Zend_Db_Adapter_Abstract
                 $this->_isI5 = false;
             }
         }
-
     }
-
     /**
      * Db2 On I5 specific method
      *
@@ -810,31 +737,23 @@ class Zend_Db_Adapter_Db2 extends Zend_Db_Adapter_Abstract
                 }
             }
         }
-
         return $tables;
     }
-
     protected function _i5LastInsertId($objectName = null, $idType = null)
     {
-
         if ($objectName === null) {
             $sql = 'SELECT IDENTITY_VAL_LOCAL() AS VAL FROM QSYS2.QSQPTABL';
             $value = $this->fetchOne($sql);
             return $value;
         }
-
         if (strtoupper($idType) === 'S'){
             //check i5_lib option
             $sequenceName = $objectName;
             return $this->lastSequenceId($sequenceName);
         }
-
             //returns last identity value for the specified table
         //if (strtoupper($idType) === 'I') {
         $tableName = $objectName;
         return $this->fetchOne('SELECT IDENTITY_VAL_LOCAL() from ' . $this->quoteIdentifier($tableName));
     }
-
 }
-
-

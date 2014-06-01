@@ -27,5 +27,4 @@
   $app_strings['Contacts'] = '联系人';
   $app_strings['Contact'] = '联系人';
   $app_list_strings['moduleList']['Contacts'] = '联系人';
-
 ?>

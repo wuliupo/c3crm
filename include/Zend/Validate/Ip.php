@@ -18,12 +18,10 @@
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  * @version    $Id: Ip.php 23775 2011-03-01 17:25:24Z ralph $
  */
-
 /**
  * @see Zend_Validate_Abstract
  */
 require_once 'include/Zend/Validate/Abstract.php';
-
 /**
  * @category   Zend
  * @package    Zend_Validate
@@ -34,7 +32,6 @@ class Zend_Validate_Ip extends Zend_Validate_Abstract
 {
     const INVALID        = 'ipInvalid';
     const NOT_IP_ADDRESS = 'notIpAddress';
-
     /**
      * @var array
      */
@@ -42,7 +39,6 @@ class Zend_Validate_Ip extends Zend_Validate_Abstract
         self::INVALID        => "Invalid type given. String expected",
         self::NOT_IP_ADDRESS => "'%value%' does not appear to be a valid IP address",
     );
-
     /**
      * internal options
      *
@@ -52,7 +48,6 @@ class Zend_Validate_Ip extends Zend_Validate_Abstract
         'allowipv6' => true,
         'allowipv4' => true
     );
-
     /**
      * Sets validator options
      *
@@ -69,14 +64,11 @@ class Zend_Validate_Ip extends Zend_Validate_Abstract
             if (!empty($options)) {
                 $temp['allowipv4'] = array_shift($options);
             }
-
             $options = $temp;
         }
-
         $options += $this->_options;
         $this->setOptions($options);
     }
-
     /**
      * Returns all set options
      *
@@ -86,7 +78,6 @@ class Zend_Validate_Ip extends Zend_Validate_Abstract
     {
         return $this->_options;
     }
-
     /**
      * Sets the options for this validator
      *
@@ -98,19 +89,15 @@ class Zend_Validate_Ip extends Zend_Validate_Abstract
         if (array_key_exists('allowipv6', $options)) {
             $this->_options['allowipv6'] = (boolean) $options['allowipv6'];
         }
-
         if (array_key_exists('allowipv4', $options)) {
             $this->_options['allowipv4'] = (boolean) $options['allowipv4'];
         }
-
         if (!$this->_options['allowipv4'] && !$this->_options['allowipv6']) {
             require_once 'include/Zend/Validate/Exception.php';
             throw new Zend_Validate_Exception('Nothing to validate. Check your options');
         }
-
         return $this;
     }
-
     /**
      * Defined by Zend_Validate_Interface
      *
@@ -125,7 +112,6 @@ class Zend_Validate_Ip extends Zend_Validate_Abstract
             $this->_error(self::INVALID);
             return false;
         }
-
         $this->_setValue($value);
         if (($this->_options['allowipv4'] && !$this->_options['allowipv6'] && !$this->_validateIPv4($value)) ||
             (!$this->_options['allowipv4'] && $this->_options['allowipv6'] && !$this->_validateIPv6($value)) ||
@@ -133,10 +119,8 @@ class Zend_Validate_Ip extends Zend_Validate_Abstract
             $this->_error(self::NOT_IP_ADDRESS);
             return false;
         }
-
         return true;
     }
-
     /**
      * Validates an IPv4 address
      *
@@ -147,10 +131,8 @@ class Zend_Validate_Ip extends Zend_Validate_Abstract
         if($ip2long === false) {
             return false;
         }
-
         return $value == long2ip($ip2long);
     }
-
     /**
      * Validates an IPv6 address
      *
@@ -162,30 +144,24 @@ class Zend_Validate_Ip extends Zend_Validate_Abstract
         if (strlen($value) < 3) {
             return $value == '::';
         }
-
         if (strpos($value, '.')) {
             $lastcolon = strrpos($value, ':');
             if (!($lastcolon && $this->_validateIPv4(substr($value, $lastcolon + 1)))) {
                 return false;
             }
-
             $value = substr($value, 0, $lastcolon) . ':0:0';
         }
-
         if (strpos($value, '::') === false) {
             return preg_match('/\A(?:[a-f0-9]{1,4}:){7}[a-f0-9]{1,4}\z/i', $value);
         }
-
         $colonCount = substr_count($value, ':');
         if ($colonCount < 8) {
             return preg_match('/\A(?::|(?:[a-f0-9]{1,4}:)+):(?:(?:[a-f0-9]{1,4}:)*[a-f0-9]{1,4})?\z/i', $value);
         }
-
         // special case with ending or starting double colon
         if ($colonCount == 8) {
             return preg_match('/\A(?:::)?(?:[a-f0-9]{1,4}:){6}[a-f0-9]{1,4}(?:::)?\z/i', $value);
         }
-
         return false;
     }
 }

@@ -1,5 +1,4 @@
 {*<!--
-
 /*********************************************************************************
 ** The contents of this file are subject to the vtiger CRM Public License Version 1.0
  * ("License"); You may not use this file except in compliance with the License
@@ -9,16 +8,12 @@
  * All Rights Reserved.
 *
  ********************************************************************************/
-
 -->*}
-
 {assign var="fldcount" value=0}
 <div id="quickedit_field0" style="display: none;">&nbsp;</div>
-
 <!-- Added this file to display the fields in Quick Edit Form page based on ui types  -->
 {foreach key=header item=data from=$BLOCKS}
 	
-
 	{foreach key=label item=subdata from=$data}
 		{foreach key=mainlabel item=maindata from=$subdata}
 			{assign var="uitype" value="$maindata[0][0]"}
@@ -32,11 +27,9 @@
 			{assign var="vt_tab" value="$maindata[4][0]"}
 			{if $uitype neq ''}
 			
-
 			
 		
 			{assign var="fldcount" value=$fldcount+1}
-
 			<div id="quickedit_field{$fldcount}" uitype="{$uitype}" style="display: none;">
 				{if $uitype eq 2}
 					<font color="red">*</font>
@@ -108,9 +101,7 @@
 						{assign var=style_user value='display:none'}
 						{assign var=style_group value='display:block'}
 					{/if}
-
 					<input type="radio" tabindex="{$vt_tab}" name="assigntype" {$select_user} value="U" onclick="toggleAssignType(this.value)" >&nbsp;{$APP.LBL_USER}
-
 					{if $secondvalue neq ''}
 						<input type="radio" name="assigntype" {$select_group} value="T" onclick="toggleAssignType(this.value)">&nbsp;{$APP.LBL_GROUP}
 					{/if}
@@ -124,7 +115,6 @@
 							{/foreach}
 						</select>
 					</span>
-
 					{if $secondvalue neq ''}
 						<span id="assign_team" style="{$style_group}">
 							<select name="assigned_group_name" class="small">';
@@ -144,7 +134,6 @@
 				{else}
 					<select name="quickedit_value_{$fldname}" id="quickedit_value_{$fldname}" tabindex="{$vt_tab}" class="small">
 				{/if}
-
 				{foreach key=key_one item=arr from=$fldvalue}
 					{foreach key=sel_value item=value from=$arr}
 						<option value="{$key_one}" {$value}>{$sel_value}</option>
@@ -218,22 +207,17 @@
 					{assign var=date_val value="$date_value"}
 					{assign var=time_val value="$time_value"}
 				{/foreach}
-
 				<input name="quickedit_value_{$fldname}" id="quickedit_value_{$fldname}" tabindex="{$vt_tab}" id="jscal_field_{$fldname}" type="text" style="border:1px solid #bababa;" size="11" maxlength="10" value="{$date_val}">
 				<img src="{$IMAGE_PATH}calendar.gif" id="jscal_trigger_{$fldname}" onclick="javascript:displayCalendar('jscal_field_{$fldname}',this)">
-
 				{if $uitype eq 6}
 					<input name="time_start" tabindex="{$vt_tab}" style="border:1px solid #bababa;" size="5" maxlength="5" type="text" value="{$time_val}">
 				{/if}
-
 				{foreach key=date_format item=date_str from=$secondvalue}
 					{assign var=dateFormat value="$date_format"}
 					{assign var=dateStr value="$date_str"}
 				{/foreach}
-
 				
 				
-
 		{elseif $uitype eq 63}
 				<input name="quickedit_value_{$fldname}" id="quickedit_value_{$fldname}" type="text" size="2" value="{$fldvalue}" tabindex="{$vt_tab}" >&nbsp;
 				<select name="duration_minutes" tabindex="{$vt_tab}" class="small">
@@ -241,7 +225,6 @@
 						<option value="{$labelval}" {$selectval}>{$labelval}</option>
 					{/foreach}
 				</select>
-
 		{elseif $uitype eq 68 || $uitype eq 66 || $uitype eq 62}
 				<select class="small" name="parent_type" onChange='document.EditView.parent_name.value=""; document.EditView.parent_id.value=""'>
 					{section name=combo loop=$fldlabel}
@@ -251,7 +234,6 @@
 				<input name="quickedit_value_{$fldname}" id="quickedit_value_{$fldname}" type="hidden" value="{$secondvalue}">
 				<input name="parent_name" readonly id = "parentid" type="text" style="border:1px solid #bababa;" value="{$fldvalue}">
 				&nbsp;<img src="{$IMAGE_PATH}select.gif" tabindex="{$vt_tab}" alt="{$APP.LBL_SELECT}" title="{$APP.LBL_SELECT}" LANGUAGE=javascript onclick='return window.open("index.php?module="+ document.EditView.parent_type.value +"&action=Popup&html=Popup_picker&form=HelpDeskEditView","test","width=640,height=602,resizable=0,scrollbars=0,top=150,left=200");' align="absmiddle" style='cursor:hand;cursor:pointer'>&nbsp;<input type="image" src="{$IMAGE_PATH}clear_field.gif" alt="{$APP.LBL_CLEAR}" title="{$APP.LBL_CLEAR}" LANGUAGE=javascript onClick="this.form.parent_id.value=''; this.form.parent_name.value=''; return false;" align="absmiddle" style='cursor:hand;cursor:pointer'>
-
 		{elseif $uitype eq 357}
 			To:&nbsp;
 				<input name="quickedit_value_{$fldname}" id="quickedit_value_{$fldname}" type="hidden" value="{$secondvalue}">
@@ -269,7 +251,6 @@
 		{elseif $uitype eq 59}
 				<input name="quickedit_value_{$fldname}" id="quickedit_value_{$fldname}" type="hidden" value="{$secondvalue}">
 				<input name="product_name" readonly type="text" value="{$fldvalue}">&nbsp;<img tabindex="{$vt_tab}" src="{$IMAGE_PATH}select.gif" alt="{$APP.LBL_SELECT}" title="{$APP.LBL_SELECT}" LANGUAGE=javascript onclick='return window.open("index.php?module=Products&action=Popup&html=Popup_picker&form=HelpDeskEditView&popuptype=specific","test","width=640,height=602,resizable=0,scrollbars=0,top=150,left=200");' align="absmiddle" style='cursor:hand;cursor:pointer'>&nbsp;<input type="image" src="{$IMAGE_PATH}clear_field.gif" alt="{$APP.LBL_CLEAR}" title="{$APP.LBL_CLEAR}" LANGUAGE=javascript onClick="this.form.product_id.value=''; this.form.product_name.value=''; return false;" align="absmiddle" style='cursor:hand;cursor:pointer'>
-
 		{elseif $uitype eq 55 || $uitype eq 255} 
 			{if $uitype eq 55}	
 			{elseif $uitype eq 255}	
@@ -286,11 +267,9 @@
 			</select>
 			{/if}
 			<input type="text" name="quickedit_value_{$fldname}" id="quickedit_value_{$fldname}" tabindex="{$vt_tab}" class=detailedViewTextBox onFocus="this.className='detailedViewTextBoxOn'" onBlur="this.className='detailedViewTextBox'" style="width: 65%;" value= "{$secondvalue}" >
-
 		{elseif $uitype eq 22}
 				<font color="red">*</font>
 				<textarea name="quickedit_value_{$fldname}" id="quickedit_value_{$fldname}" cols="30" tabindex="{$vt_tab}" rows="2">{$fldvalue}</textarea>
-
 		{elseif $uitype eq 69}
 				{if $MODULE eq 'Products'}
 					<input name="del_file_list" type="hidden" value="">
@@ -307,7 +286,6 @@
 					   	   {/foreach}
 						{/if}
 					</div>
-
 					<script>
 						{*<!-- Create an instance of the multiSelector class, pass it the output target and the max number of files -->*}
 						var multi_selector = new MultiSelector( document.getElementById( 'files_list' ), 6 );
@@ -325,7 +303,6 @@
 					{/if}
 					
 				{/if}
-
 		{elseif $uitype eq 61}
 				<input name="quickedit_value_{$fldname}" id="quickedit_value_{$fldname}"  type="file" value="{$secondvalue}" tabindex="{$vt_tab}" onchange="validateFilename(this)"/>
 				<input type="hidden" name="{$fldname}_hidden" value="{$secondvalue}"/>
@@ -389,7 +366,6 @@
 			   {else}
 			   	<select disabled name="quickedit_value_{$fldname}" id="quickedit_value_{$fldname}" tabindex="{$vt_tab}" class="small">
 			   {/if} 
-
 				{foreach item=arr key=uivalueid from=$fldvalue}
 					{foreach key=sel_value item=value from=$arr}
 						<option value="{$uivalueid}" {$value}>{$sel_value}</option>
@@ -416,17 +392,14 @@
 			{elseif $uitype eq 99}
 				{if $MODE eq 'create'}
 					<font color="red">*</font>
-
 					<input type="password" name="quickedit_value_{$fldname}" id="quickedit_value_{$fldname}" tabindex="{$vt_tab}" value="{$fldvalue}" class=detailedViewTextBox onFocus="this.className='detailedViewTextBoxOn'" onBlur="this.className='detailedViewTextBox'">
 				{/if}
 		{elseif $uitype eq 30}
 				{assign var=check value=$secondvalue[0]}
 				{assign var=yes_val value=$secondvalue[1]}
 				{assign var=no_val value=$secondvalue[2]}
-
 				<input type="radio" name="set_reminder" tabindex="{$vt_tab}" value="Yes" {$check}>&nbsp;{$yes_val}&nbsp;
 				<input type="radio" name="set_reminder" value="No">&nbsp;{$no_val}&nbsp;
-
 				{foreach item=val_arr from=$fldvalue}
 					{assign var=start value="$val_arr[0]"}
 					{assign var=end value="$val_arr[1]"}
@@ -468,5 +441,3 @@
 	{/foreach}
 {/foreach}
 {/foreach}
-
-

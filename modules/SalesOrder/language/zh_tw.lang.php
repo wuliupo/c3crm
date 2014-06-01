@@ -67,6 +67,5 @@ $mod_strings = array (
   'S&H Amount' => '税率',
   'Approve Status' => '審批狀態',
   'Approved By' => '審批人',
-
 );
 ?>

@@ -3,7 +3,6 @@ require_once('include/logging.php');
 require_once('include/logging.php');
 require_once('include/ListView/ListView.php');
 require_once('include/database/PearDatabase.php');
-
 /** This class is used to store and display the login history of all the Users.
   * An Admin User can view his login history details  and of all the other users as well.
   * StandardUser is allowed to view only his login history details.
@@ -11,7 +10,6 @@ require_once('include/database/PearDatabase.php');
 class LoginHistory {
 	var $log;
 	var $db;
-
 	// Stored ec_fields
 	var $login_id;
 	var $user_name;
@@ -20,13 +18,10 @@ class LoginHistory {
 	var $logout_time;
 	var $status;
 	var $module_name = "Users";
-
 	var $table_name = "ec_loginhistory";
-
 	var $object_name = "LoginHistory";
 	
 	var $new_schema = true;
-
 	var $column_fields = Array("id"
 		,"login_id"
 		,"user_name"
@@ -61,7 +56,6 @@ class LoginHistory {
 		);	
 	var $default_order_by = "login_time";
 	var $default_sort_order = 'DESC';
-
 /**
  * Function to get the Header values of Login History.
  * Returns Header Values like UserName, IP, LoginTime etc in an array format.
@@ -73,12 +67,10 @@ class LoginHistory {
 		global $app_strings;
 		
 		$header_array = array($app_strings['LBL_LIST_USER_NAME'], $app_strings['LBL_LIST_USERIP'], $app_strings['LBL_LIST_SIGNIN'], $app_strings['LBL_LIST_SIGNOUT'], $app_strings['LBL_LIST_STATUS']);
-
 		$log->debug("Exiting getHistoryListViewHeader method ...");
 		return $header_array;
 		
 	}
-
 /**
   * Function to get the Login History values of the User.
   * @param $navigation_array - Array values to navigate through the number of entries.
@@ -93,8 +85,6 @@ class LoginHistory {
 		global $adb, $current_user;	
 		
 		$list_query = "Select * from ec_loginhistory where user_name='".$username."' order by ".$this->default_order_by." ".$this->default_sort_order;
-
-
 		$result = $adb->query($list_query);
 		$entries_list = array();
 		
@@ -104,13 +94,11 @@ class LoginHistory {
 		{
 			$entries = array();
 			$loginid = $adb->query_result($result, $i-1, 'login_id');
-
 			$entries[] = $adb->query_result($result, $i-1, 'user_name');
 			$entries[] = $adb->query_result($result, $i-1, 'user_ip');
 			$entries[] = $adb->query_result($result, $i-1, 'login_time');
 			$entries[] = $adb->query_result($result, $i-1, 'logout_time');
 			$entries[] = $adb->query_result($result, $i-1, 'status');
-
 			$entries_list[] = $entries;
 		}	
 		$log->debug("Exiting getHistoryListViewEntries() method ...");
@@ -126,7 +114,6 @@ class LoginHistory {
 	*/
 	function user_login(&$usname,&$usip,&$intime)
 	{
-
 		$login_id = $this->db->getUniqueID('ec_loginhistory');
 		$query = "Insert into ec_loginhistory (login_id,user_name, user_ip, logout_time, login_time, status) values ('".$login_id."','$usname','$usip','',NOW(),'Signed in')";
 		$result = $this->db->query($query);
@@ -154,7 +141,6 @@ class LoginHistory {
 		$result = $this->db->query($query)
                         or die("MySQL error: ".mysql_error());
 	}
-
 	/** Function to create list query 
 	* @param reference variable - order by is passed when the query is executed
 	* @param reference variable - where condition is passed when the query is executed
@@ -179,12 +165,7 @@ class LoginHistory {
 		
 		if(!empty($order_by))
 			$query .= " ORDER BY $order_by";
-
                 return $query;
 	}
-
 }
-
-
-
 ?>

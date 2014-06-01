@@ -16,12 +16,10 @@
  * @package log4php
  * @subpackage helpers
  */
-
 /**
  * @ignore 
  */
 if (!defined('LOG4PHP_DIR')) define('LOG4PHP_DIR', dirname(__FILE__) . '/..');
-
 if (!defined('LOG4PHP_LINE_SEP')) {
     if (substr(php_uname(), 0, 7) == "Windows") {
         /**
@@ -41,32 +39,26 @@ if (!defined('LOG4PHP_LINE_SEP')) {
 require_once(LOG4PHP_DIR . '/helpers/LoggerFormattingInfo.php');
 require_once(LOG4PHP_DIR . '/helpers/LoggerPatternConverter.php');
 require_once(LOG4PHP_DIR . '/LoggerLog.php');
-
 define('LOG4PHP_LOGGER_PATTERN_PARSER_ESCAPE_CHAR',         '%');
-
 define('LOG4PHP_LOGGER_PATTERN_PARSER_LITERAL_STATE',       0);
 define('LOG4PHP_LOGGER_PATTERN_PARSER_CONVERTER_STATE',     1);
 define('LOG4PHP_LOGGER_PATTERN_PARSER_MINUS_STATE',         2);
 define('LOG4PHP_LOGGER_PATTERN_PARSER_DOT_STATE',           3);
 define('LOG4PHP_LOGGER_PATTERN_PARSER_MIN_STATE',           4);
 define('LOG4PHP_LOGGER_PATTERN_PARSER_MAX_STATE',           5);
-
 define('LOG4PHP_LOGGER_PATTERN_PARSER_FULL_LOCATION_CONVERTER',         1000);
 define('LOG4PHP_LOGGER_PATTERN_PARSER_METHOD_LOCATION_CONVERTER',       1001);
 define('LOG4PHP_LOGGER_PATTERN_PARSER_CLASS_LOCATION_CONVERTER',        1002);
 define('LOG4PHP_LOGGER_PATTERN_PARSER_FILE_LOCATION_CONVERTER',         1003);
 define('LOG4PHP_LOGGER_PATTERN_PARSER_LINE_LOCATION_CONVERTER',         1004);
-
 define('LOG4PHP_LOGGER_PATTERN_PARSER_RELATIVE_TIME_CONVERTER',         2000);
 define('LOG4PHP_LOGGER_PATTERN_PARSER_THREAD_CONVERTER',                2001);
 define('LOG4PHP_LOGGER_PATTERN_PARSER_LEVEL_CONVERTER',                 2002);
 define('LOG4PHP_LOGGER_PATTERN_PARSER_NDC_CONVERTER',                   2003);
 define('LOG4PHP_LOGGER_PATTERN_PARSER_MESSAGE_CONVERTER',               2004);
-
 define('LOG4PHP_LOGGER_PATTERN_PARSER_DATE_FORMAT_ISO8601',    'Y-m-d H:i:s,u'); 
 define('LOG4PHP_LOGGER_PATTERN_PARSER_DATE_FORMAT_ABSOLUTE',   'H:i:s');
 define('LOG4PHP_LOGGER_PATTERN_PARSER_DATE_FORMAT_DATE',       'd M Y H:i:s,u');
-
 /**
  * Most of the work of the {@link LoggerPatternLayout} class 
  * is delegated to the {@link LoggerPatternParser} class.
@@ -82,7 +74,6 @@ define('LOG4PHP_LOGGER_PATTERN_PARSER_DATE_FORMAT_DATE',       'd M Y H:i:s,u');
  * @since 0.3
  */
 class LoggerPatternParser {
-
     var $state;
     var $currentLiteral;
     var $patternLength;
@@ -107,7 +98,6 @@ class LoggerPatternParser {
      * @var string pattern to parse
      */
     var $pattern;
-
     /**
      * Constructor 
      *
@@ -122,7 +112,6 @@ class LoggerPatternParser {
         $this->formattingInfo = new LoggerFormattingInfo();
         $this->state = LOG4PHP_LOGGER_PATTERN_PARSER_LITERAL_STATE;
     }
-
     /**
      * @param LoggerPatternConverter $pc
      */
@@ -138,7 +127,6 @@ class LoggerPatternParser {
             $this->tail =& $this->tail->next;
         }
     }
-
     /**
      * @return string
      */
@@ -154,7 +142,6 @@ class LoggerPatternParser {
         }
         return null;
     }
-
     /**
      * The option is expected to be in decimal and positive. In case of
      * error, zero is returned.  
@@ -176,7 +163,6 @@ class LoggerPatternParser {
         }
         return $r;
     }
-
     function parse()
     {
         LoggerLog::debug("LoggerPatternParser::parse()");
@@ -281,11 +267,9 @@ class LoggerPatternParser {
         }
         return $this->head;
     }
-
     function finalizeConverter($c)
     {
         LoggerLog::debug("LoggerPatternParser::finalizeConverter() with char '$c'");    
-
         $pc = null;
         switch($c) {
             case 'c':
@@ -303,7 +287,6 @@ class LoggerPatternParser {
             case 'd':
                 $dateFormatStr = LOG4PHP_LOGGER_PATTERN_PARSER_DATE_FORMAT_ISO8601; // ISO8601_DATE_FORMAT;
                 $dOpt = $this->extractOption();
-
                 if($dOpt !== null)
 	                $dateFormatStr = $dOpt;
                     
@@ -389,7 +372,6 @@ class LoggerPatternParser {
                 LoggerLog::debug("LoggerPatternParser::finalizeConverter() NDC converter.");
                 $this->currentLiteral = '';
                 break;
-
             case 'X':
                 $xOpt = $this->extractOption();
                 $pc = new LoggerMDCPatternConverter($this->formattingInfo, $xOpt);
@@ -403,7 +385,6 @@ class LoggerPatternParser {
         }
         $this->addConverter($pc);
     }
-
     function addConverter($pc)
     {
         $this->currentLiteral = '';
@@ -415,5 +396,4 @@ class LoggerPatternParser {
         $this->formattingInfo->reset();
     }
 }
-
 ?>

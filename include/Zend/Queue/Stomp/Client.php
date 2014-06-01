@@ -19,7 +19,6 @@
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  * @version    $Id: Client.php 23775 2011-03-01 17:25:24Z ralph $
  */
-
 /**
  * The Stomp client interacts with a Stomp server.
  *
@@ -37,7 +36,6 @@ class Zend_Queue_Stomp_Client
      * @var array
      */
     protected $_connection;
-
     /**
      * Add a server to connections
      *
@@ -58,7 +56,6 @@ class Zend_Queue_Stomp_Client
             $this->getConnection()->setFrameClass($frameClass);
         }
     }
-
     /**
      * Shutdown
      *
@@ -70,7 +67,6 @@ class Zend_Queue_Stomp_Client
             $this->getConnection()->close(true);
         }
     }
-
     /**
      * Add a connection to this client.
      *
@@ -91,18 +87,14 @@ class Zend_Queue_Stomp_Client
             require_once 'include/Zend/Loader.php';
             Zend_Loader::loadClass($class);
         }
-
         $connection = new $class();
-
         if ($connection->open($scheme, $host, $port)) {
             $this->setConnection($connection);
             return true;
         }
-
         $connection->close();
         return false;
     }
-
     /**
      * Set client connection
      *
@@ -114,7 +106,6 @@ class Zend_Queue_Stomp_Client
         $this->_connection = $connection;
         return $this;
     }
-
     /**
      * Get client connection
      *
@@ -124,7 +115,6 @@ class Zend_Queue_Stomp_Client
     {
         return $this->_connection;
     }
-
     /**
      * Send a stomp frame
      *
@@ -138,7 +128,6 @@ class Zend_Queue_Stomp_Client
         $this->getConnection()->write($frame);
         return $this;
     }
-
     /**
      * Receive a frame
      *
@@ -150,7 +139,6 @@ class Zend_Queue_Stomp_Client
     {
         return $this->getConnection()->read();
     }
-
     /**
      * canRead()
      *
@@ -160,7 +148,6 @@ class Zend_Queue_Stomp_Client
     {
         return $this->getConnection()->canRead();
     }
-
     /**
      * creates a frame class
      *

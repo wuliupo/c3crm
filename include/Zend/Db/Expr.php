@@ -19,8 +19,6 @@
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  * @version    $Id: Expr.php 23775 2011-03-01 17:25:24Z ralph $
  */
-
-
 /**
  * Class for SQL SELECT fragments.
  *
@@ -54,7 +52,6 @@ class Zend_Db_Expr
      * @var string
      */
     protected $_expression;
-
     /**
      * Instantiate an expression, which is just a string stored as
      * an instance member variable.
@@ -65,7 +62,6 @@ class Zend_Db_Expr
     {
         $this->_expression = (string) $expression;
     }
-
     /**
      * @return string The string of the SQL expression stored in this object.
      */
@@ -73,5 +69,4 @@ class Zend_Db_Expr
     {
         return $this->_expression;
     }
-
 }

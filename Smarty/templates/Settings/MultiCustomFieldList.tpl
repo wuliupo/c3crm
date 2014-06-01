@@ -24,7 +24,6 @@ function getCustomFieldList(customField)
 		{rdelim}
 	);	
 {rdelim}
-
 {literal}
 function deleteMultiCustomField(multifieldid, fld_module, colName, uitype)
 {
@@ -35,7 +34,6 @@ function deleteMultiCustomField(multifieldid, fld_module, colName, uitype)
                 window.location.href="index.php?module=Settings&action=DeleteMultiCustomField&multifieldid="+multifieldid+"&parenttab=Settings";
         }
 }
-
 function gotoEditCustomField(customField,id,tabid,ui)
 {
     window.location.href="index.php?module=Settings&action=EditMultiCustomField&multifieldid="+id+"&parenttab=Settings";
@@ -54,7 +52,6 @@ function getCreateCustomFieldForm(customField,id,tabid,ui)
 			}
 		}
 	);
-
 }
 function makeFieldSelected(oField,fieldid)
 {
@@ -73,7 +70,6 @@ function CustomFieldMapping()
         document.form.submit();
 }
 var gselected_fieldtype = '';
-
 function theformvalidate() {
 	var nummaxlength = 255;
        
@@ -84,9 +80,7 @@ function theformvalidate() {
         if (!emptyCheck("fldLabel",'字段标签'))
                 return false;
 	return true;
-
 }
-
 {/literal}
 </script>
 <div id="createcf" style="display:block;position:absolute;width:350px;"></div>
@@ -96,7 +90,6 @@ function theformvalidate() {
         <td valign="top"><img src="{$IMAGE_PATH}showPanelTopLeft.gif"></td>
         <td class="showPanelBg" style="padding: 10px;" valign="top" width="100%">
         <br>
-
 	<div align=center>
 			{include file='SetMenu.tpl'}
 			<!-- DISPLAY -->
@@ -109,7 +102,6 @@ function theformvalidate() {
 					<td rowspan="2" valign="top" width="50"><img src="{$IMAGE_PATH}relatedfield.gif" alt="Users" title="Users" border="0" height="48" width="48"></td>
 					<td class="heading2" valign="bottom"><b><a href="index.php?module=Settings&action=index&parenttab=Settings">{$MOD.LBL_SETTINGS}</a> &gt; 级联字段</b></td>
 				</tr>
-
 				<tr>
 					<td class="small" valign="top">- 创建和管理级联字段。</td>
 				</tr>
@@ -119,7 +111,6 @@ function theformvalidate() {
 				<table border="0" cellpadding="10" cellspacing="0" width="100%">
 				<tbody><tr>
 				<td>
-
 				<table class="tableHeading" border="0" cellpadding="5" cellspacing="0" width="100%">
 				<tbody><tr>
 					<td class="small" align="left">
@@ -144,7 +135,6 @@ function theformvalidate() {
                 </div>	
 			<table border="0" cellpadding="5" cellspacing="0" width="100%">
 			<tr>
-
 		  	<td class="small" align="right" nowrap="nowrap"><a href="#top">{$MOD.LBL_SCROLL}</a></td>
 			</tr>
 			</table>
@@ -160,7 +150,6 @@ function theformvalidate() {
         </tr>
         </table>
         </div>
-
         </td>
         <td valign="top"><img src="{$IMAGE_PATH}showPanelTopRight.gif"></td>
         </tr>

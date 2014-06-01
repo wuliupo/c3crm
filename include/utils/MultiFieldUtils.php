@@ -1,7 +1,6 @@
 <?php
 require_once('include/database/PearDatabase.php');
 require_once('include/utils/utils.php');
-
 function getMultiFieldInfo($multifieldid,$usecache=true){
     global $adb;
     $key = "MultiFieldInfo_".$multifieldid;
@@ -25,10 +24,8 @@ function getMultiFieldInfo($multifieldid,$usecache=true){
             }
            // if($usecache) setSqlCacheData($key,$fieldinfo);
      }
-
     return $fieldinfo;
 }
-
 //type 1.编辑控制面板信息 2.作为外部UI使用
 function getMultiFieldOptions($multifieldid,$level,$parentid,$type){
     global $adb;
@@ -46,7 +43,6 @@ function getMultiFieldOptions($multifieldid,$level,$parentid,$type){
                $opttxt=$row["actualfieldname"];
                $optionsstr.="<option value='$optval'>$opttxt</option>";
            }
-
        }else{
            $sql="select * from $tablename where thelevel=$level and parentfieldid='$parentid' order by sortorderid asc";
            $result=$adb->getList($sql);
@@ -108,7 +104,6 @@ function getMultiFieldOptions($multifieldid,$level,$parentid,$type){
     }
     return $optionsstr;
 }
-
 function getMultiFieldEditViewValue($multifieldid,$uitype,$col_fields){
     global $adb;
     if($uitype=='1021'){
@@ -121,7 +116,6 @@ function getMultiFieldEditViewValue($multifieldid,$uitype,$col_fields){
     $multifieldinfo=getMultiFieldInfo($multifieldid);
     $totallevel=$multifieldinfo["totallevel"];
     $tablename=$multifieldinfo["tablename"];
-
     if($level==1){
         $pick_query = "select * from $tablename where thelevel=1 order by sortorderid";
         $parentid=0;
@@ -169,7 +163,6 @@ function getMultiFieldEditViewValue($multifieldid,$uitype,$col_fields){
 //    print_r($options);
     return $options;
 }
-
 function getActualFieldID($level,$tablename,$parentval,$topval=''){
     global $adb;
     $fieldid=null;
@@ -199,7 +192,6 @@ function getActualFieldID($level,$tablename,$parentval,$topval=''){
 //    echo $fieldid;
     return $fieldid;
 }
-
 function getFieldNodeInformation($fieldid,$multifieldid){
     global $adb;
     $fieldinf=array();
@@ -217,7 +209,6 @@ function getFieldNodeInformation($fieldid,$multifieldid){
     }
     return $fieldinf;
 }
-
 function getMultiFieldPos($fieldid,$multifieldid){
     global $adb;
     if($feildid==-1) return 1;
@@ -232,17 +223,14 @@ function getMultiFieldPos($fieldid,$multifieldid){
     }
     return $sortorderid;
 }
-
 function deleteOptionNode($multifieldid,$fieldid,$level,$totallevel,$tablename)
 {
     global $adb;
     $deletesql="delete from $tablename where actualfieldid='$fieldid' ";
     //file_put_contents("D:\\deletelog.txt", "$deletesql\r\n", FILE_APPEND | LOCK_EX);
     $adb->query($deletesql);
-
     deleteSubOptionNode($multifieldid,$level+1,$totallevel,$fieldid,$tablename);
 }
-
 function deleteSubOptionNode($multifieldid,$level,$totallevel,$parentfieldid,$tablename)
 {
     global $adb;
@@ -258,7 +246,6 @@ function deleteSubOptionNode($multifieldid,$level,$totallevel,$parentfieldid,$ta
             deleteSubOptionNode($multifieldid,$level+1,$totallevel,$eachfieldid,$tablename);
         }
     }
-
     $deletesql="delete from $tablename where thelevel='$level' and parentfieldid='$parentfieldid'";
     //file_put_contents("D:\\deletelog.txt", "$deletesql\r\n", FILE_APPEND | LOCK_EX);
     $adb->query($deletesql);
@@ -270,10 +257,8 @@ function getPreviousNode($sortorderid,$level,$parentfieldid){
         $parentid=-1;
         $parentname="第一个选项";
     }else{
-
     }
     return $parentarr;
 }
  * */
-
 ?>

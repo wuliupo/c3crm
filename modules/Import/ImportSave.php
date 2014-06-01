@@ -8,10 +8,8 @@
    * All Rights Reserved.
   *
  ********************************************************************************/
-
 $count = 0;
 $skip_required_count = 0;
-
 /**	function used to save the records into database
  *	@param array $rows - array of total rows of the csv file
  *	@param array $rows1 - rows to be saved
@@ -35,8 +33,6 @@ function InsertImportRecords($rows,$rows1,$focus,$ret_field_count,$col_pos_to_fi
 	foreach ($temp as $key=>$data) {
 		$my_users[$data] = $key;
 	}
-
-
 	if($start == 0)
 	{
 		$_SESSION['totalrows'] = $rows;
@@ -50,7 +46,6 @@ function InsertImportRecords($rows,$rows1,$focus,$ret_field_count,$col_pos_to_fi
 		global $mod_strings;
 		$do_save = 1;
 		$my_userid = $current_user->id;
-
 		for($field_count = 0; $field_count < $ret_field_count; $field_count++)
 		{
 			if ( isset( $col_pos_to_field[$field_count]) )
@@ -59,7 +54,6 @@ function InsertImportRecords($rows,$rows1,$focus,$ret_field_count,$col_pos_to_fi
 				//{
 				//	continue;
 				//}
-
 				// TODO: add check for user input
 				// addslashes, striptags, etc..
 				$field = $col_pos_to_field[$field_count];
@@ -77,7 +71,6 @@ function InsertImportRecords($rows,$rows1,$focus,$ret_field_count,$col_pos_to_fi
 				}
 				
 			}
-
 		}
 		foreach ($focus->required_fields as $field=>$notused) 
 		{ 
@@ -115,15 +108,12 @@ function InsertImportRecords($rows,$rows1,$focus,$ret_field_count,$col_pos_to_fi
 		}
 	$ii++;	
 	}
-
 	$_REQUEST['count'] = $ii;
 	if(isset($_REQUEST['module']))
 		$modulename = $_REQUEST['module'];
-
 	$end = $start+$recordcount;
 	$START = $start + $recordcount;
 	$RECORDCOUNT = $recordcount;
-
 	if($end >= $totalnoofrows)
 	{
 		$module = 'Import';//$_REQUEST['module'];
@@ -140,7 +130,6 @@ function InsertImportRecords($rows,$rows1,$focus,$ret_field_count,$col_pos_to_fi
 		$action = 'ImportStep3';
 	}
 ?>
-
 <script>
 setTimeout("b()",1000);
 function b()
@@ -148,13 +137,11 @@ function b()
 	document.location.href="index.php?action=<?php echo $action?>&module=<?php echo $module?>&modulename=<?php echo $modulename?>&startval=<?php echo $end?>&recordcount=<?php echo $RECORDCOUNT?>&noofrows=<?php echo $totalnoofrows?>&message=<?php echo $message?>&skipped_record_count=<?php echo $skip_required_count?>&parenttab=<?php echo $_SESSION['import_parenttab']?>";
 }
 </script>
-
 <?php
 $_SESSION['import_display_message'] = '<br>'.$start.' to '.$end.' of '.$totalnoofrows.' are imported successfully';
 //return $_SESSION['import_display_message'];
 $log->debug("Exiting function InsertImportRecords()");
 }
-
 function addSkippedRows($row)
 {
 	$skipped_rows = array();

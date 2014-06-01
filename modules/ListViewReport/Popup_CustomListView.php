@@ -9,17 +9,13 @@ require_once('modules/CustomView/CustomView.php');
 require_once('include/database/Postgres8.php');
 require_once('include/DatabaseUtil.php');
 require_once('modules/ListViewReport/ListViewCustomReport.php');
-
 global $app_strings,$mod_strings,$list_max_entries_per_page,$theme,$adb;
 $theme_path="themes/".$theme."/";
 $image_path=$theme_path."images/";
-
 $focus = new $currentModule();
 $oCustomView = new CustomView($currentModule);
 $viewid = $oCustomView->getViewId($currentModule);
 $viewnamedesc = $oCustomView->getCustomViewByCvid($viewid);
-
-
 if(isset($_REQUEST['query']) && $_REQUEST['query'] == 'true')
 {
 	list($where, $ustring) = explode("#@@#",getWhereCondition($currentModule));
@@ -33,7 +29,6 @@ elseif(isset($_SESSION['LiveViewSearch'][$currentModule]))
 }
 //print_r($_SESSION['LiveViewSearch'][$currentModule]);
 $listviewreport=new ListViewCustomReport($currentModule,$viewid,$oCustomView,$where);
-
 $showinreport=true;
 $reportfun=$_REQUEST['reportfun'];
 $modulename=$currentModule;

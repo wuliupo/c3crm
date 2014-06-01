@@ -14,5 +14,4 @@ $module_enname = 'contact';
 $module_cnname = '联系人';
 $module_parenttabid = '3';
 $module_displayorder = '5';
-
 ?>

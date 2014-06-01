@@ -45,7 +45,6 @@
 				<input type="checkbox" name="sms" id="sms"  {$arr_sms}/>
 				<font color="#3366FF"><b>发短信</b></font><br>
 				<small style="color:#808080;">短信内容：</small>
-
 				<textarea cols="60" name="autoact_sms_sm" id="autoact_sms_sm" rows="4" style="width:60%" onkeyup="checkFieldNum();"/>{$autoact_sms_sm}</textarea><br/>　<font color="999999">　　　　
 				<span style="background-color: rgb(102, 170, 255); color: rgb(255, 255, 255);"> 通配符:会员名称$name$</span></font> <span id="showzishu">你还能输入:<font color=red><b>65</b></font>个字...</span><br/>
 				<span style="padding-left:65px;">
@@ -57,12 +56,10 @@
 			<td style="text-align:left;">
 				<input type="checkbox" name="email" id="email" {$arr_email}/>
 				<font color="#3366FF"><b>发邮件</b></font><br/>
-
 				<small style="color:#808080;">邮件标题：</small>
 				<input type="edit" value="{$autoact_email_bt}" size="50" name="autoact_email_bt"/><br/>　　　　
 				
 				<br><small style="color:#808080;">邮件内容：</small>
-
 				<textarea cols="60" name="autoact_email_sm" rows="4" style="width:60%"/>{$autoact_email_sm}</textarea><br/>　
 				<font color="999999">　　　　
 				<span style="background-color: rgb(102, 170, 255); color: rgb(255, 255, 255);"> 通配符:会员名称$name$</span></font><br/>
@@ -140,7 +137,6 @@
 		</td>
 	</tr>
 </table>
-
 <script>
 {/if}
 {literal}

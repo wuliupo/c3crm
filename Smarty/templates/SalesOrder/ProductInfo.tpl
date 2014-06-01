@@ -6,27 +6,21 @@ function displayCoords(currObj,obj,mode,curr_row)
 	
 	document.getElementById("discount_div_title_final").innerHTML = '<b>' + alert_arr.Set_Discount_for + '</b>';
 	document.getElementById(obj).style.display = "block";
-
 {rdelim}
   
 function doNothing(){ldelim}
 {rdelim}
-
 function fnHidePopDiv(obj){ldelim}
 	document.getElementById(obj).style.display = 'none';
 {rdelim}
 </script>
-
-
 <tr><td colspan="4" align="left">
-
 <table class="table table-bordered table-hover table-condensedforev dvtable" id="proTab">
    <tr>
 	<td colspan="20" class="dvInnerHeader">
 		<b>{$APP.LBL_PRODUCT_DETAILS}</b>
 	</td>
    </tr>
-
    <!-- Header for the Product Details -->
    <tr valign="top">
 	<td width=5% valign="top" class="lvtCol" align="right"><b>{$APP.LBL_TOOLS}</b></td>
@@ -48,10 +42,7 @@ function fnHidePopDiv(obj){ldelim}
 	{assign var="listPrice" value="listPrice"|cat:$row_no}
 	{assign var="productTotal" value="productTotal"|cat:$row_no}
 	{assign var="netPrice" value="netPrice"|cat:$row_no}
-
-
    <tr id="row{$row_no}" valign="top">
-
 	<!-- column 1 - delete link - starts -->
 	<td  class="crmTableRow small lineOnTop">
 		<input type="hidden" id="{$deleted}" name="{$deleted}" value="0">
@@ -71,7 +62,6 @@ function fnHidePopDiv(obj){ldelim}
 	<input id="{$qty}" name="{$qty}" type="text" class="small " {$PRODUCT_READONLY} style="width:50px" onfocus="this.className='detailedViewTextBoxOn'" onBlur="FindDuplicate(); settotalnoofrows(); calcTotal();" value="{$data.$qty}"/>
 	</td>
 	
-
 	<td class="crmTableRow small lineOnTop" align="left" valign="top">
 	   <input id="{$listPrice}" name="{$listPrice}" value="{$data.$listPrice}" {$PRODUCT_READONLY} type="text" class="small " style="width:70px" onBlur="calcTotal();"/>&nbsp;
 	</td>
@@ -81,7 +71,6 @@ function fnHidePopDiv(obj){ldelim}
 	</td>
 	<span style="display:none" id="netPrice{$row_no}"><b>{$data.$netPrice}</b></span>
 	
-
 	
 	<td class="crmTableRow small lineOnTop" align="right">
 		<table class="table table-bordered">
@@ -95,9 +84,6 @@ function fnHidePopDiv(obj){ldelim}
    <!-- Product Details First row - Ends -->
    {/foreach}
 </table>
-
-
-
 <table class="table table-bordered table-hover table-condensedforev dvtable">
 <!--
 All these details are stored in the first element in the array with the index name as final_details 
@@ -112,7 +98,6 @@ so we will get that array, parse that array and fill the details
 	<td width="12%" id="netTotal" style="display:none" class="crmTableRow small lineOnTop" align="right">0.00</td>
    </tr>
    <!-- -->
-
    <tr valign="top">
 	<td class="crmTableRow small lineOnTop" width="75%" style="border-right:1px #dadada;" align="right">&nbsp;
 	        <!-- Popup Discount DIV -->
@@ -150,8 +135,6 @@ so we will get that array, parse that array and fill the details
 	</td>
 	<td id="discountTotal_final" class="crmTableRow small lineOnTop" align="right">{$FINAL.discountTotal_final}</td>
    </tr>
-
-
    <tr valign="top">
 	<td class="crmTableRow small" style="border-right:1px #dadada;">&nbsp;</td>
 	<td class="crmTableRow small" align="right">
@@ -161,7 +144,6 @@ so we will get that array, parse that array and fill the details
 		<input id="shipping_handling_charge" name="shipping_handling_charge" type="text" {$PRODUCT_READONLY} class="small" style="width:40px" align="right" value="{$FINAL.shipping_handling_charge}" onBlur="calcTotal();">%
 	</td>
    </tr>
-
  
    <tr valign="top">
 	<td class="crmTableRow small" style="border-right:1px #dadada;">&nbsp;</td>
@@ -176,8 +158,6 @@ so we will get that array, parse that array and fill the details
 		<input id="adjustment" name="adjustment" type="text" {$PRODUCT_READONLY} class="small" style="width:40px" align="right" value="{$FINAL.adjustment}" onBlur="calcTotal();">
 	</td>
    </tr>
-
-
    <tr valign="top">
 	<td class="crmTableRow big lineOnTop" style="border-right:1px #dadada;">&nbsp;</td>
 	<td class="crmTableRow big lineOnTop" align="right"><b>{$APP.LBL_GRAND_TOTAL}</b></td>

@@ -69,7 +69,6 @@ var $_consumers = array();
 var  $_filename;
 var  $_fp;
 var  $_logger_name;
-
  function DebugOut($name, $logger_name, $level ){
      $this->_filename = $name;
      $this->_currentPriority = $level;
@@ -154,7 +153,6 @@ var  $_logger_name;
     $this->_listeners[$logObserver->_listenerID] = &$logObserver;
  }}define ('ABC_BAD_DATE', -1);
 class ExcelDateUtil{
-
 /*
  * return 1900 Date as integer TIMESTAMP.
  * for UNIX date must be
@@ -233,9 +231,7 @@ define('XF_STYLE_ITALIC', 0x2);
 define('XF_STYLE_STRIKEOUT', 0x8);
 define('XF_BOLDNESS_REGULAR',0x190);
 define('XF_BOLDNESS_BOLD',0x2BC);
-
 class ExcelFont {
-
  function basicFontRecord() {
     return  array('size'     => 10,
                     'script'   => XF_SCRIPT_NONE,
@@ -420,7 +416,6 @@ var $formats;
 var $xf;
 var $fonts;
     var $dbglog;
-
     function ExcelFileParser($logfile="",$level=ABC_NO_LOG) {
 $this->dbglog = &DebugOut::getWriterSingleton($logfile,"",$level);
         $this->dbglog->info("Logger started");
@@ -688,7 +683,6 @@ $data['cell'][$row][$col]['type'] = 3;
 $data['cell'][$row][$col]['type'] = 2;
 }$fonti = $this->xf['font'][$xf_i];
     $data['cell'][$row][$fc+$i]['font'] = $fonti;
-
 $fexp = (($num_hi & 0x7ff00000) >> 20) - 1023;
 $val = 1+(($num_hi & 0x000fffff)+$num_lo/4294967296)/1048576;
 if( $fexp > 0 ) {
@@ -725,7 +719,6 @@ $data['cell'][$row][$col]['type'] = $val['type'];
 }$fonti = $this->xf['font'][$xf_i];
     $data['cell'][$row][$col]['font'] = $fonti;
 $data['cell'][$row][$col]['data'] = $val['val'];
-
 if( !isset($data['max_row']) ||
     ($data['max_row'] < $row) )
 $data['max_row'] = $row;
@@ -773,7 +766,6 @@ $col = ord($ws[$ptr+6])+256*ord($ws[$ptr+7]);
 $xf = ord($ws[$ptr+8])+256*ord($ws[$ptr+9]);
 $fonti = $this->xf['font'][$xf];
 $font =  $this->fonts[$fonti];
-
 $str_len = ord($ws[$ptr+10])+256*ord($ws[$ptr+11]);
 if( $ptr+12+$str_len > strlen($ws) )
 return 6;
@@ -791,7 +783,6 @@ $data['max_row'] = $row;
 if( !isset($data['max_col']) ||
     ($data['max_col'] < $col) )
 $data['max_col'] = $col;
-
 break;
   // LABELSST
   case 0x00fd:
@@ -1209,13 +1200,10 @@ $charcode = ord($str[$i*2])+256*ord($str[$i*2+1]);
 $ret .= '&#'.$charcode;
 }return $ret;
 }
-
 //------------------------读取Excel文件
 function Read_Excel_File($ExcelFile,&$result) {
-
 $exc = new ExcelFileParser("", ABC_NO_LOG );
 $res=$exc->ParseFromFile($ExcelFile);$result=null;
-
 switch ($res) {
 	case 0: break;
 	case 1: $err="无法打开文件"; break;
@@ -1229,7 +1217,6 @@ switch ($res) {
 	default:
 		$err="未知错误"; break;
 }
-
 for( $ws_num=0; $ws_num<count($exc->worksheet['name']); $ws_num++ )
 {
 	$Sheetname=$exc->worksheet['name'][$ws_num];	
@@ -1275,13 +1262,11 @@ for( $ws_num=0; $ws_num<count($exc->worksheet['name']); $ws_num++ )
 }
 if ($err=='') {return 0;} else {return $err;}
 }
-
 //------------------------建立Excel文件
 function Create_Excel_File($ExcelFile,$Data) {
 	
 header ('Content-type: application/x-msexcel'); 
 header ("Content-Disposition: attachment; filename=$ExcelFile" );  
-
 function xlsBOF() { 
     echo pack("ssssss", 0x809, 0x8, 0x0, 0x10, 0x0, 0x0);  
     return; 
@@ -1301,7 +1286,6 @@ function xlsWriteLabel($Row, $Col, $Value ) {
     echo $Value; 
 return; 
 } 
-
 xlsBOF();
 for ($i=0;$i<count($Data[0]);$i++)
 {

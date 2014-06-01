@@ -18,7 +18,6 @@
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  * @version    $Id: Jp.php 23775 2011-03-01 17:25:24Z ralph $
  */
-
 /**
  * Ressource file for japanese idn validation
  *

@@ -16,11 +16,6 @@
 	<input type="hidden" name="return_action" value="{$RETURN_ACTION}">
 	<input type="hidden" name="return_viewname" value="{$RETURN_VIEWNAME}">
 	<input type="hidden" name="moduletype" value="Memdays">
-
-
-
-
-
 	<!-- center start -->
 		 <div class="container-fluid">
 			<div class="row-fluid">
@@ -66,8 +61,6 @@
 </div>
 <div class="modal-footer">
 </div>
-
-
 <script>	
         var fieldname = new Array({$VALIDATION_DATA_FIELDNAME})
         var fieldlabel = new Array({$VALIDATION_DATA_FIELDLABEL})

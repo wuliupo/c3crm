@@ -11,26 +11,19 @@
 *
 * @see http://pear.php.net/package/Archive_Tar
 */
-
 // name and directory of package
 $pkgName   = "JAMA";
-
 // root of PHP/Math build directory
 $buildDir  = substr(dirname(__FILE__), 0, -5 - strlen($pkgName));
-
 // switch to PHP/Math build directory
 chdir($buildDir);
-
 $tarName = "$pkgName.tar.gz";  
-
 $tarPath = $buildDir.$pkgName."/downloads/".$tarName;
-
 if($_GET['op'] == "download") {  
   
 	require_once('Archive/Tar.php');  
 	
 	$tar   = new Archive_Tar($tarPath);
-
   // create $pkgName archive under $pkgName folder
   $files = glob("$pkgName/*.php");
   $files = array_merge($files, glob("$pkgName/*.TXT"));
@@ -48,9 +41,7 @@ if($_GET['op'] == "download") {
   
   // redirect to download url
 	header("Location: $urlPath/$tarName");
-
 }
-
 include_once "includes/header.php";
 include_once "includes/navbar.php";
 ?>

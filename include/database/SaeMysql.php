@@ -9,7 +9,6 @@
  * @package sae
  *
  */
-
 /**
  * Sae Mysql Class
  *
@@ -35,7 +34,6 @@
  */ 
 class SaeMysql 
 {
-
     /**
      * 构造函数 
      *    
@@ -47,11 +45,8 @@ class SaeMysql
     {
         //set default charset as utf8
         $this->charset = 'UTF8';
-
         $this->do_replication = $do_replication;
     }
-
-
     /**
      * 设置当前连接的字符集 , 必须在发起连接之前进行设置
      *
@@ -62,7 +57,6 @@ class SaeMysql
     {
         return $this->set_charset( $charset );
     }
-
     /**
      * 同setCharset,向前兼容
      *
@@ -74,7 +68,6 @@ class SaeMysql
     {
         $this->charset = $charset;
     }
-
     /**
      * 运行Sql语句,不返回结果集
      *
@@ -85,7 +78,6 @@ class SaeMysql
     {
         return $this->run_sql( $sql );
     }
-
     /**
      * 同runSql,向前兼容
      *
@@ -105,7 +97,6 @@ class SaeMysql
         $this->save_error( $dblink );
         return $ret;
     }
-
     /**
      * 运行Sql,以多维数组方式返回结果集
      *
@@ -117,7 +108,6 @@ class SaeMysql
     {
         return $this->get_data( $sql );
     }
-
     /**
      * 同getData,向前兼容
      *
@@ -133,9 +123,7 @@ class SaeMysql
             return false;
         }
         $result = mysqli_query( $dblink , $sql );
-
         $this->save_error( $dblink );
-
         if (is_bool($result)) {
             return $result;
         } else {
@@ -144,15 +132,12 @@ class SaeMysql
                 $data[$i++] = $Array;
             }
         }
-
         mysqli_free_result($result); 
-
         if( count( $data ) > 0 )
             return $data;
         else
             return NULL;    
     }
-
     /**
      * 运行Sql,以数组方式返回结果集第一条记录
      *
@@ -164,7 +149,6 @@ class SaeMysql
     {
         return $this->get_line( $sql );
     }
-
     /**
      * 同getLine,向前兼容
      *
@@ -182,7 +166,6 @@ class SaeMysql
             return false;
         }
     }
-
     /**
      * 运行Sql,返回结果集第一条记录的第一个字段值
      *
@@ -194,7 +177,6 @@ class SaeMysql
     {
         return $this->get_var( $sql ); 
     } 
-
     /**
      * 同getVar,向前兼容
      *
@@ -212,7 +194,6 @@ class SaeMysql
             return false;
         }
     }
-
     /**
      * 同mysqli_affected_rows函数
      *
@@ -224,7 +205,6 @@ class SaeMysql
         $result = mysqli_affected_rows( $this->db_write() );
         return $result;
     }
-
     /**
      * 同mysqli_last_id函数
      *
@@ -235,7 +215,6 @@ class SaeMysql
     {
         return $this->last_id();
     }
-
     /**
      * 同lastId,向前兼容
      *
@@ -248,7 +227,6 @@ class SaeMysql
         $result = mysqli_insert_id( $this->db_write() );
         return $result;
     }
-
     /**
      * 关闭数据库连接
      *
@@ -259,7 +237,6 @@ class SaeMysql
     {
         return $this->close_db();
     }
-
     /**
      * 同closeDb,向前兼容
      *
@@ -271,12 +248,9 @@ class SaeMysql
     {
         if( isset( $this->db_read ) )
             @mysqli_close( $this->db_read );
-
         if( isset( $this->db_write ) )
             @mysqli_close( $this->db_write );
-
     }
-
     /**
      *  同mysqli_real_escape_string
      *
@@ -293,10 +267,8 @@ class SaeMysql
         } else {
             $db = $this->db_read();
         }
-
         return mysqli_real_escape_string( $db , $str );
     }
-
     /**
      * 返回错误码
      * 
@@ -308,7 +280,6 @@ class SaeMysql
     {
         return     $this->errno;
     }
-
     /**
      * 返回错误信息
      *
@@ -319,7 +290,6 @@ class SaeMysql
     {
         return $this->error;
     }
-
     /**
      * 返回错误信息,error的别名
      *
@@ -330,7 +300,6 @@ class SaeMysql
     {
         return $this->error();
     }
-
     /**
      * @ignore
      */
@@ -343,23 +312,18 @@ class SaeMysql
         else {
 			$host = $dbconfig['db_server'];
 		}
-
         $db = mysqli_init();
         mysqli_options($db, MYSQLI_OPT_CONNECT_TIMEOUT, 5);
 		$port = substr($dbconfig['db_port'],1);
-
         if( !mysqli_real_connect( $db, $host , $dbconfig['db_username'] , $dbconfig['db_password'] , $dbconfig['db_name'] , $port ) )
         {
             $this->error = mysqli_connect_error();
             $this->errno = mysqli_connect_errno();
             return false;
         }
-
         mysqli_set_charset( $db, $this->charset);
-
         return $db;
     }
-
     /**
      * @ignore
      */
@@ -379,7 +343,6 @@ class SaeMysql
             }
         }
     }
-
     /**
      * @ignore
      */
@@ -395,7 +358,6 @@ class SaeMysql
             return $this->db_write;
         }
     }
-
     /**
      * @ignore
      */
@@ -404,11 +366,8 @@ class SaeMysql
         $this->error = mysqli_error($dblink);
         $this->errno = mysqli_errno($dblink);
     }
-
     private $error;
     private $errno;
     private $last_sql;
-
-
 }
 ?>

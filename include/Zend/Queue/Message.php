@@ -19,7 +19,6 @@
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  * @version    $Id: Message.php 23775 2011-03-01 17:25:24Z ralph $
  */
-
 /**
  * Class for managing queue messages
  *
@@ -37,7 +36,6 @@ class Zend_Queue_Message
      * @var array
      */
     protected $_data = array();
-
      /**
      * Connected is true if we have a reference to a live
      * Zend_Queue_Adapter_Abstract object.
@@ -46,21 +44,18 @@ class Zend_Queue_Message
      * @var boolean
      */
     protected $_connected = true;
-
     /**
      * Zend_Queue parent class or instance
      *
      * @var Zend_Queue
      */
     protected $_queue = null;
-
     /**
      * Name of the class of the Zend_Queue
      *
      * @var string
      */
     protected $_queueClass = null;
-
     /**
      * Constructor
      *
@@ -78,7 +73,6 @@ class Zend_Queue_Message
                 if ($result === 'object') {
                     $result = get_class($options['queue']);
                 }
-
                 require_once 'include/Zend/Queue/Exception.php';
                 throw new Zend_Queue_Exception(
                     '$options[\'queue\'] = '
@@ -95,7 +89,6 @@ class Zend_Queue_Message
             $this->_data = $options['data'];
         }
     }
-
     /**
      * Retrieve message field value
      *
@@ -111,7 +104,6 @@ class Zend_Queue_Message
         }
         return $this->_data[$key];
     }
-
     /**
      * Set message field value
      *
@@ -128,7 +120,6 @@ class Zend_Queue_Message
         }
         $this->_data[$key] = $value;
     }
-
     /**
      * Test existence of message field
      *
@@ -139,11 +130,9 @@ class Zend_Queue_Message
     {
         return array_key_exists($key, $this->_data);
     }
-
     /*
      * Serialize
      */
-
     /**
      * Store queue and data in serialized object
      *
@@ -153,7 +142,6 @@ class Zend_Queue_Message
     {
         return array('_queueClass', '_data');
     }
-
     /**
      * Setup to do on wakeup.
      * A de-serialized Message should not be assumed to have access to a live
@@ -165,7 +153,6 @@ class Zend_Queue_Message
     {
         $this->_connected = false;
     }
-
      /**
      * Returns the queue object, or null if this is disconnected message
      *
@@ -175,7 +162,6 @@ class Zend_Queue_Message
     {
         return $this->_queue;
     }
-
     /**
      * Set the queue object, to re-establish a live connection
      * to the queue for a Message that has been de-serialized.
@@ -191,7 +177,6 @@ class Zend_Queue_Message
         $this->_connected  = true;
         return true;
     }
-
     /**
      * Query the class name of the Queue object for which this
      * Message was created.
@@ -202,7 +187,6 @@ class Zend_Queue_Message
     {
         return $this->_queueClass;
     }
-
     /**
      * Returns the column/value data as an array.
      *
@@ -212,7 +196,6 @@ class Zend_Queue_Message
     {
         return $this->_data;
     }
-
     /**
      * Sets all data in the row from an array.
      *
@@ -224,7 +207,6 @@ class Zend_Queue_Message
         foreach ($data as $columnName => $value) {
             $this->$columnName = $value;
         }
-
         return $this;
     }
 }

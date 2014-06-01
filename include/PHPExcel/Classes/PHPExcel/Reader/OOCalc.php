@@ -24,8 +24,6 @@
  * @license    http://www.gnu.org/licenses/old-licenses/lgpl-2.1.txt	LGPL
  * @version    1.7.2, 2010-01-11
  */
-
-
 /** PHPExcel root directory */
 if (!defined('PHPEXCEL_ROOT')) {
 	/**
@@ -33,26 +31,18 @@ if (!defined('PHPEXCEL_ROOT')) {
 	 */
 	define('PHPEXCEL_ROOT', dirname(__FILE__) . '/../../');
 }
-
 /** PHPExcel */
 require_once PHPEXCEL_ROOT . 'PHPExcel.php';
-
 /** PHPExcel_Reader_IReader */
 require_once PHPEXCEL_ROOT . 'PHPExcel/Reader/IReader.php';
-
 /** PHPExcel_Worksheet */
 require_once PHPEXCEL_ROOT . 'PHPExcel/Worksheet.php';
-
 /** PHPExcel_Cell */
 require_once PHPEXCEL_ROOT . 'PHPExcel/Cell.php';
-
 /** PHPExcel_Calculation */
 require_once PHPEXCEL_ROOT . 'PHPExcel/Calculation.php';
-
  /** PHPExcel_Reader_DefaultReadFilter */
 require_once PHPEXCEL_ROOT . 'PHPExcel/Reader/DefaultReadFilter.php';
-
-
 /**
  * PHPExcel_Reader_OOCalc
  *
@@ -68,36 +58,30 @@ class PHPExcel_Reader_OOCalc implements PHPExcel_Reader_IReader
 	 * @var boolean
 	 */
 	private $_readDataOnly = false;
-
 	/**
 	 * Restict which sheets should be loaded?
 	 *
 	 * @var array
 	 */
 	private $_loadSheetsOnly = null;
-
 	/**
 	 * Sheet index to read
 	 *
 	 * @var int
 	 */
 	private $_sheetIndex;
-
 	/**
 	 * Formats
 	 *
 	 * @var array
 	 */
 	private $_styles = array();
-
 	/**
 	 * PHPExcel_Reader_IReadFilter instance
 	 *
 	 * @var PHPExcel_Reader_IReadFilter
 	 */
 	private $_readFilter = null;
-
-
 	/**
 	 * Read data only?
 	 *
@@ -106,7 +90,6 @@ class PHPExcel_Reader_OOCalc implements PHPExcel_Reader_IReader
 	public function getReadDataOnly() {
 		return $this->_readDataOnly;
 	}
-
 	/**
 	 * Set read data only
 	 *
@@ -117,7 +100,6 @@ class PHPExcel_Reader_OOCalc implements PHPExcel_Reader_IReader
 		$this->_readDataOnly = $pValue;
 		return $this;
 	}
-
 	/**
 	 * Get which sheets to load
 	 *
@@ -127,7 +109,6 @@ class PHPExcel_Reader_OOCalc implements PHPExcel_Reader_IReader
 	{
 		return $this->_loadSheetsOnly;
 	}
-
 	/**
 	 * Set which sheets to load
 	 *
@@ -140,7 +121,6 @@ class PHPExcel_Reader_OOCalc implements PHPExcel_Reader_IReader
 			$value : array($value);
 		return $this;
 	}
-
 	/**
 	 * Set all sheets to load
 	 *
@@ -151,7 +131,6 @@ class PHPExcel_Reader_OOCalc implements PHPExcel_Reader_IReader
 		$this->_loadSheetsOnly = null;
 		return $this;
 	}
-
 	/**
 	 * Read filter
 	 *
@@ -160,7 +139,6 @@ class PHPExcel_Reader_OOCalc implements PHPExcel_Reader_IReader
 	public function getReadFilter() {
 		return $this->_readFilter;
 	}
-
 	/**
 	 * Set read filter
 	 *
@@ -171,7 +149,6 @@ class PHPExcel_Reader_OOCalc implements PHPExcel_Reader_IReader
 		$this->_readFilter = $pValue;
 		return $this;
 	}
-
 	/**
 	 * Create a new PHPExcel_Reader_OOCalc
 	 */
@@ -179,7 +156,6 @@ class PHPExcel_Reader_OOCalc implements PHPExcel_Reader_IReader
 		$this->_sheetIndex 	= 0;
 		$this->_readFilter 	= new PHPExcel_Reader_DefaultReadFilter();
 	}
-
 	/**
 	 * Can the current PHPExcel_Reader_IReader read the file?
 	 *
@@ -192,21 +168,16 @@ class PHPExcel_Reader_OOCalc implements PHPExcel_Reader_IReader
 		if (!file_exists($pFilename)) {
 			throw new Exception("Could not open " . $pFilename . " for reading! File does not exist.");
 		}
-
 		// Load file
 		$zip = new ZipArchive;
 		if ($zip->open($pFilename) === true) {
 			// check if it is an OOXML archive
 			$mimeType = $zip->getFromName("mimetype");
-
 			$zip->close();
-
 			return ($mimeType === 'application/vnd.oasis.opendocument.spreadsheet');
 		}
-
 		return false;
 	}
-
 	/**
 	 * Loads PHPExcel from file
 	 *
@@ -217,11 +188,9 @@ class PHPExcel_Reader_OOCalc implements PHPExcel_Reader_IReader
 	{
 		// Create new PHPExcel
 		$objPHPExcel = new PHPExcel();
-
 		// Load into this instance
 		return $this->loadIntoExisting($pFilename, $objPHPExcel);
 	}
-
 	private static function identifyFixedStyleValue($styleList,&$styleAttributeValue) {
 		$styleAttributeValue = strtolower($styleAttributeValue);
 		foreach($styleList as $style) {
@@ -232,7 +201,6 @@ class PHPExcel_Reader_OOCalc implements PHPExcel_Reader_IReader
 		}
 		return false;
 	}
-
 	/**
 	 * Loads PHPExcel from file into PHPExcel instance
 	 *
@@ -246,7 +214,6 @@ class PHPExcel_Reader_OOCalc implements PHPExcel_Reader_IReader
 		if (!file_exists($pFilename)) {
 			throw new Exception("Could not open " . $pFilename . " for reading! File does not exist.");
 		}
-
 		$zip = new ZipArchive;
 		if ($zip->open($pFilename) === true) {
 //			echo '<h1>Meta Information</h1>';
@@ -255,7 +222,6 @@ class PHPExcel_Reader_OOCalc implements PHPExcel_Reader_IReader
 //			echo '<pre>';
 //			print_r($namespacesMeta);
 //			echo '</pre><hr />';
-
 			$docProps = $objPHPExcel->getProperties();
 			$officeProperty = $xml->children($namespacesMeta['office']);
 			foreach($officeProperty as $officePropertyData) {
@@ -265,7 +231,6 @@ class PHPExcel_Reader_OOCalc implements PHPExcel_Reader_IReader
 				}
 				foreach($officePropertyDC as $propertyName => $propertyValue) {
 //					echo $propertyName.' = '.$propertyValue.'<hr />';
-
 					switch ($propertyName) {
 						case 'title' :
 								$docProps->setTitle($propertyValue);
@@ -291,7 +256,6 @@ class PHPExcel_Reader_OOCalc implements PHPExcel_Reader_IReader
 				}
 				foreach($officePropertyMeta as $propertyName => $propertyValue) {
 					$propertyValueAttributes = $propertyValue->attributes($namespacesMeta['meta']);
-
 //					echo $propertyName.' = '.$propertyValue.'<br />';
 //					foreach ($propertyValueAttributes as $key => $value) {
 //						echo $key.' = '.$value.'<br />';
@@ -305,15 +269,12 @@ class PHPExcel_Reader_OOCalc implements PHPExcel_Reader_IReader
 					}
 				}
 			}
-
-
 //			echo '<h1>Workbook Content</h1>';
 			$xml = simplexml_load_string($zip->getFromName("content.xml"));
 			$namespacesContent = $xml->getNamespaces(true);
 //			echo '<pre>';
 //			print_r($namespacesContent);
 //			echo '</pre><hr />';
-
 			$workbook = $xml->children($namespacesContent['office']);
 			foreach($workbook->body->spreadsheet as $workbookData) {
 				$workbookData = $workbookData->children($namespacesContent['table']);
@@ -329,7 +290,6 @@ class PHPExcel_Reader_OOCalc implements PHPExcel_Reader_IReader
 						(!in_array($worksheetDataAttributes['name'], $this->_loadSheetsOnly))) {
 						continue;
 					}
-
 //					echo '<h2>Worksheet '.$worksheetDataAttributes['name'].'</h2>';
 					// Create new Worksheet
 					$objPHPExcel->createSheet();
@@ -338,7 +298,6 @@ class PHPExcel_Reader_OOCalc implements PHPExcel_Reader_IReader
 						$worksheetName = $worksheetDataAttributes['name'];
 						$objPHPExcel->getActiveSheet()->setTitle($worksheetName);
 					}
-
 					$rowID = 1;
 					foreach($worksheetData as $key => $rowData) {
 //						echo '<b>'.$key.'</b><br />';
@@ -350,7 +309,6 @@ class PHPExcel_Reader_OOCalc implements PHPExcel_Reader_IReader
 									$cellDataText = $cellData->children($namespacesContent['text']);
 									$cellDataOfficeAttributes = $cellData->attributes($namespacesContent['office']);
 									$cellDataTableAttributes = $cellData->attributes($namespacesContent['table']);
-
 //									echo 'Office Attributes: ';
 //									print_r($cellDataOfficeAttributes);
 //									echo '<br />Table Attributes: ';
@@ -366,7 +324,6 @@ class PHPExcel_Reader_OOCalc implements PHPExcel_Reader_IReader
 										$cellDataFormula = $cellDataTableAttributes['formula'];
 										$hasCalculatedValue = true;
 									}
-
 									if (isset($cellDataText->p)) {
 //										echo 'Value Type is '.$cellDataOfficeAttributes['value-type'].'<br />';
 										switch ($cellDataOfficeAttributes['value-type']) {
@@ -410,7 +367,6 @@ class PHPExcel_Reader_OOCalc implements PHPExcel_Reader_IReader
 //											echo 'Hyperlink is '.$hyperlink.'<br />';
 //										}
 									}
-
 									if ($hasCalculatedValue) {
 										$type = PHPExcel_Cell_DataType::TYPE_FORMULA;
 //										echo 'Formula: '.$cellDataFormula.'<br />';
@@ -428,7 +384,6 @@ class PHPExcel_Reader_OOCalc implements PHPExcel_Reader_IReader
 										$cellDataFormula = implode('"',$temp);
 //										echo 'Adjusted Formula: '.$cellDataFormula.'<br />';
 									}
-
 									if (!is_null($type)) {
 										$objPHPExcel->getActiveSheet()->getCell($columnID.$rowID)->setValueExplicit((($hasCalculatedValue) ? $cellDataFormula : $dataValue),$type);
 										if ($hasCalculatedValue) {
@@ -443,7 +398,6 @@ class PHPExcel_Reader_OOCalc implements PHPExcel_Reader_IReader
 											$objPHPExcel->getActiveSheet()->getCell($columnID.$rowID)->getHyperlink()->setUrl($hyperlink);
 										}
 									}
-
 									//	Merged cells
 									if ((isset($cellDataTableAttributes['number-columns-spanned'])) || (isset($cellDataTableAttributes['number-rows-spanned']))) {
 										$columnTo = $columnID;
@@ -457,7 +411,6 @@ class PHPExcel_Reader_OOCalc implements PHPExcel_Reader_IReader
 										$cellRange = $columnID.$rowID.':'.$columnTo.$rowTo;
 										$objPHPExcel->getActiveSheet()->mergeCells($cellRange);
 									}
-
 									if (isset($cellDataTableAttributes['number-columns-repeated'])) {
 //										echo 'Repeated '.$cellDataTableAttributes['number-columns-repeated'].' times<br />';
 										$columnID = PHPExcel_Cell::stringFromColumnIndex(PHPExcel_Cell::columnIndexFromString($columnID) + $cellDataTableAttributes['number-columns-repeated'] - 2);
@@ -471,13 +424,10 @@ class PHPExcel_Reader_OOCalc implements PHPExcel_Reader_IReader
 					++$worksheetID;
 				}
 			}
-
 		}
-
 		// Return
 		return $objPHPExcel;
 	}
-
 	/**
 	 * Get sheet index
 	 *
@@ -486,7 +436,6 @@ class PHPExcel_Reader_OOCalc implements PHPExcel_Reader_IReader
 	public function getSheetIndex() {
 		return $this->_sheetIndex;
 	}
-
 	/**
 	 * Set sheet index
 	 *

@@ -8,7 +8,5 @@
  * All Rights Reserved.
 *
  ********************************************************************************/
-
         require_once('include/utils/ExportRecords.php');
 ?>
-

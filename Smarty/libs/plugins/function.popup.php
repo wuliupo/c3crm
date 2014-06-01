@@ -4,8 +4,6 @@
  * @package Smarty
  * @subpackage plugins
  */
-
-
 /**
  * Smarty {popup} function plugin
  *
@@ -32,13 +30,11 @@ function smarty_function_popup($params, &$smarty)
                 if ($_key == 'function' || $_key == 'inarray')
                     $append .= ',' . strtoupper($_key) . ",'$_value'";
                 break;
-
             case 'caption':
             case 'closetext':
             case 'status':
                 $append .= ',' . strtoupper($_key) . ",'" . str_replace("'","\'",$_value) . "'";
                 break;
-
             case 'fgcolor':
             case 'bgcolor':
             case 'textcolor':
@@ -55,7 +51,6 @@ function smarty_function_popup($params, &$smarty)
             case 'frame':
                 $append .= ',' . strtoupper($_key) . ",'$_value'";
                 break;
-
             case 'textsize':
             case 'captionsize':
             case 'closesize':
@@ -74,7 +69,6 @@ function smarty_function_popup($params, &$smarty)
             case 'delay':
                 $append .= ',' . strtoupper($_key) . ",$_value";
                 break;
-
             case 'sticky':
             case 'left':
             case 'right':
@@ -92,28 +86,20 @@ function smarty_function_popup($params, &$smarty)
             case 'closeclick':
                 if ($_value) $append .= ',' . strtoupper($_key);
                 break;
-
             default:
                 $smarty->trigger_error("[popup] unknown parameter $_key", E_USER_WARNING);
         }
     }
-
     if (empty($text) && !isset($inarray) && empty($function)) {
         $smarty->trigger_error("overlib: attribute 'text' or 'inarray' or 'function' required");
         return false;
     }
-
     if (empty($trigger)) { $trigger = "onmouseover"; }
-
     $retval = $trigger . '="return overlib(\''.preg_replace(array("!'!","![\r\n]!"),array("\'",'\r'),$text).'\'';
     $retval .= $append . ');"';
     if ($trigger == 'onmouseover')
        $retval .= ' onmouseout="nd();"';
-
-
     return $retval;
 }
-
 /* vim: set expandtab: */
-
 ?>

@@ -1,21 +1,16 @@
  <script language="JavaScript" type="text/javascript" src="include/js/ListView.js"></script>
 <script language="JavaScript" type="text/javascript" src="include/js/search.js"></script>
 <script language="JavaScript" type="text/javascript" src="modules/{$MODULE}/{$SINGLE_MOD}.js"></script>
-
-
 <link href="themes/images/report.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="themes/images/tabpane.js"></script>
 <link href="themes/images/tab.css" rel="stylesheet" type="text/css">
 <script src="include/js/highcharts.js"></script>
 <script src="include/js/exporting.js"></script>
-
 <script language="javascript">
-
 function callSearch(searchtype)
 {ldelim} 
         $("#status").css('display','inline');
         search_fld_val= $('#bas_searchfield').val();;
-
         search_txt_val= $('input[name=search_text]').val();
         var urlstring = 'index.php?';
         if(searchtype == 'Basic')
@@ -54,7 +49,6 @@ function callSearch(searchtype)
              $("#ListViewContents").html(msg); 
            {rdelim}  
       {rdelim});
-
 {rdelim}
 function alphabetic(module,url,dataid)
 {ldelim} 
@@ -62,7 +56,6 @@ function alphabetic(module,url,dataid)
         {ldelim}
                 var data_td_id = 'alpha_'+ eval(i);
                 getObj(data_td_id).addClass('searchAlph');
-
         {rdelim}
         getObj(dataid).addClass('searchAlphselected');
         $("#status").css('display','inline');
@@ -76,12 +69,9 @@ function alphabetic(module,url,dataid)
            {rdelim}  
         {rdelim});
 {rdelim}
-
 </script>
-
  <div id="showReportInfo" class="modal hide fade" tabindex ="-1" role = "dialog" aria-labelledby="myModalLabel" aria-hidden="true" 
  style="width:800px;margin-left:-400px;"></div>
-
  <div class="container-fluid"> 
       <div class="row-fluid">
         
@@ -105,7 +95,6 @@ function alphabetic(module,url,dataid)
                       <button type="button" class="btn btn-small " onClick="openAdvanceDialogs('{$MODULE}');">
                       <i class="icon-share-alt"></i>&nbsp;高级搜索</button>
                       
-
                   </form>
                 </div>
                 <div class="pull-right">
@@ -118,7 +107,6 @@ function alphabetic(module,url,dataid)
                 <li class="nav-header" style="padding-left:0px;padding-right:5px;">
                   <i class="icon-th-list"></i> 
                 </li>
-
                  {foreach name="listviewforeach" key=id item=viewname from=$CUSTOMVIEW_OPTION}
                   {if $id eq $VIEWID} 
                     <li class="active"><a href="javascript:;" onclick="javascript:getTabView('{$MODULE}','viewname={$id}',this,{$id});" >{$viewname}</a></li>
@@ -140,9 +128,7 @@ function alphabetic(module,url,dataid)
 				{/if}
               </ul>
           </div>
-
           <div style="margin-top:2px;padding-top:5px;margin-bottom:5px;border-top:2px solid #0088CC;" >
-
              
               <div class="pull-left" style="margin-bottom:5px;">
                 <button class="btn btn-small btn-primary" style="margin-top:2px;" onclick="javascript:location.href='index.php?module={$MODULE}&action=EditView'">
@@ -155,12 +141,9 @@ function alphabetic(module,url,dataid)
               </div>
           </div>
           <div class="clear"></div> 
-
            <div id="ListViewContents" class="small" style="width:100%;position:relative;">
             {include file="$MODULE/ListViewEntries.tpl"}
           </div>
-
         </div>
       </div>
-
     </div>

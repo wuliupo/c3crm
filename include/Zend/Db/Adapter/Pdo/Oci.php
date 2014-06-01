@@ -19,14 +19,10 @@
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  * @version    $Id: Oci.php 23775 2011-03-01 17:25:24Z ralph $
  */
-
-
 /**
  * @see Zend_Db_Adapter_Pdo_Abstract
  */
 require_once 'include/Zend/Db/Adapter/Pdo/Abstract.php';
-
-
 /**
  * Class for connecting to Oracle databases and performing common operations.
  *
@@ -38,21 +34,18 @@ require_once 'include/Zend/Db/Adapter/Pdo/Abstract.php';
  */
 class Zend_Db_Adapter_Pdo_Oci extends Zend_Db_Adapter_Pdo_Abstract
 {
-
     /**
      * PDO type.
      *
      * @var string
      */
     protected $_pdoType = 'oci';
-
     /**
      * Default class name for a DB statement.
      *
      * @var string
      */
     protected $_defaultStmtClass = 'Zend_Db_Statement_Pdo_Oci';
-
     /**
      * Keys are UPPERCASE SQL datatypes or the constants
      * Zend_Db::INT_TYPE, Zend_Db::BIGINT_TYPE, or Zend_Db::FLOAT_TYPE.
@@ -72,7 +65,6 @@ class Zend_Db_Adapter_Pdo_Oci extends Zend_Db_Adapter_Pdo_Abstract
         'BINARY_FLOAT'       => Zend_Db::FLOAT_TYPE,
         'NUMBER'             => Zend_Db::FLOAT_TYPE
     );
-
     /**
      * Creates a PDO DSN for the adapter from $this->_config settings.
      *
@@ -82,29 +74,23 @@ class Zend_Db_Adapter_Pdo_Oci extends Zend_Db_Adapter_Pdo_Abstract
     {
         // baseline of DSN parts
         $dsn = $this->_config;
-
         if (isset($dsn['host'])) {
             $tns = 'dbname=(DESCRIPTION=(ADDRESS_LIST=(ADDRESS=(PROTOCOL=TCP)' .
                    '(HOST=' . $dsn['host'] . ')';
-
             if (isset($dsn['port'])) {
                 $tns .= '(PORT=' . $dsn['port'] . ')';
             } else {
                 $tns .= '(PORT=1521)';
             }
-
             $tns .= '))(CONNECT_DATA=(SID=' . $dsn['dbname'] . ')))';
         } else {
             $tns = 'dbname=' . $dsn['dbname'];
         }
-
         if (isset($dsn['charset'])) {
             $tns .= ';charset=' . $dsn['charset'];
         }
-
         return $this->_pdoType . ':' . $tns;
     }
-
     /**
      * Quote a raw string.
      * Most PDO drivers have an implementation for the quote() method,
@@ -122,7 +108,6 @@ class Zend_Db_Adapter_Pdo_Oci extends Zend_Db_Adapter_Pdo_Abstract
         $value = str_replace("'", "''", $value);
         return "'" . addcslashes($value, "\000\n\r\\\032") . "'";
     }
-
     /**
      * Quote a table identifier and alias.
      *
@@ -135,7 +120,6 @@ class Zend_Db_Adapter_Pdo_Oci extends Zend_Db_Adapter_Pdo_Abstract
         // Oracle doesn't allow the 'AS' keyword between the table identifier/expression and alias.
         return $this->_quoteIdentifierAs($ident, $alias, $auto, ' ');
     }
-
     /**
      * Returns a list of the tables in the database.
      *
@@ -146,7 +130,6 @@ class Zend_Db_Adapter_Pdo_Oci extends Zend_Db_Adapter_Pdo_Abstract
         $data = $this->fetchCol('SELECT table_name FROM all_tables');
         return $data;
     }
-
     /**
      * Returns the column descriptions for a table.
      *
@@ -219,14 +202,11 @@ class Zend_Db_Adapter_Pdo_Oci extends Zend_Db_Adapter_Pdo_Abstract
             }
             $sql .= ' ORDER BY TC.COLUMN_ID';
         }
-
         $stmt = $this->query($sql, $bind);
-
         /**
          * Use FETCH_NUM so we are not dependent on the CASE attribute of the PDO connection
          */
         $result = $stmt->fetchAll(Zend_Db::FETCH_NUM);
-
         $table_name      = 0;
         $owner           = 1;
         $column_name     = 2;
@@ -239,7 +219,6 @@ class Zend_Db_Adapter_Pdo_Oci extends Zend_Db_Adapter_Pdo_Abstract
         $data_precision  = 9;
         $constraint_type = 10;
         $position        = 11;
-
         $desc = array();
         foreach ($result as $key => $row) {
             list ($primary, $primaryPosition, $identity) = array(false, null, false);
@@ -270,7 +249,6 @@ class Zend_Db_Adapter_Pdo_Oci extends Zend_Db_Adapter_Pdo_Abstract
         }
         return $desc;
     }
-
     /**
      * Return the most recent value from the specified sequence in the database.
      * This is supported only on RDBMS brands that support sequences
@@ -285,7 +263,6 @@ class Zend_Db_Adapter_Pdo_Oci extends Zend_Db_Adapter_Pdo_Abstract
         $value = $this->fetchOne('SELECT '.$this->quoteIdentifier($sequenceName, true).'.CURRVAL FROM dual');
         return $value;
     }
-
     /**
      * Generate a new value from the specified sequence in the database, and return it.
      * This is supported only on RDBMS brands that support sequences
@@ -300,7 +277,6 @@ class Zend_Db_Adapter_Pdo_Oci extends Zend_Db_Adapter_Pdo_Abstract
         $value = $this->fetchOne('SELECT '.$this->quoteIdentifier($sequenceName, true).'.NEXTVAL FROM dual');
         return $value;
     }
-
     /**
      * Gets the last ID generated automatically by an IDENTITY/AUTOINCREMENT column.
      *
@@ -332,7 +308,6 @@ class Zend_Db_Adapter_Pdo_Oci extends Zend_Db_Adapter_Pdo_Abstract
         // No support for IDENTITY columns; return null
         return null;
     }
-
     /**
      * Adds an adapter-specific LIMIT clause to the SELECT statement.
      *
@@ -350,14 +325,12 @@ class Zend_Db_Adapter_Pdo_Oci extends Zend_Db_Adapter_Pdo_Abstract
             require_once 'include/Zend/Db/Adapter/Exception.php';
             throw new Zend_Db_Adapter_Exception("LIMIT argument count=$count is not valid");
         }
-
         $offset = intval($offset);
         if ($offset < 0) {
             /** @see Zend_Db_Adapter_Exception */
             require_once 'include/Zend/Db/Adapter/Exception.php';
             throw new Zend_Db_Adapter_Exception("LIMIT argument offset=$offset is not valid");
         }
-
         /**
          * Oracle does not implement the LIMIT clause as some RDBMS do.
          * We have to simulate it with subqueries and ROWNUM.
@@ -374,5 +347,4 @@ class Zend_Db_Adapter_Pdo_Oci extends Zend_Db_Adapter_Pdo_Abstract
             WHERE z2.\"zend_db_rownum\" BETWEEN " . ($offset+1) . " AND " . ($offset+$count);
         return $limit_sql;
     }
-
 }

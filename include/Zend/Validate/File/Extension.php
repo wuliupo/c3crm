@@ -18,12 +18,10 @@
  * @license   http://framework.zend.com/license/new-bsd     New BSD License
  * @version   $Id: Extension.php 23775 2011-03-01 17:25:24Z ralph $
  */
-
 /**
  * @see Zend_Validate_Abstract
  */
 require_once 'include/Zend/Validate/Abstract.php';
-
 /**
  * Validator for the file extension of a file
  *
@@ -39,7 +37,6 @@ class Zend_Validate_File_Extension extends Zend_Validate_Abstract
      */
     const FALSE_EXTENSION = 'fileExtensionFalse';
     const NOT_FOUND       = 'fileExtensionNotFound';
-
     /**
      * @var array Error message templates
      */
@@ -47,27 +44,23 @@ class Zend_Validate_File_Extension extends Zend_Validate_Abstract
         self::FALSE_EXTENSION => "File '%value%' has a false extension",
         self::NOT_FOUND       => "File '%value%' is not readable or does not exist",
     );
-
     /**
      * Internal list of extensions
      * @var string
      */
     protected $_extension = '';
-
     /**
      * Validate case sensitive
      *
      * @var boolean
      */
     protected $_case = false;
-
     /**
      * @var array Error message template variables
      */
     protected $_messageVariables = array(
         'extension' => '_extension'
     );
-
     /**
      * Sets validator options
      *
@@ -79,20 +72,16 @@ class Zend_Validate_File_Extension extends Zend_Validate_Abstract
         if ($options instanceof Zend_Config) {
             $options = $options->toArray();
         }
-
         if (1 < func_num_args()) {
             $case = func_get_arg(1);
             $this->setCase($case);
         }
-
         if (is_array($options) and isset($options['case'])) {
             $this->setCase($options['case']);
             unset($options['case']);
         }
-
         $this->setExtension($options);
     }
-
     /**
      * Returns the case option
      *
@@ -102,7 +91,6 @@ class Zend_Validate_File_Extension extends Zend_Validate_Abstract
     {
         return $this->_case;
     }
-
     /**
      * Sets the case to use
      *
@@ -114,7 +102,6 @@ class Zend_Validate_File_Extension extends Zend_Validate_Abstract
         $this->_case = (boolean) $case;
         return $this;
     }
-
     /**
      * Returns the set file extension
      *
@@ -123,10 +110,8 @@ class Zend_Validate_File_Extension extends Zend_Validate_Abstract
     public function getExtension()
     {
         $extension = explode(',', $this->_extension);
-
         return $extension;
     }
-
     /**
      * Sets the file extensions
      *
@@ -139,7 +124,6 @@ class Zend_Validate_File_Extension extends Zend_Validate_Abstract
         $this->addExtension($extension);
         return $this;
     }
-
     /**
      * Adds the file extensions
      *
@@ -152,28 +136,22 @@ class Zend_Validate_File_Extension extends Zend_Validate_Abstract
         if (is_string($extension)) {
             $extension = explode(',', $extension);
         }
-
         foreach ($extension as $content) {
             if (empty($content) || !is_string($content)) {
                 continue;
             }
-
             $extensions[] = trim($content);
         }
         $extensions = array_unique($extensions);
-
         // Sanity check to ensure no empty values
         foreach ($extensions as $key => $ext) {
             if (empty($ext)) {
                 unset($extensions[$key]);
             }
         }
-
         $this->_extension = implode(',', $extensions);
-
         return $this;
     }
-
     /**
      * Defined by Zend_Validate_Interface
      *
@@ -191,15 +169,12 @@ class Zend_Validate_File_Extension extends Zend_Validate_Abstract
         if (!Zend_Loader::isReadable($value)) {
             return $this->_throw($file, self::NOT_FOUND);
         }
-
         if ($file !== null) {
             $info['extension'] = substr($file['name'], strrpos($file['name'], '.') + 1);
         } else {
             $info = pathinfo($value);
         }
-
         $extensions = $this->getExtension();
-
         if ($this->_case && (in_array($info['extension'], $extensions))) {
             return true;
         } else if (!$this->getCase()) {
@@ -209,10 +184,8 @@ class Zend_Validate_File_Extension extends Zend_Validate_Abstract
                 }
             }
         }
-
         return $this->_throw($file, self::FALSE_EXTENSION);
     }
-
     /**
      * Throws an error of the given type
      *
@@ -225,7 +198,6 @@ class Zend_Validate_File_Extension extends Zend_Validate_Abstract
         if (null !== $file) {
             $this->_value = $file['name'];
         }
-
         $this->_error($errorType);
         return false;
     }

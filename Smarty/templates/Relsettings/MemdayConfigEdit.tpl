@@ -162,7 +162,6 @@ function validate_memday(){
 		alert("请选择纪念日类型");
 		return false;
 	}
-
 	var sms = document.getElementById("sms").checked;
 	if(sms){
 		var autoact_sms_sm = document.MemdayConfig.autoact_sms_sm.value;
@@ -178,7 +177,6 @@ function validate_memday(){
 			return false;
 		}
 	}
-
 	var email = document.getElementById("email").checked;
 	if(email){
 		var autoact_email_bt = document.MemdayConfig.autoact_email_bt.value;
@@ -232,4 +230,3 @@ function validate_memday(){
 }
 {/literal}
 </script>
-

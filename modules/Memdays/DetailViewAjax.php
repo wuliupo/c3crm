@@ -4,9 +4,7 @@ require_once('modules/Memdays/Memdays.php');
 require_once('include/database/PearDatabase.php');
 require_once('modules/Memdays/ModuleConfig.php');
 global $adb;
-
 $local_log =& LoggerManager::getLogger('MemdaysAjax');
-
 $ajaxaction = $_REQUEST["ajxaction"];
 if($ajaxaction == "DETAILVIEW")
 {

@@ -25,6 +25,5 @@ $mod_strings = array (
   'rating' => '客户状态',
   'LBL_CONTENT_INFORMATION' => '内容信息',
   'LBL_SYSTEM_INFORMATION' => '系统信息',
-
 );
 ?>

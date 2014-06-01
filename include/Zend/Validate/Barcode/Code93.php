@@ -18,12 +18,10 @@
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  * @version    $Id: Code93.php 23775 2011-03-01 17:25:24Z ralph $
  */
-
 /**
  * @see Zend_Validate_Barcode_AdapterAbstract
  */
 require_once 'include/Zend/Validate/Barcode/AdapterAbstract.php';
-
 /**
  * @category   Zend
  * @package    Zend_Validate
@@ -37,19 +35,16 @@ class Zend_Validate_Barcode_Code93 extends Zend_Validate_Barcode_AdapterAbstract
      * @var integer
      */
     protected $_length = -1;
-
     /**
      * Allowed barcode characters
      * @var string
      */
     protected $_characters = '0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ -.$/+%';
-
     /**
      * Checksum function
      * @var string
      */
     protected $_checksum = '_code93';
-
     /**
      * Note that the characters !"§& are only synonyms
      * @var array
@@ -63,7 +58,6 @@ class Zend_Validate_Barcode_Code93 extends Zend_Validate_Barcode_AdapterAbstract
         'Z' => 35, '-' => 36, '.' => 37, ' ' => 38, '$' => 39, '/' => 40, '+' => 41,
         '%' => 42, '!' => 43, '"' => 44, '§' => 45, '&' => 46,
     );
-
     /**
      * Constructor
      *
@@ -75,7 +69,6 @@ class Zend_Validate_Barcode_Code93 extends Zend_Validate_Barcode_AdapterAbstract
     {
         $this->setCheck(false);
     }
-
     /**
      * Validates the checksum (Modulo CK)
      *
@@ -92,11 +85,9 @@ class Zend_Validate_Barcode_Code93 extends Zend_Validate_Barcode_AdapterAbstract
             if ($length == 0) {
                 $length = 20;
             }
-
             $count += $this->_check[$char] * $length;
             --$length;
         }
-
         $check   = array_search(($count % 47), $this->_check);
         $value[] = $check;
         $count   = 0;
@@ -105,16 +96,13 @@ class Zend_Validate_Barcode_Code93 extends Zend_Validate_Barcode_AdapterAbstract
             if ($length == 0) {
                 $length = 15;
             }
-
             $count += $this->_check[$char] * $length;
             --$length;
         }
         $check .= array_search(($count % 47), $this->_check);
-
         if ($check == $checksum) {
             return true;
         }
-
         return false;
     }
 }

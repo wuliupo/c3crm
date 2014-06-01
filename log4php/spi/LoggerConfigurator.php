@@ -16,26 +16,22 @@
  * @package log4php
  * @subpackage spi
  */
-
 /**
  * @ignore 
  */
 if (!defined('LOG4PHP_DIR')) define('LOG4PHP_DIR', dirname(__FILE__)); 
-
 /**
  * Special level value signifying inherited behaviour. The current
  * value of this string constant is <b>inherited</b>. 
  * {@link LOG4PHP_LOGGER_CONFIGURATOR_NULL} is a synonym.  
  */
 define('LOG4PHP_LOGGER_CONFIGURATOR_INHERITED', 'inherited');
-
 /**
  * Special level signifying inherited behaviour, same as 
  * {@link LOG4PHP_LOGGER_CONFIGURATOR_INHERITED}. 
  * The current value of this string constant is <b>null</b>. 
  */
 define('LOG4PHP_LOGGER_CONFIGURATOR_NULL',      'null');
-
 /**
  * Implemented by classes capable of configuring log4php using a URL.
  *  
@@ -47,7 +43,6 @@ define('LOG4PHP_LOGGER_CONFIGURATOR_NULL',      'null');
  * @abstract
  */
 class LoggerConfigurator {
-
    /**
     * Interpret a resource pointed by a <var>url</var> and configure accordingly.
     *

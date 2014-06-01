@@ -9,9 +9,7 @@
   *
  ********************************************************************************/
 -->*}
-
 	{include file="Buttons_List2.tpl"}
-
 <table align="center" border="0" cellpadding="0" cellspacing="0" width="98%">
 <tbody><tr>
 	<td class="showPanelBg" style="padding: 2px;" valign="top" width="100%">
@@ -22,7 +20,6 @@
 			<!--All Icons table -->
 			<table border=0 cellspacing=0 cellpadding=0 width=100%>
 			<tr>
-
 				<td class="settingsTabHeader">
 				<!-- Users & Access Management -->
 					{$MOD.LBL_USER_MANAGEMENT}	
@@ -33,7 +30,6 @@
 				<!-- Icons for Users & Access Management -->
 				
 				<table border=0 cellspacing=0 cellpadding=10 width=100%>
-
 				<tr>
 					<td width=12.5% valign=top>
 					<!-- icon 1-->
@@ -44,14 +40,12 @@
 							<tr>
 							<td class=big valign=top><a href="index.php?module=Users&action=index&parenttab=Settings">{$MOD.LBL_USERS}</a></td>
 						</tr>
-
 						
 						</table>
 					</td>
 					<td width=12.5% valign=top>
 					<!-- icon 2-->
 						<table border=0 cellspacing=0 cellpadding=5 width=100%>
-
 						<tr>
 							<td  valign=top><a href="index.php?module=Users&action=listroles&parenttab=Settings"><img src="{$IMAGE_PATH}ico-roles.gif" alt="{$MOD.LBL_ROLES}" width="48" height="48" border=0 title="{$MOD.LBL_ROLES}"></a></td>
 							</tr>
@@ -60,13 +54,11 @@
 						</tr>
 						
 						</table>
-
 					</td>
 					
 					<td width=12.5% valign=top>
 					<!-- icon 4-->
 						<table border=0 cellspacing=0 cellpadding=5 width=100%>
-
 						<tr>
 							<td  valign=top><a href="index.php?module=Users&action=listgroups&parenttab=Settings"><img src="{$IMAGE_PATH}ico-groups.gif" alt="{$MOD.USERGROUPLIST}" width="48" height="48" border=0 title="{$MOD.USERGROUPLIST}"></a></td>
 						</tr>
@@ -75,12 +67,10 @@
 						</tr>
 						
 						</table>
-
 					</td>
 				
 					
 					
-
 					
 					<td width=12.5% valign=top>
 					<!-- icon 7-->
@@ -91,10 +81,8 @@
 						<tr>
 							<td class=big valign=top><a href="index.php?module=Users&action=AuditTrailList&parenttab=Settings">{$MOD.LBL_AUDIT_TRAIL}</a></td>
 						</tr>
-
 						
 						</table>
-
 						
 					</td>
 					<td width=12.5% valign=top>
@@ -107,7 +95,6 @@
 							<td class=big valign=top><a href="index.php?module=Users&action=ListLoginHistory&parenttab=Settings">{$MOD.LBL_LOGIN_HISTORY_DETAILS}</a></td>
 						</tr>
 						
-
 						</table>
 					</td>
 					<td width=12.5% valign=top></td>
@@ -117,15 +104,10 @@
 					
 				</tr>
 				</table>
-
-
 				</td>
 			</tr>
-
-
 			<tr>
 				<td class="settingsTabHeader">
-
 				<!-- Studio  -->
 					{$MOD.LBL_STUDIO}	
 				</td>
@@ -141,7 +123,6 @@
 					<!-- empty-->
 						<table border=0 cellspacing=0 cellpadding=5 width=100%>
 						<tr>
-
 							<td  valign=top><a href="index.php?module=Settings&action=CustomBlockList&parenttab=Settings"><img border=0 src="{$IMAGE_PATH}blocklist.gif" alt="{$MOD.LBL_BLOCK_EDITOR}" title="{$MOD.LBL_BLOCK_EDITOR}"></a></td>
 						</tr>
 						<tr>
@@ -166,7 +147,6 @@
 					<!-- icon 10-->
 						<table border=0 cellspacing=0 cellpadding=5 width=100%>
 						<tr>
-
 							<td  valign=top><a href="index.php?module=Settings&action=PickList&parenttab=Settings"><img border=0 src="{$IMAGE_PATH}picklist.gif" alt="{$MOD.LBL_PICKLIST_EDITOR}" title="{$MOD.LBL_PICKLIST_EDITOR}"></a></td>
 						</tr>
 						<tr>
@@ -179,7 +159,6 @@
 						<!-- empty-->
 							<table border=0 cellspacing=0 cellpadding=5 width=100%>
 							<tr>
-
 								<td  valign=top><a href="index.php?module=Settings&action=LayoutList&parenttab=Settings"><img border=0 src="{$IMAGE_PATH}layout.gif" alt="{$MOD.LBL_LAYOUT_EDITOR}" title="{$MOD.LBL_LAYOUT_EDITOR}"></a></td>
 							</tr>
 							<tr>
@@ -192,7 +171,6 @@
 						<!-- empty-->
 							<table border=0 cellspacing=0 cellpadding=5 width=100%>
 							<tr>
-
 								<td  valign=top><a href="index.php?module=Settings&action=CustomTabList&parenttab=Settings"><img border=0 src="{$IMAGE_PATH}mainmenu.gif" alt="{$MOD.LBL_TAB_EDITOR}" title="{$MOD.LBL_TAB_EDITOR}"></a></td>
 							</tr>
 							<tr>
@@ -239,7 +217,6 @@
 				<!-- Other settings -->
 					{$MOD.LBL_OTHER_SETTINGS}
 				</td>
-
 			</tr>
 			<tr>
 				<td class="settingsIconDisplay small">
@@ -247,7 +224,6 @@
 				
 				<table border=0 cellspacing=0 cellpadding=10 width=100%>
 				<tr>    <td class="settingsIconDisplay small">
-
 				<!-- Icons for Communication Templates -->
 				
 				<table border=0 cellspacing=0 cellpadding=10 width=100%>
@@ -261,7 +237,6 @@
 						</tr>
 						<tr>
 							<td class=big valign=top><a href="index.php?module=Users&action=listemailtemplates&parenttab=Settings">{$MOD.EMAILTEMPLATES}</a></td>
-
 						</tr>
 						
 						</table>
@@ -274,7 +249,6 @@
 						</tr>
 						<tr>
 							<td class=big valign=top><a href="index.php?module=Settings&action=db_backup&parenttab=Settings">{$MOD.LBL_DATABASE_BACKUP}</a></td>
-
 						</tr>
 						
 						</table>
@@ -292,11 +266,9 @@
 						<tr>
 							<td class=big valign=top><a href="index.php?module=Settings&action=EmailConfig&parenttab=Settings">{$MOD.LBL_MAIL_SERVER_SETTINGS}</a></td>
 						</tr>
-
 						
 						</table>
 					</td>
-
 					<td width=12.5% valign=top>
 					<!-- icon 17-->
 						<table border=0 cellspacing=0 cellpadding=5 width=100%>
@@ -306,7 +278,6 @@
 						<tr>
 							<td class=big valign=top><a href="index.php?module=Settings&action=MessageConfig&parenttab=Settings">{$MOD.LBL_MESSAGE_SERVER_SETTINGS}</a></td>
 						</tr>
-
 						
 						</table>
 					</td>
@@ -319,12 +290,9 @@
 						<tr>
 							<td class=big valign=top><a href="index.php?module=Settings&action=CurrencyListView&parenttab=Settings">{$MOD.LBL_CURRENCY_SETTINGS}</a></td>
 						</tr>
-
 						
 						</table>				       
-
 					</td>
-
 					
 					
 				      
@@ -338,7 +306,6 @@
 						<tr>
 						<td class=big valign=top><a href="index.php?module=Settings&action=LicenseConfig&parenttab=Settings">{$MOD.LBL_LICENSE_SERVER_SETTINGS}</a></td>
 					</tr>
-
 					
 					</table>
 					</td>					
@@ -359,5 +326,3 @@
    </tr>
 </tbody></table>
 </tr></table>
-
-

@@ -8,19 +8,14 @@
  * All Rights Reserved.
 *
  ********************************************************************************/
-
 require_once("include/database/PearDatabase.php");
 global $adb;;	
-
 $record = $_REQUEST['record'];
-
 if(!empty($record)){
 	$query = "delete from ec_smstc where id=$record";
 	$adb->query($query);
 }else{
 	die("Record is null");	
 }
-
-
 header("Location: index.php?module=Settings&parenttab=Settings&action=SmsTcManage");
 ?>

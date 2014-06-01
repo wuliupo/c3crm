@@ -98,7 +98,6 @@
    </tr>
 </tbody>
 </table>
-
 <script>
 {literal}
 function checkForm(){
@@ -163,6 +162,4 @@ function checkForm(){
 	)	
 }
 {/literal}
-
 </script>
-

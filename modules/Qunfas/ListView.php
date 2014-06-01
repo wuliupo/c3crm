@@ -2,22 +2,17 @@
 require_once('include/CRMSmarty.php');
 require_once("data/Tracker.php");
 require_once('modules/Qunfas/Qunfas.php');
-
 require_once('include/logging.php');
 require_once('include/ListView/ListView.php');
 require_once('include/utils/utils.php');
 require_once('modules/Qunfas/ModuleConfig.php');
 require_once('include/DatabaseUtil.php');
 require_once('modules/Fenzu/Fenzu.php');
-
 global $app_strings,$mod_strings,$list_max_entries_per_page;
-
 $log = LoggerManager::getLogger('qunfa_list');
-
 global $currentModule,$image_path,$theme;
 $focus = new Qunfas();
 $smarty = new CRMSmarty();
-
 if($_REQUEST['parenttab'] != '')
 {
 	$category = $_REQUEST['parenttab'];
@@ -26,15 +21,12 @@ else
 {
 	$category = getParentTab();
 }
-
-
 //<<<<cutomview>>>>>>>
 $oFenzu = new Fenzu("Qunfas");
 $viewid =$_REQUEST['viewname']; 
 $customviewcombo_html = $oFenzu->getFenzuCombo($viewid);
 //$viewnamedesc = $oFenzu->getCustomViewByCvid($viewid);
 //<<<<<customview>>>>>
-
 global $current_user;
 $theme_path="themes/".$theme."/";
 $image_path=$theme_path."images/";
@@ -48,27 +40,21 @@ $smarty->assign("SINGLE_MOD",'Qunfa');
 $smarty->assign("BUTTONS",$other_text);
 $smarty->assign("CATEGORY",$category);
 $qunfatmps = $focus->getQunfatmpsInfo();
-
 $smarty->assign("QUNFATMPS",$qunfatmps);
-
 if(isset($_REQUEST['idstring']) && $_REQUEST['idstring'] !=''){
 	$idstring = $_REQUEST['idstring'];
 	$modulename = $_REQUEST['modulename'];
 	$receiveaccountinfo = getAccountPhoneInfo($idstring,$modulename);
 }
-
 if(isset($_REQUEST['useridstr']) && $_REQUEST['useridstr'] !=''){
 	$useridstr = $_REQUEST['useridstr'];
 	$receiveaccountinfo = getUserPhoneInfo($useridstr);
 }
 $smarty->assign("receiveaccountinfo",$receiveaccountinfo);
-
-
 //Retreive the List View Table Header
 if($viewid !='')
 $url_string .="&viewname=".$viewid;
 $smarty->assign("ISADMIN",$current_user->is_admin);
-
 if(isset($_REQUEST['ajax']) && $_REQUEST['ajax'] != '')
 	$smarty->display("Qunfas/ListViewEntries.tpl");
 else
@@ -98,7 +84,6 @@ function getAccountPhoneInfo($idstring,$modulename){
 	}
 	return $return;
 }
-
 function getUserPhoneInfo($useridstr){
 	global $adb;
 	$useridstr = substr($useridstr,0,-1);
@@ -119,6 +104,5 @@ function getUserPhoneInfo($useridstr){
 	}
 	return $return;
 }
-
 	
 ?>

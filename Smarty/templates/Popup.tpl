@@ -8,7 +8,6 @@
 function add_data_to_relatedlist(entity_id,recordid,mod) {ldelim}
         opener.document.location.href="index.php?module={$RETURN_MODULE}&action=updateRelations&destination_module="+mod+"&entityid="+entity_id+"&parid="+recordid+"&return_action={$RETURN_ACTION}";
 {rdelim}
-
 </script>
 <body class="small" marginwidth=0 marginheight=0 leftmargin=0 topmargin=0 bottommargin=0 rigthmargin=0>
 <table width="100%" border="0" cellspacing="0" cellpadding="0">
@@ -64,7 +63,6 @@ function add_data_to_relatedlist(entity_id,recordid,mod) {ldelim}
 			  <td><img src="themes/images/filter.png" border=0></td>
 			  <td>{$APP.LBL_VIEW}
 			  {foreach name="listviewforeach" key=id item=viewname from=$CUSTOMVIEW_OPTION}
-
 					{if $id eq $VIEWID} 
 					<span style="padding-right:5px;padding-top:5px;padding-bottom:5px;">
 					&nbsp;&nbsp;<a class="cus_markbai tablink" href="javascript:;" onclick="javascript:getTabView('{$MODULE}','viewname={$id}',this,{$id});">{$viewname}</a>&nbsp;&nbsp;
@@ -78,7 +76,6 @@ function add_data_to_relatedlist(entity_id,recordid,mod) {ldelim}
 			  </td>
 			  </tr>
 			</table>
-
 			<div id="ListViewContents">
 				{include file="PopupContents.tpl"}
 			</div>
@@ -185,7 +182,6 @@ function getListViewEntries_js(module,url)
 			{rdelim}
 		);
 {rdelim}
-
 function getListViewWithPageNo(module,pageElement)
 {ldelim}
 	//var pageno = document.getElementById('listviewpage').value;
@@ -198,7 +194,6 @@ function getListViewWithPageSize(module,pageElement)
 	var pagesize = pageElement.options[pageElement.options.selectedIndex].value;
 	getListViewEntries_js(module,'pagesize='+pagesize);
 {rdelim}
-
 function getListViewSorted_js(module,url)
 {ldelim}
         var urlstring ="module="+module+"&action="+module+"Ajax&file=Popup&ajax=true"+url;

@@ -1,5 +1,4 @@
 <?php
-
 /*********************************************************************************
  * The contents of this file are subject to the SugarCRM Public License Version
  * 1.1.3 ("License"); You may not use this file except in compliance with the
@@ -21,22 +20,17 @@
  * All Rights Reserved.
  * Contributor(s): ______________________________________.
  ********************************************************************************/
-
 $js_loaded = false;
 require_once("include/tabgroup/Template.php");
-
 class TemplateGroupChooser extends Template
 {
-
  var $args;
  var $js_loaded = false;
  var $display_hide_tabs = true;
  var $display_third_tabs = false;
-
  function TemplateGroupChooser()
  {
  }
-
  function display()
  {
  global $mod_strings,$js_loaded;
@@ -54,7 +48,6 @@ class TemplateGroupChooser extends Template
   {
    $table_style = "display: ".$this->args['display'];
   }
-
 ob_start();
 ?>
 <div id="<?php echo $this->args['id']; ?>" style="<?php echo $table_style;?>">
@@ -64,7 +57,6 @@ ob_start();
 <tr>
 	<td>
 <table cellpadding="0" cellspacing="0" border="0">
-
 <tr>
 	<td>&nbsp;</td>
 	<td  class="dataLabel" id="chooser_<?php echo $this->args['left_name'];?>_text" align="center"><nobr><b><?php echo $this->args['left_label']; ?></b></nobr></td>
@@ -81,14 +73,12 @@ ob_start();
 <tr>
 	<td valign="top" style="padding-right: 2px; padding-left: 2px;" align="center">
 <?php if (! isset($this->args['disable'])) { ?>
-
 <a onclick="javascript:upto('<?php echo $this->args['left_name'];?>');"><?php echo get_image($image_path.'uparrow_big','border="0" style="margin-bottom: 1px;" alt="Sort"');?></a><br>
 <a onclick="javascript:downto('<?php echo $this->args['left_name'];?>');"><?php echo get_image($image_path.'downarrow_big','border="0" style="margin-top: 1px;"  alt="Sort"');?></a>
 <?Php } ?>
 			</td>
 	
 	<td align="center">
-
 		<table border="0" cellspacing=0 cellpadding="0" align="center">
 		<tr>
 			<td id="<?php echo $this->args['left_name'];?>_td" align="center">
@@ -126,13 +116,11 @@ foreach ($this->args['values_array'][1] as $key=>$value)
 <script>
 object_refs['<?php echo $this->args['right_name']?>'] = document.getElementById('<?php echo $this->args['right_name']?>');
 </script>
-
 	<td valign="top" style="padding-right: 2px; padding-left: 2px;" align="center">
 <!--
 <a onclick="javascript:up('<?php echo $this->args['right_name'];?>');"><?php echo get_image($image_path.'uparrow_big','border="0" style="margin-bottom: 1px;" alt="Sort"');?></a><br>
 <a onclick="javascript:down('<?php echo $this->args['right_name'];?>');"><?php echo get_image($image_path.'downarrow_big','border="0" style="margin-top: 1px;"  alt="Sort"');?></a>
 -->
-
 			</td>
 			<?php }?>
 	<?php if ($this->display_third_tabs==true) {?>
@@ -155,13 +143,11 @@ foreach ($this->args['values_array'][2] as $key=>$value)
 <script>
 object_refs['<?php echo $this->args['third_name'];?>'] = document.getElementById('<?php echo $this->args['third_name'];?>');
 </script>
-
 	<td valign="top" style="padding-right: 2px; padding-left: 2px;" align="center">
 <!--
 <a onclick="javascript:up('<?php echo $this->args['third_name'];?>');"><?php echo get_image($image_path.'uparrow_big','border="0" style="margin-bottom: 1px;" alt="Sort"');?></a><br>
 <a onclick="javascript:down('<?php echo $this->args['third_name'];?>');"><?php echo get_image($image_path.'downarrow_big','border="0" style="margin-top: 1px;"  alt="Sort"');?></a>
 -->
-
 			</td>
 			<?php }?>
 <script>
@@ -169,59 +155,44 @@ object_refs['<?php echo $this->args['left_name']?>'] = document.getElementById('
 </script>
 </tr>
 </table>
-
 <?php
 $output = ob_get_contents();
-
 ob_end_clean();
 return $output;
-
 }
-
-
-
 ////////////////////////////////////////////// 
 // TEMPLATE:
 ////////////////////////////////////////////// 
 function template_groups_chooser_js()
 {
 ?>
-
 <script language="javascript" id="tabchooser">
 var object_refs = new Object();
-
-
 function buildSelectHTML(info)
 {
         var text;
         text = "<select";
-
         if ( typeof (info['select']['size']) != 'undefined')
         {
                 text +=" size=\""+ info['select']['size'] +"\"";
         }
-
         if ( typeof (info['select']['name']) != 'undefined')
         {
                 text +=" name=\""+ info['select']['name'] +"\"";
         }
-
         if ( typeof (info['select']['style']) != 'undefined')
         {
                 text +=" style=\""+ info['select']['style'] +"\"";
         }
-
         if ( typeof (info['select']['onchange']) != 'undefined')
         {
                 text +=" onChange=\""+ info['select']['onchange'] +"\"";
         }
-
         if ( typeof (info['select']['multiple']) != 'undefined')
         {
                 text +=" multiple";
         }
         text +=">";
-
         for(i=0; i<info['options'].length;i++)
         {
                 option = info['options'][i];
@@ -235,23 +206,17 @@ function buildSelectHTML(info)
         text += "</select>";
         return text;
 }
-
-
 function left_to_right(left_name,right_name) 
 {
 	var display_columns_ref = object_refs[left_name];
 //alert(display_columns_ref);
 	var hidden_columns_ref = object_refs[right_name];
-
 	var left_td = document.getElementById(left_name+'_td');
 	var right_td = document.getElementById(right_name+'_td');
-
 	var selected_left = new Array();
 	var notselected_left = new Array();
 	var notselected_right = new Array();
-
 	var left_array = new Array();
-
         // determine which options are selected in left 
 	for (i=0; i < display_columns_ref.options.length; i++)
 	{
@@ -265,36 +230,29 @@ function left_to_right(left_name,right_name)
 		}
 		
 	}
-
 	for (i=0; i < hidden_columns_ref.options.length; i++)
 	{
 		notselected_right[notselected_right.length] = {text:hidden_columns_ref.options[i].text, value:hidden_columns_ref.options[i].value};
 		
 	}
-
 	var left_select_html_info = new Object();
 	var left_options = new Array();
 	var left_select = new Object();
-
 	left_select['name'] = left_name+'[]';
 	left_select['id'] = left_name;
 	left_select['size'] = '10';
 	left_select['multiple'] = 'true';
-
 	var right_select_html_info = new Object();
 	var right_options = new Array();
 	var right_select = new Object();
-
 	right_select['name'] = right_name+'[]';
 	right_select['id'] = right_name;
 	right_select['size'] = '10';
 	right_select['multiple'] = 'true';
-
 	for (i=0;i < notselected_right.length;i++)
 	{
 		right_options[right_options.length] = notselected_right[i];	
 	}
-
 	for (i=0;i < selected_left.length;i++)
 	{
 		right_options[right_options.length] = selected_left[i];	
@@ -308,29 +266,22 @@ function left_to_right(left_name,right_name)
 	right_select_html_info['options'] = right_options;
 	right_select_html_info['select'] = right_select;
 	right_select_html_info['style'] = 'background: lightgrey';
-
 	var left_html = buildSelectHTML(left_select_html_info);
 	var right_html = buildSelectHTML(right_select_html_info);
-
 	left_td.innerHTML = left_html;
 	right_td.innerHTML = right_html;
 	object_refs[left_name] = left_td.getElementsByTagName('select')[0];
 	object_refs[right_name] = right_td.getElementsByTagName('select')[0];
 }
-
-
 function right_to_left(left_name,right_name) 
 {
 	var display_columns_ref = object_refs[left_name];
 	var hidden_columns_ref = object_refs[right_name];
-
 	var left_td = document.getElementById(left_name+'_td');
 	var right_td = document.getElementById(right_name+'_td');
-
 	var selected_right = new Array();
 	var notselected_right = new Array();
 	var notselected_left = new Array();
-
 	for (i=0; i < hidden_columns_ref.options.length; i++)
 	{
 		if (hidden_columns_ref.options[i].selected == true) 
@@ -343,36 +294,29 @@ function right_to_left(left_name,right_name)
 		}
 		
 	}
-
 	for (i=0; i < display_columns_ref.options.length; i++)
 	{
 		notselected_left[notselected_left.length] = {text:display_columns_ref.options[i].text, value:display_columns_ref.options[i].value};
 		
 	}
-
 	var left_select_html_info = new Object();
 	var left_options = new Array();
 	var left_select = new Object();
-
 	left_select['name'] = left_name+'[]';
 	left_select['id'] = left_name;
 	left_select['multiple'] = 'true';
 	left_select['size'] = '10';
-
 	var right_select_html_info = new Object();
 	var right_options = new Array();
 	var right_select = new Object();
-
 	right_select['name'] = right_name+ '[]';
 	right_select['id'] = right_name;
 	right_select['multiple'] = 'true';
 	right_select['size'] = '10';
-
 	for (i=0;i < notselected_left.length;i++)
 	{
 		left_options[left_options.length] = notselected_left[i];	
 	}
-
 	for (i=0;i < selected_right.length;i++)
 	{
 		left_options[left_options.length] = selected_right[i];	
@@ -386,17 +330,13 @@ function right_to_left(left_name,right_name)
 	right_select_html_info['options'] = right_options;
 	right_select_html_info['select'] = right_select;
 	right_select_html_info['style'] = 'background: lightgrey';
-
 	var left_html = buildSelectHTML(left_select_html_info);
 	var right_html = buildSelectHTML(right_select_html_info);
-
 	left_td.innerHTML = left_html;
 	right_td.innerHTML = right_html;
 	object_refs[left_name] = left_td.getElementsByTagName('select')[0];
 	object_refs[right_name] = right_td.getElementsByTagName('select')[0];
 }
-
-
 function upto(name) {
 	var td = document.getElementById(name+'_td');
 	var obj = td.getElementsByTagName('select')[0];
@@ -421,8 +361,6 @@ function upto(name) {
 		}
 	}
 }
-
-
 function downto(name) {
 	var td = document.getElementById(name+'_td');
 	var obj = td.getElementsByTagName('select')[0];
@@ -446,11 +384,8 @@ function downto(name) {
 		}
 	}
 }
-
 </script>
 <?php
 }
-
 }
-
 ?>

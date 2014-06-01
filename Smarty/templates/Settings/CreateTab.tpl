@@ -9,7 +9,6 @@ function deleteTab(id)
                 document.form.submit();
         }
 }
-
 function getCreateTabForm(id)
 {
 	new Ajax.Request(
@@ -25,7 +24,6 @@ function getCreateTabForm(id)
 			}
 		}
 	);
-
 }
 function validate_tab() {
 		if(document.addtodb.parenttab_label.value == "") {
@@ -76,7 +74,6 @@ document.addtodb.display_tabs_def.value = display_tabs_def;
 <tbody><tr>
         <td class="showPanelBg" style="padding: 10px;" valign="top" width="100%">
         <br>
-
 	<div align=center>
 			{include file='SetMenu.tpl'}
 			<!-- DISPLAY -->
@@ -89,7 +86,6 @@ document.addtodb.display_tabs_def.value = display_tabs_def;
 					<td rowspan="2" valign="top" width="50"><img src="{$IMAGE_PATH}custom.gif" alt="Users" title="Users" border="0" height="48" width="48"></td>
 					<td class="heading2" valign="bottom"><b><a href="index.php?module=Settings&action=index&parenttab=Settings">{$MOD.LBL_SETTINGS}</a> &gt; {$MOD.LBL_TAB_EDITOR}</b></td>
 				</tr>
-
 				<tr>
 					<td class="small" valign="top">{$MOD.LBL_TAB_DESCRIPTION}</td>
 				</tr>
@@ -113,7 +109,6 @@ document.addtodb.display_tabs_def.value = display_tabs_def;
         </tr>
         </table>
         </div>
-
         </td>
         </tr>
 </tbody>

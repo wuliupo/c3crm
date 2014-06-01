@@ -1,5 +1,4 @@
 <script type="text/javascript" src="modules/{$MODULE}/{$SINGLE_MOD}.js"></script>
-
  <!-- center start -->
  <div class="container-fluid clearfix">
     <div class="row-fluid">
@@ -7,7 +6,6 @@
 	  <div class="span2">
            <div class="accordion" id="accordion2" style="margin-top:0px;margin-bottom:0px;">
             {include file="$MODULE/DetailLeft.tpl"}
-
          </div>
       </div>
       <div class="span10">
@@ -64,7 +62,6 @@
             </form> 
               {$ASSOCIATED_PRODUCTS}
           </div>
-
       </div>
     </div>
  </div>

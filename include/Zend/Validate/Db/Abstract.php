@@ -18,12 +18,10 @@
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  * @version    $Id: Abstract.php 23775 2011-03-01 17:25:24Z ralph $
  */
-
 /**
  * @see Zend_Validate_Abstract
  */
 require_once 'include/Zend/Validate/Abstract.php';
-
 /**
  * Class for Database record validation
  *
@@ -40,7 +38,6 @@ abstract class Zend_Validate_Db_Abstract extends Zend_Validate_Abstract
      */
     const ERROR_NO_RECORD_FOUND = 'noRecordFound';
     const ERROR_RECORD_FOUND    = 'recordFound';
-
     /**
      * @var array Message templates
      */
@@ -48,40 +45,33 @@ abstract class Zend_Validate_Db_Abstract extends Zend_Validate_Abstract
         self::ERROR_NO_RECORD_FOUND => "No record matching '%value%' was found",
         self::ERROR_RECORD_FOUND    => "A record matching '%value%' was found",
     );
-
     /**
      * @var string
      */
     protected $_schema = null;
-
     /**
      * @var string
      */
     protected $_table = '';
-
     /**
      * @var string
      */
     protected $_field = '';
-
     /**
      * @var mixed
      */
     protected $_exclude = null;
-
     /**
      * Database adapter to use. If null isValid() will use Zend_Db::getInstance instead
      *
      * @var unknown_type
      */
     protected $_adapter = null;
-
     /**
      * Select object to use. can be set, or will be auto-generated
      * @var Zend_Db_Select
      */
     protected $_select;
-
     /**
      * Provides basic configuration for use with Zend_Validate_Db Validators
      * Setting $exclude allows a single record to be excluded from matching.
@@ -113,42 +103,33 @@ abstract class Zend_Validate_Db_Abstract extends Zend_Validate_Abstract
             if (!empty($options)) {
                 $temp['exclude'] = array_shift($options);
             }
-
             if (!empty($options)) {
                 $temp['adapter'] = array_shift($options);
             }
-
             $options = $temp;
         }
-
         if (!array_key_exists('table', $options) && !array_key_exists('schema', $options)) {
             require_once 'include/Zend/Validate/Exception.php';
             throw new Zend_Validate_Exception('Table or Schema option missing!');
         }
-
         if (!array_key_exists('field', $options)) {
             require_once 'include/Zend/Validate/Exception.php';
             throw new Zend_Validate_Exception('Field option missing!');
         }
-
         if (array_key_exists('adapter', $options)) {
             $this->setAdapter($options['adapter']);
         }
-
         if (array_key_exists('exclude', $options)) {
             $this->setExclude($options['exclude']);
         }
-
         $this->setField($options['field']);
         if (array_key_exists('table', $options)) {
             $this->setTable($options['table']);
         }
-
         if (array_key_exists('schema', $options)) {
             $this->setSchema($options['schema']);
         }
     }
-
     /**
      * Returns the set adapter
      *
@@ -168,7 +149,6 @@ abstract class Zend_Validate_Db_Abstract extends Zend_Validate_Abstract
         }
         return $this->_adapter;
     }
-
     /**
      * Sets a new database adapter
      *
@@ -181,11 +161,9 @@ abstract class Zend_Validate_Db_Abstract extends Zend_Validate_Abstract
             require_once 'include/Zend/Validate/Exception.php';
             throw new Zend_Validate_Exception('Adapter option must be a database adapter!');
         }
-
         $this->_adapter = $adapter;
         return $this;
     }
-
     /**
      * Returns the set exclude clause
      *
@@ -195,7 +173,6 @@ abstract class Zend_Validate_Db_Abstract extends Zend_Validate_Abstract
     {
         return $this->_exclude;
     }
-
     /**
      * Sets a new exclude clause
      *
@@ -207,7 +184,6 @@ abstract class Zend_Validate_Db_Abstract extends Zend_Validate_Abstract
         $this->_exclude = $exclude;
         return $this;
     }
-
     /**
      * Returns the set field
      *
@@ -217,7 +193,6 @@ abstract class Zend_Validate_Db_Abstract extends Zend_Validate_Abstract
     {
         return $this->_field;
     }
-
     /**
      * Sets a new field
      *
@@ -229,7 +204,6 @@ abstract class Zend_Validate_Db_Abstract extends Zend_Validate_Abstract
         $this->_field = (string) $field;
         return $this;
     }
-
     /**
      * Returns the set table
      *
@@ -239,7 +213,6 @@ abstract class Zend_Validate_Db_Abstract extends Zend_Validate_Abstract
     {
         return $this->_table;
     }
-
     /**
      * Sets a new table
      *
@@ -251,7 +224,6 @@ abstract class Zend_Validate_Db_Abstract extends Zend_Validate_Abstract
         $this->_table = (string) $table;
         return $this;
     }
-
     /**
      * Returns the set schema
      *
@@ -261,7 +233,6 @@ abstract class Zend_Validate_Db_Abstract extends Zend_Validate_Abstract
     {
         return $this->_schema;
     }
-
     /**
      * Sets a new schema
      *
@@ -273,7 +244,6 @@ abstract class Zend_Validate_Db_Abstract extends Zend_Validate_Abstract
         $this->_schema = $schema;
         return $this;
     }
-
     /**
      * Sets the select object to be used by the validator
      *
@@ -289,7 +259,6 @@ abstract class Zend_Validate_Db_Abstract extends Zend_Validate_Abstract
         $this->_select = $select;
         return $this;
     }
-
     /**
      * Gets the select object to be used by the validator.
      * If no select object was supplied to the constructor,
@@ -327,7 +296,6 @@ abstract class Zend_Validate_Db_Abstract extends Zend_Validate_Abstract
         }
         return $this->_select;
     }
-
     /**
      * Run query and returns matches, or null if no matches are found.
      *
@@ -345,7 +313,6 @@ abstract class Zend_Validate_Db_Abstract extends Zend_Validate_Abstract
             array('value' => $value), // this should work whether db supports positional or named params
             Zend_Db::FETCH_ASSOC
             );
-
         return $result;
     }
 }

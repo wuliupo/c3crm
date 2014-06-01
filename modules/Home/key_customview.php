@@ -11,8 +11,6 @@ $html_contents .= '<table border=0 cellspacing=0 cellpadding=2 width=100%><tr>';
 $html_contents .=  '<td class="crmTableRow" align="left"><b>&nbsp;'.$app_strings['LBL_VIEW'].'</b></td>';
 $html_contents .=  '<td class="crmTableRow" align="left"><b>&nbsp;'.$app_strings['LBL_MODULE'].'</b></td>';
 $html_contents .=  '<td class="crmTableRow" align="left"><b>&nbsp;'.$app_strings['LBL_HOME_COUNT'].'</b></td></tr>';
-
-
 $metriclists = getMetricListHome();
 if(isset($metriclists))
 {
@@ -42,8 +40,6 @@ if(isset($metriclists))
 	}
 }
 $html_contents .= '</table>';
-
-
 /** to get the details of a customview Entries
   * @returns  $metriclists Array in the following format
   * $customviewlist []= Array('id'=>custom view id,

@@ -4,23 +4,19 @@ require_once('include/logging.php');
 require_once('include/database/PearDatabase.php');
 require_once('data/CRMEntity.php');
 require_once('include/utils/utils.php');
-
 /** 
  ** Class to populate the module required data during installation  
  */
-
 class AddressreportsDataPopulator extends CRMEntity {
 		
 	function AddressreportsDataPopulator() {
 		$this->log = LoggerManager::getLogger('AddressreportsDataPopulator');
 		$this->db = & getSingleDBInstance();
 	}
-
 	var $new_schema = true;
 	function create_tables() {
 		
 	}
-
 	/** 
 	 **Function to populate the default required data during installation  
  	*/
@@ -41,11 +37,8 @@ class AddressreportsDataPopulator extends CRMEntity {
 			
 		}
 		
-
 		$this->db->query("insert into ec_moduleowners values(".$tab_id.",1)");
-
 		$this->db->query("insert into ec_parenttabrel values (10,".$tab_id.",2)");
-
 		
 	}
 }

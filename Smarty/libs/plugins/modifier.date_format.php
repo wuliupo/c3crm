@@ -4,7 +4,6 @@
  * @package Smarty
  * @subpackage plugins
  */
-
 /**
  * Include the {@link shared.make_timestamp.php} plugin
  */
@@ -52,7 +51,5 @@ function smarty_modifier_date_format($string, $format = '%b %e, %Y', $default_da
     }
     return strftime($format, $timestamp);
 }
-
 /* vim: set expandtab: */
-
 ?>

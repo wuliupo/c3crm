@@ -30,9 +30,7 @@
 *    License along with this library; if not, write to the Free Software
 *    Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 */
-
 require_once 'PHPExcel/Writer/Excel5/Workbook.php';
-
 /**
 * Class for writing Excel Spreadsheets. This class should change COMPLETELY.
 *
@@ -40,7 +38,6 @@ require_once 'PHPExcel/Writer/Excel5/Workbook.php';
 * @category FileFormats
 * @package  PHPExcel_Writer_Excel5_Writer
 */
-
 class PHPExcel_Writer_Excel5_Writer extends PHPExcel_Writer_Excel5_Workbook
 {
     /**
@@ -54,7 +51,6 @@ class PHPExcel_Writer_Excel5_Writer extends PHPExcel_Writer_Excel5_Workbook
         $this->_filename = $filename;
         $this->PHPExcel_Writer_Excel5_Workbook($filename);
     }
-
     /**
     * Send HTTP headers for the Excel file.
     *
@@ -69,7 +65,6 @@ class PHPExcel_Writer_Excel5_Writer extends PHPExcel_Writer_Excel5_Workbook
         header("Cache-Control: must-revalidate, post-check=0,pre-check=0");
         header("Pragma: public");
     }
-
     /**
     * Utility function for writing formulas
     * Converts a cell's coordinates to the A1 format.
@@ -85,18 +80,14 @@ class PHPExcel_Writer_Excel5_Writer extends PHPExcel_Writer_Excel5_Workbook
         if ($col > 255) { //maximum column value exceeded
             throw new Exception("Maximum column value exceeded: $col");
         }
-
         $int = (int)($col / 26);
         $frac = $col % 26;
         $chr1 = '';
-
         if ($int > 0) {
             $chr1 = chr(ord('A') + $int - 1);
         }
-
         $chr2 = chr(ord('A') + $frac);
         ++$row;
-
         return $chr1 . $chr2 . $row;
     }
 }

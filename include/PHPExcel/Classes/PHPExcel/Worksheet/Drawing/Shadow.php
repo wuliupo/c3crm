@@ -24,8 +24,6 @@
  * @license    http://www.gnu.org/licenses/old-licenses/lgpl-2.1.txt	LGPL
  * @version    1.7.2, 2010-01-11
  */
-
-
 /** PHPExcel root directory */
 if (!defined('PHPEXCEL_ROOT')) {
 	/**
@@ -33,16 +31,12 @@ if (!defined('PHPEXCEL_ROOT')) {
 	 */
 	define('PHPEXCEL_ROOT', dirname(__FILE__) . '/../../../');
 }
-
 /** PHPExcel_IComparable */
 require_once PHPEXCEL_ROOT . 'PHPExcel/IComparable.php';
-
 /** PHPExcel_Worksheet */
 require_once PHPEXCEL_ROOT . 'PHPExcel/Worksheet.php';
-
 /** PHPExcel_Style_Color */
 require_once PHPEXCEL_ROOT . 'PHPExcel/Style/Color.php';
-
 /**
  * PHPExcel_Worksheet_Drawing_Shadow
  *
@@ -61,7 +55,6 @@ class PHPExcel_Worksheet_Drawing_Shadow implements PHPExcel_IComparable
 	const SHADOW_TOP							= 't';
 	const SHADOW_TOP_LEFT						= 'tl';
 	const SHADOW_TOP_RIGHT						= 'tr';							
-
 	/**
 	 * Visible
 	 *
@@ -270,7 +263,6 @@ class PHPExcel_Worksheet_Drawing_Shadow implements PHPExcel_IComparable
     	$this->_alpha = $pValue;
     	return $this;
     }
-
 	/**
 	 * Get hash code
 	 *

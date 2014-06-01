@@ -18,7 +18,6 @@
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  * @version    $Id: AdapterInterface.php 23775 2011-03-01 17:25:24Z ralph $
  */
-
 /**
  * @category   Zend
  * @package    Zend_Validate
@@ -34,7 +33,6 @@ interface Zend_Validate_Barcode_AdapterInterface
      * @return boolean
      */
     public function checkLength($value);
-
     /**
      * Checks for allowed characters within the barcode
      *
@@ -42,7 +40,6 @@ interface Zend_Validate_Barcode_AdapterInterface
      * @return boolean
      */
     public function checkChars($value);
-
     /**
      * Validates the checksum
      *
@@ -50,14 +47,12 @@ interface Zend_Validate_Barcode_AdapterInterface
      * @return boolean
      */
     public function checksum($value);
-
     /**
      * Returns if barcode uses a checksum
      *
      * @return boolean
      */
     public function getCheck();
-
     /**
      * Sets the checksum validation
      *

@@ -16,7 +16,6 @@
  * @package log4php
  * @subpackage varia
  */
-
 /**
  * @ignore 
  */
@@ -25,7 +24,6 @@ if (!defined('LOG4PHP_DIR')) define('LOG4PHP_DIR', dirname(__FILE__) . '/..');
 /**
  */
 require_once(LOG4PHP_DIR . '/spi/LoggerFilter.php');
-
 /**
  * This filter drops all logging events. 
  * 
@@ -41,7 +39,6 @@ require_once(LOG4PHP_DIR . '/spi/LoggerFilter.php');
  * @since 0.3
  */
 class LoggerDenyAllFilter extends LoggerFilter {
-
   /**
    * Always returns the integer constant {@link LOG4PHP_LOGGER_FILTER_DENY}
    * regardless of the {@link LoggerLoggingEvent} parameter.

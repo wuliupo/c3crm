@@ -19,12 +19,10 @@
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  * @version    $Id: Exception.php 23775 2011-03-01 17:25:24Z ralph $
  */
-
 /**
  * @see Zend_Db_Statement_Exception
  */
 require_once 'include/Zend/Db/Statement/Exception.php';
-
 /**
  * @package    Zend_Db
  * @subpackage Statement
@@ -51,11 +49,9 @@ class Zend_Db_Statement_Sqlsrv_Exception extends Zend_Db_Statement_Exception
             if (isset($message[0])) {
                 $message = $message[0];
             }
-
             $code    = (int)    $message['code'];
             $message = (string) $message['message'];
        }
        parent::__construct($message, $code);
    }
 }
-

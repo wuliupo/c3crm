@@ -10,5 +10,4 @@ $module_enname = 'qunfatmp';
 $module_cnname = '短信模板';
 $module_parenttabid = '1';
 $module_displayorder = '10';
-
 ?>

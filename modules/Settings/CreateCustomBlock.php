@@ -1,16 +1,11 @@
 <?php
 global $mod_strings,$app_strings,$app_list_strings,$theme,$adb;
-
 $theme_path="themes/".$theme."/";
 $image_path=$theme_path."images/";
-
-
-
 $tabid=$_REQUEST['tabid'];
 $label=$_REQUEST['label'];
 $order=$_REQUEST['order'];
 $blockid=$_REQUEST['blockid'];
-
 $output .= '<div id="blockLayer" style="display:block;" class="layerPopup">
 	<form action="index.php" method="post" name="addtodb" onSubmit="return validate_block()">
 	  <input type="hidden" name="module" value="Settings">
@@ -19,7 +14,6 @@ $output .= '<div id="blockLayer" style="display:block;" class="layerPopup">
       <input type="hidden" name="action" value="AddCustomBlockToDB">
 	  <input type="hidden" name="blockid" value="'.$blockid.'">
 	  <input type="hidden" name="mode" value="'.$mode.'">
-
 	  
 		<table width="100%" border="0" cellpadding="5" cellspacing="0" class="layerHeadingULine">
 			<tr style="cursor:move;">';

@@ -78,17 +78,14 @@ $mod_strings = array (
   'Last Week' => '上周',
   'Last 2 Days' => '最近2天',
   'Last Ten Days' => '最近10天',
-
   'LBL_MESSAGE' => '内容',
   'LBL_SENDER' => '发送人',
   'LBL_STAMP' => '发送时间',
   'LBL_RECEPIENT' => '接收人',
-
   'LBL_SEND_PM' => '发送短消息',
   'LBL_UNREAD' => '未读',
   'LBL_INBOX' => '收件箱',
   'LBL_SENT' => '发件箱',
-
   'REMINDER_EVENT'=>'日程安排：',
   'REMINDER_TIME'=>'起止时间：',
   'REMINDER_TITLE'=>'温馨提醒',
@@ -98,6 +95,5 @@ $mod_strings = array (
   'REMINDER_NEWMSG_1'=>'您有 ', 
   'REMINDER_NEWMSG_2'=>' 条新短消息。',
   'LBL_CONFIG_PORTLETS' => '定制首页组件',
-
 );
 ?>

@@ -19,7 +19,6 @@
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  * @version    $Id: AdapterInterface.php 23775 2011-03-01 17:25:24Z ralph $
  */
-
 /**
  * Interface for common queue operations
  *
@@ -39,14 +38,12 @@ interface Zend_Queue_Adapter_AdapterInterface
      * @return void
      */
     public function __construct($options, Zend_Queue $queue = null);
-
     /**
      * Retrieve queue instance
      *
      * @return Zend_Queue
      */
     public function getQueue();
-
     /**
      * Set queue instnace
      *
@@ -54,7 +51,6 @@ interface Zend_Queue_Adapter_AdapterInterface
      * @return Zend_Queue_Adapter_AdapterInterface
      */
     public function setQueue(Zend_Queue $queue);
-
     /**
      * Does a queue already exist?
      *
@@ -65,7 +61,6 @@ interface Zend_Queue_Adapter_AdapterInterface
      * @return boolean
      */
     public function isExists($name);
-
     /**
      * Create a new queue
      *
@@ -80,7 +75,6 @@ interface Zend_Queue_Adapter_AdapterInterface
      * @return boolean
      */
     public function create($name, $timeout=null);
-
     /**
      * Delete a queue and all of its messages
      *
@@ -90,7 +84,6 @@ interface Zend_Queue_Adapter_AdapterInterface
      * @return boolean
      */
     public function delete($name);
-
     /**
      * Get an array of all available queues
      *
@@ -100,7 +93,6 @@ interface Zend_Queue_Adapter_AdapterInterface
      * @return array
      */
     public function getQueues();
-
     /**
      * Return the approximate number of messages in the queue
      *
@@ -108,11 +100,9 @@ interface Zend_Queue_Adapter_AdapterInterface
      * @return integer
      */
     public function count(Zend_Queue $queue = null);
-
     /********************************************************************
      * Messsage management functions
      *********************************************************************/
-
     /**
      * Send a message to the queue
      *
@@ -121,7 +111,6 @@ interface Zend_Queue_Adapter_AdapterInterface
      * @return Zend_Queue_Message
      */
     public function send($message, Zend_Queue $queue = null);
-
     /**
      * Get messages in the queue
      *
@@ -131,7 +120,6 @@ interface Zend_Queue_Adapter_AdapterInterface
      * @return Zend_Queue_Message_Iterator
      */
     public function receive($maxMessages = null, $timeout = null, Zend_Queue $queue = null);
-
     /**
      * Delete a message from the queue
      *
@@ -142,18 +130,15 @@ interface Zend_Queue_Adapter_AdapterInterface
      * @return boolean
      */
     public function deleteMessage(Zend_Queue_Message $message);
-
     /********************************************************************
      * Supporting functions
      *********************************************************************/
-
     /**
      * Returns the configuration options in this adapter.
      *
      * @return array
      */
     public function getOptions();
-
     /**
      * Return a list of queue capabilities functions
      *
@@ -163,7 +148,6 @@ interface Zend_Queue_Adapter_AdapterInterface
      * @return array
      */
     public function getCapabilities();
-
     /**
      * Indicates if a function is supported or not.
      *

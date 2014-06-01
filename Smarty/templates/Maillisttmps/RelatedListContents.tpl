@@ -1,5 +1,4 @@
 {*<!--
-
 /*********************************************************************************
 ** The contents of this file are subject to the vtiger CRM Public License Version 1.0
  * ("License"); You may not use this file except in compliance with the License
@@ -9,17 +8,13 @@
  * All Rights Reserved.
 *
  ********************************************************************************/
-
 -->*}
-
 {if $SinglePane_View eq 'true'}
 	{assign var = return_modname value='DetailView'}
 {else}
 	{assign var = return_modname value='CallRelatedList'}
 {/if}
-
 {foreach key=header item=detail from=$RELATEDLISTS}
-
 <table border=0 cellspacing=0 cellpadding=0 width=100% class="small" style="border-bottom:1px solid #999999;padding:5px;">
         <tr>
                 <td  valign=bottom>

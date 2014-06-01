@@ -16,7 +16,6 @@
  * @package log4php
  * @subpackage appenders
  */
-
 /**
  * @ignore 
  */
@@ -25,7 +24,6 @@ if (!defined('LOG4PHP_DIR')) define('LOG4PHP_DIR', dirname(__FILE__) . '/..');
 require_once(LOG4PHP_DIR . '/LoggerAppenderSkeleton.php');
 require_once(LOG4PHP_DIR . '/LoggerLevel.php');
 require_once(LOG4PHP_DIR . '/LoggerLog.php');
-
 /**
  * Log events using php {@link PHP_MANUAL#syslog} function.
  *
@@ -52,19 +50,16 @@ class LoggerAppenderSyslog extends LoggerAppenderSkeleton {
     {
         $this->LoggerAppenderSkeleton($name);
     }
-
     function activateOptions()
     {
         define_syslog_variables();
         $this->closed = false;
     }
-
     function close() 
     {
         closelog();
         $this->closed = true;
     }
-
     function append($event)
     {
         $level   = $event->getLevel();

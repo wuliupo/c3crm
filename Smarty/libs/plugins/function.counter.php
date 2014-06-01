@@ -4,8 +4,6 @@
  * @package Smarty
  * @subpackage plugins
  */
-
-
 /**
  * Smarty {counter} function plugin
  *
@@ -22,7 +20,6 @@
 function smarty_function_counter($params, &$smarty)
 {
     static $counters = array();
-
     $name = (isset($params['name'])) ? $params['name'] : 'default';
     if (!isset($counters[$name])) {
         $counters[$name] = array(
@@ -33,15 +30,12 @@ function smarty_function_counter($params, &$smarty)
             );
     }
     $counter =& $counters[$name];
-
     if (isset($params['start'])) {
         $counter['start'] = $counter['count'] = (int)$params['start'];
     }
-
     if (!empty($params['assign'])) {
         $counter['assign'] = $params['assign'];
     }
-
     if (isset($counter['assign'])) {
         $smarty->assign($counter['assign'], $counter['count']);
     }
@@ -51,13 +45,11 @@ function smarty_function_counter($params, &$smarty)
     } else {
         $print = empty($counter['assign']);
     }
-
     if ($print) {
         $retval = $counter['count'];
     } else {
         $retval = null;
     }
-
     if (isset($params['skip'])) {
         $counter['skip'] = $params['skip'];
     }
@@ -65,7 +57,6 @@ function smarty_function_counter($params, &$smarty)
     if (isset($params['direction'])) {
         $counter['direction'] = $params['direction'];
     }
-
     if ($counter['direction'] == "down")
         $counter['count'] -= $counter['skip'];
     else
@@ -74,7 +65,5 @@ function smarty_function_counter($params, &$smarty)
     return $retval;
     
 }
-
 /* vim: set expandtab: */
-
 ?>

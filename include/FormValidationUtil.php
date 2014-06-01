@@ -8,7 +8,6 @@
  * All Rights Reserved.
 *
  ********************************************************************************/
-
 /*
  * File containing methods to proceed with the ui validation for all the forms
  *
@@ -19,8 +18,6 @@
   * @returns $fieldName_array -- fieldName_array:: Type string array (field name details)
   *
  */
-
-
 function getDBValidationData($tablearray,$tabid='')
 {
   global $log;
@@ -32,12 +29,10 @@ function getDBValidationData($tablearray,$tabid='')
 	  $tab_con = "";
 	  $numValues = count($tablearray);
 	  global $adb,$mod_strings;
-
 	  if($tabid!='') $tab_con = ' and tabid='.$tabid;
 		
 	  for($i=0;$i<$numValues;$i++)
 	  {
-
 		if(in_array("emails",$tablearray))
 		{
 			if($numValues > 1 && $i != $numValues-1)
@@ -73,18 +68,15 @@ function getDBValidationData($tablearray,$tabid='')
 		$fldLabel_array = Array();
 		$fldLabel_array[$fieldlabel] = $typeofdata;
 		$fieldName_array[$fieldname] = $fldLabel_array;
-
 	  }
 	  setSqlCacheData($key,$fieldName_array);
   }  
   $log->debug("Exiting getDBValidationData method ...");
   return $fieldName_array;
 }
-
 /**
 * merged with getDBValidationData and split_validationdataArray functions for performance
 */
-
 function getSplitDBValidationData($tablearray,$tabid='')
 {
   global $log;
@@ -97,12 +89,10 @@ function getSplitDBValidationData($tablearray,$tabid='')
 	  $tab_con = "";
 	  $numValues = count($tablearray);
 	  global $adb,$mod_strings;
-
 	  if($tabid!='') $tab_con = ' and tabid='.$tabid;
 		
 	  for($i=0;$i<$numValues;$i++)
 	  {
-
 		if(in_array("emails",$tablearray))
 		{
 			if($numValues > 1 && $i != $numValues-1)
@@ -138,7 +128,6 @@ function getSplitDBValidationData($tablearray,$tabid='')
 		$fldLabel_array = Array();
 		$fldLabel_array[$fieldlabel] = $typeofdata;
 		$fieldName_array[$fieldname] = $fldLabel_array;
-
 	  }
 	  $validationData = split_validationdataArray($fieldName_array);
 	  setSqlCacheData($key,$validationData);

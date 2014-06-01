@@ -9,21 +9,16 @@
 *
  ********************************************************************************/
 require_once('include/database/PearDatabase.php');
-
 $fldmodule=$_REQUEST['fld_module'];
  $fldlabel=$_REQUEST['fldLabel'];
  $fldType= $_REQUEST['fieldType'];
  $parenttab=$_REQUEST['parenttab'];
  $mode=$_REQUEST['mode'];
-
 $tabid = getTabid($fldmodule);
-
 if(get_magic_quotes_gpc() == 1)
 {
 	$fldlabel = stripslashes($fldlabel);
 }
-
-
 //checking if the user is trying to create a custom ec_field which already exists  
 if($mode != 'edit')
 {
@@ -32,12 +27,10 @@ if($mode != 'edit')
 }
 else
 	$checkresult=0;
-
 if($adb->num_rows($checkresult) != 0)
 {
 	redirect("index.php?module=Settings&action=CustomMultiFieldList&fld_module=".$fldmodule."&parenttab=".$parenttab);
 	die;
-
 }
 else
 {
@@ -63,15 +56,10 @@ else
 	$uitype = 15;
 	$type = "C(255)"; //adodb type
 	$uiorichekdata='V~O';
-
 	
 	// No Decimal Pleaces Handling
-
         
-
-
         
-
         //1. add the customfield ec_table to the ec_field ec_table as Block4
         //2. fetch the contents of the custom ec_field and show in the UI
         
@@ -82,7 +70,6 @@ else
 		$custfld_fieldid=$adb->getUniqueID("ec_field");
 		$custfld_fieldids[]=$custfld_fieldid;
 	}
-
 	$adb->startTransaction();
 	//$custfld_sequece=$adb->getUniqueId("ec_customfield_sequence");
     	$custfld_sequeces=array();
@@ -95,7 +82,6 @@ else
         //get the blockid for this custom block
         $blockid = getBlockId($tabid,'LBL_CUSTOM_INFORMATION');
 		
-
 	if(is_numeric($blockid))
 	{
 		

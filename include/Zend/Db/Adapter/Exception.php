@@ -19,12 +19,10 @@
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  * @version    $Id: Exception.php 23775 2011-03-01 17:25:24Z ralph $
  */
-
 /**
  * Zend_Db_Exception
  */
 require_once 'include/Zend/Db/Exception.php';
-
 /**
  * @category   Zend
  * @package    Zend_Db
@@ -35,7 +33,6 @@ require_once 'include/Zend/Db/Exception.php';
 class Zend_Db_Adapter_Exception extends Zend_Db_Exception
 {
     protected $_chainedException = null;
-
     public function __construct($message = '', $code = 0, Exception $e = null)
     {
         if ($e && (0 === $code)) {
@@ -43,15 +40,12 @@ class Zend_Db_Adapter_Exception extends Zend_Db_Exception
         }
         parent::__construct($message, $code, $e);
     }
-
     public function hasChainedException()
     {
         return ($this->_previous !== null);
     }
-
     public function getChainedException()
     {
         return $this->getPrevious();
     }
-
 }

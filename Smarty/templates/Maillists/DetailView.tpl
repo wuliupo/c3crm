@@ -31,7 +31,6 @@
 			<td valign=top align=left >
                 <table border=0 cellspacing=0 cellpadding=3 width=100% class="dvtContentSpace">
 				<tr>
-
 					<td align=left>
 					<!-- content cache -->
 					
@@ -59,7 +58,6 @@
 						</td>
 						</tr>
 						</table>
-
 							</td>
 						     </tr>{/strip}
 						     <tr><td>
@@ -115,14 +113,10 @@
 						<td>
 					
 						
-
 						</td>
 						</tr>
 						</table>
-
 							</td>
-
-
 						     </tr>{/strip}
 				</table>
 </td></tr>
@@ -145,4 +139,3 @@
 </td>
 	<td align=right valign=top><img src="{$IMAGE_PATH}showPanelTopRight.gif"></td>
 </tr></table>
-

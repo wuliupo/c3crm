@@ -18,7 +18,6 @@
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  * @version    $Id: Interface.php 23775 2011-03-01 17:25:24Z ralph $
  */
-
 /**
  * @category   Zend
  * @package    Zend_Validate
@@ -39,7 +38,6 @@ interface Zend_Validate_Interface
      * @throws Zend_Validate_Exception If validation of $value is impossible
      */
     public function isValid($value);
-
     /**
      * Returns an array of messages that explain why the most recent isValid()
      * call returned false. The array keys are validation failure message identifiers,

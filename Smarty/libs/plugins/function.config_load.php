@@ -4,7 +4,6 @@
  * @package Smarty
  * @subpackage plugins
  */
-
 /**
  * Smarty {config_load} function plugin
  *
@@ -31,16 +30,13 @@ function smarty_function_config_load($params, &$smarty)
             require_once(SMARTY_CORE_DIR . 'core.get_microtime.php');
             $_debug_start_time = smarty_core_get_microtime($_params, $smarty);
         }
-
         $_file = isset($params['file']) ? $smarty->_dequote($params['file']) : null;
         $_section = isset($params['section']) ? $smarty->_dequote($params['section']) : null;
         $_scope = isset($params['scope']) ? $smarty->_dequote($params['scope']) : 'global';
         $_global = isset($params['global']) ? $smarty->_dequote($params['global']) : false;
-
         if (!isset($_file) || strlen($_file) == 0) {
             $smarty->trigger_error("missing 'file' attribute in config_load tag", E_USER_ERROR, __FILE__, __LINE__);
         }
-
         if (isset($_scope)) {
             if ($_scope != 'local' &&
                 $_scope != 'parent' &&
@@ -54,7 +50,6 @@ function smarty_function_config_load($params, &$smarty)
                 $_scope = 'local';
             }
         }
-
         $_params = array('resource_name' => $_file,
                          'resource_base_path' => $smarty->config_dir,
                          'get_source' => false);
@@ -64,7 +59,6 @@ function smarty_function_config_load($params, &$smarty)
             $_compile_file = $smarty->_get_compile_path($_file_path.'|'.$_section);
         else
             $_compile_file = $smarty->_get_compile_path($_file_path);
-
         if($smarty->force_compile || !file_exists($_compile_file)) {
             $_compile = true;
         } elseif ($smarty->compile_check) {
@@ -76,7 +70,6 @@ function smarty_function_config_load($params, &$smarty)
         } else {
             $_compile = false;
         }
-
         if($_compile) {
             // compile config file
             if(!is_object($smarty->_conf_obj)) {
@@ -87,7 +80,6 @@ function smarty_function_config_load($params, &$smarty)
                 $smarty->_conf_obj->read_hidden = $smarty->config_read_hidden;
                 $smarty->_conf_obj->fix_newlines = $smarty->config_fix_newlines;
             }
-
             $_params = array('resource_name' => $_file,
                              'resource_base_path' => $smarty->config_dir,
                              $_params['get_source'] = true);
@@ -108,14 +100,11 @@ function smarty_function_config_load($params, &$smarty)
         } else {
             include($_compile_file);
         }
-
         if ($smarty->caching) {
             $smarty->_cache_info['config'][$_file] = true;
         }
-
         $smarty->_config[0]['vars'] = @array_merge($smarty->_config[0]['vars'], $_config_vars);
         $smarty->_config[0]['files'][$_file] = true;
-
         if ($_scope == 'parent') {
                 $smarty->_config[1]['vars'] = @array_merge($smarty->_config[1]['vars'], $_config_vars);
                 $smarty->_config[1]['files'][$_file] = true;
@@ -125,7 +114,6 @@ function smarty_function_config_load($params, &$smarty)
                 $smarty->_config[$i]['files'][$_file] = true;
             }
         }
-
         if ($smarty->debugging) {
             $_params = array();
             require_once(SMARTY_CORE_DIR . 'core.get_microtime.php');
@@ -134,9 +122,6 @@ function smarty_function_config_load($params, &$smarty)
                                                 'depth'     => $smarty->_inclusion_depth,
                                                 'exec_time' => smarty_core_get_microtime($_params, $smarty) - $_debug_start_time);
         }
-
 }
-
 /* vim: set expandtab: */
-
 ?>

@@ -1,11 +1,9 @@
  <script language="JavaScript" type="text/javascript" src="include/js/ListView.js"></script>
 <script language="JavaScript" type="text/javascript" src="include/js/search.js"></script>
 <script language="JavaScript" type="text/javascript" src="modules/{$MODULE}/{$SINGLE_MOD}.js"></script>
-
  <div class="container-fluid clearfix"> 
       <div class="row-fluid">
         <div class="span12" style="margin-left:0px;">
-
            <div id="ListViewContents" class="small" style="width:100%;position:relative;">
               <table  class="table table-bordered table-hover table-condensed table-striped">
                 <tbody>
@@ -35,7 +33,6 @@
                 </form>
             <div style="margin-top:0px;margin-bottom:0px;overflow:auto;height:470px;">
              
-
              <table class="table table-bordered table-hover table-condensed table-striped">
               <thead>
                 <tr>  
@@ -58,7 +55,6 @@
                     <td colspan="{$smarty.foreach.listviewforeach.iteration+1}">{$APP.LBL_FOUND}</td>
                   </tr> 
                  {/foreach}
-
               </tbody>
             </table>
             </div>
@@ -81,17 +77,12 @@
               </tbody>
                 </table>
             </div> 
-
           </div>
         </div>
       </div>
-
     </div>
-
-
 <input type="hidden" value="{$order_url}" id="order_url"  name="order_url"/>
 <input type="hidden" value="{$search_url}" id="search_url"  name="search_url"/>
-
 {literal}
 <script>
 function getOrderBy(theorderbystr){

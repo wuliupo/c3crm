@@ -9,13 +9,11 @@ $theme_path="themes/".$theme."/";
 $image_path=$theme_path."images/";
 $smarty = new CRMSmarty();
 $mod_strings = return_specified_module_language("zh_cn","Settings");
-
 $relsetmode = "view";
 if(isset($_REQUEST['relsetmode']) && $_REQUEST['relsetmode'] != ''){
 	$relsetmode = $_REQUEST['relsetmode'];
 }
 $smarty->assign("RELSETMODE", $relsetmode);
-
 $relset = "EmailConfig";
 if($_REQUEST['relset'] && !empty($_REQUEST['relset'])){
 	$relset = $_REQUEST['relset'];
@@ -35,12 +33,10 @@ $relsetkeyarr = array_keys($relsetarray);
 if(!empty($relset) && in_array($relset,$relsetkeyarr)){
 	require_once("modules/Relsettings/{$relset}.php");
 }
-
 $smarty->assign("RELSETARRAY", $relsetarray);
 $smarty->assign("RELSET", $relset);
 $relsethead = $mod_strings['LBL_USER_MANAGEMENT'];
 $smarty->assign("RELSETHEAD", $relsethead);
-
 $smarty->assign("APP", $app_strings);
 $smarty->assign("MODULE", 'Relsettings');
 $smarty->assign("CATEGORY", 'Settings');

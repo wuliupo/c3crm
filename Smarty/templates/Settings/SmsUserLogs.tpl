@@ -7,7 +7,6 @@
 			</div>
 		</div>
 		<!-- end nav-->
-
 		<!--content-->
 		<div class="span10">
 			 <div class="accordion"  style="margin-top:0px;margin-bottom:0px;">
@@ -49,12 +48,10 @@
 					</div>
 				</div>
 			</div>
-
 		</div>
 		<!-- end of content-->
 	</div>
 </div>
-
 <input type="hidden" value="{$search_url}" id="search_url"  name="search_url"/>
 <script language="JAVASCRIPT" type="text/javascript" src="include/js/smoothscroll.js"></script>
 <script language="JavaScript" type="text/javascript" src="include/js/menu.js"></script>
@@ -63,7 +60,6 @@
 function getListViewEntries_js(module,url)
 {	
 	$("#status").css("display","inline");
-
 	if($('#search_url').val()!='')
 		urlstring = $('#search_url').val();
 	else
@@ -81,6 +77,5 @@ function getListViewWithPageSize(module,pageElement)
 	var pagesize = pageElement.options[pageElement.options.selectedIndex].value;
 	getListViewEntries_js(module,'pagesize='+pagesize);
 } 
-
 </script>
 {/literal}

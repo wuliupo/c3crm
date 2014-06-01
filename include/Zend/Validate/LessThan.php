@@ -18,12 +18,10 @@
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  * @version    $Id: LessThan.php 23775 2011-03-01 17:25:24Z ralph $
  */
-
 /**
  * @see Zend_Validate_Abstract
  */
 require_once 'include/Zend/Validate/Abstract.php';
-
 /**
  * @category   Zend
  * @package    Zend_Validate
@@ -33,28 +31,24 @@ require_once 'include/Zend/Validate/Abstract.php';
 class Zend_Validate_LessThan extends Zend_Validate_Abstract
 {
     const NOT_LESS = 'notLessThan';
-
     /**
      * @var array
      */
     protected $_messageTemplates = array(
         self::NOT_LESS => "'%value%' is not less than '%max%'"
     );
-
     /**
      * @var array
      */
     protected $_messageVariables = array(
         'max' => '_max'
     );
-
     /**
      * Maximum value
      *
      * @var mixed
      */
     protected $_max;
-
     /**
      * Sets validator options
      *
@@ -66,7 +60,6 @@ class Zend_Validate_LessThan extends Zend_Validate_Abstract
         if ($max instanceof Zend_Config) {
             $max = $max->toArray();
         }
-
         if (is_array($max)) {
             if (array_key_exists('max', $max)) {
                 $max = $max['max'];
@@ -75,10 +68,8 @@ class Zend_Validate_LessThan extends Zend_Validate_Abstract
                 throw new Zend_Validate_Exception("Missing option 'max'");
             }
         }
-
         $this->setMax($max);
     }
-
     /**
      * Returns the max option
      *
@@ -88,7 +79,6 @@ class Zend_Validate_LessThan extends Zend_Validate_Abstract
     {
         return $this->_max;
     }
-
     /**
      * Sets the max option
      *
@@ -100,7 +90,6 @@ class Zend_Validate_LessThan extends Zend_Validate_Abstract
         $this->_max = $max;
         return $this;
     }
-
     /**
      * Defined by Zend_Validate_Interface
      *
@@ -118,5 +107,4 @@ class Zend_Validate_LessThan extends Zend_Validate_Abstract
         }
         return true;
     }
-
 }

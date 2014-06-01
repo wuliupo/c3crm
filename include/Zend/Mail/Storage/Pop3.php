@@ -19,24 +19,18 @@
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  * @version    $Id: Pop3.php 23775 2011-03-01 17:25:24Z ralph $
  */
-
-
 /**
  * @see Zend_Mail_Storage_Abstract
  */
 require_once 'include/Zend/Mail/Storage/Abstract.php';
-
 /**
  * @see Zend_Mail_Protocol_Pop3
  */
 require_once 'include/Zend/Mail/Protocol/Pop3.php';
-
 /**
  * @see Zend_Mail_Message
  */
 require_once 'include/Zend/Mail/Message.php';
-
-
 /**
  * @category   Zend
  * @package    Zend_Mail
@@ -51,8 +45,6 @@ class Zend_Mail_Storage_Pop3 extends Zend_Mail_Storage_Abstract
      * @var null|Zend_Mail_Protocol_Pop3
      */
     protected $_protocol;
-
-
     /**
      * Count messages all messages in current box
      *
@@ -65,7 +57,6 @@ class Zend_Mail_Storage_Pop3 extends Zend_Mail_Storage_Abstract
         $this->_protocol->status($count, $null);
         return (int)$count;
     }
-
     /**
      * get a list of messages with number and size
      *
@@ -78,7 +69,6 @@ class Zend_Mail_Storage_Pop3 extends Zend_Mail_Storage_Abstract
         $id = $id ? $id : null;
         return $this->_protocol->getList($id);
     }
-
     /**
      * Fetch a message
      *
@@ -90,11 +80,9 @@ class Zend_Mail_Storage_Pop3 extends Zend_Mail_Storage_Abstract
     {
         $bodyLines = 0;
         $message = $this->_protocol->top($id, $bodyLines, true);
-
         return new $this->_messageClass(array('handler' => $this, 'id' => $id, 'headers' => $message,
                                               'noToplines' => $bodyLines < 1));
     }
-
     /*
      * Get raw header of message or part
      *
@@ -115,10 +103,8 @@ class Zend_Mail_Storage_Pop3 extends Zend_Mail_Storage_Abstract
             require_once 'include/Zend/Mail/Storage/Exception.php';
             throw new Zend_Mail_Storage_Exception('not implemented');
         }
-
         return $this->_protocol->top($id, 0, true);
     }
-
     /*
      * Get raw content of message or part
      *
@@ -138,13 +124,11 @@ class Zend_Mail_Storage_Pop3 extends Zend_Mail_Storage_Abstract
             require_once 'include/Zend/Mail/Storage/Exception.php';
             throw new Zend_Mail_Storage_Exception('not implemented');
         }
-
         $content = $this->_protocol->retrieve($id);
         // TODO: find a way to avoid decoding the headers
         Zend_Mime_Decode::splitMessage($content, $null, $body);
         return $body;
     }
-
     /**
      * create instance with parameters
      * Supported paramters are
@@ -163,16 +147,13 @@ class Zend_Mail_Storage_Pop3 extends Zend_Mail_Storage_Abstract
         if (is_array($params)) {
             $params = (object)$params;
         }
-
         $this->_has['fetchPart'] = false;
         $this->_has['top']       = null;
         $this->_has['uniqueid']  = null;
-
         if ($params instanceof Zend_Mail_Protocol_Pop3) {
             $this->_protocol = $params;
             return;
         }
-
         if (!isset($params->user)) {
             /**
              * @see Zend_Mail_Storage_Exception
@@ -180,17 +161,14 @@ class Zend_Mail_Storage_Pop3 extends Zend_Mail_Storage_Abstract
             require_once 'include/Zend/Mail/Storage/Exception.php';
             throw new Zend_Mail_Storage_Exception('need at least user in params');
         }
-
         $host     = isset($params->host)     ? $params->host     : 'localhost';
         $password = isset($params->password) ? $params->password : '';
         $port     = isset($params->port)     ? $params->port     : null;
         $ssl      = isset($params->ssl)      ? $params->ssl      : false;
-
         $this->_protocol = new Zend_Mail_Protocol_Pop3();
         $this->_protocol->connect($host, $port, $ssl);
         $this->_protocol->login($params->user, $password);
     }
-
     /**
      * Close resource for mail lib. If you need to control, when the resource
      * is closed. Otherwise the destructor would call this.
@@ -201,7 +179,6 @@ class Zend_Mail_Storage_Pop3 extends Zend_Mail_Storage_Abstract
     {
         $this->_protocol->logout();
     }
-
     /**
      * Keep the server busy.
      *
@@ -212,7 +189,6 @@ class Zend_Mail_Storage_Pop3 extends Zend_Mail_Storage_Abstract
     {
         return $this->_protocol->noop();
     }
-
     /**
      * Remove a message from server. If you're doing that from a web enviroment
      * you should be careful and use a uniqueid as parameter if possible to
@@ -226,7 +202,6 @@ class Zend_Mail_Storage_Pop3 extends Zend_Mail_Storage_Abstract
     {
         $this->_protocol->delete($id);
     }
-
     /**
      * get unique id for one or all messages
      *
@@ -249,10 +224,8 @@ class Zend_Mail_Storage_Pop3 extends Zend_Mail_Storage_Abstract
             $range = range(1, $count);
             return array_combine($range, $range);
         }
-
         return $this->_protocol->uniqueid($id);
     }
-
     /**
      * get a message number from a unique id
      *
@@ -268,21 +241,18 @@ class Zend_Mail_Storage_Pop3 extends Zend_Mail_Storage_Abstract
         if (!$this->hasUniqueid) {
             return $id;
         }
-
         $ids = $this->getUniqueId();
         foreach ($ids as $k => $v) {
             if ($v == $id) {
                 return $k;
             }
         }
-
         /**
          * @see Zend_Mail_Storage_Exception
          */
         require_once 'include/Zend/Mail/Storage/Exception.php';
         throw new Zend_Mail_Storage_Exception('unique id not found');
     }
-
     /**
      * Special handling for hasTop and hasUniqueid. The headers of the first message is
      * retrieved if Top wasn't needed/tried yet.
@@ -298,7 +268,6 @@ class Zend_Mail_Storage_Pop3 extends Zend_Mail_Storage_Abstract
         if ($result !== null) {
             return $result;
         }
-
         if (strtolower($var) == 'hastop') {
             if ($this->_protocol->hasTop === null) {
                 // need to make a real call, because not all server are honest in their capas
@@ -311,7 +280,6 @@ class Zend_Mail_Storage_Pop3 extends Zend_Mail_Storage_Abstract
             $this->_has['top'] = $this->_protocol->hasTop;
             return $this->_protocol->hasTop;
         }
-
         if (strtolower($var) == 'hasuniqueid') {
             $id = null;
             try {
@@ -322,7 +290,6 @@ class Zend_Mail_Storage_Pop3 extends Zend_Mail_Storage_Abstract
             $this->_has['uniqueid'] = $id ? true : false;
             return $this->_has['uniqueid'];
         }
-
         return $result;
     }
 }

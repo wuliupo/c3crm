@@ -24,8 +24,6 @@
  * @license    http://www.gnu.org/licenses/old-licenses/lgpl-2.1.txt	LGPL
  * @version    1.7.2, 2010-01-11
  */
-
-
 /** PHPExcel root directory */
 if (!defined('PHPEXCEL_ROOT')) {
 	/**
@@ -33,11 +31,8 @@ if (!defined('PHPEXCEL_ROOT')) {
 	 */
 	define('PHPEXCEL_ROOT', dirname(__FILE__) . '/../../');
 }
-
 /** PHPExcel_Shared_PasswordHasher */
 require_once PHPEXCEL_ROOT . 'PHPExcel/Shared/PasswordHasher.php';
-
-
 /**
  * PHPExcel_Worksheet_Protection
  *
@@ -190,7 +185,6 @@ class PHPExcel_Worksheet_Protection
     	$this->_selectUnlockedCells		= false;
     	$this->_password				= '';
     }
-
     /**
      * Is some sort of protection enabled?
      *
@@ -234,7 +228,6 @@ class PHPExcel_Worksheet_Protection
     	$this->_sheet = $pValue;
     	return $this;
     }
-
     /**
      * Get Objects
      *
@@ -254,7 +247,6 @@ class PHPExcel_Worksheet_Protection
     	$this->_objects = $pValue;
     	return $this;
     }
-
     /**
      * Get Scenarios
      *
@@ -274,7 +266,6 @@ class PHPExcel_Worksheet_Protection
     	$this->_scenarios = $pValue;
     	return $this;
     }
-
     /**
      * Get FormatCells
      *
@@ -294,7 +285,6 @@ class PHPExcel_Worksheet_Protection
     	$this->_formatCells = $pValue;
     	return $this;
     }
-
     /**
      * Get FormatColumns
      *
@@ -314,7 +304,6 @@ class PHPExcel_Worksheet_Protection
     	$this->_formatColumns = $pValue;
     	return $this;
     }
-
     /**
      * Get FormatRows
      *
@@ -334,7 +323,6 @@ class PHPExcel_Worksheet_Protection
     	$this->_formatRows = $pValue;
     	return $this;
     }
-
     /**
      * Get InsertColumns
      *
@@ -354,7 +342,6 @@ class PHPExcel_Worksheet_Protection
     	$this->_insertColumns = $pValue;
     	return $this;
     }
-
     /**
      * Get InsertRows
      *
@@ -374,7 +361,6 @@ class PHPExcel_Worksheet_Protection
     	$this->_insertRows = $pValue;
     	return $this;
     }
-
     /**
      * Get InsertHyperlinks
      *
@@ -394,7 +380,6 @@ class PHPExcel_Worksheet_Protection
     	$this->_insertHyperlinks = $pValue;
     	return $this;
     }
-
     /**
      * Get DeleteColumns
      *
@@ -414,7 +399,6 @@ class PHPExcel_Worksheet_Protection
     	$this->_deleteColumns = $pValue;
     	return $this;
     }
-
     /**
      * Get DeleteRows
      *
@@ -434,7 +418,6 @@ class PHPExcel_Worksheet_Protection
     	$this->_deleteRows = $pValue;
     	return $this;
     }
-
     /**
      * Get SelectLockedCells
      *
@@ -454,7 +437,6 @@ class PHPExcel_Worksheet_Protection
     	$this->_selectLockedCells = $pValue;
     	return $this;
     }
-
     /**
      * Get Sort
      *
@@ -474,7 +456,6 @@ class PHPExcel_Worksheet_Protection
     	$this->_sort = $pValue;
     	return $this;
     }
-
     /**
      * Get AutoFilter
      *
@@ -494,7 +475,6 @@ class PHPExcel_Worksheet_Protection
     	$this->_autoFilter = $pValue;
     	return $this;
     }
-
     /**
      * Get PivotTables
      *
@@ -514,7 +494,6 @@ class PHPExcel_Worksheet_Protection
     	$this->_pivotTables = $pValue;
     	return $this;
     }
-
     /**
      * Get SelectUnlockedCells
      *
@@ -543,7 +522,6 @@ class PHPExcel_Worksheet_Protection
     function getPassword() {
     	return $this->_password;
     }
-
     /**
      * Set Password
      *
@@ -558,7 +536,6 @@ class PHPExcel_Worksheet_Protection
 		$this->_password = $pValue;
 		return $this;
     }
-
 	/**
 	 * Implement PHP __clone to create a deep clone, not just a shallow copy.
 	 */

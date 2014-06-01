@@ -20,7 +20,6 @@
 	{/if}
    	<tr>
 	    <td style="padding:5px;">
-
        	<input name="module" type="hidden" value="{$RETURN_MODULE}">
 		<input name="action" type="hidden" value="{$RETURN_ACTION}">
         <input name="pmodule" type="hidden" value="{$MODULE}">
@@ -55,10 +54,8 @@
 			<div>
 	    </td>
 	</tr>
-
 </table>
 <table width="100%" border=0 cellspacing=0 cellpadding=0 class="small reportCreateBottom" >
      <tr><td style="padding:5px" align="right">{$RECORD_COUNTS}&nbsp;&nbsp;&nbsp;&nbsp;{$NAVIGATION}</td></tr>
 </table>
 </form>
-

@@ -16,15 +16,12 @@
  * @package log4php
  * @subpackage config
  */
-
 /**
  * @ignore 
  */
 if (!defined('LOG4PHP_DIR')) define('LOG4PHP_DIR', dirname(__FILE__) . '/..');
-
 require_once(LOG4PHP_DIR . '/LoggerLog.php');
 require_once(LOG4PHP_DIR . '/helpers/LoggerOptionConverter.php');
-
 /**
  * General purpose Object property setter. Clients repeatedly invokes
  * {@link setProperty()} in order to invoke setters
@@ -52,7 +49,6 @@ require_once(LOG4PHP_DIR . '/helpers/LoggerOptionConverter.php');
  * @since 0.5
  */
 class LoggerPropertySetter {
-
     /**
      * @var object the target object
      * @access private
@@ -86,7 +82,6 @@ class LoggerPropertySetter {
         return $pSetter->setProperties($properties, $prefix);
     }
   
-
     /**
      * Set the properites for the object that match the
      * <code>prefix</code> passed as parameter.
@@ -97,7 +92,6 @@ class LoggerPropertySetter {
     function setProperties($properties, $prefix)
     {
         LoggerLog::debug("LoggerOptionConverter::setProperties():prefix=[{$prefix}]");
-
         $len = strlen($prefix);
         while (list($key,) = each($properties)) {
             if (strpos($key, $prefix) === 0) {
@@ -132,7 +126,6 @@ class LoggerPropertySetter {
     function setProperty($name, $value)
     {
         LoggerLog::debug("LoggerOptionConverter::setProperty():name=[{$name}]:value=[{$value}]");
-
         if ($value === null) return;
         
         $method = "set" . ucfirst($name);

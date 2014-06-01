@@ -15,13 +15,10 @@ $body = convert_html($body);
 //echo $body;
 /*
 echo "<meta http-equiv=\"Content-Type\" content=\"text/html; charset=\"GBK\">\r\n";
-
-
 $body = preg_replace("content=([\"|\']?)text/html;([ ]?)charset=([a-z0-9~#%@\&:=?+\/\.,_-]+[a-z0-9~#%@\&=?+\/_-]+)([\"|\']?)", "", $body);
 $body = preg_replace("target=([\"|\']?)[A-Z_]+([\"|\']?)", "target=_blank", $body);
 $body = preg_replace("href=([\"|\']?)file:\/\/[a-z0-9~#%@\&:=?+\/\.,_-]+([\"|\']?)","\\1\\2",$body);
 $body = preg_replace("href=([\"|\']?)http([s]?):\/\/", "target=\"_blank\" href=\\1http\\2://", $body);
-
 if (!preg_match("/<html>/i", $body)){
 	echo '
 <style>
@@ -30,7 +27,6 @@ A { font-family: Arial, Helvetica, sans-serif; text-decoration: underline; color
 </style>
 ';
 }
-
 if (preg_match("/<body/i", $body))
 	$body = preg_replace("<body", "<body onLoad=\"setHeight()\"", $body);
 else

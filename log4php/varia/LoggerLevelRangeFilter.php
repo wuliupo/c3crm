@@ -16,7 +16,6 @@
  * @package log4php
  * @subpackage varia
  */
-
 /**
  * @ignore 
  */
@@ -26,7 +25,6 @@ if (!defined('LOG4PHP_DIR')) define('LOG4PHP_DIR', dirname(__FILE__) . '/..');
  */
 require_once(LOG4PHP_DIR . '/helpers/LoggerOptionConverter.php');
 require_once(LOG4PHP_DIR . '/spi/LoggerFilter.php');
-
 /**
  * This is a very simple filter based on level matching, which can be
  * used to reject messages with priorities outside a certain range.
@@ -69,7 +67,6 @@ class LoggerLevelRangeFilter extends LoggerFilter {
      * @var boolean
      */
     var $acceptOnMatch = true;
-
     /**
      * @var LoggerLevel
      */
@@ -79,7 +76,6 @@ class LoggerLevelRangeFilter extends LoggerFilter {
      * @var LoggerLevel
      */
     var $levelMax;
-
     /**
      * @return boolean
      */
@@ -111,7 +107,6 @@ class LoggerLevelRangeFilter extends LoggerFilter {
     {
         $this->levelMin = LoggerOptionConverter::toLevel($l, null);
     }
-
     /**
      * @return LoggerLevel
      */
@@ -127,7 +122,6 @@ class LoggerLevelRangeFilter extends LoggerFilter {
     {
         $this->levelMax = LoggerOptionConverter::toLevel($l, null);
     }
-
     /**
      * Return the decision of this filter.
      *
@@ -144,7 +138,6 @@ class LoggerLevelRangeFilter extends LoggerFilter {
                 return LOG4PHP_LOGGER_FILTER_DENY;
             }
         }
-
         if($this->levelMax !== null) {
             if ($level->toInt() > $this->levelMax->toInt()) {
                 // level of event is greater than maximum
@@ -154,7 +147,6 @@ class LoggerLevelRangeFilter extends LoggerFilter {
                 return LOG4PHP_LOGGER_FILTER_DENY;
             }
         }
-
         if ($this->getAcceptOnMatch()) {
             // this filter set up to bypass later filters and always return
             // accept if level in range

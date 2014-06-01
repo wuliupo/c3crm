@@ -19,38 +19,31 @@
  *	@license PHP v3.0
  */
 class LUDecomposition {
-
 	/**
 	 *	Decomposition storage
 	 *	@var array
 	 */
 	private $LU = array();
-
 	/**
 	 *	Row dimension.
 	 *	@var int
 	 */
 	private $m;
-
 	/**
 	 *	Column dimension.
 	 *	@var int
 	 */
 	private $n;
-
 	/**
 	 *	Pivot sign.
 	 *	@var int
 	 */
 	private $pivsign;
-
 	/**
 	 *	Internal storage of pivot vector.
 	 *	@var array
 	 */
 	private $piv = array();
-
-
 	/**
 	 *	LU Decomposition constructor.
 	 *
@@ -68,7 +61,6 @@ class LUDecomposition {
 			}
 			$this->pivsign = 1;
 			$LUrowi = $LUcolj = array();
-
 			// Outer loop.
 			for ($j = 0; $j < $this->n; ++$j) {
 				// Make a copy of the j-th column to localize references.
@@ -115,8 +107,6 @@ class LUDecomposition {
 			throw new Exception(JAMAError(ArgumentTypeException));
 		}
 	}	//	function __construct()
-
-
 	/**
 	 *	Get lower triangular factor.
 	 *
@@ -136,8 +126,6 @@ class LUDecomposition {
 		}
 		return new Matrix($L);
 	}	//	function getL()
-
-
 	/**
 	 *	Get upper triangular factor.
 	 *
@@ -155,8 +143,6 @@ class LUDecomposition {
 		}
 		return new Matrix($U);
 	}	//	function getU()
-
-
 	/**
 	 *	Return pivot permutation vector.
 	 *
@@ -165,8 +151,6 @@ class LUDecomposition {
 	public function getPivot() {
 		return $this->piv;
 	}	//	function getPivot()
-
-
 	/**
 	 *	Alias for getPivot
 	 *
@@ -175,8 +159,6 @@ class LUDecomposition {
 	public function getDoublePivot() {
 		return $this->getPivot();
 	}	//	function getDoublePivot()
-
-
 	/**
 	 *	Is the matrix nonsingular?
 	 *
@@ -190,8 +172,6 @@ class LUDecomposition {
 		}
 		return true;
 	}	//	function isNonsingular()
-
-
 	/**
 	 *	Count determinants
 	 *
@@ -208,8 +188,6 @@ class LUDecomposition {
 			throw new Exception(JAMAError(MatrixDimensionException));
 		}
 	}	//	function det()
-
-
 	/**
 	 *	Solve A*X = B
 	 *
@@ -251,5 +229,4 @@ class LUDecomposition {
 			throw new Exception(JAMAError(MatrixSquareException));
 		}
 	}	//	function solve()
-
 }	//	class LUDecomposition

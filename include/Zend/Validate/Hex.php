@@ -18,12 +18,10 @@
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  * @version    $Id: Hex.php 23775 2011-03-01 17:25:24Z ralph $
  */
-
 /**
  * @see Zend_Validate_Abstract
  */
 require_once 'include/Zend/Validate/Abstract.php';
-
 /**
  * @category   Zend
  * @package    Zend_Validate
@@ -34,7 +32,6 @@ class Zend_Validate_Hex extends Zend_Validate_Abstract
 {
     const INVALID = 'hexInvalid';
     const NOT_HEX = 'notHex';
-
     /**
      * Validation failure message template definitions
      *
@@ -44,7 +41,6 @@ class Zend_Validate_Hex extends Zend_Validate_Abstract
         self::INVALID => "Invalid type given. String expected",
         self::NOT_HEX => "'%value%' has not only hexadecimal digit characters",
     );
-
     /**
      * Defined by Zend_Validate_Interface
      *
@@ -59,14 +55,11 @@ class Zend_Validate_Hex extends Zend_Validate_Abstract
             $this->_error(self::INVALID);
             return false;
         }
-
         $this->_setValue($value);
         if (!ctype_xdigit((string) $value)) {
             $this->_error(self::NOT_HEX);
             return false;
         }
-
         return true;
     }
-
 }

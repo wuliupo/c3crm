@@ -23,8 +23,6 @@ function hypo($a, $b) {
 	}
 	return $r;
 }	//	function hypo()
-
-
 /**
  *	Mike Bommarito's version.
  *	Compute n-dimensional hyotheneuse.

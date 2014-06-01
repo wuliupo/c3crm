@@ -24,8 +24,6 @@
  * @license    http://www.gnu.org/licenses/old-licenses/lgpl-2.1.txt	LGPL
  * @version    1.7.2, 2010-01-11
  */
-
-
 /** PHPExcel root directory */
 if (!defined('PHPEXCEL_ROOT')) {
 	/**
@@ -33,47 +31,32 @@ if (!defined('PHPEXCEL_ROOT')) {
 	 */
 	define('PHPEXCEL_ROOT', dirname(__FILE__) . '/../../../');
 }
-
 /** PHPExcel */
 require_once PHPEXCEL_ROOT . 'PHPExcel.php';
-
 /** PHPExcel_Writer_Excel2007 */
 require_once PHPEXCEL_ROOT . 'PHPExcel/Writer/Excel2007.php';
-
 /** PHPExcel_Writer_Excel2007_WriterPart */
 require_once PHPEXCEL_ROOT . 'PHPExcel/Writer/Excel2007/WriterPart.php';
-
 /** PHPExcel_Style */
 require_once PHPEXCEL_ROOT . 'PHPExcel/Style.php';
-
 /** PHPExcel_Style_Borders */
 require_once PHPEXCEL_ROOT . 'PHPExcel/Style/Borders.php';
-
 /** PHPExcel_Style_Border */
 require_once PHPEXCEL_ROOT . 'PHPExcel/Style/Border.php';
-
 /** PHPExcel_Style_Color */
 require_once PHPEXCEL_ROOT . 'PHPExcel/Style/Color.php';
-
 /** PHPExcel_Style_Fill */
 require_once PHPEXCEL_ROOT . 'PHPExcel/Style/Fill.php';
-
 /** PHPExcel_Style_Font */
 require_once PHPEXCEL_ROOT . 'PHPExcel/Style/Font.php';
-
 /** PHPExcel_Style_NumberFormat */
 require_once PHPEXCEL_ROOT . 'PHPExcel/Style/NumberFormat.php';
-
 /** PHPExcel_Style_Conditional */
 require_once PHPEXCEL_ROOT . 'PHPExcel/Style/Conditional.php';
-
 /** PHPExcel_Style_Protection */
 require_once PHPEXCEL_ROOT . 'PHPExcel/Style/Protection.php';
-
 /** PHPExcel_Shared_XMLWriter */
 require_once PHPEXCEL_ROOT . 'PHPExcel/Shared/XMLWriter.php';
-
-
 /**
  * PHPExcel_Writer_Excel2007_Style
  *
@@ -99,63 +82,47 @@ class PHPExcel_Writer_Excel2007_Style extends PHPExcel_Writer_Excel2007_WriterPa
 		} else {
 			$objWriter = new PHPExcel_Shared_XMLWriter(PHPExcel_Shared_XMLWriter::STORAGE_MEMORY);
 		}
-
 		// XML header
 		$objWriter->startDocument('1.0','UTF-8','yes');
-
 		// styleSheet
 		$objWriter->startElement('styleSheet');
 		$objWriter->writeAttribute('xml:space', 'preserve');
 		$objWriter->writeAttribute('xmlns', 'http://schemas.openxmlformats.org/spreadsheetml/2006/main');
-
 			// numFmts
 			$objWriter->startElement('numFmts');
 			$objWriter->writeAttribute('count', $this->getParentWriter()->getNumFmtHashTable()->count());
-
 				// numFmt
 				for ($i = 0; $i < $this->getParentWriter()->getNumFmtHashTable()->count(); ++$i) {
 					$this->_writeNumFmt($objWriter, $this->getParentWriter()->getNumFmtHashTable()->getByIndex($i), $i);
 				}
-
 			$objWriter->endElement();
-
 			// fonts
 			$objWriter->startElement('fonts');
 			$objWriter->writeAttribute('count', $this->getParentWriter()->getFontHashTable()->count());
-
 				// font
 				for ($i = 0; $i < $this->getParentWriter()->getFontHashTable()->count(); ++$i) {
 					$this->_writeFont($objWriter, $this->getParentWriter()->getFontHashTable()->getByIndex($i));
 				}
-
 			$objWriter->endElement();
-
 			// fills
 			$objWriter->startElement('fills');
 			$objWriter->writeAttribute('count', $this->getParentWriter()->getFillHashTable()->count());
-
 				// fill
 				for ($i = 0; $i < $this->getParentWriter()->getFillHashTable()->count(); ++$i) {
 					$this->_writeFill($objWriter, $this->getParentWriter()->getFillHashTable()->getByIndex($i));
 				}
-
 			$objWriter->endElement();
-
 			// borders
 			$objWriter->startElement('borders');
 			$objWriter->writeAttribute('count', $this->getParentWriter()->getBordersHashTable()->count());
-
 				// border
 				for ($i = 0; $i < $this->getParentWriter()->getBordersHashTable()->count(); ++$i) {
 					$this->_writeBorder($objWriter, $this->getParentWriter()->getBordersHashTable()->getByIndex($i));
 				}
-
 			$objWriter->endElement();
-
 			// cellStyleXfs
 			$objWriter->startElement('cellStyleXfs');
 			$objWriter->writeAttribute('count', 1);
-
 				// xf
 				$objWriter->startElement('xf');
 					$objWriter->writeAttribute('numFmtId', 	0);
@@ -163,56 +130,42 @@ class PHPExcel_Writer_Excel2007_Style extends PHPExcel_Writer_Excel2007_WriterPa
 					$objWriter->writeAttribute('fillId', 	0);
 					$objWriter->writeAttribute('borderId',	0);
 				$objWriter->endElement();
-
 			$objWriter->endElement();
-
 			// cellXfs
 			$objWriter->startElement('cellXfs');
 			$objWriter->writeAttribute('count', count($pPHPExcel->getCellXfCollection()));
-
 				// xf
 				foreach ($pPHPExcel->getCellXfCollection() as $cellXf) {
 					$this->_writeCellStyleXf($objWriter, $cellXf, $pPHPExcel);
 				}
-
 			$objWriter->endElement();
-
 			// cellStyles
 			$objWriter->startElement('cellStyles');
 			$objWriter->writeAttribute('count', 1);
-
 				// cellStyle
 				$objWriter->startElement('cellStyle');
 					$objWriter->writeAttribute('name', 		'Normal');
 					$objWriter->writeAttribute('xfId', 		0);
 					$objWriter->writeAttribute('builtinId',	0);
 				$objWriter->endElement();
-
 			$objWriter->endElement();
-
 			// dxfs
 			$objWriter->startElement('dxfs');
 			$objWriter->writeAttribute('count', $this->getParentWriter()->getStylesConditionalHashTable()->count());
-
 				// dxf
 				for ($i = 0; $i < $this->getParentWriter()->getStylesConditionalHashTable()->count(); ++$i) {
 					$this->_writeCellStyleDxf($objWriter, $this->getParentWriter()->getStylesConditionalHashTable()->getByIndex($i)->getStyle());
 				}
-
 			$objWriter->endElement();
-
 			// tableStyles
 			$objWriter->startElement('tableStyles');
 			$objWriter->writeAttribute('defaultTableStyle', 'TableStyleMedium9');
 			$objWriter->writeAttribute('defaultPivotStyle', 'PivotTableStyle1');
 			$objWriter->endElement();
-
 		$objWriter->endElement();
-
 		// Return
 		return $objWriter->getData();
 	}
-
 	/**
 	 * Write Fill
 	 *
@@ -232,7 +185,6 @@ class PHPExcel_Writer_Excel2007_Style extends PHPExcel_Writer_Excel2007_WriterPa
 			$this->_writePatternFill($objWriter, $pFill);
 		}
 	}
-
 	/**
 	 * Write Gradient Fill
 	 *
@@ -244,39 +196,29 @@ class PHPExcel_Writer_Excel2007_Style extends PHPExcel_Writer_Excel2007_WriterPa
 	{
 		// fill
 		$objWriter->startElement('fill');
-
 			// gradientFill
 			$objWriter->startElement('gradientFill');
 				$objWriter->writeAttribute('type', 		$pFill->getFillType());
 				$objWriter->writeAttribute('degree', 	$pFill->getRotation());
-
 				// stop
 				$objWriter->startElement('stop');
 				$objWriter->writeAttribute('position', '0');
-
 					// color
 					$objWriter->startElement('color');
 					$objWriter->writeAttribute('rgb', $pFill->getStartColor()->getARGB());
 					$objWriter->endElement();
-
 				$objWriter->endElement();
-
 				// stop
 				$objWriter->startElement('stop');
 				$objWriter->writeAttribute('position', '1');
-
 					// color
 					$objWriter->startElement('color');
 					$objWriter->writeAttribute('rgb', $pFill->getEndColor()->getARGB());
 					$objWriter->endElement();
-
 				$objWriter->endElement();
-
 			$objWriter->endElement();
-
 		$objWriter->endElement();
 	}
-
 	/**
 	 * Write Pattern Fill
 	 *
@@ -288,26 +230,20 @@ class PHPExcel_Writer_Excel2007_Style extends PHPExcel_Writer_Excel2007_WriterPa
 	{
 		// fill
 		$objWriter->startElement('fill');
-
 			// patternFill
 			$objWriter->startElement('patternFill');
 				$objWriter->writeAttribute('patternType', $pFill->getFillType());
-
 				// fgColor
 				$objWriter->startElement('fgColor');
 				$objWriter->writeAttribute('rgb', $pFill->getStartColor()->getARGB());
 				$objWriter->endElement();
-
 				// bgColor
 				$objWriter->startElement('bgColor');
 				$objWriter->writeAttribute('rgb', $pFill->getEndColor()->getARGB());
 				$objWriter->endElement();
-
 			$objWriter->endElement();
-
 		$objWriter->endElement();
 	}
-
 	/**
 	 * Write Font
 	 *
@@ -319,31 +255,26 @@ class PHPExcel_Writer_Excel2007_Style extends PHPExcel_Writer_Excel2007_WriterPa
 	{
 		// font
 		$objWriter->startElement('font');
-
 			// Name
 			$objWriter->startElement('name');
 			$objWriter->writeAttribute('val', $pFont->getName());
 			$objWriter->endElement();
-
 			// Size
 			$objWriter->startElement('sz');
 			$objWriter->writeAttribute('val', $pFont->getSize());
 			$objWriter->endElement();
-
 			// Bold
 			if ($pFont->getBold()) {
 				$objWriter->startElement('b');
 				$objWriter->writeAttribute('val', 'true');
 				$objWriter->endElement();
 			}
-
 			// Italic
 			if ($pFont->getItalic()) {
 				$objWriter->startElement('i');
 				$objWriter->writeAttribute('val', 'true');
 				$objWriter->endElement();
 			}
-
 			// Superscript / subscript
 			if ($pFont->getSuperScript() || $pFont->getSubScript()) {
 				$objWriter->startElement('vertAlign');
@@ -354,27 +285,22 @@ class PHPExcel_Writer_Excel2007_Style extends PHPExcel_Writer_Excel2007_WriterPa
 				}
 				$objWriter->endElement();
 			}
-
 			// Underline
 			$objWriter->startElement('u');
 			$objWriter->writeAttribute('val', $pFont->getUnderline());
 			$objWriter->endElement();
-
 			// Strikethrough
 			if ($pFont->getStrikethrough()) {
 				$objWriter->startElement('strike');
 				$objWriter->writeAttribute('val', 'true');
 				$objWriter->endElement();
 			}
-
 			// Foreground color
 			$objWriter->startElement('color');
 			$objWriter->writeAttribute('rgb', $pFont->getColor()->getARGB());
 			$objWriter->endElement();
-
 		$objWriter->endElement();
 	}
-
 	/**
 	 * Write Border
 	 *
@@ -401,7 +327,6 @@ class PHPExcel_Writer_Excel2007_Style extends PHPExcel_Writer_Excel2007_WriterPa
 					$objWriter->writeAttribute('diagonalDown', 	'true');
 					break;
 			}
-
 			// BorderPr
 			$this->_writeBorderPr($objWriter, 'left', 			$pBorders->getLeft());
 			$this->_writeBorderPr($objWriter, 'right', 			$pBorders->getRight());
@@ -410,7 +335,6 @@ class PHPExcel_Writer_Excel2007_Style extends PHPExcel_Writer_Excel2007_WriterPa
 			$this->_writeBorderPr($objWriter, 'diagonal', 		$pBorders->getDiagonal());
 		$objWriter->endElement();
 	}
-
 	/**
 	 * Write Cell Style Xf
 	 *
@@ -434,7 +358,6 @@ class PHPExcel_Writer_Excel2007_Style extends PHPExcel_Writer_Excel2007_WriterPa
 			
 			$objWriter->writeAttribute('fillId', 			(int)$this->getParentWriter()->getFillHashTable()->getIndexForHashCode($pStyle->getFill()->getHashCode()));
 			$objWriter->writeAttribute('borderId', 			(int)$this->getParentWriter()->getBordersHashTable()->getIndexForHashCode($pStyle->getBorders()->getHashCode()));
-
 			// Apply styles?
 			$objWriter->writeAttribute('applyFont', 		($pPHPExcel->getDefaultStyle()->getFont()->getHashCode() != $pStyle->getFont()->getHashCode()) ? '1' : '0');
 			$objWriter->writeAttribute('applyNumberFormat', ($pPHPExcel->getDefaultStyle()->getNumberFormat()->getHashCode() != $pStyle->getNumberFormat()->getHashCode()) ? '1' : '0');
@@ -444,28 +367,23 @@ class PHPExcel_Writer_Excel2007_Style extends PHPExcel_Writer_Excel2007_WriterPa
 			if ($pStyle->getProtection()->getLocked() != PHPExcel_Style_Protection::PROTECTION_INHERIT || $pStyle->getProtection()->getHidden() != PHPExcel_Style_Protection::PROTECTION_INHERIT) {
 				$objWriter->writeAttribute('applyProtection', 'true');
 			}
-
 			// alignment
 			$objWriter->startElement('alignment');
 				$objWriter->writeAttribute('horizontal', 	$pStyle->getAlignment()->getHorizontal());
 				$objWriter->writeAttribute('vertical', 		$pStyle->getAlignment()->getVertical());
-
 				$textRotation = 0;
 				if ($pStyle->getAlignment()->getTextRotation() >= 0) {
 					$textRotation = $pStyle->getAlignment()->getTextRotation();
 				} else if ($pStyle->getAlignment()->getTextRotation() < 0) {
 					$textRotation = 90 - $pStyle->getAlignment()->getTextRotation();
 				}
-
 				$objWriter->writeAttribute('textRotation', 	$textRotation);
 				$objWriter->writeAttribute('wrapText', 		($pStyle->getAlignment()->getWrapText() ? 'true' : 'false'));
 				$objWriter->writeAttribute('shrinkToFit', 	($pStyle->getAlignment()->getShrinkToFit() ? 'true' : 'false'));
-
 				if ($pStyle->getAlignment()->getIndent() > 0) {
 					$objWriter->writeAttribute('indent', 	$pStyle->getAlignment()->getIndent());
 				}
 			$objWriter->endElement();
-
 			// protection
 			if ($pStyle->getProtection()->getLocked() != PHPExcel_Style_Protection::PROTECTION_INHERIT || $pStyle->getProtection()->getHidden() != PHPExcel_Style_Protection::PROTECTION_INHERIT) {
 				$objWriter->startElement('protection');
@@ -477,10 +395,8 @@ class PHPExcel_Writer_Excel2007_Style extends PHPExcel_Writer_Excel2007_WriterPa
 					}
 				$objWriter->endElement();
 			}
-
 		$objWriter->endElement();
 	}
-
 	/**
 	 * Write Cell Style Dxf
 	 *
@@ -492,34 +408,26 @@ class PHPExcel_Writer_Excel2007_Style extends PHPExcel_Writer_Excel2007_WriterPa
 	{
 		// dxf
 		$objWriter->startElement('dxf');
-
 			// font
 			$this->_writeFont($objWriter, $pStyle->getFont());
-
 			// numFmt
 			$this->_writeNumFmt($objWriter, $pStyle->getNumberFormat());
-
 			// fill
 			$this->_writeFill($objWriter, $pStyle->getFill());
-
 			// alignment
 			$objWriter->startElement('alignment');
 				$objWriter->writeAttribute('horizontal', 	$pStyle->getAlignment()->getHorizontal());
 				$objWriter->writeAttribute('vertical', 		$pStyle->getAlignment()->getVertical());
-
 				$textRotation = 0;
 				if ($pStyle->getAlignment()->getTextRotation() >= 0) {
 					$textRotation = $pStyle->getAlignment()->getTextRotation();
 				} else if ($pStyle->getAlignment()->getTextRotation() < 0) {
 					$textRotation = 90 - $pStyle->getAlignment()->getTextRotation();
 				}
-
 				$objWriter->writeAttribute('textRotation', 	$textRotation);
 			$objWriter->endElement();
-
 			// border
 			$this->_writeBorder($objWriter, $pStyle->getBorders());
-
 			// protection
 			if ($pStyle->getProtection()->getLocked() != PHPExcel_Style_Protection::PROTECTION_INHERIT || $pStyle->getProtection()->getHidden() != PHPExcel_Style_Protection::PROTECTION_INHERIT) {
 				$objWriter->startElement('protection');
@@ -531,10 +439,8 @@ class PHPExcel_Writer_Excel2007_Style extends PHPExcel_Writer_Excel2007_WriterPa
 					}
 				$objWriter->endElement();
 			}
-
 		$objWriter->endElement();
 	}
-
 	/**
 	 * Write BorderPr
 	 *
@@ -549,16 +455,13 @@ class PHPExcel_Writer_Excel2007_Style extends PHPExcel_Writer_Excel2007_WriterPa
 		if ($pBorder->getBorderStyle() != PHPExcel_Style_Border::BORDER_NONE) {
 			$objWriter->startElement($pName);
 			$objWriter->writeAttribute('style', 	$pBorder->getBorderStyle());
-
 				// color
 				$objWriter->startElement('color');
 				$objWriter->writeAttribute('rgb', 	$pBorder->getColor()->getARGB());
 				$objWriter->endElement();
-
 			$objWriter->endElement();
 		}
 	}
-
 	/**
 	 * Write NumberFormat
 	 *
@@ -571,14 +474,12 @@ class PHPExcel_Writer_Excel2007_Style extends PHPExcel_Writer_Excel2007_WriterPa
 	{
 		// Translate formatcode
 		$formatCode = $pNumberFormat->getFormatCode();
-
 		// numFmt
 		$objWriter->startElement('numFmt');
 			$objWriter->writeAttribute('numFmtId', 		($pId + 164));
 			$objWriter->writeAttribute('formatCode', 	$formatCode);
 		$objWriter->endElement();
 	}
-
 	/**
 	 * Get an array of all styles
 	 *
@@ -589,10 +490,8 @@ class PHPExcel_Writer_Excel2007_Style extends PHPExcel_Writer_Excel2007_WriterPa
 	public function allStyles(PHPExcel $pPHPExcel = null)
 	{
 		$aStyles = $pPHPExcel->getCellXfCollection();
-
 		return $aStyles;
 	}
-
 	/**
 	 * Get an array of all conditional styles
 	 *
@@ -604,7 +503,6 @@ class PHPExcel_Writer_Excel2007_Style extends PHPExcel_Writer_Excel2007_WriterPa
 	{
 		// Get an array of all styles
 		$aStyles		= array();
-
 		$sheetCount = $pPHPExcel->getSheetCount();
 		for ($i = 0; $i < $sheetCount; ++$i) {
 			foreach ($pPHPExcel->getSheet($i)->getConditionalStylesCollection() as $conditionalStyles) {
@@ -613,10 +511,8 @@ class PHPExcel_Writer_Excel2007_Style extends PHPExcel_Writer_Excel2007_WriterPa
 				}
 			}
 		}
-
 		return $aStyles;
 	}
-
 	/**
 	 * Get an array of all fills
 	 *
@@ -628,16 +524,13 @@ class PHPExcel_Writer_Excel2007_Style extends PHPExcel_Writer_Excel2007_WriterPa
 	{
 		// Get an array of unique fills
 		$aFills 	= array();
-
 		// Two first fills are predefined
 		$fill0 = new PHPExcel_Style_Fill();
 		$fill0->setFillType(PHPExcel_Style_Fill::FILL_NONE);
 		$aFills[] = $fill0;
-
 		$fill1 = new PHPExcel_Style_Fill();
 		$fill1->setFillType(PHPExcel_Style_Fill::FILL_PATTERN_GRAY125);
 		$aFills[] = $fill1;
-
 		// The remaining fills
 		$aStyles 	= $this->allStyles($pPHPExcel);
 		foreach ($aStyles as $style) {
@@ -645,10 +538,8 @@ class PHPExcel_Writer_Excel2007_Style extends PHPExcel_Writer_Excel2007_WriterPa
 				$aFills[ $style->getFill()->getHashCode() ] = $style->getFill();
 			}
 		}
-
 		return $aFills;
 	}
-
 	/**
 	 * Get an array of all fonts
 	 *
@@ -661,16 +552,13 @@ class PHPExcel_Writer_Excel2007_Style extends PHPExcel_Writer_Excel2007_WriterPa
 		// Get an array of unique fonts
 		$aFonts 	= array();
 		$aStyles 	= $this->allStyles($pPHPExcel);
-
 		foreach ($aStyles as $style) {
 			if (!array_key_exists($style->getFont()->getHashCode(), $aFonts)) {
 				$aFonts[ $style->getFont()->getHashCode() ] = $style->getFont();
 			}
 		}
-
 		return $aFonts;
 	}
-
 	/**
 	 * Get an array of all borders
 	 *
@@ -683,16 +571,13 @@ class PHPExcel_Writer_Excel2007_Style extends PHPExcel_Writer_Excel2007_WriterPa
 		// Get an array of unique borders
 		$aBorders 	= array();
 		$aStyles 	= $this->allStyles($pPHPExcel);
-
 		foreach ($aStyles as $style) {
 			if (!array_key_exists($style->getBorders()->getHashCode(), $aBorders)) {
 				$aBorders[ $style->getBorders()->getHashCode() ] = $style->getBorders();
 			}
 		}
-
 		return $aBorders;
 	}
-
 	/**
 	 * Get an array of all number formats
 	 *
@@ -705,13 +590,11 @@ class PHPExcel_Writer_Excel2007_Style extends PHPExcel_Writer_Excel2007_WriterPa
 		// Get an array of unique number formats
 		$aNumFmts 	= array();
 		$aStyles 	= $this->allStyles($pPHPExcel);
-
 		foreach ($aStyles as $style) {
 			if ($style->getNumberFormat()->getBuiltInFormatCode() === false && !array_key_exists($style->getNumberFormat()->getHashCode(), $aNumFmts)) {
 				$aNumFmts[ $style->getNumberFormat()->getHashCode() ] = $style->getNumberFormat();
 			}
 		}
-
 		return $aNumFmts;
 	}
 }

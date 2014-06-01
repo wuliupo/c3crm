@@ -16,7 +16,6 @@
  * @package log4php
  * @subpackage varia
  */
-
 /**
  * @ignore 
  */
@@ -26,7 +25,6 @@ if (!defined('LOG4PHP_DIR')) define('LOG4PHP_DIR', dirname(__FILE__) . '/..');
  */
 require_once(LOG4PHP_DIR . '/helpers/LoggerOptionConverter.php');
 require_once(LOG4PHP_DIR . '/spi/LoggerFilter.php');
-
 /**
  * This is a very simple filter based on level matching.
  *
@@ -51,7 +49,6 @@ class LoggerLevelMatchFilter extends LoggerFilter {
      * @var boolean
      */
     var $acceptOnMatch = true;
-
     /**
      * @var LoggerLevel
      */
@@ -88,7 +85,6 @@ class LoggerLevelMatchFilter extends LoggerFilter {
     {
         $this->levelToMatch = LoggerOptionConverter::toLevel($l, null);
     }
-
     /**
      * Return the decision of this filter.
      * 

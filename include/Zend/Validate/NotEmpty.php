@@ -18,12 +18,10 @@
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  * @version    $Id: NotEmpty.php 23775 2011-03-01 17:25:24Z ralph $
  */
-
 /**
  * @see Zend_Validate_Abstract
  */
 require_once 'include/Zend/Validate/Abstract.php';
-
 /**
  * @category   Zend
  * @package    Zend_Validate
@@ -45,10 +43,8 @@ class Zend_Validate_NotEmpty extends Zend_Validate_Abstract
     const OBJECT_STRING = 512;
     const OBJECT_COUNT  = 1024;
     const ALL           = 2047;
-
     const INVALID  = 'notEmptyInvalid';
     const IS_EMPTY = 'isEmpty';
-
     protected $_constants = array(
         self::BOOLEAN       => 'boolean',
         self::INTEGER       => 'integer',
@@ -64,7 +60,6 @@ class Zend_Validate_NotEmpty extends Zend_Validate_Abstract
         self::OBJECT_COUNT  => 'objectcount',
         self::ALL           => 'all',
     );
-
     /**
      * @var array
      */
@@ -72,14 +67,12 @@ class Zend_Validate_NotEmpty extends Zend_Validate_Abstract
         self::IS_EMPTY => "Value is required and can't be empty",
         self::INVALID  => "Invalid type given. String, integer, float, boolean or array expected",
     );
-
     /**
      * Internal type to detect
      *
      * @var integer
      */
     protected $_type = 493;
-
     /**
      * Constructor
      *
@@ -95,15 +88,12 @@ class Zend_Validate_NotEmpty extends Zend_Validate_Abstract
             if (!empty($options)) {
                 $temp['type'] = array_shift($options);
             }
-
             $options = $temp;
         }
-
         if (is_array($options) && array_key_exists('type', $options)) {
             $this->setType($options['type']);
         }
     }
-
     /**
      * Returns the set types
      *
@@ -113,7 +103,6 @@ class Zend_Validate_NotEmpty extends Zend_Validate_Abstract
     {
         return $this->_type;
     }
-
     /**
      * Set the types
      *
@@ -132,21 +121,17 @@ class Zend_Validate_NotEmpty extends Zend_Validate_Abstract
                     $detected += array_search($value, $this->_constants);
                 }
             }
-
             $type = $detected;
         } else if (is_string($type) && in_array($type, $this->_constants)) {
             $type = array_search($type, $this->_constants);
         }
-
         if (!is_int($type) || ($type < 0) || ($type > self::ALL)) {
             require_once 'include/Zend/Validate/Exception.php';
             throw new Zend_Validate_Exception('Unknown type');
         }
-
         $this->_type = $type;
         return $this;
     }
-
     /**
      * Defined by Zend_Validate_Interface
      *
@@ -162,34 +147,28 @@ class Zend_Validate_NotEmpty extends Zend_Validate_Abstract
             $this->_error(self::INVALID);
             return false;
         }
-
         $type    = $this->getType();
         $this->_setValue($value);
         $object  = false;
-
         // OBJECT_COUNT (countable object)
         if ($type >= self::OBJECT_COUNT) {
             $type -= self::OBJECT_COUNT;
             $object = true;
-
             if (is_object($value) && ($value instanceof Countable) && (count($value) == 0)) {
                 $this->_error(self::IS_EMPTY);
                 return false;
             }
         }
-
         // OBJECT_STRING (object's toString)
         if ($type >= self::OBJECT_STRING) {
             $type -= self::OBJECT_STRING;
             $object = true;
-
             if ((is_object($value) && (!method_exists($value, '__toString'))) ||
                 (is_object($value) && (method_exists($value, '__toString')) && (((string) $value) == ""))) {
                 $this->_error(self::IS_EMPTY);
                 return false;
             }
         }
-
         // OBJECT (object)
         if ($type >= self::OBJECT) {
             $type -= self::OBJECT;
@@ -201,7 +180,6 @@ class Zend_Validate_NotEmpty extends Zend_Validate_Abstract
                 return false;
             }
         }
-
         // SPACE ('   ')
         if ($type >= self::SPACE) {
             $type -= self::SPACE;
@@ -210,7 +188,6 @@ class Zend_Validate_NotEmpty extends Zend_Validate_Abstract
                 return false;
             }
         }
-
         // NULL (null)
         if ($type >= self::NULL) {
             $type -= self::NULL;
@@ -219,7 +196,6 @@ class Zend_Validate_NotEmpty extends Zend_Validate_Abstract
                 return false;
             }
         }
-
         // EMPTY_ARRAY (array())
         if ($type >= self::EMPTY_ARRAY) {
             $type -= self::EMPTY_ARRAY;
@@ -228,7 +204,6 @@ class Zend_Validate_NotEmpty extends Zend_Validate_Abstract
                 return false;
             }
         }
-
         // ZERO ('0')
         if ($type >= self::ZERO) {
             $type -= self::ZERO;
@@ -237,7 +212,6 @@ class Zend_Validate_NotEmpty extends Zend_Validate_Abstract
                 return false;
             }
         }
-
         // STRING ('')
         if ($type >= self::STRING) {
             $type -= self::STRING;
@@ -246,7 +220,6 @@ class Zend_Validate_NotEmpty extends Zend_Validate_Abstract
                 return false;
             }
         }
-
         // FLOAT (0.0)
         if ($type >= self::FLOAT) {
             $type -= self::FLOAT;
@@ -255,7 +228,6 @@ class Zend_Validate_NotEmpty extends Zend_Validate_Abstract
                 return false;
             }
         }
-
         // INTEGER (0)
         if ($type >= self::INTEGER) {
             $type -= self::INTEGER;
@@ -264,7 +236,6 @@ class Zend_Validate_NotEmpty extends Zend_Validate_Abstract
                 return false;
             }
         }
-
         // BOOLEAN (false)
         if ($type >= self::BOOLEAN) {
             $type -= self::BOOLEAN;
@@ -273,7 +244,6 @@ class Zend_Validate_NotEmpty extends Zend_Validate_Abstract
                 return false;
             }
         }
-
         return true;
     }
 }

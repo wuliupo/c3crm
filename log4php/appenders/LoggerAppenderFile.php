@@ -16,16 +16,13 @@
  * @package log4php
  * @subpackage appenders
  */
-
 /**
  * @ignore 
  */
 if (!defined('LOG4PHP_DIR')) define('LOG4PHP_DIR', dirname(__FILE__) . '/..');
-
 require_once(LOG4PHP_DIR . '/LoggerAppenderSkeleton.php');
 require_once(LOG4PHP_DIR . '/helpers/LoggerOptionConverter.php');
 require_once(LOG4PHP_DIR . '/LoggerLog.php');
-
 /**
  * FileAppender appends log events to a file.
  *
@@ -38,17 +35,14 @@ require_once(LOG4PHP_DIR . '/LoggerLog.php');
  * @subpackage appenders
  */
 class LoggerAppenderFile extends LoggerAppenderSkeleton {
-
     /**
      * @var boolean if {@link $file} exists, appends events.
      */
     var $append = true;  
-
     /**
      * @var string the file name used to append events
      */
     var $fileName;
-
     /**
      * @var mixed file resource
      * @access private
@@ -69,17 +63,14 @@ class LoggerAppenderFile extends LoggerAppenderSkeleton {
     {
         $this->LoggerAppenderSkeleton($name);
     }
-
     function activateOptions()
     {
         $fileName = $this->getFile();
         LoggerLog::debug("LoggerAppenderFile::activateOptions() opening file '{$fileName}'");
         $this->fp = @fopen($fileName, ($this->getAppend()? 'a':'w'));
-
 	// Denying read option for log file. Added for Vulnerability fix
 	//changed by dingjianting on 2006-10-12 for log bugs 
 	//if (is_readable($fileName)) chmod ($fileName,0222);
-
         if ($this->fp) {
             if ($this->getAppend())
                 fseek($this->fp, 0, SEEK_END);
@@ -98,7 +89,6 @@ class LoggerAppenderFile extends LoggerAppenderSkeleton {
         $this->closeFile();
         $this->closed = true;
     }
-
     /**
      * Closes the previously opened file.
      */
@@ -115,7 +105,6 @@ class LoggerAppenderFile extends LoggerAppenderSkeleton {
     {
         return $this->append;
     }
-
     /**
      * @return string
      */
@@ -141,7 +130,6 @@ class LoggerAppenderFile extends LoggerAppenderSkeleton {
         $this->fileName = null;
         parent::reset();
     }
-
     function setAppend($flag)
     {
         $this->append = LoggerOptionConverter::toBoolean($flag, true);        
@@ -158,7 +146,6 @@ class LoggerAppenderFile extends LoggerAppenderSkeleton {
     {
         $numargs = func_num_args();
         $args    = func_get_args();
-
         if ($numargs == 1 and is_string($args[0])) {
             $this->setFileName($args[0]);
         } elseif ($numargs >=2 and is_string($args[0]) and is_bool($args[1])) {
@@ -171,11 +158,9 @@ class LoggerAppenderFile extends LoggerAppenderSkeleton {
     {
         $this->fileName = $fileName;
     }
-
     function append($event)
     {
         if ($this->fp and $this->layout !== null) {
-
             LoggerLog::debug("LoggerAppenderFile::append()");
         
             @fwrite($this->fp, $this->layout->format($event));

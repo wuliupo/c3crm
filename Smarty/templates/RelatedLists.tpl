@@ -1,5 +1,4 @@
 {*<!--
-
 /*********************************************************************************
 ** The contents of this file are subject to the vtiger CRM Public License Version 1.0
  * ("License"); You may not use this file except in compliance with the License
@@ -9,7 +8,6 @@
  * All Rights Reserved.
 *
  ********************************************************************************/
-
 -->*}
 <script language="JavaScript" type="text/javascript" src="modules/PriceBooks/PriceBook.js"></script>
 <script type="text/javascript" src="modules/{$MODULE}/{$SINGLE_MOD}.js"></script>
@@ -30,7 +28,6 @@ function editProductListPrice(id,pbid,price)
                 }
         );
 }
-
 function gotoUpdateListPrice(id,pbid,proid)
 {
         $("status").style.display="inline";
@@ -49,7 +46,6 @@ function gotoUpdateListPrice(id,pbid,proid)
                 );
 }
 {/literal}
-
 function loadCvList(type,id) {ldelim}
         if(type === 'Accounts')
 	{ldelim}
@@ -72,7 +68,6 @@ function loadCvList(type,id) {ldelim}
 			$("lead_list_button").innerHTML = '<input title="{$MOD.LBL_LOAD_LIST}" accessKey="" class="crmbutton small edit" value="{$MOD.LBL_LOAD_LIST}" type="button"  name="button" onclick="window.location.href=\'index.php?action=LoadList&module=Campaigns&return_id='+id+'&list_type='+type+'&cvid='+$("lead_cv_list").value+'\'">';
 		{rdelim}
 	{rdelim}
-
 	
 {rdelim}
 </script>

@@ -19,12 +19,10 @@
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  * @version    $Id: Db2.php 23775 2011-03-01 17:25:24Z ralph $
  */
-
 /**
  * @see Zend_Db_Statement
  */
 require_once 'include/Zend/Db/Statement.php';
-
 /**
  * Extends for DB2 native adapter.
  *
@@ -35,17 +33,14 @@ require_once 'include/Zend/Db/Statement.php';
  */
 class Zend_Db_Statement_Db2 extends Zend_Db_Statement
 {
-
     /**
      * Column names.
      */
     protected $_keys;
-
     /**
      * Fetched result values.
      */
     protected $_values;
-
     /**
      * Prepare a statement handle.
      *
@@ -56,11 +51,9 @@ class Zend_Db_Statement_Db2 extends Zend_Db_Statement
     public function _prepare($sql)
     {
         $connection = $this->_adapter->getConnection();
-
         // db2_prepare on i5 emits errors, these need to be
         // suppressed so that proper exceptions can be thrown
         $this->_stmt = @db2_prepare($connection, $sql);
-
         if (!$this->_stmt) {
             /**
              * @see Zend_Db_Statement_Db2_Exception
@@ -72,7 +65,6 @@ class Zend_Db_Statement_Db2 extends Zend_Db_Statement
             );
         }
     }
-
     /**
      * Binds a parameter to the specified variable name.
      *
@@ -89,13 +81,11 @@ class Zend_Db_Statement_Db2 extends Zend_Db_Statement
         if ($type === null) {
             $type = DB2_PARAM_IN;
         }
-
         if (isset($options['data-type'])) {
             $datatype = $options['data-type'];
         } else {
             $datatype = DB2_CHAR;
         }
-
         if (!db2_bind_param($this->_stmt, $position, "variable", $type, $datatype)) {
             /**
              * @see Zend_Db_Statement_Db2_Exception
@@ -106,10 +96,8 @@ class Zend_Db_Statement_Db2 extends Zend_Db_Statement
                 db2_stmt_error()
             );
         }
-
         return true;
     }
-
     /**
      * Closes the cursor, allowing the statement to be executed again.
      *
@@ -124,8 +112,6 @@ class Zend_Db_Statement_Db2 extends Zend_Db_Statement
         $this->_stmt = false;
         return true;
     }
-
-
     /**
      * Returns the number of columns in the result set.
      * Returns null if the statement has no result set metadata.
@@ -139,7 +125,6 @@ class Zend_Db_Statement_Db2 extends Zend_Db_Statement
         }
         return db2_num_fields($this->_stmt);
     }
-
     /**
      * Retrieves the error code, if any, associated with the last operation on
      * the statement handle.
@@ -151,15 +136,12 @@ class Zend_Db_Statement_Db2 extends Zend_Db_Statement
         if (!$this->_stmt) {
             return false;
         }
-
         $error = db2_stmt_error();
         if ($error === '') {
             return false;
         }
-
         return $error;
     }
-
     /**
      * Retrieves an array of error information, if any, associated with the
      * last operation on the statement handle.
@@ -172,7 +154,6 @@ class Zend_Db_Statement_Db2 extends Zend_Db_Statement
         if ($error === false){
             return false;
         }
-
         /*
          * Return three-valued array like PDO.  But DB2 does not distinguish
          * between SQLCODE and native RDBMS error code, so repeat the SQLCODE.
@@ -183,7 +164,6 @@ class Zend_Db_Statement_Db2 extends Zend_Db_Statement
             db2_stmt_errormsg()
         );
     }
-
     /**
      * Executes a prepared statement.
      *
@@ -196,14 +176,12 @@ class Zend_Db_Statement_Db2 extends Zend_Db_Statement
         if (!$this->_stmt) {
             return false;
         }
-
         $retval = true;
         if ($params !== null) {
             $retval = @db2_execute($this->_stmt, $params);
         } else {
             $retval = @db2_execute($this->_stmt);
         }
-
         if ($retval === false) {
             /**
              * @see Zend_Db_Statement_Db2_Exception
@@ -213,7 +191,6 @@ class Zend_Db_Statement_Db2 extends Zend_Db_Statement
                 db2_stmt_errormsg(),
                 db2_stmt_error());
         }
-
         $this->_keys = array();
         if ($field_num = $this->columnCount()) {
             for ($i = 0; $i < $field_num; $i++) {
@@ -221,15 +198,12 @@ class Zend_Db_Statement_Db2 extends Zend_Db_Statement
                 $this->_keys[] = $name;
             }
         }
-
         $this->_values = array();
         if ($this->_keys) {
             $this->_values = array_fill(0, count($this->_keys), null);
         }
-
         return $retval;
     }
-
     /**
      * Fetches a row from the result set.
      *
@@ -244,11 +218,9 @@ class Zend_Db_Statement_Db2 extends Zend_Db_Statement
         if (!$this->_stmt) {
             return false;
         }
-
         if ($style === null) {
             $style = $this->_fetchMode;
         }
-
         switch ($style) {
             case Zend_Db::FETCH_NUM :
                 $row = db2_fetch_array($this->_stmt);
@@ -276,10 +248,8 @@ class Zend_Db_Statement_Db2 extends Zend_Db_Statement
                 throw new Zend_Db_Statement_Db2_Exception("Invalid fetch mode '$style' specified");
                 break;
         }
-
         return $row;
     }
-
     /**
      * Fetches the next row and returns it as an object.
      *
@@ -292,7 +262,6 @@ class Zend_Db_Statement_Db2 extends Zend_Db_Statement
         $obj = $this->fetch(Zend_Db::FETCH_OBJ);
         return $obj;
     }
-
     /**
      * Retrieves the next rowset (result set) for a SQL statement that has
      * multiple result sets.  An example is a stored procedure that returns
@@ -309,7 +278,6 @@ class Zend_Db_Statement_Db2 extends Zend_Db_Statement
         require_once 'include/Zend/Db/Statement/Db2/Exception.php';
         throw new Zend_Db_Statement_Db2_Exception(__FUNCTION__ . '() is not implemented');
     }
-
     /**
      * Returns the number of rows affected by the execution of the
      * last INSERT, DELETE, or UPDATE statement executed by this
@@ -322,16 +290,12 @@ class Zend_Db_Statement_Db2 extends Zend_Db_Statement
         if (!$this->_stmt) {
             return false;
         }
-
         $num = @db2_num_rows($this->_stmt);
-
         if ($num === false) {
             return 0;
         }
-
         return $num;
     }
-
      /**
      * Returns an array containing all of the result set rows.
      *
@@ -348,7 +312,6 @@ class Zend_Db_Statement_Db2 extends Zend_Db_Statement
         $data = parent::fetchAll($style, $col);
         $results = array();
         $remove = $this->_adapter->foldCase('ZEND_DB_ROWNUM');
-
         foreach ($data as $row) {
             if (is_array($row) && array_key_exists($remove, $row)) {
                 unset($row[$remove]);

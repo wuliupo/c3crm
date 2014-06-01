@@ -16,7 +16,6 @@
  * @package log4php
  * @subpackage spi
  */
-
 /**
  * @ignore 
  */
@@ -28,7 +27,6 @@ require_once(LOG4PHP_DIR . '/spi/LoggerLocationInfo.php');
 require_once(LOG4PHP_DIR . '/LoggerManager.php');
 require_once(LOG4PHP_DIR . '/LoggerMDC.php');
 require_once(LOG4PHP_DIR . '/LoggerNDC.php');
-
 /**
  * The internal representation of logging event.
  *
@@ -38,7 +36,6 @@ require_once(LOG4PHP_DIR . '/LoggerNDC.php');
  * @subpackage spi 
  */
 class LoggerLoggingEvent {
-
     /** 
     * @var string Fully Qualified Class Name of the calling category class.
     */
@@ -129,7 +126,6 @@ class LoggerLoggingEvent {
     var $TO_LEVEL_PARAMS = null;
     var $methodCache = array(); // use a tiny table
     */
-
     /**
     * Instantiate a LoggingEvent from the supplied parameters.
     *
@@ -164,7 +160,6 @@ class LoggerLoggingEvent {
             }
         }
     }
-
     /**
      * Set the location information for this logging event. The collected
      * information is cached for future use.
@@ -177,9 +172,7 @@ class LoggerLoggingEvent {
     function getLocationInformation()
     {
         if($this->locationInfo === null) {
-
             $locationInfo = array();
-
             if (function_exists('debug_backtrace')) {
                 $trace = debug_backtrace();
                 $prevHop = null;
@@ -212,7 +205,6 @@ class LoggerLoggingEvent {
         }
         return $this->locationInfo;
     }
-
     /**
      * Return the level of this event. Use this form instead of directly
      * accessing the {@link $level} field.
@@ -222,7 +214,6 @@ class LoggerLoggingEvent {
     {
         return $this->level;
     }
-
     /**
      * Return the name of the logger. Use this form instead of directly
      * accessing the {@link $categoryName} field.
@@ -232,7 +223,6 @@ class LoggerLoggingEvent {
     {
         return $this->categoryName;
     }
-
     /**
      * Return the message for this logging event.
      *
@@ -250,7 +240,6 @@ class LoggerLoggingEvent {
             return $this->getRenderedMessage();
         }
     }
-
     /**
      * This method returns the NDC for this event. It will return the
      * correct content even if the event was generated in a different
@@ -266,8 +255,6 @@ class LoggerLoggingEvent {
         }
         return $this->ndc;
     }
-
-
     /**
      * Returns the the context corresponding to the <code>key</code>
      * parameter.
@@ -277,7 +264,6 @@ class LoggerLoggingEvent {
     {
         return LoggerMDC::get($key);
     }
-
     /**
      * Render message.
      * @return string
@@ -303,7 +289,6 @@ class LoggerLoggingEvent {
         }
         return $this->renderedMessage;
     }
-
     /**
      * Returns the time when the application started, in seconds
      * elapsed since 01.01.1970 plus microseconds if available.
@@ -343,7 +328,6 @@ class LoggerLoggingEvent {
             $this->threadName = (string)getmypid();
         return $this->threadName;
     }
-
     /**
      * @return mixed null
      */
@@ -376,9 +360,6 @@ class LoggerLoggingEvent {
             'locationInfo'
         );
     }
-
 }
-
 LoggerLoggingEvent::getStartTime();
-
 ?>

@@ -19,12 +19,10 @@
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  * @version    $Id: Changefreq.php 23775 2011-03-01 17:25:24Z ralph $
  */
-
 /**
  * @see Zend_Validate_Abstract
  */
 require_once 'include/Zend/Validate/Abstract.php';
-
 /**
  * Validates whether a given value is valid as a sitemap <changefreq> value
  *
@@ -44,7 +42,6 @@ class Zend_Validate_Sitemap_Changefreq extends Zend_Validate_Abstract
      */
     const NOT_VALID = 'sitemapChangefreqNotValid';
     const INVALID   = 'sitemapChangefreqInvalid';
-
     /**
      * Validation failure message template definitions
      *
@@ -54,7 +51,6 @@ class Zend_Validate_Sitemap_Changefreq extends Zend_Validate_Abstract
         self::NOT_VALID => "'%value%' is no valid sitemap changefreq",
         self::INVALID   => "Invalid type given. String expected",
     );
-
     /**
      * Valid change frequencies
      *
@@ -64,7 +60,6 @@ class Zend_Validate_Sitemap_Changefreq extends Zend_Validate_Abstract
         'always',  'hourly', 'daily', 'weekly',
         'monthly', 'yearly', 'never'
     );
-
     /**
      * Validates if a string is valid as a sitemap changefreq
      *
@@ -79,17 +74,14 @@ class Zend_Validate_Sitemap_Changefreq extends Zend_Validate_Abstract
             $this->_error(self::INVALID);
             return false;
         }
-
         $this->_setValue($value);
         if (!is_string($value)) {
             return false;
         }
-
         if (!in_array($value, $this->_changeFreqs, true)) {
             $this->_error(self::NOT_VALID);
             return false;
         }
-
         return true;
     }
 }

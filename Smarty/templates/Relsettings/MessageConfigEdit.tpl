@@ -50,7 +50,6 @@
                            <tr>
                           	 <td style="border:1px solid #999"><font color=red><b>{$order_no}</b></font></td> 
                               <td style="border:1px solid #999"><font color=red><b>{$total_fee}</b></font></td> 
-
                               <td style="border:1px solid #999"><font color=red><b>{$endtime}</b></font></td>
                             </tr>
                             </table>

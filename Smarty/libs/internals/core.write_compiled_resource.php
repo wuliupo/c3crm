@@ -4,7 +4,6 @@
  * @package Smarty
  * @subpackage plugins
  */
-
 /**
  * write the compiled resource
  *
@@ -28,7 +27,5 @@ function smarty_core_write_compiled_resource($params, &$smarty)
     $flag = smarty_core_write_file($_params, $smarty);
     return $flag;
 }
-
 /* vim: set expandtab: */
-
 ?>

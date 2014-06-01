@@ -9,10 +9,8 @@
   *
  ********************************************************************************/
 -->*}
-
 <div id="quickedit_form_div" class="modal hide fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true"></div>
 <div id="gaojisearch" class="modal hide fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" style="width:800px;margin-left:-380px;"></div>
-
      <input name='search_url' id="search_url" type='hidden' value='{$SEARCH_URL}'>
      <input name="idlist" id="idlist" type="hidden">
      <input name="action" id="action" type="hidden">
@@ -21,7 +19,6 @@
      <input name="change_owner" type="hidden">
      <input name="change_status" type="hidden">
      <input name="allids" type="hidden" value="{$ALLIDS}">
-
 <div class="clearfix">
    <table class="table table-bordered table-hover table-condensed table-striped">
     <thead>
@@ -49,7 +46,6 @@
           <td colspan="{$smarty.foreach.listviewforeach.iteration+1}">{$APP.LBL_FOUND}</td>
         </tr> 
        {/foreach}
-
     </tbody>
   </table>
   </div>
@@ -72,8 +68,6 @@
     </tbody>
       </table>
   </div> 
-
-
 <script language="JavaScript" type="text/javascript">
 {literal}
 $(function() {
@@ -85,7 +79,6 @@ $(function() {
     $selected_id.click(function(){
         $("#selectedAll").prop("checked",$selected_id.length == $selected_id.filter(":checked").length.length ? true : false);
     });
-
 });
 {/literal}
 </script>

@@ -24,7 +24,6 @@ foreach($result as $row)
     $count++;
 }
 ?>
-
 <table width="180" class="layerHeadingULine" cellspacing="0" border="0">
   <tbody>
   <tr>

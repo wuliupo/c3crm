@@ -18,12 +18,10 @@
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  * @version    $Id: Upce.php 23775 2011-03-01 17:25:24Z ralph $
  */
-
 /**
  * @see Zend_Validate_Barcode_AdapterAbstract
  */
 require_once 'include/Zend/Validate/Barcode/AdapterAbstract.php';
-
 /**
  * @category   Zend
  * @package    Zend_Validate
@@ -37,19 +35,16 @@ class Zend_Validate_Barcode_Upce extends Zend_Validate_Barcode_AdapterAbstract
      * @var integer
      */
     protected $_length = array(6, 7, 8);
-
     /**
      * Allowed barcode characters
      * @var string
      */
     protected $_characters = '0123456789';
-
     /**
      * Checksum function
      * @var string
      */
     protected $_checksum = '_gtin';
-
     /**
      * Overrides parent checkLength
      *
@@ -63,7 +58,6 @@ class Zend_Validate_Barcode_Upce extends Zend_Validate_Barcode_AdapterAbstract
         } else {
             $this->setCheck(true);
         }
-
         return parent::checkLength($value);
     }
 }

@@ -64,7 +64,6 @@
 						</table>
 					</div>
 				</div>
-
 			</form>
 			
 		</div>
@@ -139,6 +138,5 @@ function check()
 	});
 	
 }
-
 </script>
 {/literal}

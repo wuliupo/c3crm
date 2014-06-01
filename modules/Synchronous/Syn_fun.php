@@ -1,5 +1,4 @@
 <?php
-
 function get_next_id($tab) {
 		global $adb;
 		$query = "select count(*) as num from $tab ";
@@ -9,7 +8,6 @@ function get_next_id($tab) {
 		elseif($num > 9) return "0".$num;
 		else return "00".$num;
 	}
-
 //获取订单总数
 function getTaobaoOrderCount($rooturl,$session,$appKey,$appSecret,$start_created,$end_created){
 	$fields = 'buyer_nick';
@@ -18,7 +16,6 @@ function getTaobaoOrderCount($rooturl,$session,$appKey,$appSecret,$start_created
 			$extra = array('start_created'=>$start_created,'end_created'=>$end_created);
 	}
 	$extra = array_merge($extra,array('status'=>'TRADE_FINISHED'));
-
 	$resultcount = getArrayCount('taobao.trades.sold.get',$rooturl,$session,$appKey,$appSecret,$fields,$extra); 
 	return $resultcount;
 }
@@ -47,7 +44,6 @@ function getTaobaoTradeInfo($rooturl,$session,$appKey,$appSecret,$tid){
 	//$fields = 'buyer_nick,title,type,created,tid,seller_rate,buyer_rate,status,post_fee,pay_time,consign_time,received_payment,shipping_type,receiver_name,receiver_state,receiver_city,receiver_district,receiver_address,receiver_zip,receiver_mobile,receiver_phone,buyer_email,buyer_alipay_no,trade_memo,orders,buyer_message,buyer_memo,express_agency_fee,invoice_name,seller_name,promotion_details'; 
 	$fields = 'buyer_nick,title,type,created,tid,seller_rate,buyer_rate,status,post_fee,pay_time,consign_time,received_payment,shipping_type,receiver_state,receiver_city,receiver_district,receiver_zip,trade_memo,orders,buyer_message,buyer_memo,express_agency_fee,invoice_name,seller_name';
 	$extra = array('tid'=>$tid);
-
 	$result = getArrayResult('taobao.trade.fullinfo.get',$rooturl,$session,$appKey,$appSecret,$fields,'trade','',$extra);
 	$trade = $result['total_results'];
 	if(!empty($trade)){
@@ -61,8 +57,6 @@ function getTaobaoTradeInfo($rooturl,$session,$appKey,$appSecret,$tid){
 	
 	return $trade;
 }
-
-
 //获取订单客户信息
 function getAccountInfo($rooturl,$session,$appKey,$appSecret,$buyer_nick){
 	$extra = array('nick' => $buyer_nick);
@@ -71,8 +65,6 @@ function getAccountInfo($rooturl,$session,$appKey,$appSecret,$buyer_nick){
 	$user = $result['total_results'];
 	return $user;
 }
-
-
 //获取订单产品信息
 function getProductInfo($rooturl,$session,$appKey,$appSecret,$num_iid){
 	if($num_iid && $num_iid !=''){
@@ -85,7 +77,6 @@ function getProductInfo($rooturl,$session,$appKey,$appSecret,$num_iid){
 		return array();
 	}
 }
-
 //判断订单信息是否已存在
 function checkOrderIsExist($oid){
 	global $adb;
@@ -99,8 +90,6 @@ function checkOrderIsExist($oid){
 	}
 	return $return;
 }
-
-
 //根据昵称判断客户是否已存在
 function checkAccountIsExist($nick){
 	global $adb;
@@ -110,8 +99,6 @@ function checkAccountIsExist($nick){
 	$accountid = $adb->getOne($query); 
 	return $accountid;
 }
-
-
 //判断产品是否已存在
 function checkItemIsExist($num_iid){
 	global $current_user;
@@ -125,7 +112,6 @@ function checkItemIsExist($num_iid){
 		return '';
 	}
 }
-
 //获取会员级别对应的中文
 function getVipInfo($vipinfo_tmp){
 	$vipinfo = '';
@@ -154,5 +140,4 @@ function getVipInfo($vipinfo_tmp){
 	}
 	return $vipinfo;
 }
-
 ?>

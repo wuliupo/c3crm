@@ -1,16 +1,12 @@
 <?php
 require_once('include/CRMSmarty.php');
 require_once('modules/Maillisttmps/Maillisttmps.php');
-
 global $mod_strings;
 global $current_user;
 global $adb;
-
 $focus = new Maillisttmps();
 $smarty = new CRMSmarty();
-
 $datetime = date("Y-m-d H:i:s");
-
 if($_REQUEST['mode'] =='save'){
 	$maillisttmpname = $_REQUEST['maillisttmpname'];
 	$description = $_REQUEST['description'];
@@ -40,11 +36,5 @@ if($_REQUEST['mode'] =='save'){
 	</script>";
 	echo "<script>window.close();</script>>";
 }
-
-
-
-
-
 $smarty->display("Maillists/CreateTmps.tpl");
-
 ?>

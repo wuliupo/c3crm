@@ -4,8 +4,6 @@
  * @package Smarty
  * @subpackage plugins
  */
-
-
 /**
  * Smarty debug_print_var modifier plugin
  *
@@ -27,7 +25,6 @@ function smarty_modifier_debug_print_var($var, $depth = 0, $length = 40)
         "\r" => '<i>\r</i>',
         "\t" => '<i>\t</i>'
     );
-
     switch (gettype($var)) {
         case 'array' :
             $results = '<b>Array (' . count($var) . ')</b>';
@@ -81,10 +78,7 @@ function smarty_modifier_debug_print_var($var, $depth = 0, $length = 40)
             }
             $results = htmlspecialchars($results);
     }
-
     return $results;
 }
-
 /* vim: set expandtab: */
-
 ?>

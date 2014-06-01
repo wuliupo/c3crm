@@ -169,6 +169,5 @@ $mod_strings = array (
   'reference price' => 'Reference Price',
   'cost price' => 'Cost Price',
   'smcreator' => 'Creator'
-
 );
 ?>

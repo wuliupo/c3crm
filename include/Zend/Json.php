@@ -17,8 +17,6 @@
  * @copyright  Copyright (c) 2005-2007 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  */
-
-
 /**
  * Class for encoding to and decoding from JSON.
  *
@@ -36,12 +34,10 @@ class Zend_Json
      */
     const TYPE_ARRAY  = 1;
     const TYPE_OBJECT = 0;
-
     /**
      * @var bool
      */
     public static $useBuiltinEncoderDecoder = false;
-
     /**
      * Decodes the given $encodedValue string which is
      * encoded in the JSON format
@@ -58,12 +54,9 @@ class Zend_Json
         if (function_exists('json_decode') && self::$useBuiltinEncoderDecoder !== true) {
             return json_decode($encodedValue, $objectDecodeType);
         }
-
         require_once 'include/Zend/Json/Decoder.php';
         return Zend_Json_Decoder::decode($encodedValue, $objectDecodeType);
     }
-
-
     /**
      * Encode the mixed $valueToEncode into the JSON format
      *
@@ -83,9 +76,7 @@ class Zend_Json
         if (function_exists('json_encode') && self::$useBuiltinEncoderDecoder !== true) {
             return json_encode($valueToEncode);
         }
-
         require_once 'include/Zend/Json/Encoder.php';
         return Zend_Json_Encoder::encode($valueToEncode, $cycleCheck);
     }
 }
-

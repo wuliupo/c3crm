@@ -1,5 +1,4 @@
 <?php
-
 /**
  * Zend Framework
  *
@@ -20,20 +19,14 @@
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  * @version    $Id: Select.php 23775 2011-03-01 17:25:24Z ralph $
  */
-
-
 /**
  * @see Zend_Db_Select
  */
 require_once 'include/Zend/Db/Select.php';
-
-
 /**
  * @see Zend_Db_Table_Abstract
  */
 require_once 'include/Zend/Db/Table/Abstract.php';
-
-
 /**
  * Class for SQL SELECT query manipulation for the Zend_Db_Table component.
  *
@@ -51,21 +44,18 @@ class Zend_Db_Table_Select extends Zend_Db_Select
      * @var array
      */
     protected $_info;
-
     /**
      * Table integrity override.
      *
      * @var array
      */
     protected $_integrityCheck = true;
-
     /**
      * Table instance that created this select object
      *
      * @var Zend_Db_Table_Abstract
      */
     protected $_table;
-
     /**
      * Class constructor
      *
@@ -74,10 +64,8 @@ class Zend_Db_Table_Select extends Zend_Db_Select
     public function __construct(Zend_Db_Table_Abstract $table)
     {
         parent::__construct($table->getAdapter());
-
         $this->setTable($table);
     }
-
     /**
      * Return the table that created this select object
      *
@@ -87,7 +75,6 @@ class Zend_Db_Table_Select extends Zend_Db_Select
     {
         return $this->_table;
     }
-
     /**
      * Sets the primary table name and retrieves the table schema.
      *
@@ -99,10 +86,8 @@ class Zend_Db_Table_Select extends Zend_Db_Select
         $this->_adapter = $table->getAdapter();
         $this->_info    = $table->info();
         $this->_table   = $table;
-
         return $this;
     }
-
     /**
      * Sets the integrity check flag.
      *
@@ -117,7 +102,6 @@ class Zend_Db_Table_Select extends Zend_Db_Select
         $this->_integrityCheck = $flag;
         return $this;
     }
-
     /**
      * Tests query to determine if expressions or aliases columns exist.
      *
@@ -128,33 +112,26 @@ class Zend_Db_Table_Select extends Zend_Db_Select
         $readOnly = false;
         $fields   = $this->getPart(Zend_Db_Table_Select::COLUMNS);
         $cols     = $this->_info[Zend_Db_Table_Abstract::COLS];
-
         if (!count($fields)) {
             return $readOnly;
         }
-
         foreach ($fields as $columnEntry) {
             $column = $columnEntry[1];
             $alias = $columnEntry[2];
-
             if ($alias !== null) {
                 $column = $alias;
             }
-
             switch (true) {
                 case ($column == self::SQL_WILDCARD):
                     break;
-
                 case ($column instanceof Zend_Db_Expr):
                 case (!in_array($column, $cols)):
                     $readOnly = true;
                     break 2;
             }
         }
-
         return $readOnly;
     }
-
     /**
      * Adds a FROM table and optional columns to the query.
      *
@@ -177,10 +154,8 @@ class Zend_Db_Table_Select extends Zend_Db_Select
                 $schema = $info[Zend_Db_Table_Abstract::SCHEMA];
             }
         }
-
         return $this->joinInner($name, null, $cols, $schema);
     }
-
     /**
      * Performs a validation on the select query before passing back to the parent class.
      * Ensures that only columns from the primary Zend_Db_Table are returned in the result.
@@ -192,22 +167,16 @@ class Zend_Db_Table_Select extends Zend_Db_Select
         $fields  = $this->getPart(Zend_Db_Table_Select::COLUMNS);
         $primary = $this->_info[Zend_Db_Table_Abstract::NAME];
         $schema  = $this->_info[Zend_Db_Table_Abstract::SCHEMA];
-
-
         if (count($this->_parts[self::UNION]) == 0) {
-
             // If no fields are specified we assume all fields from primary table
             if (!count($fields)) {
                 $this->from($primary, self::SQL_WILDCARD, $schema);
                 $fields = $this->getPart(Zend_Db_Table_Select::COLUMNS);
             }
-
             $from = $this->getPart(Zend_Db_Table_Select::FROM);
-
             if ($this->_integrityCheck !== false) {
                 foreach ($fields as $columnEntry) {
                     list($table, $column) = $columnEntry;
-
                     // Check each column to ensure it only references the primary table
                     if ($column) {
                         if (!isset($from[$table]) || $from[$table]['tableName'] != $primary) {
@@ -218,7 +187,6 @@ class Zend_Db_Table_Select extends Zend_Db_Select
                 }
             }
         }
-
         return parent::assemble();
     }
 }

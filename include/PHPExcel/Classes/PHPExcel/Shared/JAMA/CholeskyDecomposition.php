@@ -16,29 +16,24 @@
  *	@version 1.2
  */
 class CholeskyDecomposition {
-
 	/**
 	 *	Decomposition storage
 	 *	@var array
 	 *	@access private
 	 */
 	private $L = array();
-
 	/**
 	 *	Matrix row and column dimension
 	 *	@var int
 	 *	@access private
 	 */
 	private $m;
-
 	/**
 	 *	Symmetric positive definite flag
 	 *	@var boolean
 	 *	@access private
 	 */
 	private $isspd = true;
-
-
 	/**
 	 *	CholeskyDecomposition
 	 *
@@ -49,7 +44,6 @@ class CholeskyDecomposition {
 		if ($A instanceof Matrix) {
 			$this->L = $A->getArray();
 			$this->m = $A->getRowDimension();
-
 			for($i = 0; $i < $this->m; ++$i) {
 				for($j = $i; $j < $this->m; ++$j) {
 					for($sum = $this->L[$i][$j], $k = $i - 1; $k >= 0; --$k) {
@@ -67,7 +61,6 @@ class CholeskyDecomposition {
 						}
 					}
 				}
-
 				for ($k = $i+1; $k < $this->m; ++$k) {
 					$this->L[$i][$k] = 0.0;
 				}
@@ -76,8 +69,6 @@ class CholeskyDecomposition {
 			throw new Exception(JAMAError(ArgumentTypeException));
 		}
 	}	//	function __construct()
-
-
 	/**
 	 *	Is the matrix symmetric and positive definite?
 	 *
@@ -86,8 +77,6 @@ class CholeskyDecomposition {
 	public function isSPD() {
 		return $this->isspd;
 	}	//	function isSPD()
-
-
 	/**
 	 *	getL
 	 *
@@ -97,8 +86,6 @@ class CholeskyDecomposition {
 	public function getL() {
 		return new Matrix($this->L);
 	}	//	function getL()
-
-
 	/**
 	 *	Solve A*X = B
 	 *
@@ -111,7 +98,6 @@ class CholeskyDecomposition {
 				if ($this->isspd) {
 					$X  = $B->getArrayCopy();
 					$nx = $B->getColumnDimension();
-
 					for ($k = 0; $k < $this->m; ++$k) {
 						for ($i = $k + 1; $i < $this->m; ++$i) {
 							for ($j = 0; $j < $nx; ++$j) {
@@ -122,7 +108,6 @@ class CholeskyDecomposition {
 							$X[$k][$j] /= $this->L[$k][$k];
 						}
 					}
-
 					for ($k = $this->m - 1; $k >= 0; --$k) {
 						for ($j = 0; $j < $nx; ++$j) {
 							$X[$k][$j] /= $this->L[$k][$k];
@@ -133,7 +118,6 @@ class CholeskyDecomposition {
 							}
 						}
 					}
-
 					return new Matrix($X, $this->m, $nx);
 				} else {
 					throw new Exception(JAMAError(MatrixSPDException));
@@ -145,5 +129,4 @@ class CholeskyDecomposition {
 			throw new Exception(JAMAError(ArgumentTypeException));
 		}
 	}	//	function solve()
-
 }	//	class CholeskyDecomposition

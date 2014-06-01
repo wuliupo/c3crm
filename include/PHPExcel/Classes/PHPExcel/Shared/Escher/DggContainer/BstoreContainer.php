@@ -24,7 +24,6 @@
  * @license    http://www.gnu.org/licenses/old-licenses/lgpl-2.1.txt	LGPL
  * @version    1.7.2, 2010-01-11
  */
-
 /**
  * PHPExcel_Shared_Escher_DggContainer_BstoreContainer
  *
@@ -40,7 +39,6 @@ class PHPExcel_Shared_Escher_DggContainer_BstoreContainer
 	 * @var array
 	 */
 	private $_BSECollection = array();
-
 	/**
 	 * Add a BLIP Store Entry
 	 *
@@ -51,7 +49,6 @@ class PHPExcel_Shared_Escher_DggContainer_BstoreContainer
 		$this->_BSECollection[] = $BSE;
 		$BSE->setParent($this);
 	}
-
 	/**
 	 * Get the collection of BLIP Store Entries
 	 *
@@ -61,5 +58,4 @@ class PHPExcel_Shared_Escher_DggContainer_BstoreContainer
 	{
 		return $this->_BSECollection;
 	}
-
 }

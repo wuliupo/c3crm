@@ -3,7 +3,6 @@
 	<input type="hidden" name="module" value="Settings">
 	<input type="hidden" name="parenttab" value="Settings">
 	<input type="hidden" name="mode">
-
 	<div class="accordion" id="layout_accordion">
 	{foreach key=header item=detail from=$BLOCKSENTRY}
 		<div class="accordion-group">
@@ -36,5 +35,3 @@
 		{/foreach}
 	</div>
 </form>
-
-

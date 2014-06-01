@@ -16,7 +16,6 @@
  * @package log4php
  * @subpackage spi
  */
-
 /**
  * @ignore 
  */
@@ -27,19 +26,16 @@ if (!defined('LOG4PHP_DIR')) define('LOG4PHP_DIR', dirname(__FILE__) . '/..');
  * the remaining filters, if any, in the chain.  
  */
 define('LOG4PHP_LOGGER_FILTER_ACCEPT',  1);
-
 /**
  * This filter is neutral with respect to the log event. The
  * remaining filters, if any, should be consulted for a final decision.
  */
 define('LOG4PHP_LOGGER_FILTER_NEUTRAL', 0);
-
 /**
  * The log event must be dropped immediately without consulting
  *  with the remaining filters, if any, in the chain.  
  */
 define('LOG4PHP_LOGGER_FILTER_DENY',    -1);
-
 /**
  * Users should extend this class to implement customized logging
  * event filtering. Note that {@link LoggerCategory} and {@link LoggerAppenderSkeleton}, 
@@ -78,12 +74,10 @@ define('LOG4PHP_LOGGER_FILTER_DENY',    -1);
  * @subpackage spi
  */
 class LoggerFilter {
-
     /**
      * @var LoggerFilter Points to the next {@link LoggerFilter} in the filter chain.
      */
     var $next;
-
     /**
      * Usually filters options become active when set. We provide a
      * default do-nothing implementation for convenience.
@@ -92,7 +86,6 @@ class LoggerFilter {
     {
         return;
     }
-
     /**   
      * Decide what to do.  
      * <p>If the decision is {@link LOG4PHP_LOGGER_FILTER_DENY}, then the event will be
@@ -108,6 +101,5 @@ class LoggerFilter {
     {
         return LOG4PHP_LOGGER_FILTER_NEUTRAL;
     }
-
 }
 ?>

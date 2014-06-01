@@ -3,7 +3,6 @@
 * PHPMailer language file: refer to English translation for definitive list
 * Hungarian Version
 */
-
 $PHPMAILER_LANG['authenticate']         = 'SMTP Hiba: Sikertelen autentikáció.';
 $PHPMAILER_LANG['connect_host']         = 'SMTP Hiba: Nem tudtam csatlakozni az SMTP host-hoz.';
 $PHPMAILER_LANG['data_not_accepted']    = 'SMTP Hiba: Nem elfogadható adat.';

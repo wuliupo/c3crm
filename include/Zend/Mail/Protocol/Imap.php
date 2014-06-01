@@ -19,8 +19,6 @@
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  * @version    $Id: Imap.php 23775 2011-03-01 17:25:24Z ralph $
  */
-
-
 /**
  * @category   Zend
  * @package    Zend_Mail
@@ -34,19 +32,16 @@ class Zend_Mail_Protocol_Imap
      * Default timeout in seconds for initiating session
      */
     const TIMEOUT_CONNECTION = 30;
-
     /**
      * socket to imap server
      * @var resource|null
      */
     protected $_socket;
-
     /**
      * counter for request tag
      * @var int
      */
     protected $_tagCount = 0;
-
     /**
      * Public constructor
      *
@@ -61,7 +56,6 @@ class Zend_Mail_Protocol_Imap
             $this->connect($host, $port, $ssl);
         }
     }
-
     /**
      * Public destructor
      */
@@ -69,7 +63,6 @@ class Zend_Mail_Protocol_Imap
     {
         $this->logout();
     }
-
     /**
      * Open connection to IMAP server
      *
@@ -84,11 +77,9 @@ class Zend_Mail_Protocol_Imap
         if ($ssl == 'SSL') {
             $host = 'ssl://' . $host;
         }
-
         if ($port === null) {
             $port = $ssl === 'SSL' ? 993 : 143;
         }
-
         $errno  =  0;
         $errstr = '';
         $this->_socket = @fsockopen($host, $port, $errno, $errstr, self::TIMEOUT_CONNECTION);
@@ -100,7 +91,6 @@ class Zend_Mail_Protocol_Imap
             throw new Zend_Mail_Protocol_Exception('cannot connect to host; error = ' . $errstr .
                                                    ' (errno = ' . $errno . ' )');
         }
-
         if (!$this->_assumedNextLine('* OK')) {
             /**
              * @see Zend_Mail_Protocol_Exception
@@ -108,7 +98,6 @@ class Zend_Mail_Protocol_Imap
             require_once 'include/Zend/Mail/Protocol/Exception.php';
             throw new Zend_Mail_Protocol_Exception('host doesn\'t allow connection');
         }
-
         if ($ssl === 'TLS') {
             $result = $this->requestAndResponse('STARTTLS');
             $result = $result && stream_socket_enable_crypto($this->_socket, true, STREAM_CRYPTO_METHOD_TLS_CLIENT);
@@ -121,7 +110,6 @@ class Zend_Mail_Protocol_Imap
             }
         }
     }
-
     /**
      * get the next line from socket with error checking, but nothing else
      *
@@ -138,10 +126,8 @@ class Zend_Mail_Protocol_Imap
             require_once 'include/Zend/Mail/Protocol/Exception.php';
             throw new Zend_Mail_Protocol_Exception('cannot read - connection closed?');
         }
-
         return $line;
     }
-
     /**
      * get next line and assume it starts with $start. some requests give a simple
      * feedback so we can quickly check if we can go on.
@@ -155,7 +141,6 @@ class Zend_Mail_Protocol_Imap
         $line = $this->_nextLine();
         return strpos($line, $start) === 0;
     }
-
     /**
      * get next line and split the tag. that's the normal case for a response line
      *
@@ -166,13 +151,10 @@ class Zend_Mail_Protocol_Imap
     protected function _nextTaggedLine(&$tag)
     {
         $line = $this->_nextLine();
-
         // seperate tag from line
         list($tag, $line) = explode(' ', $line, 2);
-
         return $line;
     }
-
     /**
      * split a given line in tokens. a token is literal of any form or a list
      *
@@ -184,7 +166,6 @@ class Zend_Mail_Protocol_Imap
     {
         $tokens = array();
         $stack = array();
-
         /*
             We start to decode the response here. The unterstood tokens are:
                 literal
@@ -196,7 +177,6 @@ class Zend_Mail_Protocol_Imap
                 "foo" baz {3}<NL>bar ("f\\\"oo" bar)
             would be returned as:
                 array('foo', 'baz', 'bar', array('f\\\"oo', 'bar'));
-
             // TODO: add handling of '[' and ']' to parser for easier handling of response text
         */
         //  replace any trailling <NL> including spaces with a single space
@@ -257,17 +237,14 @@ class Zend_Mail_Protocol_Imap
             $tokens[] = $token;
             $line = substr($line, $pos + 1);
         }
-
         // maybe the server forgot to send some closing braces
         while ($stack) {
             $child = $tokens;
             $tokens = array_pop($stack);
             $tokens[] = $child;
         }
-
         return $tokens;
     }
-
     /**
      * read a response "line" (could also be more than one real line if response has {..}<NL>)
      * and do a simple decode
@@ -288,11 +265,9 @@ class Zend_Mail_Protocol_Imap
         } else {
             $tokens = $line;
         }
-
         // if tag is wanted tag we might be at the end of a multiline response
         return $tag == $wantedTag;
     }
-
     /**
      * read all lines of response until given tag is found (last line of response)
      *
@@ -310,7 +285,6 @@ class Zend_Mail_Protocol_Imap
         while (!$this->readLine($tokens, $tag, $dontParse)) {
             $lines[] = $tokens;
         }
-
         if ($dontParse) {
             // last to chars are still needed for response code
             $tokens = array(substr($tokens, 0, 2));
@@ -323,7 +297,6 @@ class Zend_Mail_Protocol_Imap
         }
         return null;
     }
-
     /**
      * send a request
      *
@@ -339,9 +312,7 @@ class Zend_Mail_Protocol_Imap
             ++$this->_tagCount;
             $tag = 'TAG' . $this->_tagCount;
         }
-
         $line = $tag . ' ' . $command;
-
         foreach ($tokens as $token) {
             if (is_array($token)) {
                 if (@fputs($this->_socket, $line . ' ' . $token[0] . "\r\n") === false) {
@@ -363,7 +334,6 @@ class Zend_Mail_Protocol_Imap
                 $line .= ' ' . $token;
             }
         }
-
         if (@fputs($this->_socket, $line . "\r\n") === false) {
             /**
              * @see Zend_Mail_Protocol_Exception
@@ -372,7 +342,6 @@ class Zend_Mail_Protocol_Imap
             throw new Zend_Mail_Protocol_Exception('cannot write - connection closed?');
         }
     }
-
     /**
      * send a request and get response at once
      *
@@ -386,10 +355,8 @@ class Zend_Mail_Protocol_Imap
     {
         $this->sendRequest($command, $tokens, $tag);
         $response = $this->readResponse($tag, $dontParse);
-
         return $response;
     }
-
     /**
      * escape one or more literals i.e. for sendRequest
      *
@@ -412,7 +379,6 @@ class Zend_Mail_Protocol_Imap
         }
         return $result;
     }
-
     /**
      * escape a list with literals or lists
      *
@@ -432,7 +398,6 @@ class Zend_Mail_Protocol_Imap
         }
         return '(' . implode(' ', $result) . ')';
     }
-
     /**
      * Login to IMAP server.
      *
@@ -445,7 +410,6 @@ class Zend_Mail_Protocol_Imap
     {
         return $this->requestAndResponse('LOGIN', $this->escapeString($user, $password), true);
     }
-
     /**
      * logout of imap server
      *
@@ -465,8 +429,6 @@ class Zend_Mail_Protocol_Imap
         }
         return $result;
     }
-
-
     /**
      * Get capabilities from IMAP server
      *
@@ -476,18 +438,15 @@ class Zend_Mail_Protocol_Imap
     public function capability()
     {
         $response = $this->requestAndResponse('CAPABILITY');
-
         if (!$response) {
             return $response;
         }
-
         $capabilities = array();
         foreach ($response as $line) {
             $capabilities = array_merge($capabilities, $line);
         }
         return $capabilities;
     }
-
     /**
      * Examine and select have the same response. The common code for both
      * is in this method
@@ -501,7 +460,6 @@ class Zend_Mail_Protocol_Imap
     public function examineOrSelect($command = 'EXAMINE', $box = 'INBOX')
     {
         $this->sendRequest($command, array($this->escapeString($box)), $tag);
-
         $result = array();
         while (!$this->readLine($tokens, $tag)) {
             if ($tokens[0] == 'FLAGS') {
@@ -521,13 +479,11 @@ class Zend_Mail_Protocol_Imap
                     // ignore
             }
         }
-
         if ($tokens[0] != 'OK') {
             return false;
         }
         return $result;
     }
-
     /**
      * change folder
      *
@@ -539,7 +495,6 @@ class Zend_Mail_Protocol_Imap
     {
         return $this->examineOrSelect('SELECT', $box);
     }
-
     /**
      * examine folder
      *
@@ -551,7 +506,6 @@ class Zend_Mail_Protocol_Imap
     {
         return $this->examineOrSelect('EXAMINE', $box);
     }
-
     /**
      * fetch one or more items of one or more messages
      *
@@ -577,12 +531,9 @@ class Zend_Mail_Protocol_Imap
         } else {
             $set = (int)$from . ':' . (int)$to;
         }
-
         $items = (array)$items;
         $itemList = $this->escapeList($items);
-
         $this->sendRequest('FETCH', array($set, $itemList), $tag);
-
         $result = array();
         while (!$this->readLine($tokens, $tag)) {
             // ignore other responses
@@ -624,7 +575,6 @@ class Zend_Mail_Protocol_Imap
             }
             $result[$tokens[0]] = $data;
         }
-
         if ($to === null && !is_array($from)) {
             /**
              * @see Zend_Mail_Protocol_Exception
@@ -632,10 +582,8 @@ class Zend_Mail_Protocol_Imap
             require_once 'include/Zend/Mail/Protocol/Exception.php';
             throw new Zend_Mail_Protocol_Exception('the single id was not found in response');
         }
-
         return $result;
     }
-
     /**
      * get mailbox list
      *
@@ -653,17 +601,14 @@ class Zend_Mail_Protocol_Imap
         if (!$list || $list === true) {
             return $result;
         }
-
         foreach ($list as $item) {
             if (count($item) != 4 || $item[0] != 'LIST') {
                 continue;
             }
             $result[$item[3]] = array('delim' => $item[2], 'flags' => $item[1]);
         }
-
         return $result;
     }
-
     /**
      * set flags
      *
@@ -685,19 +630,15 @@ class Zend_Mail_Protocol_Imap
         if ($silent) {
             $item .= '.SILENT';
         }
-
         $flags = $this->escapeList($flags);
         $set = (int)$from;
         if ($to != null) {
             $set .= ':' . ($to == INF ? '*' : (int)$to);
         }
-
         $result = $this->requestAndResponse('STORE', array($set, $item, $flags), $silent);
-
         if ($silent) {
             return $result ? true : false;
         }
-
         $tokens = $result;
         $result = array();
         foreach ($tokens as $token) {
@@ -706,10 +647,8 @@ class Zend_Mail_Protocol_Imap
             }
             $result[$token[0]] = $token[2][1];
         }
-
         return $result;
     }
-
     /**
      * append a new message to given folder
      *
@@ -731,10 +670,8 @@ class Zend_Mail_Protocol_Imap
             $tokens[] = $this->escapeString($date);
         }
         $tokens[] = $this->escapeString($message);
-
         return $this->requestAndResponse('APPEND', $tokens, true);
     }
-
     /**
      * copy message set from current folder to other folder
      *
@@ -750,10 +687,8 @@ class Zend_Mail_Protocol_Imap
         if ($to != null) {
             $set .= ':' . ($to == INF ? '*' : (int)$to);
         }
-
         return $this->requestAndResponse('COPY', array($set, $this->escapeString($folder)), true);
     }
-
     /**
      * create a new folder (and parent folders if needed)
      *
@@ -764,7 +699,6 @@ class Zend_Mail_Protocol_Imap
     {
         return $this->requestAndResponse('CREATE', array($this->escapeString($folder)), true);
     }
-
     /**
      * rename an existing folder
      *
@@ -776,7 +710,6 @@ class Zend_Mail_Protocol_Imap
     {
         return $this->requestAndResponse('RENAME', $this->escapeString($old, $new), true);
     }
-
     /**
      * remove a folder
      *
@@ -787,7 +720,6 @@ class Zend_Mail_Protocol_Imap
     {
         return $this->requestAndResponse('DELETE', array($this->escapeString($folder)), true);
     }
-
     /**
      * permanently remove messages
      *
@@ -798,7 +730,6 @@ class Zend_Mail_Protocol_Imap
         // TODO: parse response?
         return $this->requestAndResponse('EXPUNGE');
     }
-
     /**
      * send noop
      *
@@ -809,7 +740,6 @@ class Zend_Mail_Protocol_Imap
         // TODO: parse response
         return $this->requestAndResponse('NOOP');
     }
-
     /**
      * do a search request
      *
@@ -825,7 +755,6 @@ class Zend_Mail_Protocol_Imap
         if (!$response) {
             return $response;
         }
-
         foreach ($response as $ids) {
             if ($ids[0] == 'SEARCH') {
                 array_shift($ids);
@@ -834,5 +763,4 @@ class Zend_Mail_Protocol_Imap
         }
         return array();
     }
-
 }

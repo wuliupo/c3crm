@@ -8,13 +8,10 @@ $order=$_REQUEST['order'];
 $parenttab=$_REQUEST['parenttab'];
 $mode=$_REQUEST['mode'];
 $tabid = getTabid($fld_module);
-
 if(get_magic_quotes_gpc() == 1)
 {
 	$label = stripslashes($label);
 }
-
-
 //checking if the user is trying to create a custom ec_field which already exists  
 if(!empty($blockid))
 {
@@ -35,7 +32,6 @@ else {
 	$adb->query($query);
 }
 //echo $query;
-
 echo "<script language='javascript'>";
 echo "document.location.href='index.php?module=Settings&action=CustomBlockList&fld_module=".$fld_module."&parenttab=Settings"."';";
 echo "</script>";

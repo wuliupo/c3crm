@@ -20,8 +20,6 @@
  * All Rights Reserved.
  * Contributor(s): ______________________________________..
  ********************************************************************************/
-
-
 include_once('config.php');
 require_once('include/logging.php');
 require_once('include/database/PearDatabase.php');
@@ -31,16 +29,11 @@ require_once('modules/Notes/Notes.php');
 require_once('modules/Accounts/Accounts.php');
 require_once('include/ComboUtil.php');
 require_once('modules/Leads/Leads.php');
-
-
 class ImportLead extends Leads {
 	 var $db;
-
 	// This is the list of the functions to run when importing
 	var $special_functions =  array("assign_user");
-
 	var $importable_fields = Array();
-
 	/**	function used to set the assigned_user_id value in the column_fields when we map the username during import
 	 */
 	function assign_user()
@@ -52,7 +45,6 @@ class ImportLead extends Leads {
 		if( $ass_user != $current_user->id)
 		{
 			$this->db->println("searching and assigning ".$ass_user);
-
 			//$result = $this->db->query("select id from ec_users where user_name = '".$ass_user."'");
 			$result = $this->db->query("select id from ec_users where id = '".$ass_user."'");
 			if($this->db->num_rows($result)!=1)
@@ -77,7 +69,6 @@ class ImportLead extends Leads {
 			}
 		}
 	}
-
 	/** Constructor which will set the importable_fields as $this->importable_fields[$key]=1 in this object where key is the fieldname in the field table
 	 */
 	function ImportLead() {
@@ -91,6 +82,5 @@ class ImportLead extends Leads {
 		
 		$this->db->println($this->importable_fields);
 	}
-
 }
 ?>

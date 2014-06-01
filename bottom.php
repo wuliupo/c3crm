@@ -30,7 +30,6 @@ session_start();
 if(isset($_REQUEST['module_action']) && $_REQUEST['module_action'] != "") {
 	$_REQUEST['action'] = $_REQUEST['module_action'];
 }
-
 if(isset($_REQUEST['action']) && $_REQUEST['action'] == "Login") {
 	header("Location: Login.php");
 	exit();
@@ -39,9 +38,7 @@ if (!is_file('config.php')) {
 	header("Location: install.php");
 	exit();
 }
-
 require_once('config.php');
-
 if ((!isset($dbconfig['db_hostname']) || $dbconfig['db_status']=='_DB_STAT_') && ((isset($_REQUEST['action']) && $_REQUEST['action'] != "Authenticate" && $_REQUEST['action'] != "Login") || !isset($_REQUEST['action']))) {
 		header("Location: Login.php");
 		exit();
@@ -51,7 +48,6 @@ if (is_file('config_override.php'))
 {
 	require_once($root_directory.'config_override.php');
 }
-
 if($calculate_response_time) {
 	$startTime = microtime();
 	$queryTime = 0;
@@ -62,14 +58,11 @@ if($calculate_response_time) {
 }
 */			
 // load up the config_override.php file.  This is used to provide default user settings
-
-
 global $entityDel;
 global $display;
 global $category;
 require_once($root_directory.'include/utils/utils.php');
 global $currentModule;
-
  
 if(isset($_SESSION['authenticated_user_theme']) && $_SESSION['authenticated_user_theme'] != '')
 {
@@ -79,9 +72,6 @@ else
 {
 	$theme = $default_theme;
 }
-
-
-
 $Ajx_module= $module;
 if($module == 'Events')
 	$Ajx_module = 'Calendar';

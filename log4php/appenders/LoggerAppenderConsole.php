@@ -16,7 +16,6 @@
  * @package log4php
  * @subpackage appenders
  */
-
 /**
  * @ignore 
  */
@@ -26,11 +25,8 @@ if (!defined('LOG4PHP_DIR')) define('LOG4PHP_DIR', dirname(__FILE__) . '/..');
  */
 require_once(LOG4PHP_DIR . '/LoggerAppenderSkeleton.php');
 require_once(LOG4PHP_DIR . '/LoggerLog.php');
-
-
 define('LOG4PHP_LOGGER_APPENDER_CONSOLE_STDOUT', 'php://stdout');
 define('LOG4PHP_LOGGER_APPENDER_CONSOLE_STDERR', 'php://stderr');
-
 /**
  * ConsoleAppender appends log events to STDOUT or STDERR using a layout specified by the user. 
  * 
@@ -45,7 +41,6 @@ define('LOG4PHP_LOGGER_APPENDER_CONSOLE_STDERR', 'php://stderr');
  * @subpackage appenders
  */
 class LoggerAppenderConsole extends LoggerAppenderSkeleton {
-
     /**
      * Can be 'php://stdout' or 'php://stderr'. But it's better to use keywords <b>STDOUT</b> and <b>STDERR</b> (case insensitive). 
      * Default is STDOUT
@@ -58,7 +53,6 @@ class LoggerAppenderConsole extends LoggerAppenderSkeleton {
      * @access private     
      */
     var $requiresLayout = true;
-
     /**
      * @var mixed the resource used to open stdout/stderr
      * @access private     
@@ -74,7 +68,6 @@ class LoggerAppenderConsole extends LoggerAppenderSkeleton {
     {
         $this->LoggerAppenderSkeleton($name);
     }
-
     /**
      * Set console target.
      * @param mixed $value a constant or a string
@@ -93,12 +86,10 @@ class LoggerAppenderConsole extends LoggerAppenderSkeleton {
             );        
         }
     }
-
     function getTarget()
     {
         return $this->target;
     }
-
     function activateOptions()
     {
         LoggerLog::debug("LoggerAppenderConsole::activateOptions()");
@@ -107,7 +98,6 @@ class LoggerAppenderConsole extends LoggerAppenderSkeleton {
     
         if ($this->fp and $this->layout !== null)
             @fwrite($this->fp, $this->layout->getHeader());
-
         $this->closed = (bool)($this->fp === false);
     }
     
@@ -124,7 +114,6 @@ class LoggerAppenderConsole extends LoggerAppenderSkeleton {
         @fclose($this->fp);
         $this->closed = true;
     }
-
     function append($event)
     {
         if ($this->fp and $this->layout !== null) {
@@ -135,5 +124,4 @@ class LoggerAppenderConsole extends LoggerAppenderSkeleton {
         } 
     }
 }
-
 ?>

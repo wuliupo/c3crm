@@ -4,7 +4,6 @@
  * @package Smarty
  * @subpackage plugins
  */
-
 /**
  * determines if a resource is secure or not.
  *
@@ -12,15 +11,12 @@
  * @param string $resource_name
  * @return boolean
  */
-
 //  $resource_type, $resource_name
-
 function smarty_core_is_secure($params, &$smarty)
 {
     if (!$smarty->security || $smarty->security_settings['INCLUDE_ANY']) {
         return true;
     }
-
     if ($params['resource_type'] == 'file') {
         $_rp = realpath($params['resource_name']);
         if (isset($params['resource_base_path'])) {
@@ -50,10 +46,7 @@ function smarty_core_is_secure($params, &$smarty)
             $smarty->_plugins['resource'][$params['resource_type']][0][2],
             array($params['resource_name'], &$smarty));
     }
-
     return false;
 }
-
 /* vim: set expandtab: */
-
 ?>

@@ -30,10 +30,8 @@ foreach($field_module as $fld_module)
 		//Updating the database
 		$update_query = "update ec_def_org_field set visible=".$visible_value." where fieldid='".$fieldid."' and tabid=".$tab_id;
 		$adb->query($update_query);
-
 	}
 }
 $loc = "index.php?action=DefaultFieldPermissions&module=Users&parenttab=Settings&fld_module=".$_REQUEST['fld_module'];
 redirect($loc);
-
 ?>

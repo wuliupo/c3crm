@@ -4,20 +4,15 @@ require_once('include/logging.php');
 require_once('include/database/PearDatabase.php');
 require_once('data/CRMEntity.php');
 require_once('modules/Maillists/ModuleConfig.php');
-
 // Note is used to store customer information.
 class Maillists extends CRMEntity {
 	var $log;
 	var $db;
-
 	var $tab_name = Array('ec_crmentity','ec_maillists');
 	var $tab_name_index = Array('ec_crmentity'=>'crmid','ec_maillists'=>'maillistsid');
 	var $entity_table = "ec_maillists";
-
 	var $column_fields = Array();
-
 	var $sortby_fields = Array('maillistname');
-
 	// This is the list of ec_fields that are in the lists.
 	/* Format: Field Label => Array(tablename, columnname) */
 	// tablename should not have prefix 'ec_'
@@ -54,12 +49,10 @@ class Maillists extends CRMEntity {
 	//added for import and export function
 	var $special_functions =  array("create_user","add_create_account");
 	var $importable_fields = Array();
-
 	//Added these variables which are used as default order by and sortorder in ListView
 	var $default_order_by = 'modifiedtime';
 	var $default_sort_order = 'DESC';
 	var $is_custom_module = true;
-
 	function Maillists() {
 		$this->log = LoggerManager::getLogger('maillists');
 		$this->log->debug("Entering Maillists() method ...");
@@ -67,7 +60,6 @@ class Maillists extends CRMEntity {
 		$this->column_fields = getColumnFields('Maillists');
 		$this->log->debug("Exiting Maillists method ...");
 	}
-
 	function save_module($module)
 	{
 		global $module_enable_product;
@@ -75,11 +67,8 @@ class Maillists extends CRMEntity {
 		{
 			//$this->saveProductDetails(true); update product qty
 			$this->saveProductDetails();
-
 		}
 	}
-
-
 	function getListQuery($where,$isSearchAll=false){
 		$query = "SELECT ec_maillists.maillistsid as crmid,ec_users.user_name,
 			ec_maillists.* FROM ec_maillists
@@ -87,9 +76,7 @@ class Maillists extends CRMEntity {
 				ON ec_users.id = ec_maillists.smownerid ";
 		return $query;
 	}
-
 	
-
 	//get next salesorder id
 	function get_next_id() {
 		//$query = "select count(*) as num from ec_maillists";

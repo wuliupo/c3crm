@@ -13,7 +13,6 @@
 		$adb->query("UPDATE `ec_maillists` SET `readrate` = `readrate`+1 WHERE `maillistsid` ={$maillistsid}");
 	}
 	
-
 @ob_end_clean();
 header("Content-Type: image/png");
 print base64_decode('iVBORw0KGgoAAAANSUhEUgAAAAEAAAABAQMAAAAl21bKAAAABGdBTUEAALGPC/xhBQAAAAZQTFRF////AAAAVcLTfgAAAAF0Uk5TAEDm2GYAAAABYktHRACIBR1IAAAACXBIWXMAAAsSAAALEgHS3X78AAAAB3RJTUUH0gQCEx05cqKA8gAAAApJREFUeJxjYAAAAAIAAUivpHEAAAAASUVORK5CYII=');

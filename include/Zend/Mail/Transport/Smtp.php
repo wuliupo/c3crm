@@ -19,24 +19,18 @@
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  * @version    $Id: Smtp.php 23775 2011-03-01 17:25:24Z ralph $
  */
-
-
 /**
  * @see Zend_Mime
  */
 require_once 'include/Zend/Mime.php';
-
 /**
  * @see Zend_Mail_Protocol_Smtp
  */
 require_once 'include/Zend/Mail/Protocol/Smtp.php';
-
 /**
  * @see Zend_Mail_Transport_Abstract
  */
 require_once 'include/Zend/Mail/Transport/Abstract.php';
-
-
 /**
  * SMTP connection object
  *
@@ -56,55 +50,42 @@ class Zend_Mail_Transport_Smtp extends Zend_Mail_Transport_Abstract
      * @access public
      */
     public $EOL = "\n";
-
     /**
      * Remote smtp hostname or i.p.
      *
      * @var string
      */
     protected $_host;
-
-
     /**
      * Port number
      *
      * @var integer|null
      */
     protected $_port;
-
-
     /**
      * Local client hostname or i.p.
      *
      * @var string
      */
     protected $_name = 'localhost';
-
-
     /**
      * Authentication type OPTIONAL
      *
      * @var string
      */
     protected $_auth;
-
-
     /**
      * Config options for authentication
      *
      * @var array
      */
     protected $_config;
-
-
     /**
      * Instance of Zend_Mail_Protocol_Smtp
      *
      * @var Zend_Mail_Protocol_Smtp
      */
     protected $_connection;
-
-
     /**
      * Constructor.
      *
@@ -126,12 +107,9 @@ class Zend_Mail_Transport_Smtp extends Zend_Mail_Transport_Abstract
         if (isset($config['auth'])) {
             $this->_auth = $config['auth'];
         }
-
         $this->_host = $host;
         $this->_config = $config;
     }
-
-
     /**
      * Class destructor to ensure all open connections are closed
      *
@@ -148,8 +126,6 @@ class Zend_Mail_Transport_Smtp extends Zend_Mail_Transport_Abstract
             $this->_connection->disconnect();
         }
     }
-
-
     /**
      * Sets the connection protocol instance
      *
@@ -161,8 +137,6 @@ class Zend_Mail_Transport_Smtp extends Zend_Mail_Transport_Abstract
     {
         $this->_connection = $connection;
     }
-
-
     /**
      * Gets the connection protocol instance
      *
@@ -172,7 +146,6 @@ class Zend_Mail_Transport_Smtp extends Zend_Mail_Transport_Abstract
     {
         return $this->_connection;
     }
-
     /**
      * Send an email via the SMTP connection protocol
      *
@@ -202,19 +175,15 @@ class Zend_Mail_Transport_Smtp extends Zend_Mail_Transport_Abstract
             // Reset connection to ensure reliable transaction
             $this->_connection->rset();
         }
-
         // Set sender email address
         $this->_connection->mail($this->_mail->getReturnPath());
-
         // Set recipient forward paths
         foreach ($this->_mail->getRecipients() as $recipient) {
             $this->_connection->rcpt($recipient);
         }
-
         // Issue DATA command to client
         $this->_connection->data($this->header . Zend_Mime::LINEEND . $this->body);
     }
-
     /**
      * Format and fix headers
      *
@@ -234,9 +203,7 @@ class Zend_Mail_Transport_Smtp extends Zend_Mail_Transport_Abstract
             require_once 'include/Zend/Mail/Transport/Exception.php';
             throw new Zend_Mail_Transport_Exception('_prepareHeaders requires a registered Zend_Mail object');
         }
-
         unset($headers['Bcc']);
-
         // Prepare headers
         parent::_prepareHeaders($headers);
     }

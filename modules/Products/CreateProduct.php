@@ -8,22 +8,16 @@
  * All Rights Reserved.
 *
  ********************************************************************************/
-
 require_once('data/Tracker.php');
 require_once('include/utils/utils.php');
 require_once('include/database/PearDatabase.php');
 require_once('modules/Products/Products.php');
 require_once('user_privileges/seqprefix_config.php');
-
 global $mod_strings,$app_strings,$log,$current_user,$theme;
-
 $theme_path="themes/".$theme."/";
 $image_path=$theme_path."images/";
-
 $focus = new Products();
 //$productcode = $product_seqprefix.date("Ymd")."-".$focus->get_next_id();
-
-
 $category = getParentTab();
 $CreateProduct = '<div id="productLay" style="display: block;" class="layerPopup" >
     <form name="EditView" method="POST" action="index.php">
@@ -54,7 +48,6 @@ $CreateProduct = '<div id="productLay" style="display: block;" class="layerPopup
 					<td width="30%" align="right" class="dvtCellLabel">'.$mod_strings['Price'].'</td>
 					<td width="70%" align="left" class="dvtCellInfo"><input class="detailedViewTextBox"  onfocus="this.className=\'detailedViewTextBoxOn\'" name="price" id="price" onblur="this.className=\'detailedViewTextBox\'" value=""></td>
 			    </tr>';
-
 $CreateProduct .='</table>
 			   
 			</td>
@@ -70,5 +63,4 @@ $CreateProduct .='</table>
 	</table></form>
 </div>';
 echo $CreateProduct;
-
 ?>

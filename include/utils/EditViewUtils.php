@@ -2,7 +2,6 @@
 require_once('include/database/PearDatabase.php');
 require_once('include/utils/CommonUtils.php'); //new
 require_once('include/utils/MultiFieldUtils.php');
-
 /** This function returns the ec_field details for a given ec_fieldname.
   * Param $uitype - UI type of the ec_field
   * Param $fieldname - Form ec_field name
@@ -13,7 +12,6 @@ require_once('include/utils/MultiFieldUtils.php');
   * Param $module_name - module name
   * Return type is an array
   */
-
 function getOutputHtml($uitype, $fieldname, $fieldlabel, $maxlength, $col_fields,$generatedtype,$module_name,$mode='',$mandatory=0,$typeofdata="")
 {
 	global $log;
@@ -24,8 +22,6 @@ function getOutputHtml($uitype, $fieldname, $fieldlabel, $maxlength, $col_fields
 	global $app_strings;
 	global $current_user;
 	global $noof_group_rows;
-
-
 	$theme_path="themes/".$theme."/";
 	$image_path=$theme_path."images/";
 	//$fieldlabel = from_html($fieldlabel);
@@ -35,13 +31,11 @@ function getOutputHtml($uitype, $fieldname, $fieldlabel, $maxlength, $col_fields
 	$custfld = '';
 	$ui_type[]= $uitype;
 	$editview_fldname[] = $fieldname;
-
 	if($generatedtype == 2)
 		$mod_strings[$fieldlabel] = $fieldlabel;
 	if(!isset($mod_strings[$fieldlabel])) {
 		$mod_strings[$fieldlabel] = $fieldlabel;
 	}
-
 	if($uitype == 5)
 	{	
 		if($value=='')
@@ -73,7 +67,6 @@ function getOutputHtml($uitype, $fieldname, $fieldlabel, $maxlength, $col_fields
 			
 			setSqlCacheData($key,$picklist_array);
 		}
-
 		//Mikecrowe fix to correctly default for custom pick lists
 		$options = array();
 		$found = false;
@@ -133,7 +126,6 @@ function getOutputHtml($uitype, $fieldname, $fieldlabel, $maxlength, $col_fields
 				$value = $_REQUEST[$fieldname];
 				$module_entityname = getEntityNameForTen($rel_tablename,$rel_entityname,$fieldname,$value);
 			}
-
 		}
 		if(isset($app_strings[$fieldlabel])) {
 			$editview_label[] = $app_strings[$fieldlabel];
@@ -185,7 +177,6 @@ function getOutputHtml($uitype, $fieldname, $fieldlabel, $maxlength, $col_fields
 				foreach($pickListResult as $row) {
 					$picklist_array[] = $row['colvalue'];
 				}
-
 		$editview_label[]=$mod_strings[$fieldlabel];
 		$mulsel="select colvalue from ec_picklist where colname='".$fieldname."' order by sequence asc";
 		$multiselect_result = $adb->query($mulsel);
@@ -215,7 +206,6 @@ function getOutputHtml($uitype, $fieldname, $fieldlabel, $maxlength, $col_fields
 		{
 			$value = ($_REQUEST['body']);
 		}
-
 		$editview_label[]=$mod_strings[$fieldlabel];
 		//$value = to_html($value);
 		//$value = htmlspecialchars($value, ENT_QUOTES, "UTF-8");
@@ -298,7 +288,6 @@ function getOutputHtml($uitype, $fieldname, $fieldlabel, $maxlength, $col_fields
 			$user_array = get_user_array(FALSE, "Active", $assigned_user_id);
 			$users_combo = get_select_options_array($user_array, $assigned_user_id);
 		}
-
 		$fieldvalue[]=$users_combo;  
 	}
 	elseif($uitype == 1004) //display creator in editview page
@@ -394,7 +383,6 @@ function getOutputHtml($uitype, $fieldname, $fieldlabel, $maxlength, $col_fields
 			$options[] = array($pickListValue => $chk_val );
 		}
 		$fieldvalue[] = $options;
-
 	}
 	elseif($uitype == 59)
 	{
@@ -459,9 +447,7 @@ function getOutputHtml($uitype, $fieldname, $fieldlabel, $maxlength, $col_fields
             }
         }
         $contactopts=getContactOptions($accountid,$value);
-
 		//Checking for contacts duplicate
-
 		$editview_label[]=$mod_strings[$fieldlabel];
 //		$fieldvalue[] = $contact_name;
         $fieldvalue[] = $contactopts;
@@ -487,7 +473,6 @@ function getOutputHtml($uitype, $fieldname, $fieldlabel, $maxlength, $col_fields
 		$fieldvalue[] = $potential_name;
 		$fieldvalue[] = $value;
 	}
-
 	elseif($uitype == 80)
 	{
 		if($value != '')
@@ -521,7 +506,6 @@ function getOutputHtml($uitype, $fieldname, $fieldlabel, $maxlength, $col_fields
 	$log->debug("Exiting getOutputHtml method ...");
 	return $final_arr;
 }
-
 /** This function returns the detail block information of a record for given block id.
 * Param $module - module name
 * Param $block - block name
@@ -542,11 +526,9 @@ function getBlockInformation($module, $result, $col_fields,$tabid,$block_label,$
 	global $adb;
 	$editview_arr = Array();
 	$returndata = Array();
-
 	global $current_user,$mod_strings;
     
 	$noofrows = $adb->num_rows($result);
-
 	for($i=0; $i<$noofrows; $i++)
 	{
 		$fieldtablename = $adb->query_result($result,$i,"tablename");	
@@ -647,13 +629,10 @@ function getBlockInformation($module, $result, $col_fields,$tabid,$block_label,$
 	return $returndata;	
 	
 }
-
 /** This function returns the data type of the ec_fields, with ec_field label, which is used for javascript validation.
 * Param $validationData - array of ec_fieldnames with datatype
 * Return type array 
 */
-
-
 function split_validationdataArray($validationData)
 {
 	global $log;
@@ -698,7 +677,6 @@ function split_validationdataArray($validationData)
 	$log->debug("Exiting split_validationdataArray method ...");
 	return $data;
 }
-
 function getContactOptions($accountid,$contactval){
     global $adb;
     $optionstr="<option value=''></option>";
@@ -716,5 +694,4 @@ function getContactOptions($accountid,$contactval){
     }
     return $optionstr;
 }
-
 ?>

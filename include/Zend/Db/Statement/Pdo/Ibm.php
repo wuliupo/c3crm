@@ -19,12 +19,10 @@
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  * @version    $Id: Ibm.php 23775 2011-03-01 17:25:24Z ralph $
  */
-
 /**
  * @see Zend_Db_Statement_Pdo
  */
 require_once 'include/Zend/Db/Statement/Pdo.php';
-
 /**
  * Proxy class to wrap a PDOStatement object for IBM Databases.
  * Matches the interface of PDOStatement.  All methods simply proxy to the
@@ -56,7 +54,6 @@ class Zend_Db_Statement_Pdo_Ibm extends Zend_Db_Statement_Pdo
         $data = parent::fetchAll($style, $col);
         $results = array();
         $remove = $this->_adapter->foldCase('ZEND_DB_ROWNUM');
-
         foreach ($data as $row) {
             if (is_array($row) && array_key_exists($remove, $row)) {
                 unset($row[$remove]);
@@ -65,7 +62,6 @@ class Zend_Db_Statement_Pdo_Ibm extends Zend_Db_Statement_Pdo
         }
         return $results;
     }
-
     /**
      * Binds a parameter to the specified variable name.
      *
@@ -90,5 +86,4 @@ class Zend_Db_Statement_Pdo_Ibm extends Zend_Db_Statement_Pdo
             throw new Zend_Db_Statement_Exception($e->getMessage(), $e->getCode(), $e);
         }
     }
-
 }

@@ -20,23 +20,17 @@
  * All Rights Reserved.
  * Contributor(s): ______________________________________..
  ********************************************************************************/
-
 require_once('modules/Notes/Notes.php');
 $focus = new Notes();
 setObjectValuesFromRequest($focus);
-
 //$focus->column_fields['contact_date'] = date("Y-m-d H:i:s");
 //Save the Note
 $focus->save("Notes");
-
-
 if($_REQUEST['search'] == 'true'){
 	echo "true";die;
 }
-
 $return_id = $focus->id;
 $note_id = $return_id;
-
 if(isset($_REQUEST['parenttab']) && $_REQUEST['parenttab'] != "") $parenttab = $_REQUEST['parenttab'];
 if(isset($_REQUEST['return_module']) && $_REQUEST['return_module'] != "") $return_module = $_REQUEST['return_module'];
 else $return_module = "Notes";
@@ -46,12 +40,10 @@ if(isset($_REQUEST['return_id']) && $_REQUEST['return_id'] != "") $return_id = $
 //code added for returning back to the current view after edit from list view
 if($_REQUEST['return_viewname'] == '') $return_viewname='0';
 elseif($_REQUEST['return_viewname'] != '') $return_viewname=$_REQUEST['return_viewname'];
-
 if($return_action == "CallRelatedList"){
     $return_action = "RelateLists";
     header("Location: index.php?action=$return_action&module=$return_module&parenttab=$parenttab&record=$return_id&viewname=$return_viewname&moduletype=Notes");
 }else{
     header("Location: index.php?action=$return_action&module=$return_module&parenttab=$parenttab&record=$return_id&viewname=$return_viewname");
 }
-
 ?>

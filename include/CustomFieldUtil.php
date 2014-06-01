@@ -11,7 +11,6 @@
 global $root_directory;
 require_once($root_directory.'include/database/PearDatabase.php');
 require_once($root_directory.'include/utils/utils.php');
-
 /**
  * Function to get ec_field typename
  * @param $uitype :: uitype -- Type integer
@@ -85,7 +84,6 @@ function getCustomFieldTypeName($uitype)
 	{
 		$fldname = 'Msn';
 	}
-
 	elseif($uitype == 88)
 	{
 		$fldname = 'Trade';
@@ -105,7 +103,6 @@ function getCustomFieldTypeName($uitype)
 $log->debug("Exiting getCustomFieldTypeName method ...");
 	return $fldname;
 }
-
 /**
  * Function to get custom ec_fields
  * @param $module :: ec_table name -- Type string
@@ -129,7 +126,6 @@ function getCustomFieldArray($module)
 	return $custFldArray;
 	
 }
-
 /**
  * Function to get columnname and ec_fieldlabel from ec_field ec_table
  * @param $module :: module name -- Type string
@@ -154,8 +150,6 @@ function getCustomFieldTrans($module, $trans_array)
 	}	
 	$log->debug("Exiting getCustomFieldTrans method ...");
 }
-
-
 /**
  * Function to get customfield record from ec_field ec_table
  * @param $tab :: Tab ID -- Type integer
@@ -173,8 +167,6 @@ function getCustomFieldData($tab,$id,$datatype)
 	$log->debug("Exiting getCustomFieldData method ...");
 	return $result[$datatype];
 }
-
-
 /**
  * Function to get customfield type,length value,decimal value and picklist value
  * @param $label :: ec_field typename -- Type string

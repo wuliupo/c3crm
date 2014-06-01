@@ -20,7 +20,6 @@
 					<input type="button" value=" {$MOD.LBL_NEW_BLOCK} " onClick="fnvshobj(this,'createblock');getCreateCustomBlockForm('{$MODULE}','','','','')" class="crmButton create small"/>
 				</tr>
 				</table>
-
 				<table class="listTable" border="0" cellpadding="5" cellspacing="0" width="100%">
 					<tr>
 						<td class="colHeader small" width="5%">#</td>

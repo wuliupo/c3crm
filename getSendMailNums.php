@@ -1,33 +1,24 @@
 <?php
-require_once('config.inc.php');
+require_once('config.php');
 require_once('include/utils/utils.php');
 require_once('include/database/PearDatabase.php');
 global $adb,$current_user;
-
 $today = date("Y-m-d");
-
 $oneweek = date("Y-m-d",strtotime("-5 day"))." 00:00:00";
-
 $onemonth = date("Y-m-d",strtotime("-1 month"))." 00:00:00";
-
 $threemonth = date("Y-m-d",strtotime("-3 month"))." 00:00:00";
-
-
 sleep(60);
-
 if(isset($_REQUEST['phone']) && $_REQUEST['phone'] !=''){
 	$query = "select accountid,email,phone from ec_account where deleted=0 and phone ='".$_REQUEST['phone']."'";
 }elseif(isset($_REQUEST['email']) && $_REQUEST['email'] !=''){
 	$query = "select accountid,email,phone from ec_account where deleted=0 and email ='".$_REQUEST['email']."'";
 }
-
 $row = $adb->getFirstLine($query);
 $nums = $adb->num_rows($row);
 if($nums > 0){
 		$accountid = $row['accountid'];
 		$email = $row['email'];
 		$phone = $row['phone'];
-
 		//mail
 		if($email !='' && $_REQUEST['email'] !=''){
 			$query1 = "select count(*) as num from ec_maillogs where receiver_email ='".$email."' and flag=1 and sendtime > '$oneweek' ";
@@ -93,5 +84,4 @@ if($nums > 0){
 		}
 		
 }
-
 ?>

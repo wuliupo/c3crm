@@ -76,7 +76,6 @@
     padding-right: 21px;
   background: url("themes/softed/images/sfa_yello.png") no-repeat scroll right -42px transparent;
 }
-
 li.sfasn {
     color: #000000;
     display: inline;
@@ -97,7 +96,6 @@ li {
            <div class="accordion" id="accordion2" style="margin-top:0px;margin-bottom:0px;overflow:auto;">
             
             {include file="$MODULE/DetailLeft.tpl"}
-
          </div>
       </div>
        <div class="span10">
@@ -139,7 +137,6 @@ li {
                               </div>
                             </div>
                       </div>
-
                       <div class="accordion-group" >
                           <div class="accordion-heading">
                             <a class="accordion-toggle" data-toggle="collapse" data-parent="#accordion3" href="#sfatwo">
@@ -155,7 +152,6 @@ li {
                            </div>
                          </div>
                        </div>
-
                        <div class="accordion-group" >
                           <div class="accordion-heading">
                             <a class="accordion-toggle" data-toggle="collapse" data-parent="#accordion3" href="#sfathree">
@@ -170,27 +166,19 @@ li {
                            </div>
                          </div>
                        </div>
-
                      </div>
-
                   </td>
                 </tr>
             </table>   
-
        </div>
       </div>
     </div>
  </div>
 <div id="createsfalist" class="modal hide fade" tabindex="1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" style="width:800px;margin-left:-400px;z-index:1050;"></div>
-
 <div id="openeditdiv" class="modal hide fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" style="width:800px;margin-left:-400px;"></div>
-
 <div id="opendeldiv" class="modal hide fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" style="width:800px;margin-left:-400px;"></div>
-
 <div id="openzhongzhidiv" class="modal hide fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" style="width:800px;margin-left:-400px;"></div>
-
 <div id="openruneventdiv" class="modal hide fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" style="width:800px;margin-left:-400px;"></div>
-
 <script language="javascript">
   var accountid = '{$ID}';
 {literal}
@@ -227,7 +215,6 @@ function openEdit(sfalistsid){
   }); 
   $('#openeditdiv').modal('show');
 }
-
 function openDel(sfalistsid){
   var url = 'index.php?module=Sfalists&action=SfalistsAjax&file=Shanchu&from=Accounts&record='+sfalistsid;
   $("#status").prop("display","inline");
@@ -256,7 +243,6 @@ function openZhongzhi(sfalistsid){
   }); 
   $('#openzhongzhidiv').modal('show');
 }
-
 function openRunEvent(sfalisteventsid){
   var url = 'index.php?module=Sfalists&action=SfalistsAjax&file=RunEvent&from=Accounts&record='+sfalisteventsid;
   $("#status").prop("display","inline");

@@ -22,7 +22,6 @@ function getLayoutList(customField)
 	{rdelim});
 	
 {rdelim}
-
 {literal}
 function deleteCustomBlock(blockid, fld_module)
 {
@@ -32,7 +31,6 @@ function deleteCustomBlock(blockid, fld_module)
                 document.form.submit();
         }
 }
-
 function getFieldLayoutForm(custommodule,fieldid,tabid,fieldlabel, blocklabel,order, blockid, typeofdata)
 {
      var modulename = custommodule;
@@ -44,7 +42,6 @@ function getFieldLayoutForm(custommodule,fieldid,tabid,fieldlabel, blocklabel,or
 		}
 	 });
 	 $("#createLayout").modal("show");
-
 }
 function makeFieldSelected(oField,fieldid)
 {
@@ -87,7 +84,6 @@ function validate_layout() {
 				{include file="Settings/SettingLeft.tpl"}
 			</div>
 		</div>
-
 		<!--content-->
 		<div class="span10">
 			<div class="row-fluid box">
@@ -114,7 +110,6 @@ function validate_layout() {
 						  </select><br>
 						<span class="label label-info">2.{$MOD.LBL_LAYOUT_EDITOR}:</span>
 					</div>
-
 					<div id="cfList">
 										{include file="Settings/LayoutEntries.tpl"}
 					</div>	
@@ -127,7 +122,5 @@ function validate_layout() {
 		</div>
 	</div>
 </div>
-
 <div id="createLayout" class="modal hide fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" style="width:500px;height:238px"></div>
 <br>
-

@@ -8,6 +8,5 @@
   * All Rights Reserved.
   *
   ********************************************************************************/
-
 	require_once('modules/'.$_REQUEST['module'].'/'.$_REQUEST['file'].'.php');
 ?>

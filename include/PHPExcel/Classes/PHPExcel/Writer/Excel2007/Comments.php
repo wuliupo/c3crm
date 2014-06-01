@@ -24,8 +24,6 @@
  * @license    http://www.gnu.org/licenses/old-licenses/lgpl-2.1.txt	LGPL
  * @version    1.7.2, 2010-01-11
  */
-
-
 /** PHPExcel root directory */
 if (!defined('PHPEXCEL_ROOT')) {
 	/**
@@ -33,35 +31,24 @@ if (!defined('PHPEXCEL_ROOT')) {
 	 */
 	define('PHPEXCEL_ROOT', dirname(__FILE__) . '/../../../');
 }
-
 /** PHPExcel */
 require_once PHPEXCEL_ROOT . 'PHPExcel.php';
-
 /** PHPExcel_Writer_Excel2007 */
 require_once PHPEXCEL_ROOT . 'PHPExcel/Writer/Excel2007.php';
-
 /** PHPExcel_Writer_Excel2007_WriterPart */
 require_once PHPEXCEL_ROOT . 'PHPExcel/Writer/Excel2007/WriterPart.php';
-
 /** PHPExcel_Worksheet */
 require_once PHPEXCEL_ROOT . 'PHPExcel/Worksheet.php';
-
 /** PHPExcel_Comment */
 require_once PHPEXCEL_ROOT . 'PHPExcel/Comment.php';
-
 /** PHPExcel_RichText */
 require_once PHPEXCEL_ROOT . 'PHPExcel/RichText.php';
-
 /** PHPExcel_Cell */
 require_once PHPEXCEL_ROOT . 'PHPExcel/Cell.php';
-
 /** PHPExcel_Style_Color */
 require_once PHPEXCEL_ROOT . 'PHPExcel/Style/Color.php';
-
 /** PHPExcel_Shared_XMLWriter */
 require_once PHPEXCEL_ROOT . 'PHPExcel/Shared/XMLWriter.php';
-
-
 /**
  * PHPExcel_Writer_Excel2007_Comments
  *
@@ -122,7 +109,6 @@ class PHPExcel_Writer_Excel2007_Comments extends PHPExcel_Writer_Excel2007_Write
 			$objWriter->endElement();
 				
 		$objWriter->endElement();
-
 		// Return
 		return $objWriter->getData();
 	}
@@ -179,7 +165,6 @@ class PHPExcel_Writer_Excel2007_Comments extends PHPExcel_Writer_Excel2007_Write
 		$objWriter->writeAttribute('xmlns:v', 'urn:schemas-microsoft-com:vml');
 		$objWriter->writeAttribute('xmlns:o', 'urn:schemas-microsoft-com:office:office');
 		$objWriter->writeAttribute('xmlns:x', 'urn:schemas-microsoft-com:office:excel');
-
 			// o:shapelayout
 			$objWriter->startElement('o:shapelayout');
 			$objWriter->writeAttribute('v:ext', 		'edit');
@@ -218,7 +203,6 @@ class PHPExcel_Writer_Excel2007_Comments extends PHPExcel_Writer_Excel2007_Write
 			}
 				
 		$objWriter->endElement();
-
 		// Return
 		return $objWriter->getData();
 	}
@@ -287,7 +271,6 @@ class PHPExcel_Writer_Excel2007_Comments extends PHPExcel_Writer_Excel2007_Write
 				
 				// x:Anchor
 				//$objWriter->writeElement('x:Anchor', $column . ', 15, ' . ($row - 2) . ', 10, ' . ($column + 4) . ', 15, ' . ($row + 5) . ', 18');
-
 				// x:AutoFill
 				$objWriter->writeElement('x:AutoFill', 'False');
 				

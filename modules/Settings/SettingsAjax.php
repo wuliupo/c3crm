@@ -8,10 +8,8 @@
  * All Rights Reserved.
  *
  ********************************************************************************/
-
 if(isset($_REQUEST['file']) && ($_REQUEST['file'] !=''))
 {
 	require_once('modules/Settings/'.$_REQUEST['file'].'.php');
 }
-
 ?>

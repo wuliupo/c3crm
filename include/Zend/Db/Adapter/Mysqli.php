@@ -19,29 +19,22 @@
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  * @version    $Id: Mysqli.php 23775 2011-03-01 17:25:24Z ralph $
  */
-
-
 /**
  * @see Zend_Db_Adapter_Abstract
  */
 require_once 'include/Zend/Db/Adapter/Abstract.php';
-
 /**
  * @see Zend_Db_Profiler
  */
 require_once 'include/Zend/Db/Profiler.php';
-
 /**
  * @see Zend_Db_Select
  */
 require_once 'include/Zend/Db/Select.php';
-
 /**
  * @see Zend_Db_Statement_Mysqli
  */
 require_once 'include/Zend/Db/Statement/Mysqli.php';
-
-
 /**
  * @category   Zend
  * @package    Zend_Db
@@ -51,7 +44,6 @@ require_once 'include/Zend/Db/Statement/Mysqli.php';
  */
 class Zend_Db_Adapter_Mysqli extends Zend_Db_Adapter_Abstract
 {
-
     /**
      * Keys are UPPERCASE SQL datatypes or the constants
      * Zend_Db::INT_TYPE, Zend_Db::BIGINT_TYPE, or Zend_Db::FLOAT_TYPE.
@@ -81,19 +73,16 @@ class Zend_Db_Adapter_Mysqli extends Zend_Db_Adapter_Abstract
         'FIXED'              => Zend_Db::FLOAT_TYPE,
         'FLOAT'              => Zend_Db::FLOAT_TYPE
     );
-
     /**
      * @var Zend_Db_Statement_Mysqli
      */
     protected $_stmt = null;
-
     /**
      * Default class name for a DB statement.
      *
      * @var string
      */
     protected $_defaultStmtClass = 'Zend_Db_Statement_Mysqli';
-
     /**
      * Quote a raw string.
      *
@@ -109,7 +98,6 @@ class Zend_Db_Adapter_Mysqli extends Zend_Db_Adapter_Abstract
         $this->_connect();
         return "'" . $this->_connection->real_escape_string($value) . "'";
     }
-
     /**
      * Returns the symbol the adapter uses for delimiting identifiers.
      *
@@ -119,7 +107,6 @@ class Zend_Db_Adapter_Mysqli extends Zend_Db_Adapter_Abstract
     {
         return "`";
     }
-
     /**
      * Returns a list of the tables in the database.
      *
@@ -145,7 +132,6 @@ class Zend_Db_Adapter_Mysqli extends Zend_Db_Adapter_Abstract
         }
         return $result;
     }
-
     /**
      * Returns the column descriptions for a table.
      *
@@ -180,13 +166,11 @@ class Zend_Db_Adapter_Mysqli extends Zend_Db_Adapter_Abstract
          * @todo  use INFORMATION_SCHEMA someday when
          * MySQL's implementation isn't too slow.
          */
-
         if ($schemaName) {
             $sql = 'DESCRIBE ' . $this->quoteIdentifier("$schemaName.$tableName", true);
         } else {
             $sql = 'DESCRIBE ' . $this->quoteIdentifier($tableName, true);
         }
-
         /**
          * Use mysqli extension API, because DESCRIBE doesn't work
          * well as a prepared statement on MySQL 4.1.
@@ -203,9 +187,7 @@ class Zend_Db_Adapter_Mysqli extends Zend_Db_Adapter_Abstract
             require_once 'include/Zend/Db/Adapter/Mysqli/Exception.php';
             throw new Zend_Db_Adapter_Mysqli_Exception($this->getConnection()->error);
         }
-
         $desc = array();
-
         $row_defaults = array(
             'Length'          => null,
             'Scale'           => null,
@@ -270,7 +252,6 @@ class Zend_Db_Adapter_Mysqli extends Zend_Db_Adapter_Abstract
         }
         return $desc;
     }
-
     /**
      * Creates a connection to the database.
      *
@@ -282,7 +263,6 @@ class Zend_Db_Adapter_Mysqli extends Zend_Db_Adapter_Abstract
         if ($this->_connection) {
             return;
         }
-
         if (!extension_loaded('mysqli')) {
             /**
              * @see Zend_Db_Adapter_Mysqli_Exception
@@ -290,15 +270,12 @@ class Zend_Db_Adapter_Mysqli extends Zend_Db_Adapter_Abstract
             require_once 'include/Zend/Db/Adapter/Mysqli/Exception.php';
             throw new Zend_Db_Adapter_Mysqli_Exception('The Mysqli extension is required for this adapter but the extension is not loaded');
         }
-
         if (isset($this->_config['port'])) {
             $port = (integer) $this->_config['port'];
         } else {
             $port = null;
         }
-
         $this->_connection = mysqli_init();
-
         if(!empty($this->_config['driver_options'])) {
             foreach($this->_config['driver_options'] as $option=>$value) {
                 if(is_string($option)) {
@@ -311,7 +288,6 @@ class Zend_Db_Adapter_Mysqli extends Zend_Db_Adapter_Abstract
                 mysqli_options($this->_connection, $option, $value);
             }
         }
-
         // Suppress connection warnings here.
         // Throw an exception instead.
         $_isConnected = @mysqli_real_connect(
@@ -322,9 +298,7 @@ class Zend_Db_Adapter_Mysqli extends Zend_Db_Adapter_Abstract
             $this->_config['dbname'],
             $port
         );
-
         if ($_isConnected === false || mysqli_connect_errno()) {
-
             $this->closeConnection();
             /**
              * @see Zend_Db_Adapter_Mysqli_Exception
@@ -332,12 +306,10 @@ class Zend_Db_Adapter_Mysqli extends Zend_Db_Adapter_Abstract
             require_once 'include/Zend/Db/Adapter/Mysqli/Exception.php';
             throw new Zend_Db_Adapter_Mysqli_Exception(mysqli_connect_error());
         }
-
         if (!empty($this->_config['charset'])) {
             mysqli_set_charset($this->_connection, $this->_config['charset']);
         }
     }
-
     /**
      * Test if a connection is active
      *
@@ -347,7 +319,6 @@ class Zend_Db_Adapter_Mysqli extends Zend_Db_Adapter_Abstract
     {
         return ((bool) ($this->_connection instanceof mysqli));
     }
-
     /**
      * Force the connection to close.
      *
@@ -360,7 +331,6 @@ class Zend_Db_Adapter_Mysqli extends Zend_Db_Adapter_Abstract
         }
         $this->_connection = null;
     }
-
     /**
      * Prepare a statement and return a PDOStatement-like object.
      *
@@ -386,7 +356,6 @@ class Zend_Db_Adapter_Mysqli extends Zend_Db_Adapter_Abstract
         $this->_stmt = $stmt;
         return $stmt;
     }
-
     /**
      * Gets the last ID generated automatically by an IDENTITY/AUTOINCREMENT column.
      *
@@ -409,7 +378,6 @@ class Zend_Db_Adapter_Mysqli extends Zend_Db_Adapter_Abstract
         $mysqli = $this->_connection;
         return (string) $mysqli->insert_id;
     }
-
     /**
      * Begin a transaction.
      *
@@ -420,7 +388,6 @@ class Zend_Db_Adapter_Mysqli extends Zend_Db_Adapter_Abstract
         $this->_connect();
         $this->_connection->autocommit(false);
     }
-
     /**
      * Commit a transaction.
      *
@@ -432,7 +399,6 @@ class Zend_Db_Adapter_Mysqli extends Zend_Db_Adapter_Abstract
         $this->_connection->commit();
         $this->_connection->autocommit(true);
     }
-
     /**
      * Roll-back a transaction.
      *
@@ -444,7 +410,6 @@ class Zend_Db_Adapter_Mysqli extends Zend_Db_Adapter_Abstract
         $this->_connection->rollback();
         $this->_connection->autocommit(true);
     }
-
     /**
      * Set the fetch mode.
      *
@@ -478,7 +443,6 @@ class Zend_Db_Adapter_Mysqli extends Zend_Db_Adapter_Abstract
                 throw new Zend_Db_Adapter_Mysqli_Exception("Invalid fetch mode '$mode' specified");
         }
     }
-
     /**
      * Adds an adapter-specific LIMIT clause to the SELECT statement.
      *
@@ -497,7 +461,6 @@ class Zend_Db_Adapter_Mysqli extends Zend_Db_Adapter_Abstract
             require_once 'include/Zend/Db/Adapter/Mysqli/Exception.php';
             throw new Zend_Db_Adapter_Mysqli_Exception("LIMIT argument count=$count is not valid");
         }
-
         $offset = intval($offset);
         if ($offset < 0) {
             /**
@@ -506,15 +469,12 @@ class Zend_Db_Adapter_Mysqli extends Zend_Db_Adapter_Abstract
             require_once 'include/Zend/Db/Adapter/Mysqli/Exception.php';
             throw new Zend_Db_Adapter_Mysqli_Exception("LIMIT argument offset=$offset is not valid");
         }
-
         $sql .= " LIMIT $count";
         if ($offset > 0) {
             $sql .= " OFFSET $offset";
         }
-
         return $sql;
     }
-
     /**
      * Check if the adapter supports real SQL parameters.
      *
@@ -531,7 +491,6 @@ class Zend_Db_Adapter_Mysqli extends Zend_Db_Adapter_Abstract
                 return false;
         }
     }
-
     /**
      * Retrieve server version in PHP style
      *

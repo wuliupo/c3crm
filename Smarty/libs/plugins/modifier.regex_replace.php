@@ -4,8 +4,6 @@
  * @package Smarty
  * @subpackage plugins
  */
-
-
 /**
  * Smarty regex_replace modifier plugin
  *
@@ -29,7 +27,5 @@ function smarty_modifier_regex_replace($string, $search, $replace)
        
     return preg_replace($search, $replace, $string);
 }
-
 /* vim: set expandtab: */
-
 ?>

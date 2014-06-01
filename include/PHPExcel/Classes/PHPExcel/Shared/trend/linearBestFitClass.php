@@ -24,8 +24,6 @@
  * @license    http://www.gnu.org/licenses/old-licenses/lgpl-2.1.txt	LGPL
  * @version    1.7.2, 2010-01-11
  */
-
-
 /** PHPExcel root directory */
 if (!defined('PHPEXCEL_ROOT')) {
 	/**
@@ -33,10 +31,7 @@ if (!defined('PHPEXCEL_ROOT')) {
 	 */
 	define('PHPEXCEL_ROOT', dirname(__FILE__) . '/../../../');
 }
-
 require_once(PHPEXCEL_ROOT . 'PHPExcel/Shared/trend/bestFitClass.php');
-
-
 /**
  * PHPExcel_Linear_Best_Fit
  *
@@ -47,35 +42,23 @@ require_once(PHPEXCEL_ROOT . 'PHPExcel/Shared/trend/bestFitClass.php');
 class PHPExcel_Linear_Best_Fit extends PHPExcel_Best_Fit
 {
 	protected $_bestFitType		= 'linear';
-
-
 	public function getValueOfYForX($xValue) {
 		return $this->getIntersect() + $this->getSlope() * $xValue;
 	}	//	function getValueOfYForX()
-
-
 	public function getValueOfXForY($yValue) {
 		return ($yValue - $this->getIntersect()) / $this->getSlope();
 	}	//	function getValueOfXForY()
-
-
 	public function getEquation($dp=0) {
 		$slope = $this->getSlope($dp);
 		$intersect = $this->getIntersect($dp);
-
 		return 'Y = '.$intersect.' + '.$slope.' * X';
 	}	//	function getEquation()
-
-
 	private function _linear_regression($yValues, $xValues, $const) {
 		$this->_leastSquareFit($yValues, $xValues,$const);
 	}	//	function _linear_regression()
-
-
 	function __construct($yValues, $xValues=array(), $const=True) {
 		if (parent::__construct($yValues, $xValues) !== False) {
 			$this->_linear_regression($yValues, $xValues, $const);
 		}
 	}	//	function __construct()
-
 }	//	class linearBestFit

@@ -15,7 +15,6 @@
  * 
  * @package log4php
  */
-
 /**
  * @ignore 
  */
@@ -23,7 +22,6 @@ if (!defined('LOG4PHP_DIR')) define('LOG4PHP_DIR', dirname(__FILE__));
  
 require_once(LOG4PHP_DIR . '/LoggerCategory.php');
 require_once(LOG4PHP_DIR . '/LoggerManager.php');
-
 /**
  * Main class for logging operations  
  *
@@ -32,7 +30,6 @@ require_once(LOG4PHP_DIR . '/LoggerManager.php');
  * @package log4php
  */
 class Logger extends LoggerCategory {
-
     /**
      * Constructor
      * @param string $name logger name 

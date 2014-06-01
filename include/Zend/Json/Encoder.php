@@ -17,14 +17,10 @@
  * @copyright  Copyright (c) 2005-2007 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  */
-
-
 /**
  * Zend_Json_Exception
  */
 require_once 'include/Zend/Json/Exception.php';
-
-
 /**
  * Encode PHP constructs to JSON
  *
@@ -41,14 +37,12 @@ class Zend_Json_Encoder
      * @var boolean
      */
     protected $_cycleCheck;
-
     /**
      * Array of visited objects; used to prevent cycling.
      *
      * @var array
      */
     protected $_visited = array();
-
     /**
      * Constructor
      *
@@ -59,7 +53,6 @@ class Zend_Json_Encoder
     {
         $this->_cycleCheck = $cycleCheck;
     }
-
     /**
      * Use the JSON encoding scheme for the value specified
      *
@@ -70,10 +63,8 @@ class Zend_Json_Encoder
     public static function encode($value, $cycleCheck = false)
     {
         $encoder = new Zend_Json_Encoder(($cycleCheck) ? true : false);
-
         return $encoder->_encodeValue($value);
     }
-
     /**
      * Recursive driver which determines the type of value to be encoded
      * and then dispatches to the appropriate method. $values are either
@@ -91,12 +82,8 @@ class Zend_Json_Encoder
         } else if (is_array($value)) {
             return $this->_encodeArray($value);
         }
-
         return $this->_encodeDatum($value);
     }
-
-
-
     /**
      * Encode an object to JSON by encoding each of the public properties
      *
@@ -117,10 +104,8 @@ class Zend_Json_Encoder
                     . 'class "' . get_class($value) . '"'
                 );
             }
-
             $this->_visited[] = $value;
         }
-
         $props = '';
         foreach (get_object_vars($value) as $name => $propValue) {
             if (isset($propValue)) {
@@ -130,13 +115,10 @@ class Zend_Json_Encoder
                         . $this->_encodeValue($propValue);
             }
         }
-
         /*return '{"__className":"' . get_class($value) . '"'
                 . $props . '}';*/
         return '{'.substr($props,1).'}';
     }
-
-
     /**
      * Determine if an object has been serialized already
      *
@@ -148,11 +130,8 @@ class Zend_Json_Encoder
         if (in_array($value, $this->_visited, true)) {
             return true;
         }
-
         return false;
     }
-
-
     /**
      * JSON encode an array value
      *
@@ -169,7 +148,6 @@ class Zend_Json_Encoder
     protected function _encodeArray(&$array)
     {
         $tmpArray = array();
-
         // Check for associative array
         if (!empty($array) && (array_keys($array) !== range(0, count($array) - 1))) {
             // Associative array
@@ -192,11 +170,8 @@ class Zend_Json_Encoder
             $result .= implode(',', $tmpArray);
             $result .= ']';
         }
-
         return $result;
     }
-
-
     /**
      * JSON encode a basic data type (string, number, boolean, null)
      *
@@ -209,7 +184,6 @@ class Zend_Json_Encoder
     protected function _encodeDatum(&$value)
     {
         $result = 'null';
-
         if (is_int($value) || is_float($value)) {
             $result = (string)$value;
         } elseif (is_string($value)) {
@@ -217,11 +191,8 @@ class Zend_Json_Encoder
         } elseif (is_bool($value)) {
             $result = $value ? 'true' : 'false';
         }
-
         return $result;
     }
-
-
     /**
      * JSON encode a string value by escaping characters as necessary
      *
@@ -235,16 +206,12 @@ class Zend_Json_Encoder
         $search  = array('\\', "\n", "\t", "\r", "\b", "\f", '"');
         $replace = array('\\\\', '\\n', '\\t', '\\r', '\\b', '\\f', '\"');
         $string  = str_replace($search, $replace, $string);
-
         // Escape certain ASCII characters:
         // 0x08 => \b
         // 0x0c => \f
         $string = str_replace(array(chr(0x08), chr(0x0C)), array('\b', '\f'), $string);
-
         return '"' . $string . '"';
     }
-
-
     /**
      * Encode the constants associated with the ReflectionClass
      * parameter. The encoding format is based on the class2 format
@@ -256,20 +223,15 @@ class Zend_Json_Encoder
     {
         $result    = "constants : {";
         $constants = $cls->getConstants();
-
         $tmpArray = array();
         if (!empty($constants)) {
             foreach ($constants as $key => $value) {
                 $tmpArray[] = "$key: " . self::encode($value);
             }
-
             $result .= implode(', ', $tmpArray);
         }
-
         return $result . "}";
     }
-
-
     /**
      * Encode the public methods of the ReflectionClass in the
      * class2 format
@@ -282,43 +244,33 @@ class Zend_Json_Encoder
     {
         $methods = $cls->getMethods();
         $result = 'methods:{';
-
         $started = false;
         foreach ($methods as $method) {
             if (! $method->isPublic() || !$method->isUserDefined()) {
                 continue;
             }
-
             if ($started) {
                 $result .= ',';
             }
             $started = true;
-
             $result .= '' . $method->getName(). ':function(';
-
             if ('__construct' != $method->getName()) {
                 $parameters  = $method->getParameters();
                 $paramCount  = count($parameters);
                 $argsStarted = false;
-
                 $argNames = "var argNames=[";
                 foreach ($parameters as $param) {
                     if ($argsStarted) {
                         $result .= ',';
                     }
-
                     $result .= $param->getName();
-
                     if ($argsStarted) {
                         $argNames .= ',';
                     }
-
                     $argNames .= '"' . $param->getName() . '"';
-
                     $argsStarted = true;
                 }
                 $argNames .= "];";
-
                 $result .= "){"
                          . $argNames
                          . 'var result = ZAjaxEngine.invokeRemoteMethod('
@@ -329,11 +281,8 @@ class Zend_Json_Encoder
                 $result .= "){}";
             }
         }
-
         return $result . "}";
     }
-
-
     /**
      * Encode the public properties of the ReflectionClass in the class2
      * format.
@@ -348,22 +297,18 @@ class Zend_Json_Encoder
         $propValues = get_class_vars($cls->getName());
         $result = "variables:{";
         $cnt = 0;
-
         $tmpArray = array();
         foreach ($properties as $prop) {
             if (! $prop->isPublic()) {
                 continue;
             }
-
             $tmpArray[] = $prop->getName()
                         . ':'
                         . self::encode($propValues[$prop->getName()]);
         }
         $result .= implode(',', $tmpArray);
-
         return $result . "}";
     }
-
     /**
      * Encodes the given $className into the class2 model of encoding PHP
      * classes into JavaScript class2 classes.
@@ -383,14 +328,11 @@ class Zend_Json_Encoder
         if (! $cls->isInstantiable()) {
             throw new Zend_Json_Exception("$className must be instantiable");
         }
-
         return "Class.create('$package$className',{"
                 . self::_encodeConstants($cls)    .","
                 . self::_encodeMethods($cls)      .","
                 . self::_encodeVariables($cls)    .'});';
     }
-
-
     /**
      * Encode several classes at once
      *
@@ -406,9 +348,6 @@ class Zend_Json_Encoder
         foreach ($classNames as $className) {
             $result .= self::encodeClass($className, $package);
         }
-
         return $result;
     }
-
 }
-

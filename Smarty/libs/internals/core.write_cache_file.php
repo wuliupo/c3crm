@@ -4,7 +4,6 @@
  * @package Smarty
  * @subpackage plugins
  */
-
 /**
  * Prepend the cache information to the cache file
  * and write it
@@ -15,12 +14,9 @@
  * @param string $results
  * @return true|null
  */
-
  // $tpl_file, $cache_id, $compile_id, $results
-
 function smarty_core_write_cache_file($params, &$smarty)
 {
-
     // put timestamp in cache header
     $smarty->_cache_info['timestamp'] = time();
     if ($smarty->cache_lifetime > -1){
@@ -30,7 +26,6 @@ function smarty_core_write_cache_file($params, &$smarty)
         // cache will never expire
         $smarty->_cache_info['expires'] = -1;
     }
-
     // collapse nocache.../nocache-tags
     if (preg_match_all('!\{(/?)nocache\:[0-9a-f]{32}#\d+\}!', $params['results'], $match, PREG_PATTERN_ORDER)) {
         // remove everything between every pair of outermost noache.../nocache-tags
@@ -60,18 +55,15 @@ function smarty_core_write_cache_file($params, &$smarty)
         $params['results'] = implode('', $results);
     }
     $smarty->_cache_info['cache_serials'] = $smarty->_cache_serials;
-
     // prepend the cache header info into cache file
     $_cache_info = serialize($smarty->_cache_info);
     $params['results'] = strlen($_cache_info) . "\n" . $_cache_info . $params['results'];
-
     if (!empty($smarty->cache_handler_func)) {
         // use cache_handler function
         call_user_func_array($smarty->cache_handler_func,
                              array('write', &$smarty, &$params['results'], $params['tpl_file'], $params['cache_id'], $params['compile_id'], null));
     } else {
         // use local cache file
-
         if(!@is_writable($smarty->cache_dir)) {
             // cache_dir not writable, see if it exists
             if(!@is_dir($smarty->cache_dir)) {
@@ -81,7 +73,6 @@ function smarty_core_write_cache_file($params, &$smarty)
             $smarty->trigger_error('unable to write to $cache_dir \'' . realpath($smarty->cache_dir) . '\'. Be sure $cache_dir is writable by the web server user.', E_USER_ERROR);
             return false;
         }
-
         $_auto_id = $smarty->_get_auto_id($params['cache_id'], $params['compile_id']);
         $_cache_file = $smarty->_get_auto_filename($smarty->cache_dir, $params['tpl_file'], $_auto_id);
         $_params = array('filename' => $_cache_file, 'contents' => $params['results'], 'create_dirs' => true);
@@ -90,7 +81,5 @@ function smarty_core_write_cache_file($params, &$smarty)
         return true;
     }
 }
-
 /* vim: set expandtab: */
-
 ?>

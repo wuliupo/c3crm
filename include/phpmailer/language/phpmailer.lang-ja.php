@@ -4,7 +4,6 @@
 * Japanese Version
 * By Mitsuhiro Yoshida - http://mitstek.com/
 */
-
 $PHPMAILER_LANG['authenticate'] = 'SMTPエラー: 認証できませんでした。';
 $PHPMAILER_LANG['connect_host'] = 'SMTPエラー: SMTPホストに接続できませんでした。';
 $PHPMAILER_LANG['data_not_accepted'] = 'SMTPエラー: データが受け付けられませんでした。';

@@ -12,7 +12,6 @@ ob_start();
 phpinfo(INFO_GENERAL);
 $string = ob_get_contents();
 ob_end_clean();
-
 $pieces = explode("<h2", $string);
 $settings = array();
 foreach($pieces as $val)
@@ -47,12 +46,10 @@ $array = Array(
                        "XBM Support" => 0
                      );
        $gif_support = 0;
-
        ob_start();
        eval("phpinfo();");
        $info = ob_get_contents();
        ob_end_clean();
-
        foreach(explode("\n", $info) as $line) {
            if(strpos($line, "GD Version")!==false)
                $array["GD Version"] = trim(str_replace("GD Version", "", strip_tags($line)));
@@ -77,42 +74,29 @@ $array = Array(
            if(strpos($line, "XBM Support")!==false)
                $array["XBM Support"] = trim(str_replace("XBM Support", "", strip_tags($line)));
        }
-
        if($gif_support==="enabled") {
            $array["GIF Read Support"]  = 1;
            $array["GIF Create Support"] = 1;
        }
-
        if($array["FreeType Support"]==="enabled"){
            $array["FreeType Support"] = 1;    }
-
        if($array["T1Lib Support"]==="enabled")
            $array["T1Lib Support"] = 1;
-
        if($array["GIF Read Support"]==="enabled"){
            $array["GIF Read Support"] = 1;    }
-
        if($array["GIF Create Support"]==="enabled")
            $array["GIF Create Support"] = 1;
-
        if($array["JPG Support"]==="enabled")
            $array["JPG Support"] = 1;
-
        if($array["PNG Support"]==="enabled")
            $array["PNG Support"] = 1;
-
        if($array["WBMP Support"]==="enabled")
            $array["WBMP Support"] = 1;
-
        if($array["XBM Support"]==="enabled")
            $array["XBM Support"] = 1;
-
        return $array;
-
 }';
-
 ?>
-
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
@@ -120,12 +104,9 @@ $array = Array(
 	<title>易客CRM - 安装向导 - 安装检查</title>
 	<link href="include/install/install.css" rel="stylesheet" type="text/css">
 </head>
-
 <body class="small cwPageBg" topmargin="0" leftmargin="0" marginheight="0" marginwidth="0">
-
 	<br><br><br>
 	<!-- Table for cfgwiz starts -->
-
 	<table border=0 cellspacing=0 cellpadding=0 width=80% align=center>
 	<tr>
 		<td class="cwHeadBg" align=left><img src="include/install/images/configwizard.gif" alt="安装向导" hspace="20" title="Configuration Wizard"></td>
@@ -135,7 +116,6 @@ $array = Array(
 	<table border=0 cellspacing=0 cellpadding=0 width=80% align=center>
 	<tr>
 		<td background="include/install/images/topInnerShadow.gif" align=left><img src="include/install/images/topInnerShadow.gif" ></td>
-
 	</tr>
 	</table>
 	<table border=0 cellspacing=0 cellpadding=10 width=80% align=center>
@@ -145,7 +125,6 @@ $array = Array(
 			<table border=0 cellspacing=0 cellpadding=0 width=97%>
 			<tr>
 				<td width=20% valign=top>
-
 				<!-- Left side tabs -->
 					<table border=0 cellspacing=0 cellpadding=10 width=100%>
 					<tr><td class="small cwUnSelectedTab" align=right><div align="left">欢迎使用易客CRM</div></td></tr>
@@ -191,11 +170,9 @@ $array = Array(
 								eval($gd_info_alternate);
 							}
 							$gd_info = gd_info();
-
 							if (isset($gd_info['GD Version'])) {
 								$gd_version = $gd_info['GD Version'];
 								$gd_version=preg_replace('%[^0-9.]%', '', $gd_version);
-
 								if ($gd_version > "2.0") {
 									echo "<strong><font color=\"#00CC00\">通过</strong><br>已安装的版本：$gd_version</font>";
 								}
@@ -212,10 +189,9 @@ $array = Array(
 					</tr>
 					<tr bgcolor="#efefef"><td colspan=2><strong><span style="color:#003399">Read/Write Access</span></strong></td></tr>
 					<tr bgcolor="#fafafa">
-						<td valign=top ><strong>易客CRM配置文件</strong><br>(config.inc.php)</strong></td>
+						<td valign=top ><strong>CRM配置文件</strong><br>(config.inc.php)</strong></td>
 						<td valign=top bgcolor="white" ><?php echo (is_writable('./config.inc.php') || is_writable('.'))?"<strong><font color=\"#00CC00\">可写</font>":"<strong><font color=\"#FF0000\">失败</strong><br>不可写</font>"; ?></td>
 					</tr>
-
 					
 		 			<tr bgcolor="#fafafa">
 						<td valign=top ><strong>缓存目录 </strong> <br>(cache/)</td>

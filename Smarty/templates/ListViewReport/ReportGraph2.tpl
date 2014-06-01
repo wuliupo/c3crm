@@ -7,14 +7,12 @@
 <link href="themes/images/report.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="themes/images/tabpane.js"></script>
 <link href="themes/images/tab.css" rel="stylesheet" type="text/css">
-
 </HEAD>
 <body BGCOLOR="#FFFFFF" marginheight="0" marginwidth="0" leftmargin="0" topmargin="0" style="text-align:center;" align="center">
 <div class="mtitle">
 <div class="mtitle-row">&nbsp;</div>
 {$TITLE}
 </div>
-
 <div  style="position: relative;height: 20px;margin-bottom: 20px">
     <table border="0" align="left" width="100%">
         <form method="post" action="index.php">
@@ -35,7 +33,6 @@
         </form>
     </table>
 </div>
-
 <div class="tab-pane" id="tabPane1">
 	<div align="left" class="tab-page" id="tabPage1">
 	<h2 class="tab">报表图形</h2>

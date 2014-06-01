@@ -18,7 +18,6 @@
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  * @version    $Id: Exception.php 23775 2011-03-01 17:25:24Z ralph $
  */
-
 /**
 * @category   Zend
 * @package    Zend
@@ -31,7 +30,6 @@ class Zend_Exception extends Exception
      * @var null|Exception
      */
     private $_previous = null;
-
     /**
      * Construct the exception
      *
@@ -49,7 +47,6 @@ class Zend_Exception extends Exception
             parent::__construct($msg, (int) $code, $previous);
         }
     }
-
     /**
      * Overloading
      *
@@ -66,7 +63,6 @@ class Zend_Exception extends Exception
         }
         return null;
     }
-
     /**
      * String representation of the exception
      *
@@ -83,7 +79,6 @@ class Zend_Exception extends Exception
         }
         return parent::__toString();
     }
-
     /**
      * Returns previous Exception
      *

@@ -8,8 +8,6 @@
  * All Rights Reserved.
 *
  ********************************************************************************/
-
-
 /**	function used to get the permitted blocks
  *	@param string $module - module name
  *	@param string $disp_view - view name, this may be create_view, edit_view or detail_view
@@ -23,7 +21,6 @@ function getPermittedBlocks($module, $disp_view)
         $tabid = getTabid($module);
         $block_detail = Array();
         $query="select blockid,blocklabel,show_title from ec_blocks where tabid=$tabid and $disp_view=0 and visible = 0 order by sequence";
-
         $result = $adb->query($query);
         $noofrows = $adb->num_rows($result);
 	$blockid_list ='(';
@@ -36,11 +33,9 @@ function getPermittedBlocks($module, $disp_view)
 		$block_label[$blockid] = $adb->query_result($result,$i,"blocklabel");
 	}
 	$blockid_list .= ')';
-
 	$log->debug("Exit from the function getPermittedBlocks($module, $disp_view). Return value = $blockid_list");
 	return $blockid_list;
 }
-
 /**	function used to get the query which will list the permitted fields 
  *	@param string $module - module name
  *	@param string $disp_view - view name, this may be create_view, edit_view or detail_view
@@ -58,7 +53,6 @@ function getPermittedFieldsQuery($module, $disp_view)
 	$log->debug("Exit from the function getPermittedFieldsQuery().");
 	return $sql;
 }
-
 /**	function used to get the list of fields from the input query as a comma seperated string 
  *	@param string $query - field table query which contains the list of fields 
  *	@return string $fields - list of fields as a comma seperated string
@@ -70,7 +64,6 @@ function getFieldsListFromQuery($query,$export_mod_strings='')
 	
 	$result = $adb->query($query);
 	$num_rows = $adb->num_rows($result);
-
 	for($i=0; $i < $num_rows;$i++)
 	{
 		$columnName = $adb->query_result($result,$i,"columnname");
@@ -80,7 +73,6 @@ function getFieldsListFromQuery($query,$export_mod_strings='')
 		//if(!empty($export_mod_strings) && isset($export_mod_strings[$fieldlabel])) {
 		//	$fieldlabel = $export_mod_strings[$fieldlabel];
 		//}
-
 		//HANDLE HERE - Mismatch fieldname-tablename in field table, in future we have to avoid these if elses
 		if($columnName == 'smownerid')//for all assigned to user name
 		{
@@ -155,11 +147,7 @@ function getFieldsListFromQuery($query,$export_mod_strings='')
 		}
 	}
 	$fields = trim($fields,",");
-
 	$log->debug("Exit from the function getFieldsListFromQuery($query). Return value = $fields");
 	return $fields;
 }
-
-
-
 ?>

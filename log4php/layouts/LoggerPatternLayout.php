@@ -16,7 +16,6 @@
  * @package log4php
  * @subpackage layouts
  */
-
 /**
  * @ignore 
  */
@@ -27,14 +26,11 @@ if (!defined('LOG4PHP_DIR')) define('LOG4PHP_DIR', dirname(__FILE__) . '/..');
 require_once(LOG4PHP_DIR . '/helpers/LoggerPatternParser.php');
 require_once(LOG4PHP_DIR . '/LoggerLayout.php');
 require_once(LOG4PHP_DIR . '/LoggerLog.php');
-
 /**
  * Default conversion Pattern
  */
 define('LOG4PHP_LOGGER_PATTERN_LAYOUT_DEFAULT_CONVERSION_PATTERN', '%m%n');
-
 define('LOG4PHP_LOGGER_PATTERN_LAYOUT_TTCC_CONVERSION_PATTERN',    '%r [%t] %p %c %x - %m%n');
-
 /**
  * A flexible layout configurable with pattern string.
  * 
@@ -158,24 +154,19 @@ define('LOG4PHP_LOGGER_PATTERN_LAYOUT_TTCC_CONVERSION_PATTERN',    '%r [%t] %p %
  * @since 0.3 
  */
 class LoggerPatternLayout extends LoggerLayout {
-
   /**
    * @var string output buffer appended to when format() is invoked
    */
   var $sbuf;
-
   /**
    * @var string
    */
   var $pattern;
-
   /**
    * @var LoggerPatternConverter head chain
    */   
   var $head;
-
   var $timezone;
-
     /**
      * Constructs a PatternLayout using the 
      * {@link LOG4PHP_LOGGER_PATTERN_LAYOUT_DEFAULT_LAYOUT_PATTERN}.

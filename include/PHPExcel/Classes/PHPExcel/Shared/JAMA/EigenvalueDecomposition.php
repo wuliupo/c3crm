@@ -22,52 +22,43 @@
  *	@version 1.1
  */
 class EigenvalueDecomposition {
-
 	/**
 	 *	Row and column dimension (square matrix).
 	 *	@var int
 	 */
 	private $n;
-
 	/**
 	 *	Internal symmetry flag.
 	 *	@var int
 	 */
 	private $issymmetric;
-
 	/**
 	 *	Arrays for internal storage of eigenvalues.
 	 *	@var array
 	 */
 	private $d = array();
 	private $e = array();
-
 	/**
 	 *	Array for internal storage of eigenvectors.
 	 *	@var array
 	 */
 	private $V = array();
-
 	/**
 	*	Array for internal storage of nonsymmetric Hessenberg form.
 	*	@var array
 	*/
 	private $H = array();
-
 	/**
 	*	Working storage for nonsymmetric algorithm.
 	*	@var array
 	*/
 	private $ort;
-
 	/**
 	*	Used for complex scalar division.
 	*	@var float
 	*/
 	private $cdivr;
 	private $cdivi;
-
-
 	/**
 	 *	Symmetric Householder reduction to tridiagonal form.
 	 *
@@ -140,7 +131,6 @@ class EigenvalueDecomposition {
 			}
 			$this->d[$i] = $h;
 		}
-
 		// Accumulate transformations.
 		for ($i = 0; $i < $this->n-1; ++$i) {
 			$this->V[$this->n-1][$i] = $this->V[$i][$i];
@@ -164,14 +154,11 @@ class EigenvalueDecomposition {
 				$this->V[$k][$i+1] = 0.0;
 			}
 		}
-
 		$this->d = $this->V[$this->n-1];
 		$this->V[$this->n-1] = array_fill(0, $j, 0.0);
 		$this->V[$this->n-1][$this->n-1] = 1.0;
 		$this->e[0] = 0.0;
 	}
-
-
 	/**
 	 *	Symmetric tridiagonal QL algorithm.
 	 *
@@ -190,7 +177,6 @@ class EigenvalueDecomposition {
 		$f = 0.0;
 		$tst1 = 0.0;
 		$eps  = pow(2.0,-52.0);
-
 		for ($l = 0; $l < $this->n; ++$l) {
 			// Find small subdiagonal element
 			$tst1 = max($tst1, abs($this->d[$l]) + abs($this->e[$l]));
@@ -254,7 +240,6 @@ class EigenvalueDecomposition {
 			$this->d[$l] = $this->d[$l] + $f;
 			$this->e[$l] = 0.0;
 		}
-
 		// Sort eigenvalues and corresponding vectors.
 		for ($i = 0; $i < $this->n - 1; ++$i) {
 			$k = $i;
@@ -276,8 +261,6 @@ class EigenvalueDecomposition {
 			}
 		}
 	}
-
-
 	/**
 	 *	Nonsymmetric reduction to Hessenberg form.
 	 *
@@ -291,7 +274,6 @@ class EigenvalueDecomposition {
 	private function orthes () {
 		$low  = 0;
 		$high = $this->n-1;
-
 		for ($m = $low+1; $m <= $high-1; ++$m) {
 			// Scale column.
 			$scale = 0.0;
@@ -337,7 +319,6 @@ class EigenvalueDecomposition {
 				$this->H[$m][$m-1] = $scale * $g;
 			}
 		}
-
 		// Accumulate transformations (Algol's ortran).
 		for ($i = 0; $i < $this->n; ++$i) {
 			for ($j = 0; $j < $this->n; ++$j) {
@@ -363,8 +344,6 @@ class EigenvalueDecomposition {
 			}
 		}
 	}
-
-
 	/**
 	 *	Performs complex division.
 	 *
@@ -383,8 +362,6 @@ class EigenvalueDecomposition {
 			$this->cdivi = ($r * $xi - $xr) / $d;
 		}
 	}
-
-
 	/**
 	 *	Nonsymmetric reduction from Hessenberg to real Schur form.
 	 *
@@ -406,7 +383,6 @@ class EigenvalueDecomposition {
 		$p = $q = $r = $s = $z = 0;
 		// Store roots isolated by balanc and compute matrix norm
 		$norm = 0.0;
-
 		for ($i = 0; $i < $nn; ++$i) {
 			if (($i < $low) OR ($i > $high)) {
 				$this->d[$i] = $this->H[$i][$i];
@@ -416,7 +392,6 @@ class EigenvalueDecomposition {
 				$norm = $norm + abs($this->H[$i][$j]);
 			}
 		}
-
 		// Outer loop over eigenvalue index
 		$iter = 0;
 		while ($n >= $low) {
@@ -631,12 +606,10 @@ class EigenvalueDecomposition {
 				}  // k loop
 			}  // check convergence
 		}  // while ($n >= $low)
-
 		// Backsubstitute to find vectors of upper triangular form
 		if ($norm == 0.0) {
 			return;
 		}
-
 		for ($n = $nn-1; $n >= 0; --$n) {
 			$p = $this->d[$n];
 			$q = $this->e[$n];
@@ -749,7 +722,6 @@ class EigenvalueDecomposition {
 				} // end for
 			} // end else for complex case
 		} // end for
-
 		// Vectors of isolated roots
 		for ($i = 0; $i < $nn; ++$i) {
 			if ($i < $low | $i > $high) {
@@ -758,7 +730,6 @@ class EigenvalueDecomposition {
 				}
 			}
 		}
-
 		// Back transformation to get eigenvectors of original matrix
 		for ($j = $nn-1; $j >= $low; --$j) {
 			for ($i = $low; $i <= $high; ++$i) {
@@ -770,8 +741,6 @@ class EigenvalueDecomposition {
 			}
 		}
 	} // end hqr2
-
-
 	/**
 	 *	Constructor: Check for symmetry, then construct the eigenvalue decomposition
 	 *
@@ -782,14 +751,12 @@ class EigenvalueDecomposition {
 	public function __construct($Arg) {
 		$this->A = $Arg->getArray();
 		$this->n = $Arg->getColumnDimension();
-
 		$issymmetric = true;
 		for ($j = 0; ($j < $this->n) & $issymmetric; ++$j) {
 			for ($i = 0; ($i < $this->n) & $issymmetric; ++$i) {
 				$issymmetric = ($this->A[$i][$j] == $this->A[$j][$i]);
 			}
 		}
-
 		if ($issymmetric) {
 			$this->V = $this->A;
 			// Tridiagonalize.
@@ -805,8 +772,6 @@ class EigenvalueDecomposition {
 			$this->hqr2();
 		}
 	}
-
-
 	/**
 	 *	Return the eigenvector matrix
 	 *
@@ -816,8 +781,6 @@ class EigenvalueDecomposition {
 	public function getV() {
 		return new Matrix($this->V, $this->n, $this->n);
 	}
-
-
 	/**
 	 *	Return the real parts of the eigenvalues
 	 *
@@ -827,8 +790,6 @@ class EigenvalueDecomposition {
 	public function getRealEigenvalues() {
 		return $this->d;
 	}
-
-
 	/**
 	 *	Return the imaginary parts of the eigenvalues
 	 *
@@ -838,8 +799,6 @@ class EigenvalueDecomposition {
 	public function getImagEigenvalues() {
 		return $this->e;
 	}
-
-
 	/**
 	 *	Return the block diagonal eigenvalue matrix
 	 *
@@ -858,5 +817,4 @@ class EigenvalueDecomposition {
 		}
 		return new Matrix($D);
 	}
-
 }	//	class EigenvalueDecomposition

@@ -2,7 +2,6 @@
 <tbody>
 <tr>
    <td class="showPanelBg" style="padding: 10px;" valign="top" width="100%">
-
 	
 <form action="index.php" method="post" name="editform" id="editform">
     <input type="hidden" name="user_name" value="{$user_name}">
@@ -96,7 +95,6 @@
                         <td width="20%" nowrap class="small cellLabel"><strong>用户名</strong></td>
                         <td width="80%" class="small cellText">
                         {$user_name}
-
 						是否管理员
 						{if $ISADMIN}
 							{if $record != $userid}
@@ -108,7 +106,6 @@
 						{else}
 							<input name="is_admin" tabindex="6" type="checkbox"></td>
 						{/if}
-
                         </td>
                       </tr>
 					   <tr>
@@ -173,7 +170,6 @@
    </tr>
 </tbody>
 </table>
-
 {literal}
 <script>
 function check()
@@ -236,6 +232,5 @@ function check()
 			}
 	)	
 }
-
 </script>
 {/literal}

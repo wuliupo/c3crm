@@ -19,7 +19,6 @@ function deleteTab(id)
                 document.form.submit();
         }
 }
-
 function getCreateTabForm(id)
 {
         /*
@@ -39,7 +38,6 @@ function getCreateTabForm(id)
 	*/
 	var url = 'index.php?module=Settings&action=CreateTab&id='+id+'&parenttab=Settings';
 	document.location.href  = url;
-
 }
 function validate_module() {
 		if(document.addtodb.enname.value == "") {
@@ -78,7 +76,6 @@ function validate_module() {
 <table align="center" border="0" cellpadding="0" cellspacing="0" width="98%">
 <tbody><tr>
         <td class="showPanelBg" style="padding: 10px;" valign="top" width="100%">
-
 	<div align=center>
 			{include file='SetMenu.tpl'}
 			<!-- DISPLAY -->
@@ -91,7 +88,6 @@ function validate_module() {
 					<td rowspan="2" valign="top" width="50"><img src="{$IMAGE_PATH}mainmenu.gif" alt="Users" title="Users" border="0" height="48" width="48"></td>
 					<td class="heading2" valign="bottom"><b><a href="index.php?module=Settings&action=index&parenttab=Settings">{$MOD.LBL_SETTINGS}</a> &gt; {$MOD.LBL_TAB_EDITOR}</b></td>
 				</tr>
-
 				<tr>
 					<td class="small" valign="top">{$MOD.LBL_TAB_DESCRIPTION}</td>
 				</tr>
@@ -111,7 +107,6 @@ function validate_module() {
 					<input type="button" value=" {$MOD.LBL_NEW_TAB} " onClick="fnvshobj(this,'createtab');getCreateTabForm('')" class="crmButton create small"/>
 				</tr>
 				</table>
-
 				<table class="listTable" border="0" cellpadding="5" cellspacing="0" width="100%">
 					<tr>
 						<td class="colHeader small" width="5%">#</td>
@@ -146,7 +141,6 @@ function validate_module() {
         </tr>
         </table>
         </div>
-
         </td>
         </tr>
 </tbody>

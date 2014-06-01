@@ -24,7 +24,6 @@
  * @license    http://www.gnu.org/licenses/old-licenses/lgpl-2.1.txt	LGPL
  * @version    1.7.2, 2010-01-11
  */
-
 /**
  * PHPExcel_Shared_Escher_DggContainer
  *
@@ -40,35 +39,30 @@ class PHPExcel_Shared_Escher_DggContainer
 	 * @var int
 	 */
 	private $_spIdMax;
-
 	/**
 	 * Total number of drawings saved
 	 *
 	 * @var int
 	 */
 	private $_cDgSaved;
-
 	/**
 	 * Total number of shapes saved (including group shapes)
 	 *
 	 * @var int
 	 */
 	private $_cSpSaved;
-
 	/**
 	 * BLIP Store Container
 	 *
 	 * @var PHPExcel_Shared_Escher_DggContainer_BstoreContainer
 	 */
 	private $_bstoreContainer;
-
 	/**
 	 * Array of options for the drawing group
 	 *
 	 * @var array
 	 */
 	private $_OPT = array();
-
 	/**
 	 * Get maximum shape index of all shapes in all drawings (plus one)
 	 *
@@ -78,7 +72,6 @@ class PHPExcel_Shared_Escher_DggContainer
 	{
 		return $this->_spIdMax;
 	}
-
 	/**
 	 * Set maximum shape index of all shapes in all drawings (plus one)
 	 *
@@ -88,7 +81,6 @@ class PHPExcel_Shared_Escher_DggContainer
 	{
 		$this->_spIdMax = $value;
 	}
-
 	/**
 	 * Get total number of drawings saved
 	 *
@@ -98,7 +90,6 @@ class PHPExcel_Shared_Escher_DggContainer
 	{
 		return $this->_cDgSaved;
 	}
-
 	/**
 	 * Set total number of drawings saved
 	 *
@@ -108,7 +99,6 @@ class PHPExcel_Shared_Escher_DggContainer
 	{
 		$this->_cDgSaved = $value;
 	}
-
 	/**
 	 * Get total number of shapes saved (including group shapes)
 	 *
@@ -118,7 +108,6 @@ class PHPExcel_Shared_Escher_DggContainer
 	{
 		return $this->_cSpSaved;
 	}
-
 	/**
 	 * Set total number of shapes saved (including group shapes)
 	 *
@@ -128,7 +117,6 @@ class PHPExcel_Shared_Escher_DggContainer
 	{
 		$this->_cSpSaved = $value;
 	}
-
 	/**
 	 * Get BLIP Store Container
 	 *
@@ -138,7 +126,6 @@ class PHPExcel_Shared_Escher_DggContainer
 	{
 		return $this->_bstoreContainer;
 	}
-
 	/**
 	 * Set BLIP Store Container
 	 *
@@ -148,7 +135,6 @@ class PHPExcel_Shared_Escher_DggContainer
 	{
 		$this->_bstoreContainer = $bstoreContainer;
 	}
-
 	/**
 	 * Set an option for the drawing group
 	 *
@@ -159,7 +145,6 @@ class PHPExcel_Shared_Escher_DggContainer
 	{
 		$this->_OPT[$property] = $value;
 	}
-
 	/**
 	 * Get an option for the drawing group
 	 *
@@ -173,5 +158,4 @@ class PHPExcel_Shared_Escher_DggContainer
 		}
 		return null;
 	}
-
 }

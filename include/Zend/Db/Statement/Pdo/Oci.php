@@ -19,12 +19,10 @@
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  * @version    $Id: Oci.php 23775 2011-03-01 17:25:24Z ralph $
  */
-
 /**
  * @see Zend_Db_Statement_Pdo
  */
 require_once 'include/Zend/Db/Statement/Pdo.php';
-
 /**
  * Proxy class to wrap a PDOStatement object for IBM Databases.
  * Matches the interface of PDOStatement.  All methods simply proxy to the
@@ -39,7 +37,6 @@ require_once 'include/Zend/Db/Statement/Pdo.php';
  */
 class Zend_Db_Statement_Pdo_Oci extends Zend_Db_Statement_Pdo
 {
-
     /**
     * Returns an array containing all of the result set rows.
     *
@@ -57,7 +54,6 @@ class Zend_Db_Statement_Pdo_Oci extends Zend_Db_Statement_Pdo
         $data = parent::fetchAll($style, $col);
         $results = array();
         $remove = $this->_adapter->foldCase('zend_db_rownum');
-
         foreach ($data as $row) {
             if (is_array($row) && array_key_exists($remove, $row)) {
                 unset($row[$remove]);
@@ -66,8 +62,6 @@ class Zend_Db_Statement_Pdo_Oci extends Zend_Db_Statement_Pdo
         }
         return $results;
     }
-
-
     /**
      * Fetches a row from the result set.
      *
@@ -80,12 +74,10 @@ class Zend_Db_Statement_Pdo_Oci extends Zend_Db_Statement_Pdo
     public function fetch($style = null, $cursor = null, $offset = null)
     {
         $row = parent::fetch($style, $cursor, $offset);
-
         $remove = $this->_adapter->foldCase('zend_db_rownum');
         if (is_array($row) && array_key_exists($remove, $row)) {
             unset($row[$remove]);
         }
-
         return $row;
     }
 }

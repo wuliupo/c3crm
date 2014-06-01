@@ -4,18 +4,15 @@ require_once('include/logging.php');
 require_once('include/database/PearDatabase.php');
 require_once('data/CRMEntity.php');
 require_once('include/utils/utils.php');
-
 /** 
  ** Class to populate the module required data during installation  
  */
-
 class QunfatmpsDataPopulator extends CRMEntity {
 		
 	function QunfatmpsDataPopulator() {
 		$this->log = LoggerManager::getLogger('QunfatmpsDataPopulator');
 		$this->db = & getSingleDBInstance();
 	}
-
 	var $new_schema = true;
 	function create_tables() {
 		$success = $this->db->createTables("modules/Qunfatmps/Schema.xml");
@@ -26,7 +23,6 @@ class QunfatmpsDataPopulator extends CRMEntity {
 			echo ("Error: 部分表创建成功。创建数据库表失败.\n");
 		}
 	}
-
 	/** 
 	 **Function to populate the default required data during installation  
  	*/
@@ -48,7 +44,6 @@ class QunfatmpsDataPopulator extends CRMEntity {
 		}
 	
 		$combo_strings = array();
-
 		include("define_fields.php");
 		if(!isset($block_id1) || empty($block_id1)) {
 			$block_id1 = $this->get_block_id($tab_id);		
@@ -57,7 +52,6 @@ class QunfatmpsDataPopulator extends CRMEntity {
 		
 		$this->insert_def_org_modulefield($tab_id);
 		$this->db->query("insert into ec_entityname values(".$tab_id.",'Qunfatmps','ec_qunfatmps','qunfatmpname','qunfatmpsid')");
-
 		//custom view
 		//$query = "select max(cvid) as cvid from ec_customview";
 		//$result = $this->db->query($query);
@@ -83,12 +77,9 @@ class QunfatmpsDataPopulator extends CRMEntity {
 		$this->db->query($customview_sql);
 		$customview_sql = "INSERT INTO ec_cvcolumnlist VALUES (".$cvid.", 8, '')";
 		$this->db->query($customview_sql);
-
 		$this->db->query("insert into ec_moduleowners values(".$tab_id.",1)");
-
 		//parent tab id:首页 1,客户管理 2,销售 3,售后服务 4,库存管理 5,财务管理 6,统计分析 7
 		$this->db->query("insert into ec_parenttabrel values ('".$module_parenttabid."',".$tab_id.",'".$module_displayorder."')");
-
 		
 	
 		foreach ($combo_strings as $key=>$value)
@@ -97,9 +88,7 @@ class QunfatmpsDataPopulator extends CRMEntity {
 		}
 		
 	}
-
 	
-
 	function insert_def_org_modulefield($tab_id)
 	{
 		$this->log->debug("Entering insert_def_org_modulefield() method ...");
@@ -113,14 +102,12 @@ class QunfatmpsDataPopulator extends CRMEntity {
 		}
 		$this->log->debug("Exiting insert_def_org_modulefield() method ...");
 	}
-
 	function get_next_blockid() {
 		$query = "select max(blockid) as blockid from ec_blocks";
 		$result = $this->db->query($query);
 		$block_id = $this->db->query_result($result,0,"blockid") + 1;
 		return $block_id;
 	}
-
 	function get_block_id($tab_id)
 	{
 		$query = "SELECT blockid FROM ec_blocks where tabid=".$tab_id." order by sequence";

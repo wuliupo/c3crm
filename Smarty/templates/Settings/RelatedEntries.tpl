@@ -3,7 +3,6 @@
 				<input type="hidden" name="module" value="Settings">
 				<input type="hidden" name="parenttab" value="Settings">
 				<input type="hidden" name="mode">
-
 				<table class="dvtContentSpace" border="0" cellpadding="5" cellspacing="0" width="100%">
 					<tr>
 						<td class="colHeader small" width="5%">#</td>

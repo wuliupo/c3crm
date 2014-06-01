@@ -14,22 +14,16 @@ require_once('include/utils/MultiFieldUtils.php');
 global $mod_strings;
 global $app_strings;
 global $app_list_strings, $current_language;
-
 //$tableName=$_REQUEST["fieldname"];
 //$moduleName=$_REQUEST["fld_module"];
 //$uitype=$_REQUEST["uitype"];
-
 $multifieldid=$_REQUEST["multifieldid"];
 $level=$_REQUEST["level"];
 $parentfieldid=$_REQUEST["parentfieldid"];
-
 global $theme;
 $theme_path="themes/".$theme."/";
 $image_path=$theme_path."images/";
-
-
 $smarty = new CRMSmarty();
-
 //Added to get the strings from language files if present
 /*
 if($moduleName == 'Events')
@@ -42,7 +36,6 @@ $fldVal=getMultiOptsStr($multifieldid,$level,$parentfieldid);
 $query = "select * from ec_".$tableName." where presence=0 order by sortorderid"; 
 $result = $adb->query($query);
 $fldVal='';
-
 while($row = $adb->fetch_array($result))
 {
 	if($temp_module_strings[$row[$tableName]] != '')
@@ -52,9 +45,6 @@ while($row = $adb->fetch_array($result))
 	$fldVal .= "\n";	
 }
 */
-
-
-
 if($nonedit_fldVal == '')
 		$smarty->assign("EDITABLE_MODE","edit");
 	else
@@ -72,9 +62,7 @@ $smarty->assign("IMAGE_PATH",$image_path);
 $smarty->assign("APP", $app_strings);
 $smarty->assign("CMOD", $mod_strings);
 $smarty->assign("TEMP_MOD", $temp_module_strings);
-
 $smarty->display("Settings/EditMultiPickList.tpl");
-
 function getMultiOptsStr($multifieldid,$level,$parentid){
     global $adb;
     $optionsstr="";
@@ -94,12 +82,10 @@ function getMultiOptsStr($multifieldid,$level,$parentid){
                     $optionsstr .= $temp_module_strings[$row["actualfieldname"]];
                 else
                     $optionsstr .= $row["actualfieldname"];
-
                 $optionsstr .="\n";
 //               $opttxt=$row["actualfieldname"];
 //               $optionsstr.="<option value='$optval'>$opttxt</options>";
            }
-
        }else{
            $sql="select * from $tablename where thelevel=$level and parentfieldid='$parentid' order by sortorderid asc";
            $result=$adb->getList($sql);
@@ -109,7 +95,6 @@ function getMultiOptsStr($multifieldid,$level,$parentid){
                     $optionsstr .= $temp_module_strings[$row["actualfieldname"]];
                 else
                     $optionsstr .= $row["actualfieldname"];
-
                 $optionsstr .="\n";
            }
        }

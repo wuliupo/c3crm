@@ -24,8 +24,6 @@
  * @license    http://www.gnu.org/licenses/old-licenses/lgpl-2.1.txt	LGPL
  * @version    1.7.2, 2010-01-11
  */
-
-
 /** PHPExcel root directory */
 if (!defined('PHPEXCEL_ROOT')) {
 	/**
@@ -33,26 +31,18 @@ if (!defined('PHPEXCEL_ROOT')) {
 	 */
 	define('PHPEXCEL_ROOT', dirname(__FILE__) . '/../../');
 }
-
 /** PHPExcel */
 require_once PHPEXCEL_ROOT . 'PHPExcel.php';
-
 /** PHPExcel_Reader_IReader */
 require_once PHPEXCEL_ROOT . 'PHPExcel/Reader/IReader.php';
-
 /** PHPExcel_Worksheet */
 require_once PHPEXCEL_ROOT . 'PHPExcel/Worksheet.php';
-
 /** PHPExcel_Cell */
 require_once PHPEXCEL_ROOT . 'PHPExcel/Cell.php';
-
 /** PHPExcel_Calculation */
 require_once PHPEXCEL_ROOT . 'PHPExcel/Calculation.php';
-
  /** PHPExcel_Reader_DefaultReadFilter */
 require_once PHPEXCEL_ROOT . 'PHPExcel/Reader/DefaultReadFilter.php';
-
-
 /**
  * PHPExcel_Reader_SYLK
  *
@@ -68,56 +58,48 @@ class PHPExcel_Reader_SYLK implements PHPExcel_Reader_IReader
 	 * @var string
 	 */
 	private $_inputEncoding;
-
 	/**
 	 * Delimiter
 	 *
 	 * @var string
 	 */
 	private $_delimiter;
-
 	/**
 	 * Enclosure
 	 *
 	 * @var string
 	 */
 	private $_enclosure;
-
 	/**
 	 * Line ending
 	 *
 	 * @var string
 	 */
 	private $_lineEnding;
-
 	/**
 	 * Sheet index to read
 	 *
 	 * @var int
 	 */
 	private $_sheetIndex;
-
 	/**
 	 * Formats
 	 *
 	 * @var array
 	 */
 	private $_formats = array();
-
 	/**
 	 * Format Count
 	 *
 	 * @var int
 	 */
 	private $_format = 0;
-
 	/**
 	 * PHPExcel_Reader_IReadFilter instance
 	 *
 	 * @var PHPExcel_Reader_IReadFilter
 	 */
 	private $_readFilter = null;
-
 	/**
 	 * Create a new PHPExcel_Reader_SYLK
 	 */
@@ -129,7 +111,6 @@ class PHPExcel_Reader_SYLK implements PHPExcel_Reader_IReader
 		$this->_sheetIndex 	= 0;
 		$this->_readFilter 	= new PHPExcel_Reader_DefaultReadFilter();
 	}
-
 	/**
 	 * Can the current PHPExcel_Reader_IReader read the file?
 	 *
@@ -142,27 +123,22 @@ class PHPExcel_Reader_SYLK implements PHPExcel_Reader_IReader
 		if (!file_exists($pFilename)) {
 			throw new Exception("Could not open " . $pFilename . " for reading! File does not exist.");
 		}
-
 		// Read sample data (first 2 KB will do)
 		$fh = fopen($pFilename, 'r');
 		$data = fread($fh, 2048);
 		fclose($fh);
-
 		// Count delimiters in file
 		$delimiterCount = substr_count($data, ';');
 		if ($delimiterCount < 1) {
 			return false;
 		}
-
 		// Analyze first line looking for ID; signature
 		$lines = explode("\n", $data);
 		if (substr($lines[0],0,4) != 'ID;P') {
 			return false;
 		}
-
 		return true;
 	}
-
 	/**
 	 * Loads PHPExcel from file
 	 *
@@ -173,11 +149,9 @@ class PHPExcel_Reader_SYLK implements PHPExcel_Reader_IReader
 	{
 		// Create new PHPExcel
 		$objPHPExcel = new PHPExcel();
-
 		// Load into this instance
 		return $this->loadIntoExisting($pFilename, $objPHPExcel);
 	}
-
 	/**
 	 * Read filter
 	 *
@@ -186,7 +160,6 @@ class PHPExcel_Reader_SYLK implements PHPExcel_Reader_IReader
 	public function getReadFilter() {
 		return $this->_readFilter;
 	}
-
 	/**
 	 * Set read filter
 	 *
@@ -195,7 +168,6 @@ class PHPExcel_Reader_SYLK implements PHPExcel_Reader_IReader
 	public function setReadFilter(PHPExcel_Reader_IReadFilter $pValue) {
 		$this->_readFilter = $pValue;
 	}
-
 	/**
 	 * Set input encoding
 	 *
@@ -205,7 +177,6 @@ class PHPExcel_Reader_SYLK implements PHPExcel_Reader_IReader
 	{
 		$this->_inputEncoding = $pValue;
 	}
-
 	/**
 	 * Get input encoding
 	 *
@@ -215,7 +186,6 @@ class PHPExcel_Reader_SYLK implements PHPExcel_Reader_IReader
 	{
 		return $this->_inputEncoding;
 	}
-
 	/**
 	 * Loads PHPExcel from file into PHPExcel instance
 	 *
@@ -229,22 +199,18 @@ class PHPExcel_Reader_SYLK implements PHPExcel_Reader_IReader
 		if (!file_exists($pFilename)) {
 			throw new Exception("Could not open " . $pFilename . " for reading! File does not exist.");
 		}
-
 		// Create new PHPExcel
 		while ($objPHPExcel->getSheetCount() <= $this->_sheetIndex) {
 			$objPHPExcel->createSheet();
 		}
 		$objPHPExcel->setActiveSheetIndex( $this->_sheetIndex );
-
 		$fromFormats	= array('\-',	'\ ');
 		$toFormats		= array('-',	' ');
-
 		// Open file
 		$fileHandle = fopen($pFilename, 'r');
 		if ($fileHandle === false) {
 			throw new Exception("Could not open file $pFilename for reading.");
 		}
-
 		// Loop through file
 		$rowData = array();
 		$column = $row = '';
@@ -323,7 +289,6 @@ class PHPExcel_Reader_SYLK implements PHPExcel_Reader_IReader
 												//	Bracketed C references are relative to the current column
 												if ($columnReference{0} == '[') $columnReference = $column + trim($columnReference,'[]');
 												$A1CellReference = PHPExcel_Cell::stringFromColumnIndex($columnReference-1).$rowReference;
-
 												$value = substr_replace($value,$A1CellReference,$cellReference[0][1],strlen($cellReference[0][0]));
 											}
 										}
@@ -413,14 +378,11 @@ class PHPExcel_Reader_SYLK implements PHPExcel_Reader_IReader
 				}
 			}
 		}
-
 		// Close file
 		fclose($fileHandle);
-
 		// Return
 		return $objPHPExcel;
 	}
-
 	/**
 	 * Get delimiter
 	 *
@@ -429,7 +391,6 @@ class PHPExcel_Reader_SYLK implements PHPExcel_Reader_IReader
 	public function getDelimiter() {
 		return $this->_delimiter;
 	}
-
 	/**
 	 * Set delimiter
 	 *
@@ -440,7 +401,6 @@ class PHPExcel_Reader_SYLK implements PHPExcel_Reader_IReader
 		$this->_delimiter = $pValue;
 		return $this;
 	}
-
 	/**
 	 * Get enclosure
 	 *
@@ -449,7 +409,6 @@ class PHPExcel_Reader_SYLK implements PHPExcel_Reader_IReader
 	public function getEnclosure() {
 		return $this->_enclosure;
 	}
-
 	/**
 	 * Set enclosure
 	 *
@@ -463,7 +422,6 @@ class PHPExcel_Reader_SYLK implements PHPExcel_Reader_IReader
 		$this->_enclosure = $pValue;
 		return $this;
 	}
-
 	/**
 	 * Get line ending
 	 *
@@ -472,7 +430,6 @@ class PHPExcel_Reader_SYLK implements PHPExcel_Reader_IReader
 	public function getLineEnding() {
 		return $this->_lineEnding;
 	}
-
 	/**
 	 * Set line ending
 	 *
@@ -483,7 +440,6 @@ class PHPExcel_Reader_SYLK implements PHPExcel_Reader_IReader
 		$this->_lineEnding = $pValue;
 		return $this;
 	}
-
 	/**
 	 * Get sheet index
 	 *
@@ -492,7 +448,6 @@ class PHPExcel_Reader_SYLK implements PHPExcel_Reader_IReader
 	public function getSheetIndex() {
 		return $this->_sheetIndex;
 	}
-
 	/**
 	 * Set sheet index
 	 *

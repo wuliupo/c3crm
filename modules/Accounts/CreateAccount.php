@@ -2,20 +2,14 @@
 require_once('data/Tracker.php');
 require_once('include/utils/utils.php');
 require_once('include/database/PearDatabase.php');
-
 global $mod_strings,$app_strings,$log,$current_user,$theme;
-
 $theme_path="themes/".$theme."/";
 $image_path=$theme_path."images/";
-
-
 if(isset($_REQUEST['record']))
 {
 	$id = $_REQUEST['record'];
 	$log->debug(" the id is ".$id);
 }
-
-
 $category = getParentTab();
 $CreateAccount = '<div id="accountLay" style="display: block;" class="layerPopup" >
     <form name="CreateAccount" method="POST" action="index.php">
@@ -43,7 +37,6 @@ $CreateAccount = '<div id="accountLay" style="display: block;" class="layerPopup
 					<td width="30%" align="right" class="dvtCellLabel">'.$mod_strings['Phone'].'</td>
 					<td width="70%" align="left" class="dvtCellInfo"><input class="detailedViewTextBox"  onfocus="this.className=\'detailedViewTextBoxOn\'" name="phone" id="phone" onblur="this.className=\'detailedViewTextBox\'" value=""></td>
 			    </tr>';
-
 $CreateAccount .='</table>
 			   <script id="accountjs">Drag.init(document.getElementById("account_div_title"), document.getElementById("accountLay"));</script>
 			</td>
@@ -59,5 +52,4 @@ $CreateAccount .='</table>
 	</table></form>
 </div>';
 echo $CreateAccount;
-
 ?>

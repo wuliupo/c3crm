@@ -3,13 +3,11 @@ require_once('include/utils/ChineseUtils.php');
 /**
 * solve utf-8 php5 's basename bug
 */
-
 function explode_basename($path) {
     $path = str_replace('\\', '/', $path);
     $part = explode('/', $path);
     return $part[count($part) - 1];
 }
-
 //javascript unesape
 function unescape($str) {
     //$str = str_replace(" ","<br />",$str);
@@ -34,7 +32,6 @@ function unescape($str) {
     $str1 = nl2br($str1);
     return $str1;
 }
-
 function escape($str) {
   preg_match_all("/[\x80-\xff].|[\x01-\x7f]+/",$str,$r);
   $ar = $r[0];
@@ -46,8 +43,6 @@ function escape($str) {
   }
   return join("",$ar);
 }
-
-
 /**
 * the function is like unescape in javascript
 * added by dingjianting on 2006-10-1 for picklist editor
@@ -92,7 +87,6 @@ function utf8RawUrlDecode ($source) {
     $source = from_html(unescape($source));
     return $source;
 }
-
 if ( !function_exists('str_ireplace') )
 {
    function str_ireplace ($search, $replace, $subject) // >> , &$count)
@@ -202,7 +196,6 @@ if ( !function_exists('str_ireplace') )
        return $subject;
    }
 }
-
 //disuz passport functions
 function passport_encrypt($txt, $key) {
     srand((double)microtime() * 1000000);
@@ -215,7 +208,6 @@ function passport_encrypt($txt, $key) {
     }
     return base64_encode(passport_key($tmp, $key));
 }
-
 function passport_decrypt($txt, $key) {
     $txt = passport_key(base64_decode($txt), $key);
     $tmp = '';
@@ -225,7 +217,6 @@ function passport_decrypt($txt, $key) {
     }
     return $tmp;
 }
-
 function passport_key($txt, $encrypt_key) {
     $encrypt_key = md5($encrypt_key);
     $ctr = 0;
@@ -244,22 +235,17 @@ function passport_key($txt, $encrypt_key) {
 * @return	string		?????????????
 */
 function passport_encode($array) {
-
     // ??????????
     $arrayenc = array();
-
     // ???????? $array?????? $key ?????????��?$val ????????
     foreach($array as $key => $val) {
         // $arrayenc ????????????????????? "$key=???? urlencode() ??? $val ?"
         $arrayenc[] = $key.'='.urlencode($val);
     }
-
     // ?????? "&" l??? $arrayenc ???(implode)?????? $arrayenc = array('aa', 'bb', 'cc', 'dd')??
     // ?? implode('&', $arrayenc) ?????? ??aa&bb&cc&dd"
     return implode('&', $arrayenc);
-
 }
-
 /**
 substr for chinese character(gbk2312)
 */
@@ -275,7 +261,6 @@ function msubstr1_gb($str, $start, $len) {
     }
     return $tmpstr;
 }
-
 /**
 substr for chinese character(utf8)
 */
@@ -308,7 +293,6 @@ function msubstr1($str, $start = 0, $length = 0, $append = true)
     {
         return $str;
     }
-
     if (function_exists('mb_substr'))
     {
         $newstr = mb_substr($str, $start, $length, 'UTF-8');
@@ -316,7 +300,6 @@ function msubstr1($str, $start = 0, $length = 0, $append = true)
     else
     {
         $strlength = strlen($str);
-
         if ($length < 0)
         {
             $length = $strlength + $length;
@@ -327,15 +310,12 @@ function msubstr1($str, $start = 0, $length = 0, $append = true)
         }
         $newstr = preg_replace('#^(?:[\x00-\x7F]|[\xC0-\xFF][\x80-\xBF]+){0,' . $start .  '}((?:[\x00-\x7F]|[\xC0-\xFF][\x80-\xBF]+){0,' . $length . '}).*#s', '$1', $str);
     }
-
     if ($append && $str != $newstr)
     {
         $newstr .= '...';
     }
-
     return $newstr;
 }
-
 function msubstr1_utf8_my($str, $start, $len)
 {
     for($i=0;$i<$len;$i++)
@@ -367,7 +347,6 @@ function msubstr1_utf8_my($str, $start, $len)
     return $start_str;
     //return join($new_str);
 }
-
 /**
  * support double byte char
  *
@@ -378,15 +357,12 @@ function msubstr1_utf8_my($str, $start, $len)
 function trim_right($str)
 {
     $length = strlen(preg_replace('/[\x00-\x7F]+/', '', $str)) % 3;
-
     if ($length > 0)
     {
         $str = substr($str, 0, 0 - $length);
     }
-
     return $str;
 }
-
 /**
  * count string length and support chinese char
  *
@@ -397,7 +373,6 @@ function trim_right($str)
 function str_len($str)
 {
     $length = strlen(preg_replace('/[\x00-\x7F]/', '', $str));
-
     if ($length)
     {
         return strlen($str) - $length + intval($length / 3) * 2;
@@ -407,7 +382,6 @@ function str_len($str)
         return strlen($str);
     }
 }
-
 /**
  * get crlf of easy opterating system
  *
@@ -429,17 +403,14 @@ function get_crlf()
     {
         $the_crlf = '\n';
     }
-
     return $the_crlf;
 }
-
 //get mac address
 class GetMacAddr
 {
     var $return_array = array(); // return string array with mac address
     var $mac_addr;
 	var $os_type;   
-
     function GetMacAddr($os_type)
     {
 		$this->os_type = $os_type;
@@ -449,23 +420,19 @@ class GetMacAddr
 		return $macaddress;
     }
 }
-
 //////////////////////////////////////////////////////////////////////////////
 //CHANGE STRING IN THIS FILE
 //-----------------------------------------------------------------------------
   function strChangeInThisFile ($thisFile, $thisString, $thatString){
 // Open thisFile file
-
    $handle_r = fopen($thisFile,        "r");
    $handle_w = fopen($thisFile.".tmp", "w");
-
    if ($handle_r && $handle_w) {
     while (!feof($handle_r)) {
      $Buffer   = fgets($handle_r, 4096);
      $Buffer   =  str_replace($thisString, $thatString, $Buffer);
      $result_w = fwrite ($handle_w, $Buffer);
     }
-
 //  Delete original and rename .tmp
     fclose($handle_r);
     fclose($handle_w);
@@ -485,7 +452,6 @@ class GetMacAddr
     }
   } // END of function strChangeInThisFile
 //Change string in this file
-
 function get_viewscope($module) {
     if(isset($_REQUEST['viewscope'])) {
         $viewscope = $_REQUEST['viewscope'];
@@ -499,7 +465,6 @@ function get_viewscope($module) {
     }
     return $viewscope;
 }
-
 function send_msnmsg($recipient,$message) {
     include_once("include/msnmsg/sendMsg.php");
     include_once("modules/Emails/mail.php");
@@ -508,12 +473,10 @@ function send_msnmsg($recipient,$message) {
     //$message = iconv("gb2312","UTF-8",$_POST["message"]);
     //$sendMsg = new sendMsg($message, $recipient,$sender,$password);
     //$sendMsg->sendMessage();
-
     $sendMsg = new sendMsg();
     $sendMsg->login($sender, $password);
     $sendMsg->createSession($recipient);
     $sendMsg->sendMessage($message);
-
     switch ($sendMsg->result) {
         case ERR_AUTHENTICATION_FAILED:
             $info = "Invalid password and/or password.";
@@ -524,12 +487,10 @@ function send_msnmsg($recipient,$message) {
         case ERR_INTERNAL_SERVER_ERROR:
             $info = "Something went wrong trying to connect to the server.";
             break;
-
         case USR_OFFLINE:
             $info = "Oops. The user appears to be offline.";
             send_mail("",$recipient,"admin","",$message,$message);
             break;
-
         case OK:
             $info = "The message was successfully sent.";
             break;
@@ -537,7 +498,6 @@ function send_msnmsg($recipient,$message) {
             $info = "Error occured when sending message.";
             send_mail("",$recipient,"admin","",$message,$message);
             break;
-
     }
     return $info;
 }
@@ -559,10 +519,8 @@ function num_bitunit($num)
            $num_bitunit_str = (ceil($num / pow(2, 10 * $key) * 100) / 100) . " $bitunit[$key]";
        }
     }
-
     return $num_bitunit_str;
 }
-
 /**
  *
  *
@@ -574,7 +532,6 @@ function remove_comment($var)
 {
     return (substr($var, 0, 2) != '--');
 }
-
 /**
  *
  *
@@ -588,10 +545,8 @@ function sql_import($sql_file)
 	global $adb;
     $sql_str = array_filter(file($sql_file), 'remove_comment');
     $sql_str = str_replace("\r", '', implode('', $sql_str));
-
     $ret = explode(";\n", $sql_str);
     $ret_count = count($ret);
-
 	for($i = 0; $i < $ret_count; $i++)
 	{
 		$ret[$i] = trim($ret[$i], " \r\n;");
@@ -605,31 +560,25 @@ function sql_import($sql_file)
 }
 /*This function returns the mod_strings for the current language and the specified module
 */
-
 function return_custom_module_language($language, $module)
 {
     global $log;
     global $default_language;
     $log->debug("Entering return_custom_module_language method ...");
-
     if(is_file("cache/modules/$module/language/$language.lang.php"))
     {
         include("cache/modules/$module/language/$language.lang.php");
     }
-
     if(!isset($mod_strings))
     {
         $log->fatal("Unable to load the module($module) language file for the selected language($language) or the default language($default_language)");
         $log->debug("Exiting return_custom_module_language method ...");
         return null;
     }
-
     $return_value = $mod_strings;
-
     $log->debug("Exiting return_custom_module_language method ...");
     return $return_value;
 }
-
 function is_phone($fieldname)
 {
     global $log;
@@ -644,13 +593,11 @@ function is_phone($fieldname)
     $log->debug("Ending get_uitype(".$fieldname.") method ...");
     return false;
 }
-
 /**
  * Function to get the getCarPaino when a vtiger_account id is given 
  * Takes the input as $acount_id - vtiger_account id
  * returns the vtiger_account carpaino in string format.
  */
-
 function getLatestNotes($account_id)
 {
     global $log;
@@ -708,7 +655,6 @@ function getViewScopeFilterHTML($module,$selected="")
 		{
 			$shtml .= "<option value=\"creator\">".$app_strings['LBL_CREATOR'].$app_list_strings['moduleList'][$module]."</option>";
 		}
-
 		if("sub_user" == $selected)
 		{
 			$shtml .= "<option selected value=\"sub_user\">".$app_strings['LBL_SUB_USER'].$app_list_strings['moduleList'][$module]."</option>";
@@ -735,7 +681,6 @@ function getViewScopeFilterHTML($module,$selected="")
 	}
     return $shtml;
 }
-
 function get_options_array($fieldname) {
     global $adb;
     global $log;
@@ -757,13 +702,11 @@ function get_options_array($fieldname) {
     $log->debug("Exiting get_options_array method ...");
     return $options;
 }
-
 function get_html_options($fieldname,$selected_key='') {
     $options = get_options_array($fieldname);
     $html_options = get_select_options($options,$selected_key);
     return $html_options;
 }
-
 function getEntityTable($modulename) {
     global $adb;
     global $log;
@@ -786,7 +729,6 @@ function getEntityTable($modulename) {
     $log->debug("Exiting getEntityTable method ...");
     return $entityArr;
 }
-
 function getEntityTableById($record) {
     global $adb;
     global $log;
@@ -797,8 +739,6 @@ function getEntityTableById($record) {
     $log->debug("Exiting getEntityTableById method ...");
     return $entityArr;
 }
-
-
 function getReportSecurityParameter($module,$viewscope="current_user",$isreport=false)
 {
     global $log;
@@ -870,7 +810,6 @@ function getReportSecurityParameter($module,$viewscope="current_user",$isreport=
     $log->debug("Exiting getReportSecurityParameter method ...");
     return $sec_query;	
 }
-
 function getSpecUserSubUserQuery($userid){
     
     $ec_crmentity = "ec_crmentity";
@@ -881,13 +820,10 @@ function getSpecUserSubUserQuery($userid){
     $sec_query .= " ($ec_crmentity.smownerid=$userid or $ec_crmentity.smownerid in (select ec_user2role.userid from ec_user2role inner join ec_users on ec_users.id=ec_user2role.userid inner join ec_role on ec_role.roleid=ec_user2role.roleid where ec_role.parentrole like '%".$current_user_parent_role_seq."::%') ) ";
     return $sec_query;
 }
-
-
 /** Function to get a user id or group id for a given entity
   * @param $record -- entity id :: Type integer
     * @returns $ownerArr -- owner id :: Type array 
        */
-
 function getRecordCreatorId($module,$record)
 {
 	global $log;
@@ -906,12 +842,9 @@ function getRecordCreatorId($module,$record)
 	{
 		return $user_id;
 	}
-
 	$log->debug("Exiting getRecordCreatorId method ...");
 	return 0;
-
 }
-
 function get_messagecount() 
 {
     global $log;
@@ -924,7 +857,6 @@ function get_messagecount()
     $log->debug("Exiting get_messagecount() method ...");
     return $count;
 }
-
 function getSqlCacheData($key)
 {
 	global $log;
@@ -953,7 +885,6 @@ function getSqlCacheData($key)
 	$log->debug("Exiting getSqlCacheData() method ...");
 	return $return_data;
 }
-
 function setSqlCacheData($key,$data)
 {
 	global $log;
@@ -975,7 +906,6 @@ function setSqlCacheData($key,$data)
 	}
 	$log->debug("Exiting setSqlCacheData() method ...");
 }
-
 /**
  * @access  public
  * @param  bool       $is_cache  
@@ -1002,7 +932,6 @@ function clear_cache_files()
 		$count = 0;
 		while ($file = readdir($folder))
 		{
-
 			if ($file == '.' || $file == '..' || $file == 'index.htm' || $file == 'index.html')
 			{
 				continue;
@@ -1017,7 +946,6 @@ function clear_cache_files()
 		}
 		closedir($folder);
 	}
-
 	$dir = $dir."templates/";
     $folder = @opendir($dir);
 	if ($folder == false)
@@ -1026,7 +954,6 @@ function clear_cache_files()
 	}
 	while ($file = readdir($folder))
 	{
-
 		if ($file == '.' || $file == '..' || $file == 'index.htm' || $file == 'index.html')
 		{
 			continue;
@@ -1042,7 +969,6 @@ function clear_cache_files()
 	closedir($folder);
     return $count;
 }
-
 /*
  * it acts has a complete override
  * for the additional_parameters array.
@@ -1083,7 +1009,6 @@ function db_convert($string, $type, $additional_parameters=array()){
     }
 	return $string;
 } 
-
 function db_concat($table, $fields){
 	$ret = '';
 	foreach($fields as $index=>$field){
@@ -1093,7 +1018,6 @@ function db_concat($table, $fields){
 	if (!empty($ret)) $ret.=')';
 	return $ret;
 }
-
 function iconv_ec($in_charset,$out_charset,$content) {
 	if(function_exists('mb_convert_encoding')) {
 		$content = mb_convert_encoding($content,$out_charset,$in_charset);
@@ -1112,7 +1036,6 @@ function iconv_ec($in_charset,$out_charset,$content) {
 	}
 	return $content;
 }
-
 function base64_encode_filename($str) {
 	$ext_pos = strrpos($str, ".");
 	$filename = substr($str, 0 , $ext_pos);
@@ -1121,23 +1044,18 @@ function base64_encode_filename($str) {
 	$filename = $filename.".".$ext;
 	if(substr_count($filename,"/") > 0) {
 		$filename = str_replace("/","",$filename);
-
 	}
 	return $filename;
 }
-
-
 function datediff($date1, $date2) { 
 	// $date1 is subtracted from $date2. 
 	// if $date2 is not specified, then current date is assumed.
-
 	//Splits date apart
 	if (!$date1) { 
 		return 0;
 	} else {
 		list($date1_year, $date1_month, $date1_day) = split('[/.-]', $date1); 
 	}
-
 	if (!$date2) { 
 	  $date2_year = date("Y"); //Gets Current Year
 	  $date2_month = date("m"); //Gets Current Month
@@ -1145,14 +1063,11 @@ function datediff($date1, $date2) {
 	} else {
 	  list($date2_year, $date2_month, $date2_day) = split('[/.-]', $date2);
 	}
-
 	$date1 = mktime(0,0,0,$date1_month, $date1_day, $date1_year); //Gets Unix timestamp for $date1
 	$date2 = mktime(0,0,0,$date2_month, $date2_day, $date2_year); //Gets Unix timestamp for $date2
-
 	$difference = $date2-$date1; //Calcuates Difference
 	return floor($difference/60/60/24); //Calculates Days Old
 }
-
 /**
  * Redirect to another URL
  *
@@ -1175,7 +1090,6 @@ function redirect( $url)
 	}
 	exit();
 }
-
 /**
  * Track the viewing of a detail record.  This leverages get_summary_text() which is object specific
  * params $user_id - The user that is viewing the record.
@@ -1188,35 +1102,27 @@ function track_view($user_id, $current_module,$id='')
 	$tracker->track_view($user_id, $current_module, $id, '');
 	$log->debug("Exiting function track_view()");
 }
-
-
-
 function unzip( $zip_archive, $zip_dir ){
 	require_once('include/pclzip/pclzip.lib.php');
     if( !is_dir( $zip_dir ) ){
         die( "Specified directory '$zip_dir' for zip file '$zip_archive' extraction does not exist." );
     }
-
     $archive = new PclZip( $zip_archive );
-
     if( $archive->extract( PCLZIP_OPT_PATH, $zip_dir ) == 0 ){
         die( "Error: " . $archive->errorInfo(true) );
     }
 }
-
 function unzip_file( $zip_archive, $archive_file, $to_dir ){
 	require_once('include/pclzip/pclzip.lib.php');
     if( !is_dir( $to_dir ) ){
         die( "Specified directory '$to_dir' for zip file '$zip_archive' extraction does not exist." );
     }
-
     $archive = new PclZip( "$zip_archive" );
     if( $archive->extract(  PCLZIP_OPT_BY_NAME, $archive_file,
                             PCLZIP_OPT_PATH,    $to_dir         ) == 0 ){
         die( "Error: " . $archive->errorInfo(true) );
     }
 }
-
 function zip_dir( $zip_dir, $zip_archive ){
 	require_once('include/pclzip/pclzip.lib.php');
     $archive    = new PclZip( "$zip_archive" );
@@ -1227,13 +1133,11 @@ function zip_dir( $zip_dir, $zip_archive ){
 }
 function get_image($image,$other_attributes,$width="",$height=""){
 	global $png_support;
-
 	if ($png_support == false)
 	$ext = "gif";
 	else
 	$ext = "png";
 	$out = '';
-
 	if (is_file($image.'.'.$ext)){
 		$size=getimagesize($image.'.'.$ext);
 		if ($width == "") { $width = $size[0];}
@@ -1243,14 +1147,12 @@ function get_image($image,$other_attributes,$width="",$height=""){
 		$path = explode('/',$image);
 		$path[1] = 'Default';
 		$image = implode('/',$path);
-
 		if (is_file($image.'.'.$ext)){
 			$size=getimagesize($image.'.'.$ext);
 			if ($width == "") { $width = $size[0];}
 			if ($height == "") { $height = $size[1];}
 			$out= "<img src='$image.$ext' width='".$width."' height='".$height."' $other_attributes>";
 		}
-
 	}
 	return $out;
 }
@@ -1265,7 +1167,6 @@ function rmdirr($dir) {
    }
    rmdir($dir);
 }
-
 function get_scale_height($imgPath,$width)
 {
 	if(function_exists("getimagesize") && $width !=0 && is_file($imgPath)) {
@@ -1282,22 +1183,18 @@ function get_scale_height($imgPath,$width)
 	} 
 	return $width;
 }
-
  function getUreportSecurityParameter($module,$viewscope="current_user",$isreport=false)
  {
 	global $log;
 	$log->debug("Entering getUreportSecurityParameter() method ...");
 	global $current_user;
 	$tabid=getTabid($module);
-
 	
 	$where_sql =  "1=1";
 	
 	$log->debug("Exit getUreportSecurityParameter() method ...");
 	return $where_sql;
  }
-
-
 function getPickListWithField($fieldname,$fieldvalue = "")
 {
 	global $adb;
@@ -1313,7 +1210,6 @@ function getPickListWithField($fieldname,$fieldvalue = "")
 		
 		setSqlCacheData($key,$picklist_array);
 	}
-
 	$options = '';
 	foreach($picklist_array as $pickListValue)
 	{
@@ -1344,11 +1240,9 @@ function getPickStringsWithField($fieldname)
 		}			
 		setSqlCacheData($key,$picklist_array);
 	}
-
 	$options = implode(',',$picklist_array);	
 	return $options;
 }
-
 function getComposeMailUrl($to) 
 {
 	$mailer = useInternalMailer();
@@ -1395,7 +1289,6 @@ function getSearchMailUrl($to)
 		return 'mailto:'.$to;
 	}	
 }
-
 function getFirstSpell($chineseStr)
 {
 	require_once("include/utils/ChineseSpellUtils.php");
@@ -1410,7 +1303,6 @@ function getFirstSpell($chineseStr)
 	$str = strtoupper($str);
 	return $str;
 }
-
 function getEveryWordFirstSpell($chineseStr)
 {
 	require_once("include/utils/ChineseSpellUtils.php");

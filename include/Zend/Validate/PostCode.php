@@ -18,17 +18,14 @@
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  * @version    $Id: PostCode.php 23775 2011-03-01 17:25:24Z ralph $
  */
-
 /**
  * @see Zend_Validate_Abstract
  */
 require_once 'include/Zend/Validate/Abstract.php';
-
 /**
  * @see Zend_Locale_Format
  */
 require_once 'include/Zend/Locale/Format.php';
-
 /**
  * @category   Zend
  * @package    Zend_Validate
@@ -39,7 +36,6 @@ class Zend_Validate_PostCode extends Zend_Validate_Abstract
 {
     const INVALID  = 'postcodeInvalid';
     const NO_MATCH = 'postcodeNoMatch';
-
     /**
      * @var array
      */
@@ -47,21 +43,18 @@ class Zend_Validate_PostCode extends Zend_Validate_Abstract
         self::INVALID  => "Invalid type given. String or integer expected",
         self::NO_MATCH => "'%value%' does not appear to be a postal code",
     );
-
     /**
      * Locale to use
      *
      * @var string
      */
     protected $_locale;
-
     /**
      * Manual postal code format
      *
      * @var unknown_type
      */
     protected $_format;
-
     /**
      * Constructor for the integer validator
      *
@@ -76,7 +69,6 @@ class Zend_Validate_PostCode extends Zend_Validate_Abstract
         if ($options instanceof Zend_Config) {
             $options = $options->toArray();
         }
-
         if (empty($options)) {
             require_once 'include/Zend/Registry.php';
             if (Zend_Registry::isRegistered('Zend_Locale')) {
@@ -87,7 +79,6 @@ class Zend_Validate_PostCode extends Zend_Validate_Abstract
             if (array_key_exists('locale', $options)) {
                 $this->setLocale($options['locale']);
             }
-
             if (array_key_exists('format', $options)) {
                 $this->setFormat($options['format']);
             }
@@ -95,14 +86,12 @@ class Zend_Validate_PostCode extends Zend_Validate_Abstract
             // Received Locale object or string locale
             $this->setLocale($options);
         }
-
         $format = $this->getFormat();
         if (empty($format)) {
             require_once 'include/Zend/Validate/Exception.php';
             throw new Zend_Validate_Exception("A postcode-format string has to be given for validation");
         }
     }
-
     /**
      * Returns the set locale
      *
@@ -112,7 +101,6 @@ class Zend_Validate_PostCode extends Zend_Validate_Abstract
     {
         return $this->_locale;
     }
-
     /**
      * Sets the locale to use
      *
@@ -131,22 +119,18 @@ class Zend_Validate_PostCode extends Zend_Validate_Abstract
             require_once 'include/Zend/Validate/Exception.php';
             throw new Zend_Validate_Exception("Unable to detect a region for the locale '$locale'");
         }
-
         $format = Zend_Locale::getTranslation(
             $locale->getRegion(),
             'postaltoterritory',
             $this->_locale
         );
-
         if (empty($format)) {
             require_once 'include/Zend/Validate/Exception.php';
             throw new Zend_Validate_Exception("Unable to detect a postcode format for the region '{$locale->getRegion()}'");
         }
-
         $this->setFormat($format);
         return $this;
     }
-
     /**
      * Returns the set postal code format
      *
@@ -156,7 +140,6 @@ class Zend_Validate_PostCode extends Zend_Validate_Abstract
     {
         return $this->_format;
     }
-
     /**
      * Sets a self defined postal format as regex
      *
@@ -170,19 +153,15 @@ class Zend_Validate_PostCode extends Zend_Validate_Abstract
             require_once 'include/Zend/Validate/Exception.php';
             throw new Zend_Validate_Exception("A postcode-format string has to be given for validation");
         }
-
         if ($format[0] !== '/') {
             $format = '/^' . $format;
         }
-
         if ($format[strlen($format) - 1] !== '/') {
             $format .= '$/';
         }
-
         $this->_format = $format;
         return $this;
     }
-
     /**
      * Defined by Zend_Validate_Interface
      *
@@ -198,13 +177,11 @@ class Zend_Validate_PostCode extends Zend_Validate_Abstract
             $this->_error(self::INVALID);
             return false;
         }
-
         $format = $this->getFormat();
         if (!preg_match($format, $value)) {
             $this->_error(self::NO_MATCH);
             return false;
         }
-
         return true;
     }
 }

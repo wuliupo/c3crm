@@ -26,11 +26,9 @@
  * @Author	Konstantin Riabitsev <icon@linux.duke.edu>
  * @Version 1.1 ($Date: 2011-07-04 14:02:23 -0400 (Mon, 04 Jul 2011) $)
  */
-
 /**
  * @Author  Jim Jagielski <jim@jaguNET.com / jimjag@gmail.com>
  */
-
 /**
  * This function returns the final tag out of the tag name, an array
  * of attributes, and the type of the tag. This function is called by 
@@ -61,7 +59,6 @@ function tln_tagprint($tagname, $attary, $tagtype){
 	}
 	return $fulltag;
 }
-
 /**
  * A small helper function to use with array_walk. Modifies a by-ref
  * value and makes it lowercase.
@@ -72,7 +69,6 @@ function tln_tagprint($tagname, $attary, $tagtype){
 function tln_casenormalize(&$val){
 	$val = strtolower($val);
 }
-
 /**
  * This function skips any whitespace from the current position within
  * a string and to the next non-whitespace value.
@@ -92,7 +88,6 @@ function tln_skipspace($body, $offset){
 	}
 	return $offset;
 }
-
 /**
  * This function looks for the next character within a string.	It's
  * really just a glorified "strpos", except it catches the failures
@@ -112,7 +107,6 @@ function tln_findnxstr($body, $offset, $needle){
 	}
 	return $pos;
 }
-
 /**
  * This function takes a PCRE-style regexp and tries to match it
  * within the string.
@@ -141,7 +135,6 @@ function tln_findnxreg($body, $offset, $reg){
 	}
 	return $retarr;
 }
-
 /**
  * This function looks for the next tag.
  *
@@ -432,7 +425,6 @@ function tln_getnxtag($body, $offset){
 	 */
 	return Array(false, false, false, $lt, strlen($body));
 }
-
 /**
  * Translates entities into literal values so they can be checked.
  *
@@ -460,7 +452,6 @@ function tln_deent(&$attvalue, $regex, $hex=false){
 		return false;
 	}
 }
-
 /**
  * This function checks attribute values for entity-encoded values
  * and returns them translated into 8-bit strings so we can run
@@ -487,7 +478,6 @@ function tln_defang(&$attvalue){
 	} while ($m == true);
 	$attvalue = stripslashes($attvalue);
 }
-
 /**
  * Kill any tabs, newlines, or carriage returns. Our friends the
  * makers of the browser with 95% market value decided that it'd
@@ -503,7 +493,6 @@ function tln_unspace(&$attvalue){
 								Array('',	'',	  '',	'',	  ''), $attvalue);
 	}
 }
-
 /**
  * This function runs various checks against the attributes.
  *
@@ -576,7 +565,6 @@ function tln_fixatts($tagname,
 	}
 	return $attary;
 }
-
 /**
  *
  * @param $body					the string with HTML you wish to filter
@@ -716,14 +704,10 @@ function tln_sanitize($body,
 	$trusted .= "<!-- end tln_sanitized html -->\n";
 	return $trusted;
 }
-
 // 
 // Use the nifty htmlfilter library
 //
-
-
 function HTMLFilter($body, $trans_image_path, $block_external_images = false) {
-
 	$tag_list = Array(
 		false,
 		"object",
@@ -737,7 +721,6 @@ function HTMLFilter($body, $trans_image_path, $block_external_images = false) {
 		"plaintext",
 		"marquee"
 	);
-
 	$rm_tags_with_content = Array(
 		"script",
 		"applet",
@@ -747,7 +730,6 @@ function HTMLFilter($body, $trans_image_path, $block_external_images = false) {
 		"xmp",
 		"xml"
 	);
-
 	$self_closing_tags =  Array(
 		"img",
 		"br",
@@ -755,9 +737,7 @@ function HTMLFilter($body, $trans_image_path, $block_external_images = false) {
 		"input",
 		"outbind"
 	);
-
 	$force_tag_closing = true;
-
 	$rm_attnames = Array(
 		"/.*/" =>
 			Array(
@@ -768,7 +748,6 @@ function HTMLFilter($body, $trans_image_path, $block_external_images = false) {
 				"/^lowsrc.*/i"
 			)
 	);
-
 	$bad_attvals = Array(
 		"/.*/" =>
 		Array(
@@ -829,7 +808,6 @@ function HTMLFilter($body, $trans_image_path, $block_external_images = false) {
 			)
 		)
 	);
-
 	if ($block_external_images){
 		array_push($bad_attvals{'/.*/'}{'/^src|background/i'}[0],
 				'/^([\'\"])\s*https*:.*([\'\"])/si');
@@ -840,12 +818,10 @@ function HTMLFilter($body, $trans_image_path, $block_external_images = false) {
 		array_push($bad_attvals{'/.*/'}{'/^style/i'}[1],
 				"url(\\1$trans_image_path\\1)");
 	}
-
 	$add_attr_to_tag = Array(
 		"/^a$/i" =>
 			Array('target'=>'"_blank"')
 	);
-
 	$trusted = tln_sanitize($body, 
 			$tag_list, 
 			$rm_tags_with_content,
@@ -857,5 +833,4 @@ function HTMLFilter($body, $trans_image_path, $block_external_images = false) {
 			);
 	return $trusted;
 }
-
 ?>

@@ -1,11 +1,8 @@
  <script language="JavaScript" type="text/javascript" src="include/js/ListView.js"></script>
 <script language="JavaScript" type="text/javascript" src="include/js/search.js"></script>
 <script language="JavaScript" type="text/javascript" src="modules/{$MODULE}/{$SINGLE_MOD}.js"></script>
-
 <link href="themes/bootcss/css/bootstrap-datetimepicker.min.css" rel="stylesheet">
 <script src="themes/bootcss/js/bootstrap-datetimepicker.min.js"></script>
-
-
  <div class="container-fluid clearfix"> 
       <div class="row-fluid">
         <div class="span12" style="margin-left:0px;">
@@ -15,7 +12,6 @@
                 <li class="nav-header" style="padding-left:0px;padding-right:5px;">
                   <i class="icon-th-list"></i> 
                 </li>
-
                  {foreach name="listviewforeach" key=id item=viewname from=$CUSTOMVIEW_OPTION}
                   {if $id eq $VIEWID} 
                     <li class="active"><a href="javascript:;" onclick="javascript:getTableViewForFenzu('{$MODULE}','viewname={$id}',this,{$id});" >{$viewname}</a></li>
@@ -37,18 +33,12 @@
 				{/if}
               </ul>
           </div>
-
            <div id="ListViewContents" class="small" style="width:100%;position:relative;">
             {include file="$MODULE/ListViewEntries.tpl"}
           </div>
-
         </div>
       </div>
-
     </div>
-
-
-
 <script language="javascript" type="text/javascript">
 {literal}
 function setSendContent(obj){ 
@@ -63,4 +53,3 @@ function checkFieldNum(){
 }
 {/literal}
 </script>
-

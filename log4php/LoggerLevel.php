@@ -15,7 +15,6 @@
  * 
  * @package log4php
  */
-
 /**
  * @ignore 
  */
@@ -24,7 +23,6 @@ if (!defined('LOG4PHP_DIR')) define('LOG4PHP_DIR', dirname(__FILE__));
 /**
  */
 require_once(LOG4PHP_DIR . '/LoggerLog.php');
-
 define('LOG4PHP_LEVEL_OFF_INT',     2147483647); 
 define('LOG4PHP_LEVEL_FATAL_INT',        50000);
 define('LOG4PHP_LEVEL_ERROR_INT',        40000);
@@ -32,7 +30,6 @@ define('LOG4PHP_LEVEL_WARN_INT',         30000);
 define('LOG4PHP_LEVEL_INFO_INT',         20000);
 define('LOG4PHP_LEVEL_DEBUG_INT',        10000);
 define('LOG4PHP_LEVEL_ALL_INT',    -2147483648);
-
 /**
  * Defines the minimum set of levels recognized by the system, that is
  * <i>OFF</i>, <i>FATAL</i>, <i>ERROR</i>,
@@ -48,7 +45,6 @@ define('LOG4PHP_LEVEL_ALL_INT',    -2147483648);
  * @since 0.5
  */
 class LoggerLevel {
-
     /**
      * @var integer
      */
@@ -63,7 +59,6 @@ class LoggerLevel {
      * @var integer
      */
     var $syslogEquivalent;
-
     /**
      * Constructor
      *
@@ -77,7 +72,6 @@ class LoggerLevel {
         $this->levelStr = $levelStr;
         $this->syslogEquivalent = $syslogEquivalent;
     }
-
     /**
      * Two priorities are equal if their level fields are equal.
      *
@@ -104,7 +98,6 @@ class LoggerLevel {
         if (!isset($level)) $level = new LoggerLevel(LOG4PHP_LEVEL_OFF_INT, 'OFF', 0);
         return $level;
     }
-
     /**
      * Returns a Fatal Level
      * @static
@@ -140,7 +133,6 @@ class LoggerLevel {
         if (!isset($level)) $level = new LoggerLevel(LOG4PHP_LEVEL_WARN_INT, 'WARN', 4);
         return $level;
     }
-
     /**
      * Returns an Info Level
      * @static
@@ -152,7 +144,6 @@ class LoggerLevel {
         if (!isset($level)) $level = new LoggerLevel(LOG4PHP_LEVEL_INFO_INT, 'INFO', 6);
         return $level;
     }
-
     /**
      * Returns a Debug Level
      * @static
@@ -164,7 +155,6 @@ class LoggerLevel {
         if (!isset($level)) $level = new LoggerLevel(LOG4PHP_LEVEL_DEBUG_INT, 'DEBUG', 7);
         return $level;
     }
-
     /**
      * Returns an All Level
      * @static
@@ -186,7 +176,6 @@ class LoggerLevel {
     {
         return $this->syslogEquivalent;
     }
-
     /**
      * Returns <i>true</i> if this level has a higher or equal
      * level than the level passed as argument, <i>false</i>
@@ -202,7 +191,6 @@ class LoggerLevel {
     {
         return $this->level >= $r->level;
     }
-
     /**
      * Returns the string representation of this priority.
      * @return string
@@ -212,7 +200,6 @@ class LoggerLevel {
     {
         return $this->levelStr;
     }
-
     /**
      * Returns the integer representation of this level.
      * @return integer
@@ -221,7 +208,6 @@ class LoggerLevel {
     {
         return $this->level;
     }
-
     /**
      * Convert the string passed as argument to a level. If the
      * conversion fails, then this method returns a DEBUG Level.

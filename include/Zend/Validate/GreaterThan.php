@@ -18,12 +18,10 @@
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  * @version    $Id: GreaterThan.php 23775 2011-03-01 17:25:24Z ralph $
  */
-
 /**
  * @see Zend_Validate_Abstract
  */
 require_once 'include/Zend/Validate/Abstract.php';
-
 /**
  * @category   Zend
  * @package    Zend_Validate
@@ -32,30 +30,25 @@ require_once 'include/Zend/Validate/Abstract.php';
  */
 class Zend_Validate_GreaterThan extends Zend_Validate_Abstract
 {
-
     const NOT_GREATER = 'notGreaterThan';
-
     /**
      * @var array
      */
     protected $_messageTemplates = array(
         self::NOT_GREATER => "'%value%' is not greater than '%min%'",
     );
-
     /**
      * @var array
      */
     protected $_messageVariables = array(
         'min' => '_min'
     );
-
     /**
      * Minimum value
      *
      * @var mixed
      */
     protected $_min;
-
     /**
      * Sets validator options
      *
@@ -67,7 +60,6 @@ class Zend_Validate_GreaterThan extends Zend_Validate_Abstract
         if ($min instanceof Zend_Config) {
             $min = $min->toArray();
         }
-
         if (is_array($min)) {
             if (array_key_exists('min', $min)) {
                 $min = $min['min'];
@@ -76,10 +68,8 @@ class Zend_Validate_GreaterThan extends Zend_Validate_Abstract
                 throw new Zend_Validate_Exception("Missing option 'min'");
             }
         }
-
         $this->setMin($min);
     }
-
     /**
      * Returns the min option
      *
@@ -89,7 +79,6 @@ class Zend_Validate_GreaterThan extends Zend_Validate_Abstract
     {
         return $this->_min;
     }
-
     /**
      * Sets the min option
      *
@@ -101,7 +90,6 @@ class Zend_Validate_GreaterThan extends Zend_Validate_Abstract
         $this->_min = $min;
         return $this;
     }
-
     /**
      * Defined by Zend_Validate_Interface
      *
@@ -113,12 +101,10 @@ class Zend_Validate_GreaterThan extends Zend_Validate_Abstract
     public function isValid($value)
     {
         $this->_setValue($value);
-
         if ($this->_min >= $value) {
             $this->_error(self::NOT_GREATER);
             return false;
         }
         return true;
     }
-
 }

@@ -15,7 +15,6 @@
  * 
  * @package log4php
  */
-
 /**
  * @ignore 
  */
@@ -30,7 +29,6 @@ if (!defined('LOG4PHP_DIR')) define('LOG4PHP_DIR', dirname(__FILE__));
  * @abstract
  */
 class LoggerAppender {
-
     /**
      * Factory
      *
@@ -100,7 +98,6 @@ class LoggerAppender {
     {
         // override    
     }
-
     /**
      * Return the first filter in the filter chain for this Appender. 
      * The return value may be <i>null</i> if no is filter is set.
@@ -121,7 +118,6 @@ class LoggerAppender {
     {
         //override me
     }
-
     /**
      * This method performs threshold checks and invokes filters before
      * delegating actual logging to the subclasses specific <i>append()</i> method.
@@ -132,7 +128,6 @@ class LoggerAppender {
     {
         //override me    
     }
-
     /**
      * Get the name of this appender.
      * @return string
@@ -141,7 +136,6 @@ class LoggerAppender {
     {
         //override me    
     }
-
     /**
      * Do not use this method.
      *
@@ -160,7 +154,6 @@ class LoggerAppender {
     {
         return $this->errorHandler;
     } 
-
     /**
      * Set the Layout for this appender.
      *
@@ -179,7 +172,6 @@ class LoggerAppender {
     {
         // override me
     }
-
     /**
      * Set the name of this appender.
      *
@@ -191,7 +183,6 @@ class LoggerAppender {
     {
         // override me    
     }
-
     /**
      * Configurators call this method to determine if the appender
      * requires a layout. 
@@ -213,6 +204,5 @@ class LoggerAppender {
     {
         // override me
     }
-
 }
 ?>

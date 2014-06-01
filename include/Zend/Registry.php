@@ -18,7 +18,6 @@
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  * @version    $Id: Registry.php 23775 2011-03-01 17:25:24Z ralph $
  */
-
 /**
  * Generic storage class helps to manage global data.
  *
@@ -34,13 +33,11 @@ class Zend_Registry extends ArrayObject
      * @var string
      */
     private static $_registryClassName = 'Zend_Registry';
-
     /**
      * Registry object provides storage for shared objects.
      * @var Zend_Registry
      */
     private static $_registry = null;
-
     /**
      * Retrieves the default registry instance.
      *
@@ -51,10 +48,8 @@ class Zend_Registry extends ArrayObject
         if (self::$_registry === null) {
             self::init();
         }
-
         return self::$_registry;
     }
-
     /**
      * Set the default registry instance to a specified instance.
      *
@@ -69,11 +64,9 @@ class Zend_Registry extends ArrayObject
             require_once 'include/Zend/Exception.php';
             throw new Zend_Exception('Registry is already initialized');
         }
-
         self::setClassName(get_class($registry));
         self::$_registry = $registry;
     }
-
     /**
      * Initialize the default registry instance.
      *
@@ -83,7 +76,6 @@ class Zend_Registry extends ArrayObject
     {
         self::setInstance(new self::$_registryClassName());
     }
-
     /**
      * Set the class name to use for the default registry instance.
      * Does not affect the currently initialized instance, it only applies
@@ -100,12 +92,10 @@ class Zend_Registry extends ArrayObject
             require_once 'include/Zend/Exception.php';
             throw new Zend_Exception('Registry is already initialized');
         }
-
         if (!is_string($registryClassName)) {
             require_once 'include/Zend/Exception.php';
             throw new Zend_Exception("Argument is not a class name");
         }
-
         /**
          * @see Zend_Loader
          */
@@ -113,10 +103,8 @@ class Zend_Registry extends ArrayObject
             require_once 'include/Zend/Loader.php';
             Zend_Loader::loadClass($registryClassName);
         }
-
         self::$_registryClassName = $registryClassName;
     }
-
     /**
      * Unset the default registry instance.
      * Primarily used in tearDown() in unit tests.
@@ -126,7 +114,6 @@ class Zend_Registry extends ArrayObject
     {
         self::$_registry = null;
     }
-
     /**
      * getter method, basically same as offsetGet().
      *
@@ -141,15 +128,12 @@ class Zend_Registry extends ArrayObject
     public static function get($index)
     {
         $instance = self::getInstance();
-
         if (!$instance->offsetExists($index)) {
             require_once 'include/Zend/Exception.php';
             throw new Zend_Exception("No entry is registered for key '$index'");
         }
-
         return $instance->offsetGet($index);
     }
-
     /**
      * setter method, basically same as offsetSet().
      *
@@ -167,7 +151,6 @@ class Zend_Registry extends ArrayObject
         $instance = self::getInstance();
         $instance->offsetSet($index, $value);
     }
-
     /**
      * Returns TRUE if the $index is a named value in the registry,
      * or FALSE if $index was not found in the registry.
@@ -182,7 +165,6 @@ class Zend_Registry extends ArrayObject
         }
         return self::$_registry->offsetExists($index);
     }
-
     /**
      * Constructs a parent ArrayObject with default
      * ARRAY_AS_PROPS to allow acces as an object
@@ -194,7 +176,6 @@ class Zend_Registry extends ArrayObject
     {
         parent::__construct($array, $flags);
     }
-
     /**
      * @param string $index
      * @returns mixed
@@ -205,5 +186,4 @@ class Zend_Registry extends ArrayObject
     {
         return array_key_exists($index, $this);
     }
-
 }

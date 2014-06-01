@@ -16,7 +16,6 @@
  * @package log4php
  * @subpackage or
  */
-
 /**
  * @ignore 
  */
@@ -33,7 +32,6 @@ if (!defined('LOG4PHP_DIR')) define('LOG4PHP_DIR', dirname(__FILE__) . '/..');
  * @since 0.3
  */
 class LoggerObjectRenderer {
-
     /**
      * @param string $class classname
      * @return LoggerObjectRenderer create LoggerObjectRenderer instances
@@ -49,7 +47,6 @@ class LoggerObjectRenderer {
         }
         return null;
     }
-
     /**
      * Render the entity passed as parameter as a String.
      * @param mixed $o entity to render

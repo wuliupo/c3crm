@@ -1,8 +1,5 @@
 <?php
-
 if (!defined('LOG4PHP_DIR')) define('LOG4PHP_DIR', dirname(__FILE__)); 
-
-
 class NotLog {
     function NotLog() 
 	{
@@ -23,13 +20,11 @@ class NotLog {
         
     }
     
-
     function error($message)
     {
         
     }
     
-
     function warn($message)
     {
         

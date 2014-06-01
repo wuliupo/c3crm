@@ -16,12 +16,9 @@
  * $Header: /advent/projects/wesat/ec_crm/sugarcrm/modules/Notes/index.php,v 1.3 2005/03/17 15:42:56 samk Exp $
  * Description: TODO:  To be written.
  ********************************************************************************/
-
 global $theme;
 $theme_path="themes/".$theme."/";
 $image_path=$theme_path."images/";
-
-
 include ('modules/Addressreports/ListView.php');
  
 ?>

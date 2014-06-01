@@ -35,8 +35,6 @@ if(!isset($_REQUEST['templatefile']) || empty($_REQUEST['templatefile'])) {
 	$smarty->assign('RECORD',$record);
 	$smarty->display("SelectTemplate.tpl");
 	die();
-
-
 } else {
 	$templatefile = $_REQUEST['templatefile'];
 }

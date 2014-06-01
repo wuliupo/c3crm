@@ -1,23 +1,19 @@
 <?php
 // dummy example of RestClient
-require_once('include/untis/CommonUtils.php');
+require_once('include/utils/CommonUtils.php');
 require_once('include/RestClient.class.php');
 $enteredUsername = "demo@c3crm.cn";//test account
 $enteredPassword = "demo";
-
+require_once('config.php');
 $paras = array();
 //$paras["callback"] = "?";
 $paras["method"] = "login";
 $paras["input_type"] = "JSON";
 $paras["response_type"] = "JSON";
-$json = getJSONObj();
-
-$paras["rest_data"] = $json->encode(array(array("password"=>$enteredPassword,"user_name"=>$enteredUsername),"C3CRM",array("name"=>"language","value"=>"en_US")));
-
-$twitter = RestClient::post('http://crm123.sinaapp.com/rest.php',$paras);
-
+$paras["rest_data"] = json_encode(array(array("password"=>$enteredPassword,"user_name"=>$enteredUsername),"C3CRM",array("name"=>"language","value"=>"en_US")));
+$twitter = RestClient::post($site_URL.'/rest.php',$paras);
 //$twitter = RestClient::post( // Same for RestClient::get()
-//            'http://crm123.sinaapp.com/rest.php?callback=?'
+//            $site_URL.'/rest.php?callback=?'
 //            ,'{
 //				method: "login",
 //				input_type: "JSON",
@@ -27,7 +23,6 @@ $twitter = RestClient::post('http://crm123.sinaapp.com/rest.php',$paras);
 //            ,''
 //            ,''
 //			,'application/json');
-
 var_dump($twitter->getResponse());
 echo "<br>aaaaaaaaaaaa<br>";
 var_dump($twitter->getResponseCode());

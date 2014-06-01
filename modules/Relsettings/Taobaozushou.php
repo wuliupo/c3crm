@@ -1,5 +1,4 @@
 <?php
-
 require_once('include/CRMSmarty.php');
 require_once('include/utils/utils.php');
 require_once('include/DatabaseUtil.php');
@@ -8,15 +7,12 @@ global $app_strings;
 global $app_list_strings;
 global $current_user;
 global $current_language;
-
 //Display the mail send status
 $smarty = new CRMSmarty();
-
 global $adb;
 global $theme;
 $theme_path="themes/".$theme."/";
 $image_path=$theme_path."images/";
-
 $apphead = array("xh"=>"序号","shopname"=>"店铺名","appkey"=>"appKey","appsecret"=>"appSecret","nick"=>"昵称","status"=>"状态","tools"=>"工具");
 $smarty->assign("APPHEAD", $apphead);
 $smarty->assign("counthead", count($apphead));
@@ -59,7 +55,6 @@ if(!empty($rows)){
 	}
 }
 $smarty->assign("LIST_ENTRIES", $list_entries);
-
 //当前appkey与appsecret
 if(isset($current_id) && $current_id !=''){
 	$smarty->assign("current_id", $current_id);
@@ -71,18 +66,12 @@ if(isset($current_id) && $current_id !=''){
 	$noselect = "<font color=red>你尚未启用任何店铺应用，请设置！</font>";	
 	$smarty->assign("noselect", $noselect);
 }
-
-
 if(is_admin($current_user)){
 	$smarty->assign("ADMIN", "All");
 }
-
-
 $smarty->assign("MOD", return_module_language($current_language,'Settings'));
 $smarty->assign("IMAGE_PATH",$image_path);
 $smarty->assign("APP", $app_strings);
 $smarty->assign("CMOD", $mod_strings);
 $smarty->display("Relsettings/Taobaozushou.tpl");
-
-
 ?>

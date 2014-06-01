@@ -18,12 +18,10 @@
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  * @version    $Id: AdapterAbstract.php 23775 2011-03-01 17:25:24Z ralph $
  */
-
 /**
  * @see Zend_Validate_Barcode_AdapterInterface
  */
 require_once 'include/Zend/Validate/Barcode/AdapterInterface.php';
-
 /**
  * @category   Zend
  * @package    Zend_Validate
@@ -38,25 +36,21 @@ abstract class Zend_Validate_Barcode_AdapterAbstract
      * @var integer|array|string
      */
     protected $_length;
-
     /**
      * Allowed barcode characters
      * @var string
      */
     protected $_characters;
-
     /**
      * Callback to checksum function
      * @var string|array
      */
     protected $_checksum;
-
     /**
      * Is a checksum value included?
      * @var boolean
      */
     protected $_hasChecksum = true;
-
     /**
      * Checks the length of a barcode
      *
@@ -68,7 +62,6 @@ abstract class Zend_Validate_Barcode_AdapterAbstract
         if (!is_string($value)) {
             return false;
         }
-
         $fixum  = strlen($value);
         $found  = false;
         $length = $this->getLength();
@@ -77,7 +70,6 @@ abstract class Zend_Validate_Barcode_AdapterAbstract
                 if ($fixum == $value) {
                     $found = true;
                 }
-
                 if ($value == -1) {
                     $found = true;
                 }
@@ -93,10 +85,8 @@ abstract class Zend_Validate_Barcode_AdapterAbstract
             $count = $fixum % 2;
             $found = ($count == 1) ? true : false;
         }
-
         return $found;
     }
-
     /**
      * Checks for allowed characters within the barcode
      *
@@ -108,7 +98,6 @@ abstract class Zend_Validate_Barcode_AdapterAbstract
         if (!is_string($value)) {
             return false;
         }
-
         $characters = $this->getCharacters();
         if ($characters == 128) {
             for ($x = 0; $x < 128; ++$x) {
@@ -120,14 +109,11 @@ abstract class Zend_Validate_Barcode_AdapterAbstract
                 $value = str_replace($char, '', $value);
             }
         }
-
         if (strlen($value) > 0) {
             return false;
         }
-
         return true;
     }
-
     /**
      * Validates the checksum
      *
@@ -142,10 +128,8 @@ abstract class Zend_Validate_Barcode_AdapterAbstract
                 return call_user_func(array($this, $checksum), $value);
             }
         }
-
         return false;
     }
-
     /**
      * Returns the allowed barcode length
      *
@@ -155,7 +139,6 @@ abstract class Zend_Validate_Barcode_AdapterAbstract
     {
         return $this->_length;
     }
-
     /**
      * Returns the allowed characters
      *
@@ -165,7 +148,6 @@ abstract class Zend_Validate_Barcode_AdapterAbstract
     {
         return $this->_characters;
     }
-
     /**
      * Returns the checksum function name
      *
@@ -174,7 +156,6 @@ abstract class Zend_Validate_Barcode_AdapterAbstract
     {
         return $this->_checksum;
     }
-
     /**
      * Returns if barcode uses checksum
      *
@@ -184,7 +165,6 @@ abstract class Zend_Validate_Barcode_AdapterAbstract
     {
         return $this->_hasChecksum;
     }
-
     /**
      * Sets the checksum validation
      *
@@ -196,7 +176,6 @@ abstract class Zend_Validate_Barcode_AdapterAbstract
         $this->_hasChecksum = (boolean) $check;
         return $this;
     }
-
     /**
      * Validates the checksum (Modulo 10)
      * GTIN implementation factor 3
@@ -209,7 +188,6 @@ abstract class Zend_Validate_Barcode_AdapterAbstract
         $barcode = substr($value, 0, -1);
         $sum     = 0;
         $length  = strlen($barcode) - 1;
-
         for ($i = 0; $i <= $length; $i++) {
             if (($i % 2) === 0) {
                 $sum += $barcode[$length - $i] * 3;
@@ -217,16 +195,13 @@ abstract class Zend_Validate_Barcode_AdapterAbstract
                 $sum += $barcode[$length - $i];
             }
         }
-
         $calc     = $sum % 10;
         $checksum = ($calc === 0) ? 0 : (10 - $calc);
         if ($value[$length + 1] != $checksum) {
             return false;
         }
-
         return true;
     }
-
     /**
      * Validates the checksum (Modulo 10)
      * IDENTCODE implementation factors 9 and 4
@@ -239,7 +214,6 @@ abstract class Zend_Validate_Barcode_AdapterAbstract
         $barcode = substr($value, 0, -1);
         $sum     = 0;
         $length  = strlen($value) - 2;
-
         for ($i = 0; $i <= $length; $i++) {
             if (($i % 2) === 0) {
                 $sum += $barcode[$length - $i] * 4;
@@ -247,16 +221,13 @@ abstract class Zend_Validate_Barcode_AdapterAbstract
                 $sum += $barcode[$length - $i] * 9;
             }
         }
-
         $calc     = $sum % 10;
         $checksum = ($calc === 0) ? 0 : (10 - $calc);
         if ($value[$length + 1] != $checksum) {
             return false;
         }
-
         return true;
     }
-
     /**
      * Validates the checksum (Modulo 10)
      * CODE25 implementation factor 3
@@ -269,7 +240,6 @@ abstract class Zend_Validate_Barcode_AdapterAbstract
         $barcode = substr($value, 0, -1);
         $sum     = 0;
         $length  = strlen($barcode) - 1;
-
         for ($i = 0; $i <= $length; $i++) {
             if (($i % 2) === 0) {
                 $sum += $barcode[$i] * 3;
@@ -277,16 +247,13 @@ abstract class Zend_Validate_Barcode_AdapterAbstract
                 $sum += $barcode[$i];
             }
         }
-
         $calc     = $sum % 10;
         $checksum = ($calc === 0) ? 0 : (10 - $calc);
         if ($value[$length + 1] != $checksum) {
             return false;
         }
-
         return true;
     }
-
     /**
      * Validates the checksum ()
      * POSTNET implementation
@@ -298,18 +265,15 @@ abstract class Zend_Validate_Barcode_AdapterAbstract
     {
         $checksum = substr($value, -1, 1);
         $values   = str_split(substr($value, 0, -1));
-
         $check = 0;
         foreach($values as $row) {
             $check += $row;
         }
-
         $check %= 10;
         $check = 10 - $check;
         if ($check == $checksum) {
             return true;
         }
-
         return false;
     }
 }

@@ -19,15 +19,10 @@
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  * @version    $Id: Ids.php 23775 2011-03-01 17:25:24Z ralph $
  */
-
-
 /** @see Zend_Db_Adapter_Pdo_Ibm */
 require_once 'include/Zend/Db/Adapter/Pdo/Ibm.php';
-
 /** @see Zend_Db_Statement_Pdo_Ibm */
 require_once 'include/Zend/Db/Statement/Pdo/Ibm.php';
-
-
 /**
  * @category   Zend
  * @package    Zend_Db
@@ -41,7 +36,6 @@ class Zend_Db_Adapter_Pdo_Ibm_Ids
      * @var Zend_Db_Adapter_Abstract
      */
     protected $_adapter = null;
-
     /**
      * Construct the data server class.
      *
@@ -54,7 +48,6 @@ class Zend_Db_Adapter_Pdo_Ibm_Ids
     {
         $this->_adapter = $adapter;
     }
-
     /**
      * Returns a list of the tables in the database.
      *
@@ -64,10 +57,8 @@ class Zend_Db_Adapter_Pdo_Ibm_Ids
     {
         $sql = "SELECT tabname "
         . "FROM systables ";
-
         return $this->_adapter->fetchCol($sql);
     }
-
     /**
      * IDS catalog lookup for describe table
      *
@@ -78,7 +69,6 @@ class Zend_Db_Adapter_Pdo_Ibm_Ids
     public function describeTable($tableName, $schemaName = null)
     {
         // this is still a work in progress
-
         $sql= "SELECT DISTINCT t.owner, t.tabname, c.colname, c.colno, c.coltype,
                d.default, c.collength, t.tabid
                FROM syscolumns c
@@ -90,12 +80,9 @@ class Zend_Db_Adapter_Pdo_Ibm_Ids
             $sql .= $this->_adapter->quoteInto(' AND UPPER(t.owner) = UPPER(?)', $schemaName);
         }
         $sql .= " ORDER BY c.colno";
-
         $desc = array();
         $stmt = $this->_adapter->query($sql);
-
         $result = $stmt->fetchAll(Zend_Db::FETCH_NUM);
-
         /**
          * The ordering of columns is defined by the query so we can map
          * to variables to improve readability
@@ -108,28 +95,22 @@ class Zend_Db_Adapter_Pdo_Ibm_Ids
         $default        = 5;
         $length         = 6;
         $tabid          = 7;
-
         $primaryCols = null;
-
         foreach ($result as $key => $row) {
             $primary = false;
             $primaryPosition = null;
-
             if (!$primaryCols) {
                 $primaryCols = $this->_getPrimaryInfo($row[$tabid]);
             }
-
             if (array_key_exists($row[$colno], $primaryCols)) {
                 $primary = true;
                 $primaryPosition = $primaryCols[$row[$colno]];
             }
-
             $identity = false;
             if ($row[$typename] == 6 + 256 ||
                 $row[$typename] == 18 + 256) {
                 $identity = true;
             }
-
             $desc[$this->_adapter->foldCase($row[$colname])] = array (
                 'SCHEMA_NAME'       => $this->_adapter->foldCase($row[$tabschema]),
                 'TABLE_NAME'        => $this->_adapter->foldCase($row[$tabname]),
@@ -147,10 +128,8 @@ class Zend_Db_Adapter_Pdo_Ibm_Ids
                 'IDENTITY'          => $identity
             );
         }
-
         return $desc;
     }
-
     /**
      * Map number representation of a data type
      * to a string
@@ -187,14 +166,11 @@ class Zend_Db_Adapter_Pdo_Ibm_Ids
             40      => "Variable-length opaque type",
             4118    => "Named ROW"
         );
-
         if ($typeNo - 256 >= 0) {
             $typeNo = $typeNo - 256;
         }
-
         return $typemap[$typeNo];
     }
-
     /**
      * Helper method to retrieve primary key column
      * and column location
@@ -210,12 +186,9 @@ class Zend_Db_Adapter_Pdo_Ibm_Ids
                 FROM sysindexes i
                 JOIN sysconstraints c ON c.idxname = i.idxname
                 WHERE i.tabid = " . $tabid . " AND c.constrtype = 'P'";
-
         $stmt = $this->_adapter->query($sql);
         $results = $stmt->fetchAll();
-
         $cols = array();
-
         // this should return only 1 row
         // unless there is no primary key,
         // in which case, the empty array is returned
@@ -224,7 +197,6 @@ class Zend_Db_Adapter_Pdo_Ibm_Ids
         } else {
             return $cols;
         }
-
         $position = 0;
         foreach ($row as $key => $colno) {
             $position++;
@@ -235,7 +207,6 @@ class Zend_Db_Adapter_Pdo_Ibm_Ids
             }
         }
     }
-
     /**
      * Adds an IDS-specific LIMIT clause to the SELECT statement.
      *
@@ -270,7 +241,6 @@ class Zend_Db_Adapter_Pdo_Ibm_Ids
         }
         return $limit_sql;
     }
-
     /**
      * IDS-specific last sequence id
      *
@@ -284,7 +254,6 @@ class Zend_Db_Adapter_Pdo_Ibm_Ids
         $value = $this->_adapter->fetchOne($sql);
         return $value;
     }
-
      /**
      * IDS-specific sequence id value
      *

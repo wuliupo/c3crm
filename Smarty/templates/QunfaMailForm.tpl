@@ -9,8 +9,6 @@
   *
  ********************************************************************************/
 -->*}
-
-
 <table border=0 cellspacing=0 cellpadding=5 width=95% align=center> 
 	<tr>
 		<td class=small >		
@@ -55,4 +53,3 @@
 	</tr>
 </table>
 <input name="sjid" id="sjid" value="{$sjid}" type="hidden">
-

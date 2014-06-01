@@ -18,12 +18,10 @@
  * @license   http://framework.zend.com/license/new-bsd     New BSD License
  * @version   $Id: Crc32.php 23775 2011-03-01 17:25:24Z ralph $
  */
-
 /**
  * @see Zend_Validate_File_Hash
  */
 require_once 'include/Zend/Validate/File/Hash.php';
-
 /**
  * Validator for the crc32 hash of given files
  *
@@ -40,7 +38,6 @@ class Zend_Validate_File_Crc32 extends Zend_Validate_File_Hash
     const DOES_NOT_MATCH = 'fileCrc32DoesNotMatch';
     const NOT_DETECTED   = 'fileCrc32NotDetected';
     const NOT_FOUND      = 'fileCrc32NotFound';
-
     /**
      * @var array Error message templates
      */
@@ -49,14 +46,12 @@ class Zend_Validate_File_Crc32 extends Zend_Validate_File_Hash
         self::NOT_DETECTED   => "A crc32 hash could not be evaluated for the given file",
         self::NOT_FOUND      => "File '%value%' is not readable or does not exist",
     );
-
     /**
      * Hash of the file
      *
      * @var string
      */
     protected $_hash;
-
     /**
      * Sets validator options
      *
@@ -73,10 +68,8 @@ class Zend_Validate_File_Crc32 extends Zend_Validate_File_Hash
             require_once 'include/Zend/Validate/Exception.php';
             throw new Zend_Validate_Exception('Invalid options to validator provided');
         }
-
         $this->setCrc32($options);
     }
-
     /**
      * Returns all set crc32 hashes
      *
@@ -86,7 +79,6 @@ class Zend_Validate_File_Crc32 extends Zend_Validate_File_Hash
     {
         return $this->getHash();
     }
-
     /**
      * Sets the crc32 hash for one or multiple files
      *
@@ -98,12 +90,10 @@ class Zend_Validate_File_Crc32 extends Zend_Validate_File_Hash
         if (!is_array($options)) {
             $options = array($options);
         }
-
         $options['algorithm'] = 'crc32';
         parent::setHash($options);
         return $this;
     }
-
     /**
      * Sets the crc32 hash for one or multiple files
      *
@@ -115,7 +105,6 @@ class Zend_Validate_File_Crc32 extends Zend_Validate_File_Hash
         $this->setHash($options);
         return $this;
     }
-
     /**
      * Adds the crc32 hash for one or multiple files
      *
@@ -127,12 +116,10 @@ class Zend_Validate_File_Crc32 extends Zend_Validate_File_Hash
         if (!is_array($options)) {
             $options = array($options);
         }
-
         $options['algorithm'] = 'crc32';
         parent::addHash($options);
         return $this;
     }
-
     /**
      * Adds the crc32 hash for one or multiple files
      *
@@ -144,7 +131,6 @@ class Zend_Validate_File_Crc32 extends Zend_Validate_File_Hash
         $this->addHash($options);
         return $this;
     }
-
     /**
      * Defined by Zend_Validate_Interface
      *
@@ -161,19 +147,16 @@ class Zend_Validate_File_Crc32 extends Zend_Validate_File_Hash
         if (!Zend_Loader::isReadable($value)) {
             return $this->_throw($file, self::NOT_FOUND);
         }
-
         $hashes = array_unique(array_keys($this->_hash));
         $filehash = hash_file('crc32', $value);
         if ($filehash === false) {
             return $this->_throw($file, self::NOT_DETECTED);
         }
-
         foreach($hashes as $hash) {
             if ($filehash === $hash) {
                 return true;
             }
         }
-
         return $this->_throw($file, self::DOES_NOT_MATCH);
     }
 }

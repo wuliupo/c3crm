@@ -35,7 +35,6 @@
     <tr bgcolor="white" >
   
    <td class="dvtCellLabel" align="right" style="width:20%">&nbsp;</td>
-
    <td width="100%" colspan="{$count}" align="left">
    
   	 <div id="showmessage">
@@ -51,7 +50,6 @@
     {/if}
     
    </td>
-
   </tr>
   </table>
 </form>

@@ -1,14 +1,11 @@
 <script type="text/javascript" src="modules/{$MODULE}/{$SINGLE_MOD}.js"></script>
-
 <tr><td colspan="4" align="left">
-
 <table  class="table table-bordered table-hover table-condensedforev dvtable" id="proTab">
    <tr>
 	<td colspan="20" class="dvInnerHeader1">
 		<b>{$APP.LBL_PRODUCT_DETAILS}</b>
 	</td>
    </tr>
-
    <!-- Header for the Product Details -->
    <tr valign="top" class="lvtCol3">
 	<td width=5% valign="top" class="lvtCol" align="left"><b>{$APP.LBL_TOOLS}</b></td>
@@ -21,7 +18,6 @@
 	<td width=10% nowrap class="lvtCol" align="right"><b>{$APP.LBL_PRODUCT_TOTAL}</b></td>
    </tr>
    
-
    {foreach key=row_no item=data from=$ASSOCIATEDPRODUCTS}
 	{assign var="deleted" value="deleted"|cat:$row_no}
 	{assign var="hdnProductId" value="hdnProductId"|cat:$row_no}
@@ -31,10 +27,7 @@
 	{assign var="listPrice" value="listPrice"|cat:$row_no}
 	{assign var="productTotal" value="productTotal"|cat:$row_no}
 	{assign var="netPrice" value="netPrice"|cat:$row_no}
-
-
    <tr id="row{$row_no}" valign="top" class="lineOnTop2">
-
 	<!-- column 1 - delete link - starts -->
 	<td  class="crmTableRow small lineOnTop">
 		<img src="{$IMAGE_PATH}delete.gif" border="0" onclick="deleteRow('{$MODULE}',{$row_no})">
@@ -54,7 +47,6 @@
 	<td class="crmTableRow small lineOnTop" valign="top" align="left">
 	<input id="{$qty}" name="{$qty}" type="text" class="small " style="width:50px" onfocus="this.className='detailedViewTextBoxOn'" onBlur="FindDuplicate(); settotalnoofrows(); calcTotal();" value="{$data.$qty}"/>
 	</td>
-
 	<td class="crmTableRow small lineOnTop" align="left" valign="top">
 	   <input id="{$listPrice}" name="{$listPrice}" value="{$data.$listPrice}" type="text" class="small " style="width:70px" onBlur="calcTotal();"/>
 	</td>
@@ -64,7 +56,6 @@
 	</td>
 	<span style="display:none" id="netPrice{$row_no}"><b>{$data.$netPrice}</b></span>
 	
-
 	
 	<td class="crmTableRow small lineOnTop" align="right">
 		<table class="table table-bordered " >

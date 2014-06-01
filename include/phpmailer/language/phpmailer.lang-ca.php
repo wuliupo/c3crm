@@ -4,7 +4,6 @@
 * Catalan Version
 * By Ivan: web AT microstudi DOT com
 */
-
 $PHPMAILER_LANG['authenticate']         = 'Error SMTP: No s\'hapogut autenticar.';
 $PHPMAILER_LANG['connect_host']         = 'Error SMTP: No es pot connectar al servidor SMTP.';
 $PHPMAILER_LANG['data_not_accepted']    = 'Error SMTP: Dades no acceptades.';

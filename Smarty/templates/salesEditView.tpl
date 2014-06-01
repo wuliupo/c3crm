@@ -1,5 +1,4 @@
 {*<!--
-
 /*********************************************************************************
 ** The contents of this file are subject to the vtiger CRM Public License Version 1.0
  * ("License"); You may not use this file except in compliance with the License
@@ -9,18 +8,14 @@
  * All Rights Reserved.
 *
  ********************************************************************************/
-
 -->*}
-
 {*<!-- module header -->*}
 <script type="text/javascript" src="modules/{$MODULE}/{$SINGLE_MOD}.js"></script>
 		{include file='Buttons_List1.tpl'}	
-
 {*<!-- Contents -->*}
 <table border=0 cellspacing=0 cellpadding=0 width=98% align=center>
    <tr>
 	<td valign=top><img src="{$IMAGE_PATH}showPanelTopLeft.gif"></td>
-
 	<td class="showPanelBg" valign=top width=100%>
 		{*<!-- PUBLIC CONTENTS STARTS-->*}
 		<div class="small" style="padding:20px">
@@ -32,12 +27,10 @@
 			{if $OP_MODE eq 'create_view'}
 				<span class="lvtHeaderText">{$APP.LBL_CREATING}{$APP[$SINGLE_MOD]}</span> <br>
 			{/if}
-
 			<hr noshade size=1>
 			<br> 
 		
 			{include file='EditViewHidden.tpl'}
-
 			{*<!-- Account details tabs -->*}
 			<table border=0 cellspacing=0 cellpadding=0 width=95% align=center>
 			   <tr>
@@ -56,7 +49,6 @@
 				<td valign=top align=left >
 					<table border=0 cellspacing=0 cellpadding=3 width=100% class="dvtContentSpace">
 					   <tr>
-
 						<td align=left>
 							{*<!-- content cache -->*}
 					
@@ -76,12 +68,8 @@
 											</div>
 										</td>
 									   </tr>
-
 									   <!-- included to handle the edit fields based on ui types -->
 									   {foreach key=header item=data from=$BLOCKS}
-
-
-
 							<!-- This is added to display the existing comments -->
 							{if $header eq $MOD.LBL_COMMENTS || $header eq $MOD.LBL_COMMENT_INFORMATION}
 							   <tr><td>&nbsp;</td></tr>
@@ -95,9 +83,6 @@
 							   </tr>
 							   <tr><td>&nbsp;</td></tr>
 							{/if}
-
-
-
 									      <tr>
 										{if $header== $MOD.LBL_ADDRESS_INFORMATION && ($MODULE == 'Accounts' || $MODULE == 'Quotes' || $MODULE == 'PurchaseOrder' || $MODULE == 'SalesOrder'|| $MODULE == 'Invoice')}
                                                                                 <td colspan=2 class="detailedViewHeader">
@@ -119,15 +104,10 @@
 										{/if}
 										</td>
 									      </tr>
-
 										<!-- Handle the ui types display -->
 										{include file="DisplayFields.tpl"}
-
 									   {/foreach}
-
-
 									   
-
 									   <tr>
 										<td  colspan=4 style="padding:5px">
 											<div align="center">									
@@ -152,8 +132,6 @@
    </tr>
 </table>
 </form>
-
-
 {if $MODULE eq 'Notes' }        
 	<script type="text/javascript" src="include/fckeditor/fckeditor.js"></script>
 	<script type="text/javascript" defer="1">
@@ -165,7 +143,6 @@
 		oFCKeditor.ReplaceTextarea() ;
 	</script>
 {/if}
-
 {if $MODULE eq 'Accounts'}
 <script>
 	ScrollEffect.limit = 201;
@@ -173,10 +150,7 @@
 </script>
 {/if}
 <script>	
-
         var fieldname = new Array({$VALIDATION_DATA_FIELDNAME})
-
         var fieldlabel = new Array({$VALIDATION_DATA_FIELDLABEL})
-
         var fielddatatype = new Array({$VALIDATION_DATA_FIELDDATATYPE})
 </script>

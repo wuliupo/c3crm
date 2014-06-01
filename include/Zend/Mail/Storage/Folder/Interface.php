@@ -19,8 +19,6 @@
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  * @version    $Id: Interface.php 23775 2011-03-01 17:25:24Z ralph $
  */
-
-
 /**
  * @category   Zend
  * @package    Zend_Mail
@@ -37,7 +35,6 @@ interface Zend_Mail_Storage_Folder_Interface
      * @return Zend_Mail_Storage_Folder root or wanted folder
      */
     public function getFolders($rootFolder = null);
-
     /**
      * select given folder
      *
@@ -48,8 +45,6 @@ interface Zend_Mail_Storage_Folder_Interface
      * @throws Zend_Mail_Storage_Exception
      */
     public function selectFolder($globalName);
-
-
     /**
      * get Zend_Mail_Storage_Folder instance for current folder
      *

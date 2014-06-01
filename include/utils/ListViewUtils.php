@@ -11,15 +11,12 @@ function AlphabeticalSearch($module,$action,$fieldname,$query,$type,$popuptype='
 	$popuptypevalue = "";
 	if($type=='advanced')
 		$flag='&advanced=true';
-
 	if($popuptype != '')
 		$popuptypevalue = "&popuptype=".$popuptype;
-
         if($recordid != '')
                 $returnvalue = '&recordid='.$recordid;
         if($return_module != '')
                 $returnvalue .= '&return_module='.$return_module;
-
 	//change by renzhen for save the search information
 	for($var='A',$i =1;$i<=26;$i++,$var++)
 	{
@@ -30,7 +27,6 @@ function AlphabeticalSearch($module,$action,$fieldname,$query,$type,$popuptype='
 			$list .= '<td class="searchAlph" id="alpha_'.$i.'" align="center" onClick=\'alphabetic("'.$module.'","gname='.$groupid.'&query='.$query.'&search_field='.$fieldname.'&searchtype=BasicSearch&type=alpbt&search_text='.$var.$flag.$popuptypevalue.$returnvalue.$append_url.'","alpha_'.$i.'")\'>'.$var.'</td>';
 		}
 	}
-
 	$log->debug("Exiting AlphabeticalSearch method ...");
 	return $list;
 }
@@ -58,7 +54,6 @@ function getListViewHeader($focus, $module,$sort_qry='',$sorder='',$order_by='',
 	$theme_path="themes/".$theme."/";
 	$image_path=$theme_path."images/";
 	$list_header = Array();
-
 	//Get the ec_tabid of the module
 	$tabid = getTabid($module);
 	//added for ec_customview 27/5
@@ -90,7 +85,6 @@ function getListViewHeader($focus, $module,$sort_qry='',$sorder='',$order_by='',
 						{
 							$temp_sorder = 'ASC';
 						}
-
 						if(isset($current_module_strings[$name]))
 						{
 							$lbl_name = $current_module_strings[$name];
@@ -109,30 +103,23 @@ function getListViewHeader($focus, $module,$sort_qry='',$sorder='',$order_by='',
 							$name = $lbl_name;
 						}							
 						$arrow = '';
-
-
 				//}
 			//}
-
 			$list_header[]=$name;
-
 		}
      }
 	if($module !='Qunfas' && $module !='Maillists'){
 		$list_header[] = $app_strings["LBL_ACTION"];
 	}
-
 	$log->debug("Exiting getListViewHeader method ...");
 	return $list_header;
 }
-
 /**This function generates the navigation array in a listview
 *Param $display - start value of the navigation
 *Param $noofrows - no of records
 *Param $limit - no of entries per page
 *Returns an array type
 */
-
 //code contributed by raju for improved pagination
 function getNavigationValues($display, $noofrows, $limit)
 {
@@ -160,7 +147,6 @@ function getNavigationValues($display, $noofrows, $limit)
 	$start = 0;
 	//added by dingjiantiing on 2007-12-10 for display_errors
 	$last = '';
-
 	$end = $start + ($limit-1);
 	if($end > $noofrows)
 	{
@@ -208,12 +194,8 @@ function getNavigationValues($display, $noofrows, $limit)
 	$navigation_array['verylast'] =$paging;
 	$log->debug("Exiting getNavigationValues method ...");
 	return $navigation_array;
-
 }
-
-
 //End of code contributed by raju for improved pagination
-
 /**This function generates the List view entries in a list view
 *Param $focus - module object
 *Param $list_result - resultset of a listview query
@@ -225,7 +207,6 @@ function getNavigationValues($display, $noofrows, $limit)
 *Param $oCv - ec_customview object
 *Returns an array type
 */
-
 //parameter added for ec_customview $oCv 27/5
 function getListViewEntries($focus, $module,$list_result,$navigation_array,$relatedlist='',$returnset='',$edit_action='EditView',$del_action='Delete',$oCv='')
 {
@@ -283,14 +264,12 @@ function getListViewEntries($focus, $module,$list_result,$navigation_array,$rela
 			$value = getValue($uitype,$list_result,$columnname,$focus,$module,$entity_id,$list_result_count,"list","",$returnset);
 			$list_header[] = $value;
 		}
-
 		$varreturnset = '';
 		if($returnset=='')
 			$varreturnset = '&return_module='.$module.'&return_action=index';
 		else
 			$varreturnset = $returnset;
 		$links_info ='';
-
 		if($module !='Qunfas' && $module !='Maillists'){
 			//Added for Actions ie., edit and delete links in listview
 			$edit_link = getListViewEditLink($module,$entity_id,$relatedlist,$varreturnset,$list_result,$list_result_count);
@@ -308,14 +287,11 @@ function getListViewEntries($focus, $module,$list_result,$navigation_array,$rela
 		}
 		
 		$list_block[$entity_id] = $list_header;
-
 	}
 	$log->debug("Exiting getListViewEntries method ...");
    // var_dump($list_block);exit;
 	return $list_block;
-
 }
-
 /**This function generates the List view entries in a popup list view
 *Param $focus - module object
 *Param $list_result - resultset of a listview query
@@ -327,8 +303,6 @@ function getListViewEntries($focus, $module,$list_result,$navigation_array,$rela
 *Param $oCv - ec_customview object
 *Returns an array type
 */
-
-
 function getSearchListViewEntries($focus, $module,$list_result,$navigation_array,$oCv='')
 {
 	global $log;
@@ -375,7 +349,6 @@ function getSearchListViewEntries($focus, $module,$list_result,$navigation_array
 			$list_header=Array();
 			foreach($focus->search_fields as $name=>$tableinfo)
 			{
-
 				$fieldname = $focus->search_fields_name[$name];
 				$tableinfo = array_values($tableinfo);
 				$columnname = $tableinfo[0];
@@ -394,8 +367,6 @@ function getSearchListViewEntries($focus, $module,$list_result,$navigation_array
 	$log->debug("Exiting getSearchListViewEntries method ...");
 	return $list_block;
 }
-
-
 /**This function generates the value for a given ec_field namee
 *Param $field_result - ec_field result in array
 *Param $list_result - resultset of a listview query
@@ -523,14 +494,12 @@ function getValue($uitype, $list_result,$fieldname,$focus,$module,$entity_id,$li
 		$temp_val = $adb->query_result($list_result,$list_result_count,$fieldname);
 		if($temp_val != '')
 		{
-
 			$value = getSoName($temp_val);
 		}
 		else
 			$value='';
 	}
 	
-
 	//added by dingjianting on 2007-9-24 for smcreator shown in listview
 	elseif($uitype == 1004) //display creator in editview page
 	{
@@ -572,7 +541,6 @@ function getValue($uitype, $list_result,$fieldname,$focus,$module,$entity_id,$li
 				{
 					$temp_val = str_replace("'",'\"',$temp_val);
 					$temp_val = popup_from_html($temp_val);
-
 					//Added to avoid the error when select SO from Invoice through AjaxEdit
 					if($module == 'Salesorders')
 						$value = '<a href="javascript:window.close();" onclick=\'set_return_specific("'.$entity_id.'", "'.br2nl($temp_val).'","'.$_REQUEST['form'].'");\'>'.$temp_val.'</a>';
@@ -582,7 +550,6 @@ function getValue($uitype, $list_result,$fieldname,$focus,$module,$entity_id,$li
 				elseif($popuptype == "detailview")
 				{
 					$temp_val = popup_from_html($temp_val);
-
 					$focus->record_id = $_REQUEST['recordid'];
 					if($_REQUEST['return_module'] == "Calendar")
 					{
@@ -599,20 +566,16 @@ function getValue($uitype, $list_result,$fieldname,$focus,$module,$entity_id,$li
 				elseif($popuptype == "inventory_prod")//select only one products
 				{
 					$row_id = $_REQUEST['curr_row'];
-
 					//To get all the tax types and values and pass it to product details
 					$tax_str = '';
-
 					$unitprice=$adb->query_result($list_result,$list_result_count,'unit_price');
 					$qty_stock=$adb->query_result($list_result,$list_result_count,'qtyinstock');
 					$productcode = $adb->query_result($list_result,$list_result_count,'productcode');
-
 					$temp_val = popup_from_html($temp_val);
 					$value = '<a href="javascript:window.close();" onclick=\'set_return_inventory("'.$entity_id.'", "'.br2nl($temp_val).'", "'.$unitprice.'", "'.$qty_stock.'","'.$tax_str.'","'.$row_id.'","'.$productcode.'");\'>'.$temp_val.'</a>';
 				}
 				elseif($popuptype == "inventory_prods")//select multi products once
 				{
-
 					$unitprice =$adb->query_result($list_result,$list_result_count,'unit_price');
 					$qty_stock=$adb->query_result($list_result,$list_result_count,'qtyinstock');
 					$productcode = $adb->query_result($list_result,$list_result_count,'productcode');
@@ -633,7 +596,6 @@ function getValue($uitype, $list_result,$fieldname,$focus,$module,$entity_id,$li
 					$row_id = $_REQUEST['curr_row'];
 					$unitprice=$adb->query_result($list_result,$list_result_count,'unit_price');
 					$productcode = $adb->query_result($list_result,$list_result_count,'productcode');
-
 					$temp_val = popup_from_html($temp_val);
 					$value = '<a href="javascript:window.close();" onclick=\'set_return_inventory_po("'.$entity_id.'", "'.br2nl($temp_val).'", "'.$unitprice.'", "'.$productcode.'","'.$row_id.'"); \'>'.$temp_val.'</a>';
 				}
@@ -654,26 +616,21 @@ function getValue($uitype, $list_result,$fieldname,$focus,$module,$entity_id,$li
 					$qtyinstock = $adb->query_result($list_result,$list_result_count,'qtyinstock');
 					$value = '<a href="javascript:window.close();" onclick=\'set_return_inventory_check("'.$entity_id.'", "'.br2nl($temp_val).'","'.$row_id.'","'.$productcode.'","'.$usageunit.'","'.$qtyinstock.'"); \'>'.$temp_val.'</a>';
 				}
-
 				elseif($popuptype == "specific_account_address")
 				{
 					require_once('modules/Accounts/Accounts.php');
 					$acct_focus = new Accounts();
 					$acct_focus->retrieve_entity_info($entity_id,"Accounts");
-
 					$temp_val = popup_from_html($temp_val);
 					$value = '<a href="javascript:window.close();" onclick=\'set_return_address("'.$entity_id.'", "'.br2nl($temp_val).'", "'.br2nl($acct_focus->column_fields['bill_street']).'", "'.br2nl($acct_focus->column_fields['ship_street']).'", "'.br2nl($acct_focus->column_fields['bill_city']).'", "'.br2nl($acct_focus->column_fields['ship_city']).'", "'.br2nl($acct_focus->column_fields['bill_state']).'", "'.br2nl($acct_focus->column_fields['ship_state']).'", "'.br2nl($acct_focus->column_fields['bill_code']).'", "'.br2nl($acct_focus->column_fields['ship_code']).'", "'.br2nl($acct_focus->column_fields['bill_country']).'", "'.br2nl($acct_focus->column_fields['ship_country']).'","'.br2nl($acct_focus->column_fields['bill_pobox']).'", "'.br2nl($acct_focus->column_fields['ship_pobox']).'");\'>'.$temp_val.'</a>';
-
 				}
 				elseif($popuptype == "specific_contact_account_address")
 				{
 					require_once('modules/Accounts/Accounts.php');
 					$acct_focus = new Accounts();
 					$acct_focus->retrieve_entity_info($entity_id,"Accounts");
-
 					$temp_val = popup_from_html($temp_val);
 					$value = '<a href="javascript:;" onclick=\'set_return_contact_address("'.$entity_id.'", "'.br2nl($temp_val).'", "'.br2nl($acct_focus->column_fields['bill_street']).'", "'.br2nl($acct_focus->column_fields['ship_street']).'", "'.br2nl($acct_focus->column_fields['bill_city']).'", "'.br2nl($acct_focus->column_fields['ship_city']).'", "'.br2nl($acct_focus->column_fields['bill_state']).'", "'.br2nl($acct_focus->column_fields['ship_state']).'", "'.br2nl($acct_focus->column_fields['bill_code']).'", "'.br2nl($acct_focus->column_fields['ship_code']).'", "'.br2nl($acct_focus->column_fields['bill_country']).'", "'.br2nl($acct_focus->column_fields['ship_country']).'","'.br2nl($acct_focus->column_fields['bill_pobox']).'", "'.br2nl($acct_focus->column_fields['ship_pobox']).'");\'>'.$temp_val.'</a>';
-
 				}
 				elseif($popuptype == "specific_potential_account_address")
 				{
@@ -683,14 +640,12 @@ function getValue($uitype, $list_result,$fieldname,$focus,$module,$entity_id,$li
 						//$acct_focus = new Accounts();
 						//$acct_focus->retrieve_entity_info($acntid,"Accounts");
 						$account_name = getAccountName($acntid);
-
 						$temp_val = popup_from_html($temp_val);
 						$value = '<a href="javascript:window.close();" onclick=\'set_return_address("'.$entity_id.'", "'.br2nl($temp_val).'", "'.$acntid.'", "'.br2nl($account_name).'");\'>'.$temp_val.'</a>';
 					} else {
 						$temp_val = popup_from_html($temp_val);
 						$value = '<a href="javascript:window.close();" >'.$temp_val.'</a>';
 					}
-
 				}
 				//added by rdhital/Raju for better emails
 				elseif($popuptype == "set_return_emails")
@@ -701,8 +656,6 @@ function getValue($uitype, $list_result,$fieldname,$focus,$module,$entity_id,$li
 						$emailaddress=$adb->query_result($list_result,$list_result_count,"msn");
 					$where = isset($_REQUEST['where'])?$_REQUEST['where']:"";
 					$value = '<a href="javascript:;" onclick=\'return set_return_emails("'.$where.'","'.$name.'","'.$emailaddress.'"); \'>'.$name.'</a>';
-
-
 				}
 				elseif($popuptype == "set_return_mobiles")
 				{
@@ -728,14 +681,11 @@ function getValue($uitype, $list_result,$fieldname,$focus,$module,$entity_id,$li
 					$value = '<a href="javascript:window.close();" onclick=\'set_return("'.$entity_id.'", "'.br2nl($temp_val).'");\'>'.$temp_val.'</a>';
 				}
 			}
-
 		}
-
 	}
 	$log->debug("Exiting getValue method ...");
 	return $value;
 }
-
 /** Function to get the list query for a module
   * @param $module -- module name:: Type string
   * @param $where -- where:: Type string
@@ -787,7 +737,6 @@ function getListQuery($module,$where='',$isSearchAll=false)
 				WHERE ec_salesorder.deleted = 0";
 			
 		}
-
 		elseif($module == "Users")
 		{
 			$query = "select id,user_name,roleid,first_name,last_name,email1,phone_mobile,phone_work,is_admin,status from ec_users inner join ec_user2role on ec_user2role.userid=ec_users.id where deleted=0 ";
@@ -816,12 +765,10 @@ function getListQuery($module,$where='',$isSearchAll=false)
 		}
 		//*end
 		
-
 	$query = $query.$where;
 	$log->debug("Exiting getListQuery method ...");
 	return $query;
 }
-
 /**Function to get the table headers for a listview
 *Param $navigation_arrray - navigation values in array
 *Param $url_qry - url string
@@ -830,8 +777,6 @@ function getListQuery($module,$where='',$isSearchAll=false)
 *Param $viewid - view id
 *Returns an string value
 */
-
-
 function getTableHeaderNavigation($navigation_array, $url_qry,$module='',$action_val='index',$viewid='',$isShow=true)
 {
 	global $log;
@@ -854,12 +799,10 @@ function getTableHeaderNavigation($navigation_array, $url_qry,$module='',$action
 		$output .= '</select>';
 		$output .= '<small class="pull-right" style="color:#999999;">&nbsp;&nbsp;'.$app_strings['LBL_PAGESIZE'].'&nbsp;&nbsp;</small>';
 	}
-
 	
 	if($navigation_array['first'] != '') {
 		//$output = '<td style="padding-right:20px">';
 		$output .= '<ul class="pull-right">';
-
 		/*    //commented due to usablity conflict -- Philip
 		$output .= '<a href="index.php?module='.$module.'&action='.$action_val.$url_qry.'&start=1&viewname='.$viewid.'&allflag='.$navigation_array['allflag'].'" >'.$navigation_array['allflag'].'</a>&nbsp;';
 		*/
@@ -908,17 +851,14 @@ function getTableHeaderNavigation($navigation_array, $url_qry,$module='',$action
 	
 	//$output .= '</td>';
 	$log->debug("Exiting getTableHeaderNavigation method ...");
-
 	return $output;
 }
-
 /**This function return the entity ids that need to be excluded in popup listview for a given record
 Param $currentmodule - modulename of the entity to be selected
 Param $returnmodule - modulename for which the entity is assingned
 Param $recordid - the record id for which the entity is assigned
 Return type string.
 */
-
 function getRelCheckquery($currentmodule,$returnmodule,$recordid)
 {
 	global $log;
@@ -945,7 +885,6 @@ function getRelCheckquery($currentmodule,$returnmodule,$recordid)
 	$log->debug("Exiting getRelCheckquery method ...");
 	return $where_relquery;
 }
-
 /**This function stores the variables in session sent in list view url string.
 *Param $lv_array - list view session array
 *Param $noofrows - no of rows
@@ -954,7 +893,6 @@ function getRelCheckquery($currentmodule,$returnmodule,$recordid)
 *Param $related - related module
 *Return type void.
 */
-
 function setSessionVar($lv_array,$noofrows,$max_ent,$module='',$related='')
 {
 	global $currentModule;
@@ -974,7 +912,6 @@ function setSessionVar($lv_array,$noofrows,$max_ent,$module='',$related='')
 		$lv_array['start']=0;
 		$start = 0;
 	}
-
 	if(isset($_REQUEST['start']) && $_REQUEST['start'] !='')
 	{
 		$lv_array['start'] = $_REQUEST['start'];
@@ -996,7 +933,6 @@ function setSessionVar($lv_array,$noofrows,$max_ent,$module='',$related='')
 	else {
 		$_SESSION['rlvs'][$module][$related] = $lv_array;
 	}
-
 	if ($start !='' && $start > ceil($noofrows / $max_ent))
 	{
 		$start = ceil ($noofrows / $max_ent);
@@ -1005,7 +941,6 @@ function setSessionVar($lv_array,$noofrows,$max_ent,$module='',$related='')
 		}
 	}
 }
-
 /**Function to get the table headers for related listview
 *Param $navigation_arrray - navigation values in array
 *Param $url_qry - url string
@@ -1014,7 +949,6 @@ function setSessionVar($lv_array,$noofrows,$max_ent,$module='',$related='')
 *Param $viewid - view id
 *Returns an string value
 */
-
 //Temp function to be be deleted
 function getRelatedTableHeaderNavigation($navigation_array, $url_qry,$module='',$action_val='',$viewid='')
 {
@@ -1032,7 +966,6 @@ function getRelatedTableHeaderNavigation($navigation_array, $url_qry,$module='',
 	{
 		$output .= '<a href="index.php?module='.$module.'&action='.$action_val.$url_qry.'&start=1&viewname='.$viewid.'" title="First"><img src="'.$image_path.'start.gif" border="0" align="absmiddle"></a>&nbsp;';
 		$output .= '<a href="index.php?module='.$module.'&action='.$action_val.$url_qry.'&start='.$navigation_array['prev'].'&viewname='.$viewid.'"><img src="'.$image_path.'previous.gif" border="0" align="absmiddle"></a>&nbsp;';
-
 	}
 	else
 	{
@@ -1064,7 +997,6 @@ function getRelatedTableHeaderNavigation($navigation_array, $url_qry,$module='',
 		else
 		return $output;
 }
-
 /**	Function to get the Edit link details for ListView and RelatedListView
  *	@param string 	$module 	- module name
  *	@param int 	$entity_id 	- record id
@@ -1094,7 +1026,6 @@ function getListViewEditLink($module,$entity_id,$relatedlist,$returnset,$result,
 	if(isset($_REQUEST["parenttab"])) {
 		$parenttab = $_REQUEST["parenttab"];
 	}
-
 	$edit_link .= "&parenttab=".$parenttab;
 	//Appending view name while editing from ListView
 	if(isset($_SESSION['lvs'][$module]["viewname"])) {
@@ -1102,7 +1033,6 @@ function getListViewEditLink($module,$entity_id,$relatedlist,$returnset,$result,
 	}
 	return $edit_link;
 }
-
 /**	Function to get the Del link details for ListView and RelatedListView
  *	@param string 	$module 	- module name
  *	@param int 	$entity_id 	- record id
@@ -1117,23 +1047,17 @@ function getListViewDeleteLink($module,$entity_id,$relatedlist,$returnset)
 	if(isset($_SESSION['lvs'][$current_module]['viewname'])) {
 		$viewname = $_SESSION['lvs'][$current_module]['viewname'];
 	}
-
-
 	if($module == "Calendar")
 		$return_action = "ListView";
 	else
 		$return_action = "index";
-
 	//This is added to avoid the del link in Product related list for the following modules
 	$avoid_del_links = Array("PurchaseOrder","SalesOrder","Quotes","Invoice");
-
 	if($current_module == 'Products' && in_array($module,$avoid_del_links))
 	{
 		return '';
 	}
-
 	$del_link = "index.php?module=$module&action=Delete&record=$entity_id";
-
 	//This is added for relatedlist listview
 	if($relatedlist == 'relatedlist')
 	{
@@ -1147,12 +1071,9 @@ function getListViewDeleteLink($module,$entity_id,$relatedlist,$returnset)
 	if(isset($_REQUEST["parenttab"])) {
 		$parenttab = $_REQUEST["parenttab"];
 	}
-
 	$del_link .= "&parenttab=".$parenttab."&return_viewname=".$viewname;
-
 	return $del_link;
 }
-
 function getListViewViewLink($module,$entity_id)
 {
 	$view_link = "index.php?module=$module&action=DetailView&record=$entity_id";
@@ -1171,7 +1092,6 @@ function getListViewViewLink($module,$entity_id)
 *Param $order_by - order by
 *Returns the listview header values in an array
 */
-
 function getSearchListViewHeader($focus, $module,$sort_qry='',$sorder='',$order_by='',$oCv='')
 {
 	global $log;
@@ -1191,7 +1111,6 @@ function getSearchListViewHeader($focus, $module,$sort_qry='',$sorder='',$order_
 			$focus->search_fields_name = $oCv->list_fields_name;
 		}
 	}
-
 	foreach($focus->search_fields as $name=>$tableinfo)
 	{
 		$fieldname = $focus->search_fields_name[$name];
@@ -1214,12 +1133,10 @@ function getSearchListViewHeader($focus, $module,$sort_qry='',$sorder='',$order_
 			}
 			$name = "<a href='javascript:;' onClick=\"getListViewSorted_js('".$module."','".$sort_qry."&order_by=".$col."&sorder=".$sorder."')\" class='listFormHeaderLinks'>".$name_label."&nbsp;".$arrow."</a>";
 			$arrow = '';
-
 		}
 		$list_header[]=$name;
 	}
 	$log->debug("Exiting getSearchListViewHeader method ...");
 	return $list_header;
-
 }
 ?>

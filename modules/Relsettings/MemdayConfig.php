@@ -1,5 +1,4 @@
 <?php
-
 require_once('include/CRMSmarty.php');
 require_once('include/utils/utils.php');
 require_once('include/DatabaseUtil.php');
@@ -7,20 +6,15 @@ global $mod_strings;
 global $app_strings;
 global $app_list_strings;
 global $current_user;
-
 //Display the mail send status
 $smarty = new CRMSmarty();
-
 global $adb;
 global $theme;
 $theme_path="themes/".$theme."/";
 $image_path=$theme_path."images/";
-
-
 $listview_header =array("xh"=>"序号","type"=>"纪念日类型","zxrq"=>"执行日期","sms"=>"短信发送","smsto"=>"短信发送对象","autoact_sms_sm"=>"短信内容","email"=>"邮件发送","emailto"=>"邮件发送对象","autoact_email_sm"=>"邮件说明","tools"=>"工具");
 $smarty->assign("LISTHEADER", $listview_header);
 $smarty->assign("countnheader", count($listview_header));
-
 if(is_admin($current_user))
 {
 	$query = "select * from ec_memdayconfig";
@@ -84,7 +78,6 @@ if($num_rows > 0){
 	}
 }
 $smarty->assign("LISTENTITY", $listview_entries);
-
 $smarty->assign("MOD", return_module_language($current_language,'Settings'));
 $smarty->assign("IMAGE_PATH",$image_path);
 $smarty->assign("APP", $app_strings);

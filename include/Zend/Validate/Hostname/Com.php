@@ -18,7 +18,6 @@
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  * @version    $Id: Com.php 23775 2011-03-01 17:25:24Z ralph $
  */
-
 /**
  * Ressource file for com and net idn validation
  *
@@ -194,5 +193,4 @@ return array(
     78 => '/^[\x{FF00}-\x{FFEF}]{1,63}$/iu',
     79 => '/^[\x{20000}-\x{2A6DF}]{1,63}$/iu',
     80 => '/^[\x{2F800}-\x{2FA1F}]{1,63}$/iu'
-
 );

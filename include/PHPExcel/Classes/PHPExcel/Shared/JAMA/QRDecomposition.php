@@ -17,32 +17,26 @@
  *	@version 1.1
  */
 class QRDecomposition {
-
 	/**
 	 *	Array for internal storage of decomposition.
 	 *	@var array
 	 */
 	private $QR = array();
-
 	/**
 	 *	Row dimension.
 	 *	@var integer
 	 */
 	private $m;
-
 	/**
 	*	Column dimension.
 	*	@var integer
 	*/
 	private $n;
-
 	/**
 	 *	Array for internal storage of diagonal of R.
 	 *	@var  array
 	 */
 	private $Rdiag = array();
-
-
 	/**
 	 *	QR Decomposition computed by Householder reflections.
 	 *
@@ -89,8 +83,6 @@ class QRDecomposition {
 			throw new Exception(JAMAError(ArgumentTypeException));
 		}
 	}	//	function __construct()
-
-
 	/**
 	 *	Is the matrix full rank?
 	 *
@@ -104,8 +96,6 @@ class QRDecomposition {
 		}
 		return true;
 	}	//	function isFullRank()
-
-
 	/**
 	 *	Return the Householder vectors
 	 *
@@ -123,8 +113,6 @@ class QRDecomposition {
 		}
 		return new Matrix($H);
 	}	//	function getH()
-
-
 	/**
 	 *	Return the upper triangular factor
 	 *
@@ -144,8 +132,6 @@ class QRDecomposition {
 		}
 		return new Matrix($R);
 	}	//	function getR()
-
-
 	/**
 	 *	Generate and return the (economy-sized) orthogonal factor
 	 *
@@ -181,8 +167,6 @@ class QRDecomposition {
 		*/
 		return new Matrix($Q);
 	}	//	function getQ()
-
-
 	/**
 	 *	Least squares solution of A*X = B
 	 *
@@ -228,5 +212,4 @@ class QRDecomposition {
 			throw new Exception(JAMAError(MatrixDimensionException));
 		}
 	}	//	function solve()
-
 }	//	class QRDecomposition

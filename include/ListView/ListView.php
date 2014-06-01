@@ -18,7 +18,6 @@
  ********************************************************************************/
 require_once('include/logging.php');
 require_once('include/ListView/ListViewSession.php');
-
 class ListView {
 	
 	var $local_theme = null;
@@ -39,8 +38,6 @@ class ListView {
 	var $initialized = false;
 	var $querey_where_has_changed = false;
 	var $display_header_and_footer = true;
-
-
 /**initializes ListView
  * Portions created by SugarCRM are Copyright (C) SugarCRM, Inc.
  * All Rights Reserved.
@@ -60,7 +57,6 @@ class ListView {
 		$this->local_app_strings = &$app_strings;
 		$this->local_image_path = $image_path;
 		$this->local_current_module = $currentModule;
-
 		if(empty($this->local_image_path)){
 			$this->local_image_path = 'themes/'.$theme.'/images';
 		}
@@ -107,7 +103,6 @@ class ListView {
 		return;
  	}
 	$sortBy = $this->getSessionVariable($varName, "ORDER_BY") ;
-
 	if(empty($sortBy)){
 		$this->setUserVariable($varName, "ORDER_BY", $orderBy);
 		$sortBy = $orderBy;
@@ -117,7 +112,6 @@ class ListView {
 	if($sortBy == 'amount'){
 		$sortBy = 'amount*1';	
 	}
-
 	$desc = false;
 	$desc = $this->getSessionVariable($varName, $sortBy."_desc");
 	
@@ -151,7 +145,6 @@ class ListView {
 	
 	
 }
-
 /**sets the theme used only use if it is different from the global
  * Portions created by SugarCRM are Copyright (C) SugarCRM, Inc.
  * All Rights Reserved.
@@ -164,7 +157,6 @@ class ListView {
 	if(isset($this->xTemplate))$this->xTemplate->assign("THEME", $this->local_theme );
 	$log->debug("Exiting setTheme method ...");
 }
-
 /**sets the AppStrings used only use if it is different from the global
  * Portions created by SugarCRM are Copyright (C) SugarCRM, Inc.
  * All Rights Reserved.
@@ -178,7 +170,6 @@ class ListView {
 	if(isset($this->xTemplate))$this->xTemplate->assign("APP", $this->local_app_strings );
 	$log->debug("Exiting setAppStrings method ...");
 }
-
 /**sets the ModStrings used 
  * Portions created by SugarCRM are Copyright (C) SugarCRM, Inc.
  * All Rights Reserved.
@@ -192,7 +183,6 @@ class ListView {
 	if(isset($this->xTemplate))$this->xTemplate->assign("MOD", $this->local_mod_strings );
 	$log->debug("Exiting setModStrings method ...");
 }
-
 /**sets the ImagePath used
  * Portions created by SugarCRM are Copyright (C) SugarCRM, Inc.
  * All Rights Reserved.
@@ -208,7 +198,6 @@ class ListView {
 	if(isset($this->xTemplate))$this->xTemplate->assign("IMAGE_PATH", $this->local_image_path );
 	$log->debug("Exiting setImagePath method ...");
 }
-
 /**sets the currentModule only use if this is different from the global
  * Portions created by SugarCRM are Copyright (C) SugarCRM, Inc.
  * All Rights Reserved.
@@ -222,10 +211,7 @@ class ListView {
 	$this->log = LoggerManager::getLogger('listView_'.$this->local_current_module);
 	if(isset($this->xTemplate))$this->xTemplate->assign("MODULE_NAME", $this->local_current_module );
 	$log->debug("Exiting setCurrentModule method ...");
-
 }
-
-
 /**INTERNAL FUNCTION sets a session variable
  * Portions created by SugarCRM are Copyright (C) SugarCRM, Inc.
  * All Rights Reserved.
@@ -237,7 +223,6 @@ class ListView {
 		$_SESSION[$this->local_current_module."_".$localVarName."_".$varName] = $value;
 		$log->debug("Exiting setSessionVariable method ...");
 }
-
 function setUserVariable($localVarName,$varName, $value){
 		global $log;
 		$log->debug("Entering setUserVariable(".$localVarName.",".$varName.",". $value.") method ...");
@@ -245,7 +230,6 @@ function setUserVariable($localVarName,$varName, $value){
 		$current_user->setPreference($this->local_current_module."_".$localVarName."_".$varName, $value);
 		$log->debug("Exiting setUserVariable method ...");
 }
-
 /**INTERNAL FUNCTION returns a session variable first checking the querey for it then checking the session
  * Portions created by SugarCRM are Copyright (C) SugarCRM, Inc.
  * All Rights Reserved.
@@ -264,13 +248,7 @@ function setUserVariable($localVarName,$varName, $value){
 		 $log->debug("Exiting getSessionVariable method ...");
 		 return "";
 }
-
-
-
-
-
 /**
-
  * @return void
  * @param unknown $localVarName
  * @param unknown $varName
@@ -285,10 +263,5 @@ function getSessionVariableName($localVarName,$varName){
 	$log->debug("Exiting getSessionVariableName method ...");
 	return $this->local_current_module."_".$localVarName."_".$varName;
 }
-
-
 }
-
-
-
 ?>

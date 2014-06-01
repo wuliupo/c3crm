@@ -13,12 +13,10 @@ require_once('include/database/PearDatabase.php');
 require_once('modules/CustomView/CustomView.php');
 global $adb;
 global $current_user;
-
 $cvid = $_REQUEST["record"];
 $module = $_REQUEST["dmodule"];
 $smodule = $REQUEST["smodule"];
 $parenttab = $_REQUEST["parenttab"];
-
 $oCustomView = new CustomView();
 $customviewdtls = $oCustomView->getCustomViewByCvid($cvid); 
 if(!is_admin($current_user)){
@@ -27,7 +25,6 @@ if(!is_admin($current_user)){
 		die;
 	}
 }
-
 if(isset($cvid) && $cvid != '')
 {
 	$deletesql = "delete from ec_customview where cvid =".$cvid;

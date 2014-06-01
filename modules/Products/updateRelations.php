@@ -31,7 +31,6 @@ if(isset($_REQUEST['idlist']) && $_REQUEST['idlist'] != '')
 				}
 			}
 		}
-
 		header("Location: index.php?action=$action&module=$currentModule&record=".$forCRMRecord."&parenttab=".$parenttab);
 	}
 	else {
@@ -57,7 +56,6 @@ elseif(isset($_REQUEST['entityid']) && $_REQUEST['entityid'] != '')
 	$return_action = 'DetailView';
 	if($_REQUEST['return_action'] != '')
 		$return_action = $_REQUEST['return_action'];
-
 	//This if will be true, when we select product from vendor related list
 	if($_REQUEST['destination_module'] == 'Products')
 	{
@@ -78,7 +76,6 @@ elseif(isset($_REQUEST['entityid']) && $_REQUEST['entityid'] != '')
 		}
 		header("Location:index.php?action=$return_action&module=Vendors&record=".$_REQUEST["parid"]);
 	}
-
 	elseif($_REQUEST['destination_module'] == 'Accounts')
 	{
 			$sql = "insert into ec_accountproductrel values (". $_REQUEST["entityid"] .",".$_REQUEST["parid"] .")";
@@ -89,9 +86,7 @@ elseif(isset($_REQUEST['entityid']) && $_REQUEST['entityid'] != '')
 	{
 		$dest_mod = $_REQUEST['destination_module'];
 		$parenttab = $_REQUEST['parenttab'];
-
 		$forCRMRecord = isset($_REQUEST['parentid'])?$_REQUEST['parentid']:$_REQUEST['parid'];
-
 		if($singlepane_view == 'true')
 			$action = "DetailView";
 		else
@@ -101,21 +96,9 @@ elseif(isset($_REQUEST['entityid']) && $_REQUEST['entityid'] != '')
 			$focus = new $currentModule();
 			$focus->save_related_module($currentModule, $forCRMRecord, $dest_mod, $_REQUEST['entityid']);
 		}
-
 		header("Location: index.php?action=$action&module=$currentModule&record=".$forCRMRecord."&parenttab=".$parenttab);
 	}
 	
 	
 }
-
-
-
-
-
-
-
-
-
-
-
 ?>

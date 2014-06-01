@@ -8,28 +8,22 @@ require_once('include/utils/utils.php');
 require_once('modules/CustomView/CustomView.php');
 require_once('include/DatabaseUtil.php');
 require_once('modules/ListViewReport/ListViewReport.php');
-
 global $app_strings,$mod_strings,$list_max_entries_per_page,$theme,$adb;
 $theme_path="themes/".$theme."/";
 $image_path=$theme_path."images/";
-
-
 $focus = new $currentModule();
 $other_text = Array();
 $url_string = ''; // assigning http url string
 //<<<<<<<<<<<<<<<<<<< sorting - stored in session >>>>>>>>>>>>>>>>>>>>
 $sorder = $focus->getSortOrder();
 $order_by = $focus->getOrderBy();
-
 $collectcolumnhtml=true;
 $picklistreporthtml=true;
-
 $listviewreport=new ListViewReport($currentModule);
 $allcustomreports=$listviewreport->getAllModReportInf();
 $allmodulepicklists=$listviewreport->getModulePicklists();
 if($currentModule=='Products'||$currentModule=='Faq'||$currentModule == "PriceBooks"){
     if(count($allmodulepicklists)+count($allcustomreports)==0){
-
         $picklistreporthtml=false;
     }
 }
@@ -37,8 +31,6 @@ if($currentModule=='Products'||$currentModule=='Faq'||$currentModule == "PriceBo
 $oCustomView = new CustomView($currentModule);
 $viewid = $oCustomView->getViewId($currentModule);
 $viewnamedesc = $oCustomView->getCustomViewByCvid($viewid);
-
-
 if(isset($_REQUEST['query']) && $_REQUEST['query'] == 'true')
 {
 	list($where, $ustring) = explode("#@@#",getWhereCondition($currentModule));
@@ -50,7 +42,6 @@ elseif(isset($_SESSION['LiveViewSearch'][$currentModule]))
         $where=$_SESSION['LiveViewSearch'][$currentModule][1];
 //    }
 }
-
 if($viewid != "0")
 {
     $customviewdtls = $oCustomView->getCustomViewByCvid($viewid);
@@ -62,7 +53,6 @@ if($viewid != "0")
     {
         $collectcolumn=$customviewdtls["collectcolumn"];
         $list = explode(":",$collectcolumn);
-
         $fieldlabel=trim(str_replace(array($currentModule."_","_"), " ", $list[3]));
         if(isset($mod_strings[$fieldlabel])) $fieldlabel=$mod_strings[$fieldlabel];
         elseif(isset($app_strings[$fieldlabel]))
@@ -114,7 +104,6 @@ if($viewid != "0")
            $start=1;
         }
          $limit_start_rec=($start-1)*$list_max_entries_per_page;
-
         $list_result = $adb->limitQuery2($list_query,$limit_start_rec,$list_max_entries_per_page,$query_order_by,$sorder);
         $currentpagetotal=0;
 		foreach($list_result as $row)
@@ -129,7 +118,6 @@ else
     $collectcolumnhtml=false;
     $picklistreporthtml=false;
 }
-
 if($collectcolumnhtml){
  ?>
     <table  width="100%" >
@@ -179,7 +167,6 @@ foreach($_REQUEST as $key=>$value)
     {
         $urlstr1.="&$key=$value";
     }
-
 }
 foreach($allmodulepicklists as $picklistfield)
 {
@@ -187,7 +174,6 @@ foreach($allmodulepicklists as $picklistfield)
     $picklistfieldname=$picklistfield[1];
     $picklistfieldtablename=$picklistfield[2];
     $picklistfieldcolname=$picklistfield[3];
-
     $reportparams="pickfieldname=$picklistfieldname&pickfieldtable=$picklistfieldtablename&pickfieldcolname=$picklistfieldcolname";
 ?>
 ●<a style="color: rgb(153, 102, 51);" href="javascript:openListViewReport('index.php?module=ListViewReport&action=Popup_ListView&grouptype=count&<?php echo $reportparams;?>','<?php echo $urlstr1;?>');"><?php echo $picklistfieldlabel; ?>分布统计</a>　
@@ -219,21 +205,17 @@ if(is_array($allcustomreports))
         $picklistfieldname=$picklistfield[1];
         $picklistfieldtablename=$picklistfield[2];
         $picklistfieldcolname=$picklistfield[3];
-
         $reportparams="iscustomreport=true&reportfun={$reportfun}";
 ?>
 ●<a style="color: rgb(153, 102, 51);" href="javascript:openListViewReport('index.php?module=ListViewReport&action=<?php echo $actionname;?>&grouptype=count&<?php echo $reportparams;?>','<?php echo $urlstr1;?>');"><?php echo $picklistfieldlabel.$labelsuffix; ?></a>
 <?php
-
     }
 }
 ?>
       </td>
     </tr>
-
   </tbody></table>
   </div>
-
 <?php
 }
 ?>

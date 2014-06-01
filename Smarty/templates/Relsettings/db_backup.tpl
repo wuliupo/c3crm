@@ -6,7 +6,6 @@
         <td class="showPanelBg" style="padding: 10px;" valign="top" width="100%">
 	<form action="index.php" method="post" name="dbbackup" id="form">
 	<input type="hidden" name="type" value="full">
-
 	<input type="hidden" name="module" value="Relsettings">
 	<input type="hidden" name="action">
 	<input type="hidden" name="parenttab" value="Settings">
@@ -14,7 +13,6 @@
 	<input type="hidden" name="return_action" value="index">
 	<div align=center>
 			
-
 				<!-- DISPLAY -->
 				<table border=0 cellspacing=0 cellpadding=5 width=100% class="settingsSelUITopLine">
 				<tr>

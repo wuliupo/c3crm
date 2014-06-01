@@ -21,13 +21,10 @@ require_once(LOG4PHP_DIR.'/LoggerManager.php');
 /*
 require_once('config.php');
 global $site_instance_dir;global $is_instances;
-
 define('LOG4PHP_DIR', 'log4php');
 define('LOG4PHP_DEFAULT_INIT_OVERRIDE', true);
-
 require_once(LOG4PHP_DIR.'/LoggerManager.php');
 require_once(LOG4PHP_DIR.'/LoggerPropertyConfigurator.php');
-
 $config = new LoggerPropertyConfigurator();
 if($is_instances) {
    $config->configure($site_instance_dir.'/log4php.properties');
@@ -35,5 +32,4 @@ if($is_instances) {
 	$config->configure('log4php.properties');
 }
 */
-
 ?>

@@ -19,14 +19,10 @@
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  * @version    $Id: Crammd5.php 23775 2011-03-01 17:25:24Z ralph $
  */
-
-
 /**
  * @see Zend_Mail_Protocol_Smtp
  */
 require_once 'include/Zend/Mail/Protocol/Smtp.php';
-
-
 /**
  * Performs CRAM-MD5 authentication
  *
@@ -56,11 +52,8 @@ class Zend_Mail_Protocol_Smtp_Auth_Crammd5 extends Zend_Mail_Protocol_Smtp
                 $this->_password = $config['password'];
             }
         }
-
         parent::__construct($host, $port, $config);
     }
-
-
     /**
      * @todo Perform CRAM-MD5 authentication with supplied credentials
      *
@@ -70,7 +63,6 @@ class Zend_Mail_Protocol_Smtp_Auth_Crammd5 extends Zend_Mail_Protocol_Smtp
     {
         // Ensure AUTH has not already been initiated.
         parent::auth();
-
         $this->_send('AUTH CRAM-MD5');
         $challenge = $this->_expect(334);
         $challenge = base64_decode($challenge);
@@ -79,8 +71,6 @@ class Zend_Mail_Protocol_Smtp_Auth_Crammd5 extends Zend_Mail_Protocol_Smtp
         $this->_expect(235);
         $this->_auth = true;
     }
-
-
     /**
      * Prepare CRAM-MD5 response to server's ticket
      *
@@ -96,13 +86,10 @@ class Zend_Mail_Protocol_Smtp_Auth_Crammd5 extends Zend_Mail_Protocol_Smtp
         } elseif (strlen($key) < 64) {
             $key = str_pad($key, $block, "\0");
         }
-
         $k_ipad = substr($key, 0, 64) ^ str_repeat(chr(0x36), 64);
         $k_opad = substr($key, 0, 64) ^ str_repeat(chr(0x5C), 64);
-
         $inner = pack('H32', md5($k_ipad . $data));
         $digest = md5($k_opad . $inner);
-
         return $digest;
     }
 }

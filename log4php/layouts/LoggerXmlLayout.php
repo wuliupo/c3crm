@@ -16,24 +16,19 @@
  * @package log4php
  * @subpackage layouts
  */
-
 /**
  * @ignore 
  */
 if (!defined('LOG4PHP_DIR')) define('LOG4PHP_DIR', dirname(__FILE__) . '/..');
-
 define('LOG4PHP_LOGGER_XML_LAYOUT_LOG4J_NS_PREFIX',     'log4j');
 define('LOG4PHP_LOGGER_XML_LAYOUT_LOG4J_NS',            'http://jakarta.apache.org/log4j/');
-
 define('LOG4PHP_LOGGER_XML_LAYOUT_LOG4PHP_NS_PREFIX',   'log4php');
 define('LOG4PHP_LOGGER_XML_LAYOUT_LOG4PHP_NS',          'http://www.vxr.it/log4php/');
-
 /**
  */
 require_once(LOG4PHP_DIR . '/helpers/LoggerOptionConverter.php');
 require_once(LOG4PHP_DIR . '/helpers/LoggerTransform.php');
 require_once(LOG4PHP_DIR . '/LoggerLayout.php');
-
 /**
  * The output of the LoggerXmlLayout consists of a series of log4php:event elements. 
  * 
@@ -49,7 +44,6 @@ require_once(LOG4PHP_DIR . '/LoggerLayout.php');
  * @subpackage layouts
  */
 class LoggerXmlLayout extends LoggerLayout {
-
     /**
      * The <b>LocationInfo</b> option takes a boolean value. By default,
      * it is set to false which means there will be no location
@@ -103,7 +97,6 @@ class LoggerXmlLayout extends LoggerLayout {
                     "includesLocationInfo=\"".($this->getLocationInfo() ? "true" : "false")."\"".
                ">\r\n";
     }
-
     /**
      * Formats a {@link LoggerLoggingEvent} in conformance with the log4php.dtd.
      *
@@ -117,19 +110,16 @@ class LoggerXmlLayout extends LoggerLayout {
         $thread     = $event->getThreadName();
         $level      = $event->getLevel();
         $levelStr   = $level->toString();
-
         $buf = "<{$this->_namespacePrefix}:event logger=\"{$loggerName}\" level=\"{$levelStr}\" thread=\"{$thread}\" timestamp=\"{$timeStamp}\">\r\n";
         $buf .= "<{$this->_namespacePrefix}:message><![CDATA["; 
         LoggerTransform::appendEscapingCDATA($buf, $event->getRenderedMessage()); 
         $buf .= "]]></{$this->_namespacePrefix}:message>\r\n";        
-
         $ndc = $event->getNDC();
         if($ndc != null) {
             $buf .= "<{$this->_namespacePrefix}:NDC><![CDATA[";
             LoggerTransform::appendEscapingCDATA($buf, $ndc);
             $buf .= "]]></{$this->_namespacePrefix}:NDC>\r\n";       
         }
-
         if ($this->getLocationInfo()) {
             $locationInfo = $event->getLocationInformation();
             $buf .= "<{$this->_namespacePrefix}:locationInfo ". 
@@ -138,13 +128,10 @@ class LoggerXmlLayout extends LoggerLayout {
                     "line=\"" .  $locationInfo->getLineNumber() . "\" ".
                     "method=\"" . $locationInfo->getMethodName() . "\" ";
             $buf .= "/>\r\n";
-
         }
-
         $buf .= "</{$this->_namespacePrefix}:event>\r\n\r\n";
         
         return $buf;
-
     }
     
     /**
@@ -152,7 +139,6 @@ class LoggerXmlLayout extends LoggerLayout {
      */
     function getFooter()
     {
-
         return "</{$this->_namespacePrefix}:eventSet>\r\n";
     }
     
@@ -171,7 +157,6 @@ class LoggerXmlLayout extends LoggerLayout {
     {
         return $this->log4jNamespace;
     }
-
     /**
      * The XMLLayout prints and does not ignore exceptions. Hence the
      * return value <b>false</b>.
@@ -202,5 +187,4 @@ class LoggerXmlLayout extends LoggerLayout {
         $this->log4jNamespace = LoggerOptionConverter::toBoolean($flag, true);
     }
 }
-
 ?>

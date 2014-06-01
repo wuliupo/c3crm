@@ -11,10 +11,8 @@
 require_once('include/database/PearDatabase.php');
 global $mod_strings;
 global $adb;
-
 $fld_module = $_REQUEST["fld_module"];
 $blockid = $_REQUEST["blockid"];
-
 $query = "select * from ec_field where block=".$blockid;
 //echo $query;
 $result = $adb->query($query);

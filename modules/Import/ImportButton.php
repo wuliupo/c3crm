@@ -12,7 +12,6 @@
  * All Rights Reserved.
  * Contributor(s): ______________________________________.
  ********************************************************************************/
-
 global $mod_strings;
 global $allow_exports;
 ?>
@@ -47,7 +46,6 @@ if ($_REQUEST['module'] == 'Products' ||
 <?php
 	}
 }
-
 if  ( $allow_exports=='all' || 
 	(  $allow_exports=='admin' &&  is_admin($current_user))  ) 
 	{

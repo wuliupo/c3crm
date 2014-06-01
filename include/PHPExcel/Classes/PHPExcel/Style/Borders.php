@@ -24,8 +24,6 @@
  * @license    http://www.gnu.org/licenses/old-licenses/lgpl-2.1.txt	LGPL
  * @version    1.7.2, 2010-01-11
  */
-
-
 /** PHPExcel root directory */
 if (!defined('PHPEXCEL_ROOT')) {
 	/**
@@ -33,14 +31,10 @@ if (!defined('PHPEXCEL_ROOT')) {
 	 */
 	define('PHPEXCEL_ROOT', dirname(__FILE__) . '/../../');
 }
-
 /** PHPExcel_Style_Border */
 require_once PHPEXCEL_ROOT . 'PHPExcel/Style/Border.php';
-
 /** PHPExcel_IComparable */
 require_once PHPEXCEL_ROOT . 'PHPExcel/IComparable.php';
-
-
 /**
  * PHPExcel_Style_Borders
  *
@@ -139,21 +133,18 @@ class PHPExcel_Style_Borders implements PHPExcel_IComparable
 	 * @var _parentPropertyName string
 	 */
 	private $_parentPropertyName;
-
 	/**
 	 * Supervisor?
 	 *
 	 * @var boolean
 	 */
 	private $_isSupervisor;
-
 	/**
 	 * Parent. Only used for supervisor
 	 *
 	 * @var PHPExcel_Style
 	 */
 	private $_parent;
-
 	/**
      * Create a new PHPExcel_Style_Borders
      */
@@ -161,7 +152,6 @@ class PHPExcel_Style_Borders implements PHPExcel_IComparable
     {
     	// Supervisor?
 		$this->_isSupervisor = $isSupervisor;
-
     	// Initialise values
     	$this->_left				= new PHPExcel_Style_Border($isSupervisor);
     	$this->_right				= new PHPExcel_Style_Border($isSupervisor);
@@ -169,7 +159,6 @@ class PHPExcel_Style_Borders implements PHPExcel_IComparable
     	$this->_bottom				= new PHPExcel_Style_Border($isSupervisor);
     	$this->_diagonal			= new PHPExcel_Style_Border($isSupervisor);
 		$this->_diagonalDirection	= PHPExcel_Style_Borders::DIAGONAL_NONE;
-
 		// Specially for supervisor
 		if ($isSupervisor) {
 			// Initialize pseudo-borders
@@ -178,7 +167,6 @@ class PHPExcel_Style_Borders implements PHPExcel_IComparable
 			$this->_inside				= new PHPExcel_Style_Border(true);
 			$this->_vertical			= new PHPExcel_Style_Border(true);
 			$this->_horizontal			= new PHPExcel_Style_Border(true);
-
 			// bind parent if we are a supervisor
 			$this->_left->bindParent($this, '_left');
 			$this->_right->bindParent($this, '_right');
@@ -192,7 +180,6 @@ class PHPExcel_Style_Borders implements PHPExcel_IComparable
 			$this->_horizontal->bindParent($this, '_horizontal');
 		}
     }
-
 	/**
 	 * Bind parent. Only used for supervisor
 	 *
@@ -204,7 +191,6 @@ class PHPExcel_Style_Borders implements PHPExcel_IComparable
 		$this->_parent = $parent;
 		return $this;
 	}
-
 	/**
 	 * Is this a supervisor or a real style component?
 	 *
@@ -214,7 +200,6 @@ class PHPExcel_Style_Borders implements PHPExcel_IComparable
 	{
 		return $this->_isSupervisor;
 	}
-
 	/**
 	 * Get the shared style component for the currently active cell in currently active sheet.
 	 * Only used for style supervisor
@@ -225,7 +210,6 @@ class PHPExcel_Style_Borders implements PHPExcel_IComparable
 	{
 		return $this->_parent->getSharedComponent()->getBorders();
 	}
-
 	/**
 	 * Get the currently active sheet. Only used for supervisor
 	 *
@@ -235,7 +219,6 @@ class PHPExcel_Style_Borders implements PHPExcel_IComparable
 	{
 		return $this->_parent->getActiveSheet();
 	}
-
 	/**
 	 * Get the currently active cell coordinate in currently active sheet.
 	 * Only used for supervisor
@@ -246,7 +229,6 @@ class PHPExcel_Style_Borders implements PHPExcel_IComparable
 	{
 		return $this->getActiveSheet()->getSelectedCells();
 	}
-
 	/**
 	 * Get the currently active cell coordinate in currently active sheet.
 	 * Only used for supervisor
@@ -257,7 +239,6 @@ class PHPExcel_Style_Borders implements PHPExcel_IComparable
 	{
 		return $this->getActiveSheet()->getActiveCell();
 	}
-
 	/**
 	 * Build style array from subcomponents
 	 *
@@ -268,7 +249,6 @@ class PHPExcel_Style_Borders implements PHPExcel_IComparable
 	{
 		return array('borders' => $array);
 	}
-
 	/**
      * Apply styles from array
      * 
@@ -372,7 +352,6 @@ class PHPExcel_Style_Borders implements PHPExcel_IComparable
     public function getBottom() {
 		return $this->_bottom;
     }
-
     /**
      * Get Diagonal
      *

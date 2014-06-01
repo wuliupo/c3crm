@@ -12,7 +12,6 @@
  * All Rights Reserved.
  * Contributor(s): ______________________________________.
  ********************************************************************************/
-
 //Make a count query
 function mkCountQuery($query)
 {
@@ -23,19 +22,15 @@ function mkCountQuery($query)
     //Strip of the current SELECT fields and replace them by "select count(*) as count"
     // Space across FROM has to be retained here so that we do not have a clash with string "from" found in select clause
     $query = "SELECT count(1) AS count ".substr($query, stripos($query,' FROM '),strlen($query));
-
     //Strip of any "GROUP BY" clause
     if(stripos($query,'GROUP BY') > 0)
 	$query = substr($query, 0, stripos($query,'GROUP BY'));
-
     //Strip of any "ORDER BY" clause
     if(stripos($query,'ORDER BY') > 0)
 	$query = substr($query, 0, stripos($query,'ORDER BY'));
-
     //That's it
     return( $query);
 }
-
 //Added for PHP version less than 5
 if (!function_exists("stripos"))
 {
@@ -44,5 +39,4 @@ if (!function_exists("stripos"))
 		return strpos(strtolower($query),strtolower($needle));
 	}
 }
-
 ?>

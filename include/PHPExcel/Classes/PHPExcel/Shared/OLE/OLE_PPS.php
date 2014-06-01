@@ -18,8 +18,6 @@
 // +----------------------------------------------------------------------+
 //
 // $Id: PPS.php,v 1.7 2007/02/13 21:00:42 schmidt Exp $
-
-
 /** PHPExcel root directory */
 if (!defined('PHPEXCEL_ROOT')) {
 	/**
@@ -27,9 +25,7 @@ if (!defined('PHPEXCEL_ROOT')) {
 	 */
 	define('PHPEXCEL_ROOT', dirname(__FILE__) . '/../../../');
 }
-
 require_once PHPEXCEL_ROOT . 'PHPExcel/Shared/OLE.php';
-
 /**
 * Class for creating PPS's for OLE containers
 *
@@ -44,79 +40,66 @@ class PHPExcel_Shared_OLE_PPS
 	* @var integer
 	*/
 	public $No;
-
 	/**
 	* The PPS name (in Unicode)
 	* @var string
 	*/
 	public $Name;
-
 	/**
 	* The PPS type. Dir, Root or File
 	* @var integer
 	*/
 	public $Type;
-
 	/**
 	* The index of the previous PPS
 	* @var integer
 	*/
 	public $PrevPps;
-
 	/**
 	* The index of the next PPS
 	* @var integer
 	*/
 	public $NextPps;
-
 	/**
 	* The index of it's first child if this is a Dir or Root PPS
 	* @var integer
 	*/
 	public $DirPps;
-
 	/**
 	* A timestamp
 	* @var integer
 	*/
 	public $Time1st;
-
 	/**
 	* A timestamp
 	* @var integer
 	*/
 	public $Time2nd;
-
 	/**
 	* Starting block (small or big) for this PPS's data  inside the container
 	* @var integer
 	*/
 	public $_StartBlock;
-
 	/**
 	* The size of the PPS's data (in bytes)
 	* @var integer
 	*/
 	public $Size;
-
 	/**
 	* The PPS's data (only used if it's not using a temporary file)
 	* @var string
 	*/
 	public $_data;
-
 	/**
 	* Array of child PPS's (only used by Root and Dir PPS's)
 	* @var array
 	*/
 	public $children = array();
-
 	/**
 	* Pointer to OLE container
 	* @var OLE
 	*/
 	public $ole;
-
 	/**
 	* The constructor
 	*
@@ -150,7 +133,6 @@ class PHPExcel_Shared_OLE_PPS
 			$this->Size = 0;
 		}
 	}
-
 	/**
 	* Returns the amount of data saved for this PPS
 	*
@@ -170,7 +152,6 @@ class PHPExcel_Shared_OLE_PPS
 			return strlen($this->_data);
 		}
 	}
-
 	/**
 	* Returns a string with the PPS's WK (What is a WK?)
 	*
@@ -202,7 +183,6 @@ class PHPExcel_Shared_OLE_PPS
 			  . pack("V", 0);                        // 128
 		return $ret;
 	}
-
 	/**
 	* Updates index and pointers to previous, next and children PPS's for this
 	* PPS. I don't think it'll work with Dir PPS's.

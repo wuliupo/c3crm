@@ -18,12 +18,10 @@
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  * @version    $Id: Issn.php 23775 2011-03-01 17:25:24Z ralph $
  */
-
 /**
  * @see Zend_Validate_Barcode_AdapterAbstract
  */
 require_once 'include/Zend/Validate/Barcode/AdapterAbstract.php';
-
 /**
  * @category   Zend
  * @package    Zend_Validate
@@ -37,19 +35,16 @@ class Zend_Validate_Barcode_Issn extends Zend_Validate_Barcode_AdapterAbstract
      * @var integer
      */
     protected $_length = array(8, 13);
-
     /**
      * Allowed barcode characters
      * @var string
      */
     protected $_characters = '0123456789X';
-
     /**
      * Checksum function
      * @var string
      */
     protected $_checksum = '_gtin';
-
     /**
      * Allows X on length of 8 chars
      *
@@ -63,10 +58,8 @@ class Zend_Validate_Barcode_Issn extends Zend_Validate_Barcode_AdapterAbstract
                 return false;
             }
         }
-
         return parent::checkChars($value);
     }
-
     /**
      * Validates the checksum
      *
@@ -80,10 +73,8 @@ class Zend_Validate_Barcode_Issn extends Zend_Validate_Barcode_AdapterAbstract
         } else {
             $this->_checksum = '_gtin';
         }
-
         return parent::checksum($value);
     }
-
     /**
      * Validates the checksum ()
      * ISSN implementation (reversed mod11)
@@ -101,11 +92,9 @@ class Zend_Validate_Barcode_Issn extends Zend_Validate_Barcode_AdapterAbstract
             if ($token == 'X') {
                 $token = 10;
             }
-
             $check += ($token * $multi);
             --$multi;
         }
-
         $check %= 11;
         $check  = 11 - $check;
         if ($check == $checksum) {
@@ -113,7 +102,6 @@ class Zend_Validate_Barcode_Issn extends Zend_Validate_Barcode_AdapterAbstract
         } else if (($check == 10) && ($checksum == 'X')) {
             return true;
         }
-
         return false;
     }
 }

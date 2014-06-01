@@ -10,7 +10,6 @@
  ********************************************************************************/
 require_once('include/CRMSmarty.php');
 require_once('include/database/PearDatabase.php');
-
 global $mod_strings;
 global $app_strings;
 global $adb;
@@ -20,16 +19,13 @@ $smarty->assign("APP",$app_strings);
 global $theme;
 $theme_path="themes/".$theme."/";
 $image_path=$theme_path."images/";
-
 $smarty->assign("IMAGE_PATH", $image_path);
 $custommodulelist = getModuleListEntries();
 $smarty->assign("MODULEENTRIES",$custommodulelist);
-
 if($_REQUEST['mode'] !='')
 	$mode = $_REQUEST['mode'];
 $smarty->assign("MODE", $mode);
 $smarty->display('Settings/CustomModuleList.tpl');
-
 	/**
 	* Function to get customfield entries
 	* @param string $module - Module name
@@ -51,7 +47,6 @@ function getModuleListEntries()
 		{		
 			$cf_element = Array();
 			$cf_element['no'] = $count;
-
 			$cf_element['enname'] = $row["enname"];
 			$cf_element['cnname'] = $row["cnname"];
 			if(isset($app_strings[$row["parenttab_label"]])) {

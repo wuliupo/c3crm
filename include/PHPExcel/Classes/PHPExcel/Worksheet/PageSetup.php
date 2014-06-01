@@ -24,8 +24,6 @@
  * @license    http://www.gnu.org/licenses/old-licenses/lgpl-2.1.txt	LGPL
  * @version    1.7.2, 2010-01-11
  */
-
-
 /**
  * PHPExcel_Worksheet_PageSetup
  *
@@ -173,26 +171,22 @@ class PHPExcel_Worksheet_PageSetup
 	const PAPERSIZE_A2_PAPER						= 64;
 	const PAPERSIZE_A3_TRANSVERSE_PAPER				= 65;
 	const PAPERSIZE_A3_EXTRA_TRANSVERSE_PAPER		= 66;
-
 	/* Page orientation */
 	const ORIENTATION_DEFAULT	= 'default';
 	const ORIENTATION_LANDSCAPE	= 'landscape';
 	const ORIENTATION_PORTRAIT	= 'portrait';
-
 	/**
 	 * Paper size
 	 *
 	 * @var int
 	 */
 	private $_paperSize;
-
 	/**
 	 * Orientation
 	 *
 	 * @var string
 	 */
 	private $_orientation;
-
 	/**
 	 * Scale (Print Scale)
 	 *
@@ -202,7 +196,6 @@ class PHPExcel_Worksheet_PageSetup
 	 * @var int?
 	 */
 	private $_scale;
-
 	/**
 	  * Fit To Page
 	  * Whether scale or fitToWith / fitToHeight applies
@@ -210,7 +203,6 @@ class PHPExcel_Worksheet_PageSetup
 	  * @var boolean
 	  */
 	private $_fitToPage;
-
 	/**
 	  * Fit To Height
 	  * Number of vertical pages to fit on
@@ -218,7 +210,6 @@ class PHPExcel_Worksheet_PageSetup
 	  * @var int?
 	  */
 	private $_fitToHeight;
-
 	/**
 	  * Fit To Width
 	  * Number of horizontal pages to fit on
@@ -226,35 +217,30 @@ class PHPExcel_Worksheet_PageSetup
 	  * @var int?
 	  */
 	private $_fitToWidth;
-
 	/**
 	 * Columns to repeat at left
 	 *
 	 * @var array Containing start column and end column, empty array if option unset
 	 */
 	private $_columnsToRepeatAtLeft = array('', '');
-
 	/**
 	 * Rows to repeat at top
 	 *
 	 * @var array Containing start row number and end row number, empty array if option unset
 	 */
 	private $_rowsToRepeatAtTop = array(0, 0);
-
 	/**
 	 * Center page horizontally
 	 *
 	 * @var boolean
 	 */
 	private $_horizontalCentered = false;
-
 	/**
 	 * Center page vertically
 	 *
 	 * @var boolean
 	 */
 	private $_verticalCentered = false;
-
 	/**
 	 * Print area
 	 *
@@ -268,7 +254,6 @@ class PHPExcel_Worksheet_PageSetup
 	 * @var int
 	 */
 	private $_firstPageNumber = null;
-
     /**
      * Create a new PHPExcel_Worksheet_PageSetup
      */
@@ -288,7 +273,6 @@ class PHPExcel_Worksheet_PageSetup
     	$this->_printArea				= null;
     	$this->_firstPageNumber         = null;
     }
-
     /**
      * Get Paper Size
      *
@@ -297,7 +281,6 @@ class PHPExcel_Worksheet_PageSetup
     public function getPaperSize() {
     	return $this->_paperSize;
     }
-
     /**
      * Set Paper Size
      *
@@ -308,7 +291,6 @@ class PHPExcel_Worksheet_PageSetup
     	$this->_paperSize = $pValue;
     	return $this;
     }
-
     /**
      * Get Orientation
      *
@@ -317,7 +299,6 @@ class PHPExcel_Worksheet_PageSetup
     public function getOrientation() {
     	return $this->_orientation;
     }
-
     /**
      * Set Orientation
      *
@@ -328,7 +309,6 @@ class PHPExcel_Worksheet_PageSetup
     	$this->_orientation = $pValue;
     	return $this;
     }
-
 	/**
 	 * Get Scale
 	 *
@@ -337,7 +317,6 @@ class PHPExcel_Worksheet_PageSetup
 	public function getScale() {
 		return $this->_scale;
 	}
-
 	/**
 	 * Set Scale
 	 *
@@ -362,7 +341,6 @@ class PHPExcel_Worksheet_PageSetup
 		}
 		return $this;
 	}
-
 	/**
 	 * Get Fit To Page
 	 *
@@ -371,7 +349,6 @@ class PHPExcel_Worksheet_PageSetup
 	public function getFitToPage() {
 		return $this->_fitToPage;
 	}
-
 	/**
 	 * Set Fit To Page
 	 *
@@ -382,7 +359,6 @@ class PHPExcel_Worksheet_PageSetup
 		$this->_fitToPage = $pValue;
 		return $this;
 	}
-
 	/**
 	 * Get Fit To Height
 	 *
@@ -391,7 +367,6 @@ class PHPExcel_Worksheet_PageSetup
 	public function getFitToHeight() {
 		return $this->_fitToHeight;
 	}
-
 	/**
 	 * Set Fit To Height
 	 *
@@ -406,7 +381,6 @@ class PHPExcel_Worksheet_PageSetup
 		}
 		return $this;
 	}
-
 	/**
 	 * Get Fit To Width
 	 *
@@ -415,7 +389,6 @@ class PHPExcel_Worksheet_PageSetup
 	public function getFitToWidth() {
 		return $this->_fitToWidth;
 	}
-
 	/**
 	 * Set Fit To Width
 	 *
@@ -430,7 +403,6 @@ class PHPExcel_Worksheet_PageSetup
 		}
 		return $this;
 	}
-
 	/**
 	 * Is Columns to repeat at left set?
 	 *
@@ -442,10 +414,8 @@ class PHPExcel_Worksheet_PageSetup
 				return true;
 			}
 		}
-
 		return false;
 	}
-
 	/**
 	 * Get Columns to repeat at left
 	 *
@@ -454,7 +424,6 @@ class PHPExcel_Worksheet_PageSetup
 	public function getColumnsToRepeatAtLeft() {
 		return $this->_columnsToRepeatAtLeft;
 	}
-
 	/**
 	 * Set Columns to repeat at left
 	 *
@@ -467,7 +436,6 @@ class PHPExcel_Worksheet_PageSetup
 		}
 		return $this;
 	}
-
 	/**
 	 * Set Columns to repeat at left by start and end
 	 *
@@ -479,7 +447,6 @@ class PHPExcel_Worksheet_PageSetup
 		$this->_columnsToRepeatAtLeft = array($pStart, $pEnd);
 		return $this;
 	}
-
 	/**
 	 * Is Rows to repeat at top set?
 	 *
@@ -491,10 +458,8 @@ class PHPExcel_Worksheet_PageSetup
 				return true;
 			}
 		}
-
 		return false;
 	}
-
 	/**
 	 * Get Rows to repeat at top
 	 *
@@ -503,7 +468,6 @@ class PHPExcel_Worksheet_PageSetup
 	public function getRowsToRepeatAtTop() {
 		return $this->_rowsToRepeatAtTop;
 	}
-
 	/**
 	 * Set Rows to repeat at top
 	 *
@@ -516,7 +480,6 @@ class PHPExcel_Worksheet_PageSetup
 		}
 		return $this;
 	}
-
 	/**
 	 * Set Rows to repeat at top by start and end
 	 *
@@ -528,7 +491,6 @@ class PHPExcel_Worksheet_PageSetup
 		$this->_rowsToRepeatAtTop = array($pStart, $pEnd);
 		return $this;
 	}
-
 	/**
 	 * Get center page horizontally
 	 *
@@ -537,7 +499,6 @@ class PHPExcel_Worksheet_PageSetup
 	public function getHorizontalCentered() {
 		return $this->_horizontalCentered;
 	}
-
 	/**
 	 * Set center page horizontally
 	 *
@@ -548,7 +509,6 @@ class PHPExcel_Worksheet_PageSetup
 		$this->_horizontalCentered = $value;
 		return $this;
 	}
-
 	/**
 	 * Get center page vertically
 	 *
@@ -557,7 +517,6 @@ class PHPExcel_Worksheet_PageSetup
 	public function getVerticalCentered() {
 		return $this->_verticalCentered;
 	}
-
 	/**
 	 * Set center page vertically
 	 *
@@ -568,7 +527,6 @@ class PHPExcel_Worksheet_PageSetup
 		$this->_verticalCentered = $value;
 		return $this;
 	}
-
 	/**
 	 * Get print area
 	 *
@@ -577,7 +535,6 @@ class PHPExcel_Worksheet_PageSetup
 	public function getPrintArea() {
 		return $this->_printArea;
 	}
-
 	/**
 	 * Is print area set?
 	 *
@@ -586,7 +543,6 @@ class PHPExcel_Worksheet_PageSetup
 	public function isPrintAreaSet() {
 		return !is_null($this->_printArea);
 	}
-
 	/**
 	 * Set print area. E.g. 'A1:D10' or 'A1:D10,G5:M20'
 	 *
@@ -604,7 +560,6 @@ class PHPExcel_Worksheet_PageSetup
     	}
     	return $this;
 	}
-
 	/**
 	 * Set print area
 	 *
@@ -647,7 +602,6 @@ class PHPExcel_Worksheet_PageSetup
     public function resetFirstPageNumber() {
 		return $this->setFirstPageNumber(null);
     }
-
 	/**
 	 * Implement PHP __clone to create a deep clone, not just a shallow copy.
 	 */

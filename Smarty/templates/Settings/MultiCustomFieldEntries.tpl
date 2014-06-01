@@ -21,7 +21,6 @@
 					<input type="button" value=" 新增级联字段 " onClick="fnvshobj(this,'createcf');getCreateCustomFieldForm('{$MODULE}','','','')" class="crmButton create small"/>
 				</tr>
 				</table>
-
 				<table class="listTable" border="0" cellpadding="5" cellspacing="0" width="100%">
 					{if $MODULE eq 'Leads'}
 					<tr>
@@ -31,7 +30,6 @@
 							<td colspan="3" class="colHeader small" valign="top"><div align="center">{$MOD.LBL_MAPPING_OTHER_MODULES}</div></td>
 					        <td rowspan="2" class="colHeader small" width="20%">{$MOD.LBL_CURRENCY_TOOL}</td>
 				      </tr>
-
 					<tr>
 					  <td class="colHeader small" valign="top" width="18%">{$APP.Accounts}</td>
 					  <td class="colHeader small" valign="top" width="18%">{$APP.Contacts}</td>

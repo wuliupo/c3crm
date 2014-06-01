@@ -6,6 +6,5 @@ $mod_strings = array (
   'LBL_DESCRIPTION' => 'Step 2 : Write some description',
   'LBL_OPTIONAL' => '(optional)',
   'NOT_EXIST' => 'The File does not exist！',
-
 );
 ?>

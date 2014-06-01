@@ -80,12 +80,10 @@ $mod_strings = array (
   'MAILLIST_SENDING' => '送信中...',
   'START_SEND' => '送信開始',
   'LBL_FILTERS' => 'メール一括送信規則',
-
   'MAILLIST_NOT_EXIST' => 'メール一括送信方案が存在しません',
   'MAILLIST_ERROR' => '送信エラー',
   'UNSEND_MAILS' => '個のメールが送信出来ていません',
   'UNSEND_NOTES' => 'あと',
-
   'LBL_SENTCOUNT' => '送信済み数量',
   'LBL_UNSENTCOUNT' => '未送信数量',
   'LBL_TOTAL' => '総数量',

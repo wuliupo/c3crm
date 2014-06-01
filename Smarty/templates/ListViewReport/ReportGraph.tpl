@@ -19,7 +19,6 @@
 		}
 	{/literal}
 </script>
-
 <div class="modal-header">
 	<button class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
 	<h3 id="myModalLabel">{$TITLE}</h3>
@@ -46,13 +45,11 @@
 			</form>
 		</table>
 	</div>
-
 	<div class="tab-pane" id="tabPane1">
 		<div align="left" class="tab-page" id="tabPage1">
 		<h2 class="tab">报表图形</h2>
 		<br>
 		<div id="container"></div>
-
 		<script type="text/javascript">
 		var chart;
 		$(function () {ldelim}
@@ -120,7 +117,6 @@
 			{rdelim});
 	  // {rdelim});  
 	{rdelim});
-
 	</script>
 		</div>
 		<div class="tab-page" id="tabPage2">
@@ -131,7 +127,6 @@
 				</div>
 		</div>
 	</div>
-
 </div>
 <div class="modal-footer">
 </div>

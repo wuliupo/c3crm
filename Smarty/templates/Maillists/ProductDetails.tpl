@@ -1,19 +1,13 @@
 <script type="text/javascript" src="include/js/general.js"></script>
-
 <!-- Added this file to display and hanld the Product Details in Inventory module  -->
-
    <tr>
 	<td colspan="4" align="left">
-
-
-
 <table width="100%"  border="0" align="center" cellpadding="5" cellspacing="0" class="crmTable" id="proTab">
     <tr>   	
 	<td colspan="9" class="dvInnerHeader">	
 		<b>{$APP.LBL_PRODUCT_DETAILS}</b>
 	</td>
    </tr>
-
    <!-- Header for the Product Details -->
    <tr valign="top">
 	<td width=5% valign="top" class="lvtCol" align="right"><b>{$APP.LBL_TOOLS}</b></td>
@@ -27,7 +21,6 @@
    </tr>
 </table>
 <!-- Upto this has been added for form the first row. Based on these above we should form additional rows using script -->
-
 <table width="100%"  border="0" align="center" cellpadding="5" cellspacing="0" class="crmTable">
    <!-- Add Product Button -->
    <tr>

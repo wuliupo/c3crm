@@ -2,13 +2,11 @@
 require_once('include/CRMSmarty.php');
 require_once('modules/Contacts/Contacts.php');
 require_once('include/utils/utils.php');
-
 global $mod_strings,$app_strings,$theme,$currentModule,$current_user;
 $focus = new Contacts();
 $focus->mode = '';
 $disp_view = getView($focus->mode);
 $display_type_check = "ec_field.displaytype in (1,4) and ec_field.uitype not in(53,51,1004,10) and ec_field.fieldname not in('account_id','contact_id') ";
-
 $smarty = new CRMSmarty();
 $smarty->assign("IMAGE_PATH", "themes/$theme/images/");
 $smarty->assign("THEME", $theme);
@@ -19,19 +17,15 @@ $smarty->assign("BLOCKS",getBlocksForQuickEdit($currentModule,$disp_view,$mode,$
 // Field Validation Information 
 $tabid = getTabid($currentModule);
 $data = getQuickValidationData($tabid,$display_type_check);
-
 $smarty->assign("VALIDATION_DATA_FIELDNAME",$data['fieldname']);
 $smarty->assign("VALIDATION_DATA_FIELDDATATYPE",$data['datatype']);
 $smarty->assign("VALIDATION_DATA_FIELDLABEL",$data['fieldlabel']);
-
 $smarty->display('QuickEditForm.tpl');
-
 /**
  * This function returns the ec_blocks and its related information for given module.
  * Input Parameter are $module - module name, $disp_view = display view (edit,detail or create),$mode - edit, $col_fields - * column ec_fields/
  * This function returns an array
  */
-
 function getBlocksForQuickEdit($module,$disp_view,$mode,$col_fields='',$display_type_check)
 {
 	global $log;
@@ -56,7 +50,6 @@ function getBlocksForQuickEdit($module,$disp_view,$mode,$col_fields='',$display_
 		$block_label[$blockid] = $adb->query_result($result,$i,"blocklabel");
 	}
 	$blockid_list .= ')';	
-
 	$sql = "SELECT ec_field.* FROM ec_field INNER JOIN ec_def_org_field ON ec_def_org_field.fieldid=ec_field.fieldid AND ec_def_org_field.visible=0 WHERE ec_field.tabid=".$tabid." AND ec_field.block IN ".$blockid_list." AND ".$display_type_check." ORDER BY block,sequence";
 	
 	$result = $adb->query($sql);
@@ -91,11 +84,9 @@ function getBlocksForQuickEdit($module,$disp_view,$mode,$col_fields='',$display_
 	$log->debug("Exiting getBlocksForQuickEdit method ...");
 	return $getBlockInfo;
 }
-
 /**
 * merged with getDBValidationData and split_validationdataArray functions for performance
 */
-
 function getQuickValidationData($tabid,$display_type_check)
 {
 	global $log;
@@ -107,7 +98,6 @@ function getQuickValidationData($tabid,$display_type_check)
 		global $adb,$mod_strings,$current_user;
 		//retreive the ec_profileList from database
 		require('user_privileges/user_privileges_'.$current_user->id.'.php');
-
 		$sql = "SELECT ec_field.* FROM ec_field INNER JOIN ec_def_org_field ON ec_def_org_field.fieldid=ec_field.fieldid AND ec_def_org_field.visible=0 WHERE ec_field.tabid=".$tabid." AND ec_field.block IN ".$blockid_list." AND ".$display_type_check." ORDER BY block,sequence";
 		$result = $adb->query($sql);
 		$noofrows = $adb->num_rows($result);
@@ -127,5 +117,4 @@ function getQuickValidationData($tabid,$display_type_check)
 	$log->debug("Exiting getQuickValidationData method ...");
 	return $validationData;
 }
-
 ?>

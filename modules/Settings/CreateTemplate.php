@@ -1,18 +1,14 @@
 <?php
 global $mod_strings,$app_strings,$app_list_strings,$theme,$adb;
-
 $theme_path="themes/".$theme."/";
 $image_path=$theme_path."images/";
-
 $fld_module = $_REQUEST['fld_module'];
-
 $output .= '<div id="blockLayer" style="display:block;" class="layerPopup">
 	<form action="index.php" method="post" name="addtodb" onSubmit="return validate_template()">
 	  <input type="hidden" name="module" value="Settings">
 	  <input type="hidden" name="fld_module" value="'.$fld_module.'">
 	  <input type="hidden" name="parenttab" value="Settings">
       <input type="hidden" name="action" value="AddTemplateToDB">
-
 	  
 		<table width="100%" border="0" cellpadding="5" cellspacing="0" class="layerHeadingULine">
 			<tr style="cursor:move;">';

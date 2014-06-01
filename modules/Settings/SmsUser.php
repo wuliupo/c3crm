@@ -1,5 +1,4 @@
 <?php
-
 require_once('include/CRMSmarty.php');
 require_once('include/utils/utils.php');
 require_once('include/DatabaseUtil.php');
@@ -8,20 +7,15 @@ global $app_strings;
 global $app_list_strings;
 global $current_user;
 global $list_max_entries_per_page;
-
 global $adb;
 global $theme;
 $theme_path="themes/".$theme."/";
 $image_path=$theme_path."images/";
-
-
 $listview_header =array("user_name"=>"帐号","is_admin"=>"管理员","last_name"=>"姓名","phone_mobile"=>"手机","email1"=>"Email","register_time"=>"创建时间","status"=>"状态","tools"=>"工具");
 $smarty->assign("LISTHEADER", $listview_header);
 $smarty->assign("countheader", count($listview_header));
-
 $search_url = '';
 $where = '';
-
 //排序
 $ordercol = array(
 	"user_name"=>"ec_users.user_name",
@@ -40,62 +34,46 @@ if(empty($sorder)){
     $sorder = 'desc';
 }
 $order_url ="&order_by=".$order_by."&sorder=".$sorder;
-
 $ordersql = $ordercol[$order_by];
 //$order_url = "&order_by={$order_by}&sorder={$sorder}";
-
-
-
 $user_name = $_REQUEST['user_name'];
 if(!empty($user_name)){
 	$where .=" and (ec_users.user_name like '%".$user_name."%' or ec_users.last_name like '%".$user_name."%' or ec_users.phone_mobile like '%".$user_name."%' or ec_users.email1 like '%".$user_name."%') ";
 	$search_url .="&user_name=$user_name";
 	$smarty->assign("user_name", $user_name);
 }
-
 $today = date("Y-m-d");
 $lastweek = date("Y-m-d",strtotime("-1 week"));
 $nextweek = date("Y-m-d",strtotime("1 week"));
-
 $todaytime = date("Y-m-d H:i:s");
 $lastweektime = date("Y-m-d H:i:s",strtotime("-1 week"));
 $nextweektime = date("Y-m-d H:i:s",strtotime("1 week"));
-
 $query = "select ec_users.id,ec_users.user_name,ec_users.last_name,ec_users.phone_mobile,
 			ec_users.email1,ec_users.register_time,is_admin	,status	
 			from ec_users  
 			where ec_users.deleted =0 ";
 $query .=$where;			
-
 $count_result = $adb->query( mkCountQuery( $query));
 $noofrows = $adb->query_result($count_result,0,"count");
-
 $start = $_REQUEST['start'];
 if($start ==''){
 	$start = 1;
 }
 $navigation_array = getNavigationValues($start, $noofrows, $list_max_entries_per_page);
-
 $start_rec = $navigation_array['start'];
 $end_rec = $navigation_array['end_val'];
-
 $_SESSION['nav_start']=$start_rec;
 $_SESSION['nav_end']=$end_rec;
-
 if ($start_rec ==0)
 	$limit_start_rec = 0;
 else
 	$limit_start_rec = $start_rec -1;
-
 $query .=" order by {$ordersql} {$sorder} "; 
 $query.=" limit $limit_start_rec,$list_max_entries_per_page";
-
 $result = $adb->getList($query);
 $nun_rows = $adb->num_rows($result); 
-
 $stop = 0;
 $currentdate = date("Y-m-d");
-
 if($nun_rows > 0){
 	$i=1;
 	foreach($result as $row) {		
@@ -134,9 +112,7 @@ if($nun_rows > 0){
 		$i++;
 	}
 }
-
 $smarty->assign("LISTENTITY", $listview_entries);
-
 foreach($listview_header as $key=>$header){
 	if(in_array($key,$orderkeycol)){
 		$sorderimg = "";
@@ -158,17 +134,13 @@ foreach($listview_header as $key=>$header){
 	
 }
 $smarty->assign("headerhtml", $headerhtml);
-
 $smarty->assign("MOD", return_module_language($current_language,'Settings'));
-
 $record_string= $app_strings["LBL_SHOWING"]." " .$start_rec." - ".$end_rec." " .$app_strings["LBL_LIST_OF"] ." ".$noofrows;
 $navigationOutput = getTableHeaderNavigation($navigation_array, '',"Settings","SmsUser",'');
-
 $smarty->assign("NAVIGATION", $navigationOutput);
 $smarty->assign("RECORD_COUNTS", $record_string);
 $smarty->assign("search_url", $search_url);
 $smarty->assign("order_url", $order_url);
-
 $relsethead = $app_strings['Settings'];
 $smarty->assign("RELSETHEAD", $relsethead);
 $smarty->assign("SETTYPE", "SmsUser");

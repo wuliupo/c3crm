@@ -1,13 +1,11 @@
 <script type="text/javascript" src="modules/{$MODULE}/{$SINGLE_MOD}.js"></script>
 {include file='Buttons_List1.tpl'}
-
 {*<!-- Contents -->*}
 <table border=0 cellspacing=0 cellpadding=0 width=100% align=center>
    <tr>
 	<td valign=top>
 		<img src="{$IMAGE_PATH}showPanelTopLeft.gif">
 	</td>
-
 	<td class="showPanelBg" valign=top width=100%>
 	     {*<!-- PUBLIC CONTENTS STARTS-->*}
 	     <div class="small" style="padding:20px">
@@ -25,7 +23,6 @@
 		<input type="hidden" name="return_id" value="{$RETURN_ID}">
 		<input type="hidden" name="return_action" value="{$RETURN_ACTION}">
 		<input type="hidden" name="return_viewname" value="{$RETURN_VIEWNAME}">
-
 		{*<!-- Account details tabs -->*}
 		<table border=0 cellspacing=0 cellpadding=0 width=100% align=center>
 		   <tr>
@@ -41,10 +38,8 @@
 		   </tr>
 		   <tr>
 			<td valign=top align=left >
-
 			    <!-- Basic Information Tab Opened -->
 			    <div id="basicTab">
-
 				<table border=0 cellspacing=0 cellpadding=3 width=100% class="dvtContentSpace">
 				   <tr>
 					<td align=left>
@@ -76,18 +71,15 @@
 									   </div>
 									</td>
 								   </tr>
-
 								   {foreach key=header item=data from=$BASBLOCKS}
 									   <tr>									
 										<td colspan=6 class="detailedViewHeader">
 											<b>{$header}</b>									
 										</td>
 									   </tr>
-
 									   <!-- Here we should include the uitype handlings-->
 									   {include file="DisplayFields.tpl"}
 								   {/foreach}
-
 								   <tr>
 									<td colspan=6>
 									{if $MODULE_ENABLE_PRODUCT eq true && $AVAILABLE_PRODUCTS eq true}
@@ -98,7 +90,6 @@
 									</td>
 									
 							           </tr>
-
 								   <tr>
 									<td  colspan=6 style="padding:5px">
 									   <div align="center">
@@ -117,7 +108,6 @@
 					
 			    </div>
 			    <!-- Basic Information Tab Closed -->  
-
 			</td>
 		   </tr>
 		</table>

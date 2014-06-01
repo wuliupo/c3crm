@@ -8,19 +8,14 @@
  * All Rights Reserved.
 * 
  ********************************************************************************/
-
 require_once('config.php');
 require_once('include/database/PearDatabase.php');
-
 global $adb;
 global $fileId;
 global $mod_strings;
-
 $attachmentsid = $_REQUEST['fileid'];
 $entityid = $_REQUEST['entityid'];
-
 $returnmodule=$_REQUEST['return_module'];
-
 $dbQuery = "SELECT * FROM ec_attachments WHERE attachmentsid = " .$attachmentsid ;
 $result = $adb->query($dbQuery) or die("Couldn't get file list");
 if($adb->num_rows($result) == 1)
@@ -56,7 +51,6 @@ if($adb->num_rows($result) == 1)
 //		@fclose($fp);
 //	}
 	
-
 	
 	ob_end_clean();
 	header("Expires: ".gmdate("D, d M Y H:i:s")." GMT");
@@ -64,7 +58,6 @@ if($adb->num_rows($result) == 1)
 	header("X-DNS-Prefetch-Control: off");
 	header("Cache-Control: private, no-cache, must-revalidate, post-check=0, pre-check=0");
 	header("Pragma: no-cache");
-
 	header("Content-Type: application/octet-stream");
     header("Content-Type: application/force-download");
 	header("Content-Disposition: attachment; filename=$name");

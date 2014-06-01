@@ -5,8 +5,6 @@
 	<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
 	<style type="text/css">@import url("themes/softed/style.css");</style>
 </head>
-
-
 <script language=javascript>
 var sjid='{$sjid}';
 {literal}
@@ -14,7 +12,6 @@ function CloseWin()
 {
 	window.close();
 }
-
 function Uploading()
 {	
 	if(document.form1.userfile1.value ==''){
@@ -27,7 +24,6 @@ function Uploading()
 }
 {/literal}
 </script>
-
 <body leftmargin=0 topmargin=4 marginwidth=0 marginheight=0>
 <table width="98%" border="0" cellspacing="0" cellpadding="0" align="center">
   <tr>
@@ -57,6 +53,5 @@ function Uploading()
 	</td>
   </tr>
 </table>
-
 </body>
 </html>

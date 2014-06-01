@@ -18,12 +18,10 @@
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  * @version    $Id: Exception.php 23775 2011-03-01 17:25:24Z ralph $
  */
-
 /**
  * @see Zend_Exception
  */
 require_once 'include/Zend/Exception.php';
-
 /**
  * @category   Zend
  * @package    Zend_Queue

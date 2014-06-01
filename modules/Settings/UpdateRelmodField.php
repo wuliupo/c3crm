@@ -2,8 +2,6 @@
 require_once('include/database/PearDatabase.php');
 require_once('include/utils/UserInfoUtil.php');
 require_once('include/utils/utils.php');
-
-
 $field_module = array();
 $result = $adb->query("select name from ec_tab where reportable=1 order by tabid");
 $num_rows = $adb->num_rows($result);
@@ -13,7 +11,6 @@ for($i=0; $i<$num_rows; $i++)
 	$field_module[] = $modulename;
 		 
 }
-
 //$tab_id = getTabid($fld_module);
 foreach($field_module as $fld_module)
 {
@@ -31,8 +28,6 @@ foreach($field_module as $fld_module)
     
     $delete_query ="delete from ec_relmodfieldlist where module ='".$fld_module."'" ;
     $adb->query($delete_query);
-
-
     for($i=0; $i<$noofrows; $i++)
     {
         $fieldlabel =  $adb->query_result($result,$i,"fieldlabel");
@@ -42,8 +37,6 @@ foreach($field_module as $fld_module)
         $widthid = text.''.$fieldid.''.$fld_module;
  //   echo  $widthid;
         $visible = $_REQUEST[$nameid];
-
-
   
     //echo 8989;
         if($visible == 'on')

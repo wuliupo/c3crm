@@ -19,7 +19,6 @@
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  * @version    $Id: FrameInterface.php 23775 2011-03-01 17:25:24Z ralph $
  */
-
 /**
  * This class represents a Stomp Frame Interface
  *
@@ -42,7 +41,6 @@ interface Zend_Queue_Stomp_FrameInterface
      * @return boolean
      */
     public function getAutoContentLength();
-
     /**
      * setAutoContentLength()
      *
@@ -53,14 +51,12 @@ interface Zend_Queue_Stomp_FrameInterface
      * @throws Zend_Queue_Exception
      */
     public function setAutoContentLength($auto);
-
     /**
      * Get the headers
      *
      * @return array
      */
     public function getHeaders();
-
     /**
      * Set the headers
      *
@@ -71,7 +67,6 @@ interface Zend_Queue_Stomp_FrameInterface
      * @throws Zend_Queue_Exception
      */
     public function setHeaders(array $headers);
-
     /**
      * Returns a value for a header
      * returns false if the header does not exist
@@ -81,7 +76,6 @@ interface Zend_Queue_Stomp_FrameInterface
      * @throws Zend_Queue_Exception
      */
     public function getHeader($header);
-
     /**
      * Returns a value for a header
      * returns false if the header does not exist
@@ -92,7 +86,6 @@ interface Zend_Queue_Stomp_FrameInterface
      * @throws Zend_Queue_Exception
      */
     public function setHeader($header, $value);
-
     /**
      * Return the body for this frame
      * returns false if the body does not exist
@@ -100,7 +93,6 @@ interface Zend_Queue_Stomp_FrameInterface
      * @return $this
      */
     public function getBody();
-
     /**
      * Set the body for this frame
      * returns false if the body does not exist
@@ -112,7 +104,6 @@ interface Zend_Queue_Stomp_FrameInterface
      * @throws Zend_Queue_Exception
      */
     public function setBody($body);
-
     /**
      * Return the command for this frame
      * return false if the command does not exist
@@ -120,7 +111,6 @@ interface Zend_Queue_Stomp_FrameInterface
      * @return $this
      */
     public function getCommand();
-
     /**
      * Set the body for this frame
      * returns false if the body does not exist
@@ -129,8 +119,6 @@ interface Zend_Queue_Stomp_FrameInterface
      * @throws Zend_Queue_Exception
      */
     public function setCommand($command);
-
-
     /**
      * Takes the current parameters and returns a Stomp Frame
      *
@@ -138,12 +126,10 @@ interface Zend_Queue_Stomp_FrameInterface
      * @return string
      */
     public function toFrame();
-
     /**
      * @see toFrame()
      */
     public function __toString();
-
     /**
      * Accepts a frame and deconstructs the frame into its' component parts
      *

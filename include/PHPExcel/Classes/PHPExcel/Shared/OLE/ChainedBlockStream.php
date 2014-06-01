@@ -24,7 +24,6 @@
  * @license    http://www.gnu.org/licenses/old-licenses/lgpl-2.1.txt	LGPL
  * @version 1.7.2, 2010-01-11
  */
-
 /** PHPExcel root directory */
 if (!defined('PHPEXCEL_ROOT')) {
 	/**
@@ -32,9 +31,7 @@ if (!defined('PHPEXCEL_ROOT')) {
 	 */
 	define('PHPEXCEL_ROOT', dirname(__FILE__) . '/../../../');
 }
-
 require_once PHPEXCEL_ROOT . 'PHPExcel/Shared/OLE.php';
-
 /**
  * PHPExcel_Shared_OLE_ChainedBlockStream
  *
@@ -52,25 +49,21 @@ class PHPExcel_Shared_OLE_ChainedBlockStream
 	 * @var OLE
 	 */
 	public $ole;
-
 	/**
 	 * Parameters specified by fopen().
 	 * @var array
 	 */
 	public $params;
-
 	/**
 	 * The binary data of the file.
 	 * @var  string
 	 */
 	public $data;
-
 	/**
 	 * The file pointer.
 	 * @var  int  byte offset
 	 */
 	public $pos;
-
 	/**
 	 * Implements support for fopen().
 	 * For creating streams using this wrapper, use OLE_PPS_File::getStream().
@@ -89,26 +82,22 @@ class PHPExcel_Shared_OLE_ChainedBlockStream
 			}
 			return false;
 		}
-
 		// 25 is length of "ole-chainedblockstream://"
 		parse_str(substr($path, 25), $this->params);
 		if (!isset($this->params['oleInstanceId'],
 				   $this->params['blockId'],
 				   $GLOBALS['_OLE_INSTANCES'][$this->params['oleInstanceId']])) {
-
 			if ($options & STREAM_REPORT_ERRORS) {
 				trigger_error('OLE stream not found', E_USER_WARNING);
 			}
 			return false;
 		}
 		$this->ole = $GLOBALS['_OLE_INSTANCES'][$this->params['oleInstanceId']];
-
 		$blockId = $this->params['blockId'];
 		$this->data = '';
 		if (isset($this->params['size']) &&
 			$this->params['size'] < $this->ole->bigBlockThreshold &&
 			$blockId != $this->ole->root->_StartBlock) {
-
 			// Block id refers to small blocks
 			$rootPos = $this->ole->_getBlockOffset($this->ole->root->_StartBlock);
 			while ($blockId != -2) {
@@ -129,14 +118,11 @@ class PHPExcel_Shared_OLE_ChainedBlockStream
 		if (isset($this->params['size'])) {
 			$this->data = substr($this->data, 0, $this->params['size']);
 		}
-
 		if ($options & STREAM_USE_PATH) {
 			$openedPath = $path;
 		}
-
 		return true;
 	}
-
 	/**
 	 * Implements support for fclose().
 	 * @return  string
@@ -146,7 +132,6 @@ class PHPExcel_Shared_OLE_ChainedBlockStream
 		$this->ole = null;
 		unset($GLOBALS['_OLE_INSTANCES']);
 	}
-
 	/**
 	 * Implements support for fread(), fgets() etc.
 	 * @param   int  maximum number of bytes to read
@@ -161,7 +146,6 @@ class PHPExcel_Shared_OLE_ChainedBlockStream
 		$this->pos += $count;
 		return $s;
 	}
-
 	/**
 	 * Implements support for feof().
 	 * @return  bool  TRUE if the file pointer is at EOF; otherwise FALSE
@@ -172,12 +156,10 @@ class PHPExcel_Shared_OLE_ChainedBlockStream
 		// Workaround for bug in PHP 5.0.x: http://bugs.php.net/27508
 		if (version_compare(PHP_VERSION, '5.0', '>=') &&
 			version_compare(PHP_VERSION, '5.1', '<')) {
-
 		   $eof = !$eof;
 		}
 		return $eof;
 	}
-
 	/**
 	 * Returns the position of the file pointer, i.e. its offset into the file
 	 * stream. Implements support for ftell().
@@ -187,7 +169,6 @@ class PHPExcel_Shared_OLE_ChainedBlockStream
 	{
 		return $this->pos;
 	}
-
 	/**
 	 * Implements support for fseek().
 	 * @param   int  byte offset
@@ -207,7 +188,6 @@ class PHPExcel_Shared_OLE_ChainedBlockStream
 		}
 		return true;
 	}
-
 	/**
 	 * Implements support for fstat(). Currently the only supported field is
 	 * "size".
@@ -219,7 +199,6 @@ class PHPExcel_Shared_OLE_ChainedBlockStream
 			'size' => strlen($this->data),
 			);
 	}
-
 	// Methods used by stream_wrapper_register() that are not implemented:
 	// bool stream_flush ( void )
 	// int stream_write ( string data )

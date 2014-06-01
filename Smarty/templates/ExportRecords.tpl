@@ -81,17 +81,14 @@
 						</small>
 					</p>
 				</div>
-
 				<div class="breadcrumb text-center" style="width:97%;margin-top:100px">
 					<button type="button" name="{$APP.LBL_CANCEL_BUTTON_LABEL}" class="btn btn-small btn-primary" onclick="goback()" >
 						<i class="icon-arrow-left icon-white"></i> {$APP.LBL_CANCEL_BUTTON_LABEL}
 					</button>&nbsp;&nbsp;&nbsp;
-
 					<button type="button" name="{$APP.LBL_EXPORT}" class="btn btn-small btn-primary" onclick="record_export('{$APP.$MODULE}','{$CATEGORY}',this.form,'{$smarty.request.idstring}')">
 						<i class="icon-circle-arrow-down icon-white"></i> 导出{$APP.$MODULE}
 					</button>
 				</div>
-
 			</form>
 		</div>
 	</div>

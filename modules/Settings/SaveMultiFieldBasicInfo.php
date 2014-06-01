@@ -1,7 +1,6 @@
 <?php
 require_once('include/database/PearDatabase.php');
 global $adb;
-
 $multifieldid=$_REQUEST["multifieldid"];
 $sql="select ec_multifield.totallevel,ec_tab.name as modulename from ec_multifield inner join ec_tab on ec_tab.tabid=ec_multifield.tabid where ec_multifield.multifieldid='{$multifieldid}'";
 $result=$adb->query($sql);
@@ -13,9 +12,7 @@ for($i=1;$i<=$totallevel;$i++){
 $multifieldname=$_REQUEST["multifieldname"];
 $updatesql="update ec_multifield set multifieldname='$multifieldname' where multifieldid='{$multifieldid}' ";
 $adb->query($updatesql);
-
 redirect("index.php?module=Settings&action=CustomMultiFieldList&fld_module=".$fldmodule."&parenttab=Settings");
-
 function saveSingleFieldInf($level,$multifieldid){
     global $adb;
     $uitype=1020+$level;
@@ -30,7 +27,6 @@ function saveSingleFieldInf($level,$multifieldid){
     $updatesql="update ec_field set fieldlabel='$labelname',typeofdata='$typeofdata' where uitype='$uitype' and typeofdata like '%::$multifieldid%' ";
     $adb->query($updatesql);
 }
-
 function getOriginalTypedata($level,$multifieldid){
     global $adb;
     $uitype=1020+$level;

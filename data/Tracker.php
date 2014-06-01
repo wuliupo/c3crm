@@ -20,11 +20,9 @@
  * All Rights Reserved.
  * Contributor(s): ______________________________________..
  ********************************************************************************/
-
 include_once('config.php');
 require_once('include/logging.php');
 require_once('include/database/PearDatabase.php');
-
 /** This class is used to track the recently viewed items on a per user basis.
  * It is intended to be called by each module when rendering the detail form.
  * Portions created by SugarCRM are Copyright (C) SugarCRM, Inc.
@@ -35,7 +33,6 @@ class Tracker {
     var $log;
     var $db;
     var $table_name = "ec_tracker";
-
     // Tracker ec_table
     var $column_fields = Array(
         "id",
@@ -44,7 +41,6 @@ class Tracker {
         "item_id",
         "item_summary"
     );
-
     function Tracker()
     {
         $this->log = LoggerManager::getLogger('Tracker');
@@ -52,7 +48,6 @@ class Tracker {
 	global $adb;
         $this->db = $adb;
     }
-
     /**
      * Add this new item to the ec_tracker ec_table.  If there are too many items (global config for now)
      * then remove the oldest item.  If there is more than one extra item, log an error.
@@ -68,7 +63,6 @@ class Tracker {
       global $log;
 $log->info("in  track view method ".$current_module);
         // Add a new item to the user's list
-
         $esc_item_id = addslashes($item_id);
         
 //No genius required. Just add an if case and change the query so that it puts the tracker entry whenever you touch on the DetailView of the required entity
@@ -107,7 +101,6 @@ $log->info("in  track view method ".$current_module);
           
           $this->prune_history($user_id);
     }
-
     /**
      * param $user_id - The id of the user to retrive the history for
      * param $module_name - Filter the history to only return records from the specified module.  If not specified all records are returned
@@ -121,7 +114,6 @@ $log->info("in  track view method ".$current_module);
     	if (empty($user_id)) {
     		return;
     	}
-
 //        $query = "SELECT * from $this->table_name WHERE user_id='$user_id' ORDER BY id DESC";
 	$query = "SELECT * from $this->table_name inner join ec_crmentity on ec_crmentity.crmid=ec_tracker.item_id WHERE user_id='$user_id' and ec_crmentity.deleted=0 ORDER BY id DESC";
         $this->log->debug("About to retrieve list: $query");
@@ -131,8 +123,6 @@ $log->info("in  track view method ".$current_module);
         {
 		//echo "while loppp";
 		//echo '<BR>';
-
-
             // If the module was not specified or the module matches the module of the row, add the row to the list
             if($module_name == "" || $row[module_name] == $module_name)
             {
@@ -165,9 +155,6 @@ $log->info("in  track view method ".$current_module);
         }
         return $list;
     }
-
-
-
     /**
      * INTERNAL -- This method cleans out any entry for a record for a user.
      * It is used to remove old occurances of previously viewed items.
@@ -180,7 +167,6 @@ $log->info("in  track view method ".$current_module);
         $query = "DELETE from $this->table_name WHERE user_id='$user_id' and item_id='$item_id'";
        $this->db->query($query, true);
     }
-
     /**
      * INTERNAL -- This method cleans out any entry for a record.
  * Portions created by SugarCRM are Copyright (C) SugarCRM, Inc.
@@ -191,9 +177,7 @@ $log->info("in  track view method ".$current_module);
     {
         $query = "DELETE from $this->table_name WHERE item_id='$item_id'";
        $this->db->query($query, true);
-
     }
-
     /**
      * INTERNAL -- This function will clean out old history records for this user if necessary.
  * Portions created by SugarCRM are Copyright (C) SugarCRM, Inc.
@@ -203,15 +187,10 @@ $log->info("in  track view method ".$current_module);
     function prune_history($user_id)
     {
         global $history_max_viewed;
-
         // Check to see if the number of items in the list is now greater than the config max.
         $query = "SELECT count(*) from $this->table_name WHERE user_id='$user_id'";
-
         $this->log->debug("About to verify history size: $query");
-
         $count = $this->db->getOne($query);
-
-
         $this->log->debug("history size: (current, max)($count, $history_max_viewed)");
         while($count > $history_max_viewed)
         {
@@ -220,17 +199,12 @@ $log->info("in  track view method ".$current_module);
             $query = "SELECT * from $this->table_name WHERE user_id='$user_id' ORDER BY id ASC";
             $this->log->debug("About to try and find oldest item: $query");
             $result =  $this->db->limitQuery2($query,0,1);
-
             $oldest_item = $this->db->fetchByAssoc($result, -1, false);
             $query = "DELETE from $this->table_name WHERE id='{$oldest_item['id']}'";
             $this->log->debug("About to delete oldest item: ");
-
             $result = $this->db->query($query, true);
-
-
             $count--;
         }
     }
-
 }
 ?>

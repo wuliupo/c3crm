@@ -24,8 +24,6 @@
  * @license    http://www.gnu.org/licenses/old-licenses/lgpl-2.1.txt	LGPL
  * @version    1.7.2, 2010-01-11
  */
-
-
 /** PHPExcel root directory */
 if (!defined('PHPEXCEL_ROOT')) {
 	/**
@@ -33,14 +31,10 @@ if (!defined('PHPEXCEL_ROOT')) {
 	 */
 	define('PHPEXCEL_ROOT', dirname(__FILE__) . '/../');
 }
-
 /** PHPExcel */
 require_once PHPEXCEL_ROOT . 'PHPExcel.php';
-
 /** PHPExcel_Worksheet */
 require_once PHPEXCEL_ROOT . 'PHPExcel/Worksheet.php';
-
-
 /**
  * PHPExcel_WorksheetIterator
  * 
@@ -65,7 +59,6 @@ class PHPExcel_WorksheetIterator extends IteratorIterator
 	 * @var int
 	 */
 	private $_position = 0;
-
 	/**
 	 * Create a new worksheet iterator
 	 *
@@ -89,7 +82,6 @@ class PHPExcel_WorksheetIterator extends IteratorIterator
     public function rewind() {
         $this->_position = 0;
     }
-
     /**
      * Current PHPExcel_Worksheet
      *
@@ -98,7 +90,6 @@ class PHPExcel_WorksheetIterator extends IteratorIterator
     public function current() {
     	return $this->_subject->getSheet($this->_position);
     }
-
     /**
      * Current key
      *
@@ -107,14 +98,12 @@ class PHPExcel_WorksheetIterator extends IteratorIterator
     public function key() {
         return $this->_position;
     }
-
     /**
      * Next value
      */
     public function next() {
         ++$this->_position;
     }
-
     /**
      * More PHPExcel_Worksheet instances available?
      *

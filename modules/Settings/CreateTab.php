@@ -2,11 +2,8 @@
 require_once('include/CRMSmarty.php');
 require_once("include/tabgroup/TemplateGroupChooser.php");
 global $mod_strings,$app_strings,$app_list_strings,$theme,$adb;
-
 $theme_path="themes/".$theme."/";
 $image_path=$theme_path."images/";
-
-
 $id = "";
 $parenttab_label_cn = "";
 $displayed_modules = array();
@@ -22,7 +19,6 @@ if(isset($_REQUEST['id'])) {
 			$parenttab_label_cn = $row['parenttab_label'];
 		}
 		$parenttab_label = $row['parenttab_label'];
-
 		$sequence = $row['sequence'];
 	}
 	$query = "select ec_parenttabrel.tabid,ec_tab.name from ec_parenttab left join ec_parenttabrel on ec_parenttabrel.parenttabid=ec_parenttab.parenttabid left join ec_tab on ec_tab.tabid=ec_parenttabrel.tabid where ec_parenttab.parenttabid='".$id."' order by ec_parenttabrel.sequence";
@@ -35,7 +31,6 @@ if(isset($_REQUEST['id'])) {
 			$displayed_modules[$row['tabid']] = $row['name'];
 		}
 	}
-
 } else {
 	$parenttab_label = "";
 	$sequence = "";
@@ -51,18 +46,14 @@ foreach($result as $row) {
 	}
 }
 $system_modules = array_diff($system_modules,$displayed_modules);
-
 $smarty = new CRMSmarty();
-
 $smarty->assign("MOD", $mod_strings);
 $smarty->assign("APP", $app_strings);
 global $theme;
 $theme_path="themes/".$theme."/";
 $image_path=$theme_path."images/";
-
 $smarty->assign("IMAGE_PATH", $image_path);
 $parentTabArr = getParentTabs();
-
 $output .= '
 	<form action="index.php" method="post" name="addtodb" onSubmit="return validate_tab()">
 	  <input type="hidden" name="module" value="Settings">
@@ -120,8 +111,6 @@ $output .= $chooser->display();
 	</form></div>';
 $smarty->assign("OUTPUT", $output);
 $smarty->display('Settings/CreateTab.tpl');
-
-
 function getParentTabs(){
 	global $adb;
 	global $app_strings;

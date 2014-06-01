@@ -1,12 +1,7 @@
 <?php
 global $current_language;
-
 $mod_strings = return_module_language($current_language, "Import");
-
-
 include_once('modules/Import/error.php');
-
-
 $outlook_contacts_field_map = array(
 "Title"=>"salutation",
 // SPECIAL FIELD:
@@ -38,8 +33,6 @@ $outlook_contacts_field_map = array(
 "Home Postal Code"=>"alt_address_postalcode",
 "Home Country/Region"=>"alt_address_country",
 );
-
-
 $outlook_accounts_field_map = array(
 "Company"=>"name",
 "Business Street"=>"billing_address_street",
@@ -53,7 +46,6 @@ $outlook_accounts_field_map = array(
 //Government ID Number,
 //Organizational ID Number,
 );
-
 $act_contacts_field_map = array(
 "Web Site"=>"website",
 "Company"=>"account_name",
@@ -87,8 +79,6 @@ $act_contacts_field_map = array(
 "Home Country"=>"alt_address_country",
 "Home Phone"=>"phone_home",
 );
-
-
 $act_accounts_field_map = array(
 "Revenue"=>"annual_revenue",
 "Number of Employees"=>"employees",
@@ -103,7 +93,6 @@ $act_accounts_field_map = array(
 "Ticker Symbol"=>"ticker_symbol",
 "Web Site"=>"website",
 );
-
 /*
 "Last Activity"=>"",
 "Last Modified Date"=>"",
@@ -151,10 +140,6 @@ $salesforce_contacts_field_map = array(
 "Account Name"=>"account_name",
 "Account ID"=>"account_id",
 );
-
-
-
-
 /*
 ommited ec_fields to map:
 "Account Number"=>"",
@@ -198,14 +183,12 @@ $salesforce_accounts_field_map = array(
 "Fax"=>"phone_fax",
 "Website"=>"website"
 );
-
 /*
 "Fiscal Quarter"=>"",
 "Age"=>"",
 "Expected Revenue"=>"",
 */
 $salesforce_opportunities_field_map = array(
-
 "Opportunity Name"=>"name" ,
 "Type"=>"opportunity_type",
 "Lead Source"=>"lead_source",
@@ -217,16 +200,10 @@ $salesforce_opportunities_field_map = array(
 "Probability (%)"=>"probability",
 "Account Name"=>"account_name"
 );
-
 if (! isset($_REQUEST['step'] ) )
 {
 	$_REQUEST['step'] = 1;
 }
-
 $mod_list_strings = return_mod_list_strings_language($current_language,"Import");
-
-
-
 include_once('modules/Import/ImportStepNew'. $_REQUEST['step']. '.php');
-
 ?>

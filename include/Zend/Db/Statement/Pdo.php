@@ -19,12 +19,10 @@
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  * @version    $Id: Pdo.php 23775 2011-03-01 17:25:24Z ralph $
  */
-
 /**
  * @see Zend_Db_Statement
  */
 require_once 'include/Zend/Db/Statement.php';
-
 /**
  * Proxy class to wrap a PDOStatement object.
  * Matches the interface of PDOStatement.  All methods simply proxy to the
@@ -39,12 +37,10 @@ require_once 'include/Zend/Db/Statement.php';
  */
 class Zend_Db_Statement_Pdo extends Zend_Db_Statement implements IteratorAggregate
 {
-
     /**
      * @var int
      */
     protected $_fetchMode = PDO::FETCH_ASSOC;
-
     /**
      * Prepare a string SQL statement and create a statement object.
      *
@@ -61,7 +57,6 @@ class Zend_Db_Statement_Pdo extends Zend_Db_Statement implements IteratorAggrega
             throw new Zend_Db_Statement_Exception($e->getMessage(), $e->getCode(), $e);
         }
     }
-
     /**
      * Bind a column of the statement result set to a PHP variable.
      *
@@ -85,7 +80,6 @@ class Zend_Db_Statement_Pdo extends Zend_Db_Statement implements IteratorAggrega
             throw new Zend_Db_Statement_Exception($e->getMessage(), $e->getCode(), $e);
         }
     }
-
     /**
      * Binds a parameter to the specified variable name.
      *
@@ -117,7 +111,6 @@ class Zend_Db_Statement_Pdo extends Zend_Db_Statement implements IteratorAggrega
             throw new Zend_Db_Statement_Exception($e->getMessage(), $e->getCode(), $e);
         }
     }
-
     /**
      * Binds a value to a parameter.
      *
@@ -132,9 +125,7 @@ class Zend_Db_Statement_Pdo extends Zend_Db_Statement implements IteratorAggrega
         if (is_string($parameter) && $parameter[0] != ':') {
             $parameter = ":$parameter";
         }
-
         $this->_bindParam[$parameter] = $value;
-
         try {
             if ($type === null) {
                 return $this->_stmt->bindValue($parameter, $value);
@@ -146,7 +137,6 @@ class Zend_Db_Statement_Pdo extends Zend_Db_Statement implements IteratorAggrega
             throw new Zend_Db_Statement_Exception($e->getMessage(), $e->getCode(), $e);
         }
     }
-
     /**
      * Closes the cursor, allowing the statement to be executed again.
      *
@@ -162,7 +152,6 @@ class Zend_Db_Statement_Pdo extends Zend_Db_Statement implements IteratorAggrega
             throw new Zend_Db_Statement_Exception($e->getMessage(), $e->getCode(), $e);
         }
     }
-
     /**
      * Returns the number of columns in the result set.
      * Returns null if the statement has no result set metadata.
@@ -179,7 +168,6 @@ class Zend_Db_Statement_Pdo extends Zend_Db_Statement implements IteratorAggrega
             throw new Zend_Db_Statement_Exception($e->getMessage(), $e->getCode(), $e);
         }
     }
-
     /**
      * Retrieves the error code, if any, associated with the last operation on
      * the statement handle.
@@ -196,7 +184,6 @@ class Zend_Db_Statement_Pdo extends Zend_Db_Statement implements IteratorAggrega
             throw new Zend_Db_Statement_Exception($e->getMessage(), $e->getCode(), $e);
         }
     }
-
     /**
      * Retrieves an array of error information, if any, associated with the
      * last operation on the statement handle.
@@ -213,7 +200,6 @@ class Zend_Db_Statement_Pdo extends Zend_Db_Statement implements IteratorAggrega
             throw new Zend_Db_Statement_Exception($e->getMessage(), $e->getCode(), $e);
         }
     }
-
     /**
      * Executes a prepared statement.
      *
@@ -234,7 +220,6 @@ class Zend_Db_Statement_Pdo extends Zend_Db_Statement implements IteratorAggrega
             throw new Zend_Db_Statement_Exception($e->getMessage(), (int) $e->getCode(), $e);
         }
     }
-
     /**
      * Fetches a row from the result set.
      *
@@ -256,7 +241,6 @@ class Zend_Db_Statement_Pdo extends Zend_Db_Statement implements IteratorAggrega
             throw new Zend_Db_Statement_Exception($e->getMessage(), $e->getCode(), $e);
         }
     }
-
     /**
      * Required by IteratorAggregate interface
      *
@@ -266,7 +250,6 @@ class Zend_Db_Statement_Pdo extends Zend_Db_Statement implements IteratorAggrega
     {
         return new IteratorIterator($this->_stmt);
     }
-
     /**
      * Returns an array containing all of the result set rows.
      *
@@ -294,7 +277,6 @@ class Zend_Db_Statement_Pdo extends Zend_Db_Statement implements IteratorAggrega
             throw new Zend_Db_Statement_Exception($e->getMessage(), $e->getCode(), $e);
         }
     }
-
     /**
      * Returns a single column from the next row of a result set.
      *
@@ -311,7 +293,6 @@ class Zend_Db_Statement_Pdo extends Zend_Db_Statement implements IteratorAggrega
             throw new Zend_Db_Statement_Exception($e->getMessage(), $e->getCode(), $e);
         }
     }
-
     /**
      * Fetches the next row and returns it as an object.
      *
@@ -329,7 +310,6 @@ class Zend_Db_Statement_Pdo extends Zend_Db_Statement implements IteratorAggrega
             throw new Zend_Db_Statement_Exception($e->getMessage(), $e->getCode(), $e);
         }
     }
-
     /**
      * Retrieve a statement attribute.
      *
@@ -346,7 +326,6 @@ class Zend_Db_Statement_Pdo extends Zend_Db_Statement implements IteratorAggrega
             throw new Zend_Db_Statement_Exception($e->getMessage(), $e->getCode(), $e);
         }
     }
-
     /**
      * Returns metadata for a column in a result set.
      *
@@ -363,7 +342,6 @@ class Zend_Db_Statement_Pdo extends Zend_Db_Statement implements IteratorAggrega
             throw new Zend_Db_Statement_Exception($e->getMessage(), $e->getCode(), $e);
         }
     }
-
     /**
      * Retrieves the next rowset (result set) for a SQL statement that has
      * multiple result sets.  An example is a stored procedure that returns
@@ -381,7 +359,6 @@ class Zend_Db_Statement_Pdo extends Zend_Db_Statement implements IteratorAggrega
             throw new Zend_Db_Statement_Exception($e->getMessage(), $e->getCode(), $e);
         }
     }
-
     /**
      * Returns the number of rows affected by the execution of the
      * last INSERT, DELETE, or UPDATE statement executed by this
@@ -399,7 +376,6 @@ class Zend_Db_Statement_Pdo extends Zend_Db_Statement implements IteratorAggrega
             throw new Zend_Db_Statement_Exception($e->getMessage(), $e->getCode(), $e);
         }
     }
-
     /**
      * Set a statement attribute.
      *
@@ -417,7 +393,6 @@ class Zend_Db_Statement_Pdo extends Zend_Db_Statement implements IteratorAggrega
             throw new Zend_Db_Statement_Exception($e->getMessage(), $e->getCode(), $e);
         }
     }
-
     /**
      * Set the default fetch mode for this statement.
      *
@@ -435,5 +410,4 @@ class Zend_Db_Statement_Pdo extends Zend_Db_Statement implements IteratorAggrega
             throw new Zend_Db_Statement_Exception($e->getMessage(), $e->getCode(), $e);
         }
     }
-
 }

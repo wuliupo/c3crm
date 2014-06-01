@@ -4,7 +4,6 @@ ob_start();
 phpinfo(INFO_GENERAL);
 $string = ob_get_contents();
 ob_end_clean();
-
 $pieces = explode("<h2", $string);
 $settings = array();
 foreach($pieces as $val)
@@ -23,7 +22,6 @@ foreach($pieces as $val)
 			$phpini = strip_tags($val);
 	   	}
    }
-
 }
 ?>
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
@@ -33,12 +31,9 @@ foreach($pieces as $val)
 	<title>易客CRM - 安装向导 - 欢迎使用易客CRM</title>
 	<link href="include/install/install.css" rel="stylesheet" type="text/css">
 </head>
-
 <body class="small cwPageBg" topmargin="0" leftmargin="0" marginheight="0" marginwidth="0">
-
 	<br><br><br>
 	<!-- Table for cfgwiz starts -->
-
 	<table border=0 cellspacing=0 cellpadding=0 width=80% align=center>
 	<tr>
 		<td class="cwHeadBg" align=left><img src="include/install/images/configwizard.gif" alt="Configuration Wizard" hspace="20" title="Configuration Wizard"></td>
@@ -48,7 +43,6 @@ foreach($pieces as $val)
 	<table border=0 cellspacing=0 cellpadding=0 width=80% align=center>
 	<tr>
 		<td background="include/install/images/topInnerShadow.gif" align=left><img src="include/install/images/topInnerShadow.gif" ></td>
-
 	</tr>
 	</table>
 	<table border=0 cellspacing=0 cellpadding=10 width=80% align=center>
@@ -58,7 +52,6 @@ foreach($pieces as $val)
 			<table border=0 cellspacing=0 cellpadding=0 width=97%>
 			<tr>
 				<td width=20% valign=top>
-
 				<!-- Left side tabs -->
 					<table border=0 cellspacing=0 cellpadding=10 width=100%>
 					<tr><td class="small cwSelectedTab" align=right><div align="left"><b>欢迎使用易客CRM</b></div></td></tr>
@@ -76,7 +69,6 @@ foreach($pieces as $val)
 					<table border=0 cellspacing=0 cellpadding=10 width=100%>
 					<tr><td class=small align=left><img src="include/install/images/welcome.gif" alt="Welcome to Configuration Wizard" title="Welcome to Configuration Wizard"><br>
 					  <hr noshade size=1></td></tr>
-
 					<tr>
 						<td align=left class="small" style="padding-left:20px">
 		<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;安装向导将创建易客CRM运行所需要的数据库和表文件。整个过程需要4分钟。点击开始按钮开始安装。
@@ -115,7 +107,6 @@ foreach($pieces as $val)
 	</table>
 	<table border=0 cellspacing=0 cellpadding=0 width=80% align=center>
 	<tr>
-
 		<td background="include/install/images/bottomGradient.gif"><img src="include/install/images/bottomGradient.gif"></td>
 	</tr>
 	</table>

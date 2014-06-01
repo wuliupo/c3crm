@@ -4,8 +4,6 @@
  * @package Smarty
  * @subpackage plugins
  */
-
-
 /**
  * Smarty {debug} function plugin
  *
@@ -29,7 +27,5 @@ function smarty_function_debug($params, &$smarty)
     require_once(SMARTY_CORE_DIR . 'core.display_debug_console.php');
     return smarty_core_display_debug_console(null, $smarty);
 }
-
 /* vim: set expandtab: */
-
 ?>

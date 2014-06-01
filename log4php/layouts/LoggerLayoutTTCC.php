@@ -16,12 +16,10 @@
  * @package log4php
  * @subpackage layouts
  */
-
 /**
  * @ignore 
  */
 if (!defined('LOG4PHP_DIR')) define('LOG4PHP_DIR', dirname(__FILE__) . '/..');
-
 if (!defined('LOG4PHP_LINE_SEP')) {
     if (substr(php_uname(), 0, 7) == "Windows") { 
         /**
@@ -45,13 +43,11 @@ require_once(LOG4PHP_DIR . '/LoggerLayout.php');
  * this constant is <b>NULL</b>.
  */
 define ('LOG4PHP_LOGGER_LAYOUT_NULL_DATE_FORMAT',   'NULL');
-
 /**
  * String constant designating relative time. Current value of
  * this constant is <b>RELATIVE</b>.
  */
 define ('LOG4PHP_LOGGER_LAYOUT_RELATIVE_TIME_DATE_FORMAT', 'RELATIVE');
-
 /**
  * TTCC layout format consists of time, thread, category and nested
  * diagnostic context information, hence the name.
@@ -75,7 +71,6 @@ define ('LOG4PHP_LOGGER_LAYOUT_RELATIVE_TIME_DATE_FORMAT', 'RELATIVE');
  * @subpackage layouts
  */
 class LoggerLayoutTTCC extends LoggerLayout {
-
     // Internal representation of options
     var $threadPrinting    = true;
     var $categoryPrefixing = true;
@@ -86,7 +81,6 @@ class LoggerLayoutTTCC extends LoggerLayout {
      * @var string date format. See {@link PHP_MANUAL#strftime} for details
      */
     var $dateFormat = '%c';
-
     /**
      * Constructor
      *
@@ -99,7 +93,6 @@ class LoggerLayoutTTCC extends LoggerLayout {
             $this->dateFormat = $dateFormat;
         return;
     }
-
     /**
      * The <b>ThreadPrinting</b> option specifies whether the name of the
      * current thread is part of log output or not. This is true by default.
@@ -111,14 +104,12 @@ class LoggerLayoutTTCC extends LoggerLayout {
             $threadPrinting : 
             (bool)(strtolower($threadPrinting) == 'true'); 
     }
-
     /**
      * @return boolean Returns value of the <b>ThreadPrinting</b> option.
      */
     function getThreadPrinting() {
         return $this->threadPrinting;
     }
-
     /**
      * The <b>CategoryPrefixing</b> option specifies whether {@link Category}
      * name is part of log output or not. This is true by default.
@@ -129,14 +120,12 @@ class LoggerLayoutTTCC extends LoggerLayout {
             $categoryPrefixing :
             (bool)(strtolower($categoryPrefixing) == 'true');
     }
-
     /**
      * @return boolean Returns value of the <b>CategoryPrefixing</b> option.
      */
     function getCategoryPrefixing() {
         return $this->categoryPrefixing;
     }
-
     /**
      * The <b>ContextPrinting</b> option specifies log output will include
      * the nested context information belonging to the current thread.
@@ -147,7 +136,6 @@ class LoggerLayoutTTCC extends LoggerLayout {
             $contextPrinting : 
             (bool)(strtolower($contextPrinting) == 'true'); 
     }
-
     /**
      * @return boolean Returns value of the <b>ContextPrinting</b> option.
      */
@@ -166,7 +154,6 @@ class LoggerLayoutTTCC extends LoggerLayout {
             $microSecondsPrinting : 
             (bool)(strtolower($microSecondsPrinting) == 'true'); 
     }
-
     /**
      * @return boolean Returns value of the <b>MicroSecondsPrinting</b> option.
      */
@@ -188,7 +175,6 @@ class LoggerLayoutTTCC extends LoggerLayout {
     {
         return $this->dateFormat;
     }
-
     /**
      * In addition to the level of the statement and message, the
      * returned string includes time, thread, category.
@@ -231,7 +217,6 @@ class LoggerLayoutTTCC extends LoggerLayout {
         
         return $format;
     }
-
     function ignoresThrowable()
     {
         return true;

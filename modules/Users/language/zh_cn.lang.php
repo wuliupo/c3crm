@@ -546,12 +546,10 @@ $mod_strings = array (
   'LBL_THIRD_PARTY' => '第三方插件',
   'LBL_COMMUNITY' => '和CRM社区',
   'LBL_ASSIGN_ROLE' => '分配角色',
-
   'LBL_ORGSHARE_ASSIGN_1' => '负责',
   'LBL_ORGSHARE_ASSIGN_2' => '记录的角色或部门',
   'LBL_ORGSHARE_SELECT' => '请选择',
   'User Name Already Exists!' => '用户名已经存在！',
-
   'Group_Name_cannot_be_none' => '部门名称不能为空',
   'Group_should_have_at_least_one_member' => '部门里至少要有一个成员！',//Group_should_have_at_least_one_member._Select_a_member_to_the_group
   'Expand/Collapse' => '展开/收缩',
@@ -561,7 +559,6 @@ $mod_strings = array (
   'Edit Role' => '编辑角色权限',
   'Delete Role' => '删除角色',
   'Move Role' => '移动角色',
-
   'Role Name' => '角色',
   'Phone' => '电话',
   'Title' => '职位',
@@ -572,7 +569,6 @@ $mod_strings = array (
   'APPROVE_OK' => '审批通过',
   'APPROVE_REJECT' => '审批失败',
   'REJECT_REASON' => '备注：',
-
   'LBL_CONTACTS_LASTNAME' => '联系人:姓名',
   'LBL_CONTACTS_SALUTATIONTYPE' => '联系人:称呼',
   'LBL_CONTACTS_TITLE' => '联系人:职位',

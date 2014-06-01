@@ -16,17 +16,14 @@
  * @package log4php
  * @subpackage appenders
  */
-
 /**
  * @ignore 
  */
 if (!defined('LOG4PHP_DIR')) define('LOG4PHP_DIR', dirname(__FILE__) . '/..');
-
 /**
  */
 require_once(LOG4PHP_DIR . '/LoggerAppenderSkeleton.php');
 require_once(LOG4PHP_DIR . '/LoggerLog.php');
-
 /**
  * Log events to an email address. It will be created an email for each event. 
  *
@@ -45,27 +42,22 @@ require_once(LOG4PHP_DIR . '/LoggerLog.php');
  * @subpackage appenders
  */
 class LoggerAppenderMailEvent extends LoggerAppenderSkeleton {
-
     /**
      * @var string 'from' field
      */
     var $from           = null;
-
     /**
      * @var integer 'from' field
      */
     var $port           = 25;
-
     /**
      * @var string hostname. 
      */
     var $smtpHost       = null;
-
     /**
      * @var string 'subject' field
      */
     var $subject        = '';
-
     /**
      * @var string 'to' field
      */
@@ -75,7 +67,6 @@ class LoggerAppenderMailEvent extends LoggerAppenderSkeleton {
      * @access private
      */
     var $requiresLayout = true;
-
     /**
      * Constructor.
      *
@@ -85,7 +76,6 @@ class LoggerAppenderMailEvent extends LoggerAppenderSkeleton {
     {
         $this->LoggerAppenderSkeleton($name);
     }
-
     function activateOptions()
     { 
         $this->closed = false;
@@ -95,7 +85,6 @@ class LoggerAppenderMailEvent extends LoggerAppenderSkeleton {
     {
         $this->closed = true;
     }
-
     /**
      * @return string
      */
@@ -115,18 +104,15 @@ class LoggerAppenderMailEvent extends LoggerAppenderSkeleton {
      * @return string
      */
     function getSubject()   { return $this->subject; }
-
     /**
      * @return string
      */
     function getTo()        { return $this->to; }
-
     function setFrom($from)             { $this->from = $from; }
     function setPort($port)             { $this->port = (int)$port; }
     function setSmtpHost($smtphost)     { $this->smtpHost = $smtpHost; }
     function setSubject($subject)       { $this->subject = $subject; }
     function setTo($to)                 { $this->to = $to; }
-
     function append($event)
     {
         $from = $this->getFrom();
@@ -141,7 +127,6 @@ class LoggerAppenderMailEvent extends LoggerAppenderSkeleton {
         } else {
             $smtpHost = $prevSmtpHost;
         } 
-
         $smtpPort = $this->getPort();
         $prevSmtpPort= ini_get('smtp_port');        
         if ($smtpPort > 0 and $smtpPort < 65535) {
@@ -166,5 +151,4 @@ class LoggerAppenderMailEvent extends LoggerAppenderSkeleton {
         ini_set('smtp_port',    $prevSmtpPort);
     }
 }
-
 ?>

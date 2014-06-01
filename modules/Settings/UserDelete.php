@@ -8,14 +8,11 @@
  * All Rights Reserved.
 *
  ********************************************************************************/
-
 require_once("include/database/PearDatabase.php");
 global $current_user;
 global $adb;
 $mod_strings =  return_specified_module_language("zh_cn","Settings"); 
-
 $now = date("Y-m-d H:i:s");	
-
 $userid=$_REQUEST['userid'];
 if(empty($userid)){
 	die("CurrentUser->ID is null,Please Check it!");
@@ -25,9 +22,7 @@ $row = $adb->getFirstLine($sql);
 if(empty($row)){
 	die("System Users No this Record!");
 }
-
 $deletesql = "DELETE FROM ec_users where id=$userid and id!=".$_SESSION['authenticated_user_id'];
 $adb->query($deletesql); 
-
 header("Location: index.php?module=Settings&parenttab=Settings&action=SmsUser");
 ?>

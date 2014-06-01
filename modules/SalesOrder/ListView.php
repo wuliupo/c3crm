@@ -15,12 +15,9 @@ require_once('include/ListView/ListView.php');
 require_once('include/utils/utils.php');
 require_once('modules/CustomView/CustomView.php');
 require_once('include/DatabaseUtil.php');
-
-
 global $app_strings,$mod_strings,$list_max_entries_per_page,$currentModule,$theme;
 $theme_path="themes/".$theme."/";
 $image_path=$theme_path."images/";
-
 $smarty = new CRMSmarty();
 global $current_user;
 //added by xiaoyang on 2012-9-18
@@ -34,18 +31,15 @@ $smarty->assign("MODULE",$currentModule);
 $smarty->assign("SINGLE_MOD",'SalesOrder');
 $category = getParentTab();
 $smarty->assign("CATEGORY",$category);
-
 $focus = new SalesOrder();
 $other_text = Array();
 $url_string = ''; // assigning http url string
 //<<<<<<<<<<<<<<<<<<< sorting - stored in session >>>>>>>>>>>>>>>>>>>>
 $sorder = $focus->getSortOrder();
 $order_by = $focus->getOrderBy();
-
 $_SESSION['SALESORDER_ORDER_BY'] = $order_by;
 $_SESSION['SALESORDER_SORT_ORDER'] = $sorder;
 //<<<<<<<<<<<<<<<<<<< sorting - stored in session >>>>>>>>>>>>>>>>>>>>
-
 if(!$_SESSION['lvs'][$currentModule])
 {
 	unset($_SESSION['lvs']);
@@ -60,13 +54,11 @@ $viewid = $oCustomView->getViewId($currentModule);
 $customviewcombo_html = $oCustomView->getCustomViewCombo($viewid);
 $viewnamedesc = $oCustomView->getCustomViewByCvid($viewid);
 //<<<<<customview>>>>>
-
 //change by renzhen for save the search information 
 if(isset($_REQUEST['clearquery']) && $_REQUEST['clearquery'] == 'true'){
 	unset($_SESSION['LiveViewSearch'][$currentModule]);
 	if(isset($_REQUEST['query'])) $_REQUEST['query']='';
 }
-
 if(isset($_REQUEST['query']) && $_REQUEST['query'] == 'true')
 {
 	list($where, $ustring) = explode("#@@#",getWhereCondition($currentModule));
@@ -81,8 +73,6 @@ if(isset($_REQUEST['query']) && $_REQUEST['query'] == 'true')
 }else{
 	$_SESSION['LiveViewSearch'][$currentModule]= array();
 }
-
-
 //<<<<<<<<<customview>>>>>>>>>
 if($viewid != "0")
 {
@@ -93,7 +83,6 @@ if($viewid != "0")
 	$list_query = getListQuery("SalesOrder");
 }
 //<<<<<<<<customview>>>>>>>>>
-
 if(isset($where) && $where != '')
 {
         $list_query .= ' and '.$where;
@@ -101,28 +90,22 @@ if(isset($where) && $where != '')
 }
 else
    unset($_SESSION['export_where']);
-
 //Retreiving the no of rows
 $count_result = $adb->query( mkCountQuery( $list_query));
 $noofrows = $adb->query_result($count_result,0,"count");
-
 //Storing Listview session object
 if($_SESSION['lvs'][$currentModule])
 {
 	setSessionVar($_SESSION['lvs'][$currentModule],$noofrows,$list_max_entries_per_page);
 }
-
 $start = $_SESSION['lvs'][$currentModule]['start'];
-
 //Retreive the Navigation array
 $navigation_array = getNavigationValues($start, $noofrows, $list_max_entries_per_page);
-
 // Setting the record count string
 //modified by rdhital
 $start_rec = $navigation_array['start'];
 $end_rec = $navigation_array['end_val']; 
 //By Raju Ends
-
 //limiting the query
 $query_order_by = "";
 if(isset($order_by) && $order_by != '')
@@ -140,25 +123,18 @@ if ($start_rec == 0)
 	$limit_start_rec = 0;
 else
 	$limit_start_rec = $start_rec -1;
-
 $list_result = $adb->limitQuery2($list_query,$limit_start_rec,$list_max_entries_per_page,$query_order_by,$sorder);
-
 $record_string= $app_strings["LBL_SHOWING"]." " .$start_rec." - ".$end_rec." " .$app_strings["LBL_LIST_OF"] ." ".$noofrows;
-
 //Retreive the List View Table Header
 if($viewid !='')
 $url_string .="&viewname=".$viewid;
-
 $listview_header = getListViewHeader($focus,"SalesOrder",$url_string,$sorder,$order_by,"",$oCustomView);
 $smarty->assign("LISTHEADER", $listview_header);
-
 $listview_header_search=getSearchListHeaderValues($focus,"SalesOrder",$url_string,$sorder,$order_by,"",$oCustomView);
 $smarty->assign("SEARCHLISTHEADER", $listview_header_search);
-
 $listview_entries = getListViewEntries($focus,"SalesOrder",$list_result,$navigation_array,'','&return_module=SalesOrder&return_action=index','EditView','Delete',$oCustomView);
 $smarty->assign("LISTENTITY", $listview_entries);
 //$smarty->assign("SELECT_SCRIPT", $view_script);
-
 $navigationOutput = getTableHeaderNavigation($navigation_array, $url_string,"SalesOrder",'index',$viewid);
 $fieldnames = getAdvSearchfields($module);
 $criteria = getcriteria_options();
@@ -170,11 +146,8 @@ $smarty->assign("CUSTOMVIEW_OPTION",$customviewcombo_html);
 $smarty->assign("VIEWID", $viewid);
 $smarty->assign("BUTTONS", $other_text);
 $smarty->assign("ISADMIN",$current_user->is_admin);
-
-
 if(isset($_REQUEST['ajax']) && $_REQUEST['ajax'] != '')
 	$smarty->display("SalesOrder/ListViewEntries.tpl");
 else	
 	$smarty->display("SalesOrder/ListView.tpl");
-
 ?>

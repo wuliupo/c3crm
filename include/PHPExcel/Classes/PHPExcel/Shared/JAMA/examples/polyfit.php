@@ -26,7 +26,6 @@ function polyfit($X, $Y, $n) {
 	$C = $matrixA->solve($matrixB);
 	return $C->getMatrix(0, $n, 0, 1);
 }
-
 function printpoly( $C = null ) {
 	for($i = $C->m - 1; $i >= 0; --$i) {
 		$r = $C->get($i, 0);
@@ -40,31 +39,24 @@ function printpoly( $C = null ) {
 			echo " + " . $r;
 	}
 }
-
 $X = array(0,1,2,3,4,5);
 $Y = array(4,3,12,67,228, 579);
 $points = new Matrix(array($X, $Y));
 $points->toHTML();
 printpoly(polyfit($X, $Y, 4));
-
 echo '<hr />';
-
 $X = array(0,1,2,3,4,5);
 $Y = array(1,2,5,10,17, 26);
 $points = new Matrix(array($X, $Y));
 $points->toHTML();
 printpoly(polyfit($X, $Y, 2));
-
 echo '<hr />';
-
 $X = array(0,1,2,3,4,5,6);
 $Y = array(-90,-104,-178,-252,-26, 1160, 4446);
 $points = new Matrix(array($X, $Y));
 $points->toHTML();
 printpoly(polyfit($X, $Y, 5));
-
 echo '<hr />';
-
 $X = array(0,1,2,3,4);
 $Y = array(mt_rand(0, 10), mt_rand(40, 80), mt_rand(240, 400), mt_rand(1800, 2215), mt_rand(8000, 9000));
 $points = new Matrix(array($X, $Y));

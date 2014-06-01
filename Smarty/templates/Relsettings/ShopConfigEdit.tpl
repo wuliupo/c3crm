@@ -30,7 +30,6 @@
     <input type="hidden" name="shopid" value="{$ID}">
 	<div align=center>
 			
-
 				<!-- DISPLAY -->
 				<table border=0 cellspacing=0 cellpadding=5 width=100% class="settingsSelUITopLine">
 				<tr>

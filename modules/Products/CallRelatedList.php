@@ -8,10 +8,8 @@
  * All Rights Reserved.
 *
  ********************************************************************************/
-
 require_once('include/CRMSmarty.php');
 require_once('modules/Products/Products.php');
-
 //Redirecting Header for single page layout
 require_once('user_privileges/default_module_view.php');
 global $singlepane_view;
@@ -32,16 +30,12 @@ if(isset($_REQUEST['record']) && isset($_REQUEST['record']))
 	$log->debug("id is ".$focus->id);
 	$log->debug("name is ".$focus->name);
 }
-
 global $mod_strings;
 global $app_strings,$currentModule;
 global $theme;
 $theme_path="themes/".$theme."/";
 $image_path=$theme_path."images/";
-
-
 $smarty = new CRMSmarty();
-
 if(isset($_REQUEST['isDuplicate']) && $_REQUEST['isDuplicate'] == 'true') 
 {
         $focus->id = "";
@@ -54,7 +48,6 @@ $related_array=getRelatedLists($currentModule,$focus);
 $smarty->assign("RELATEDLISTS", $related_array);
 $category = getParentTab();
 $smarty->assign("CATEGORY",$category);
-
 $smarty->assign("ID",$focus->id);
 $smarty->assign("MODULE",$currentmodule);
 $smarty->assign("UPDATEINFO",updateInfo($focus->id));
@@ -63,7 +56,6 @@ $smarty->assign("MOD",$mod_strings);
 $smarty->assign("APP",$app_strings);
 $smarty->assign("THEME", $theme);
 $smarty->assign("IMAGE_PATH", $image_path);
-
 $check_button = Button_Check($module);
 $smarty->assign("CHECK", $check_button);
 $smarty->display("RelatedLists.tpl");

@@ -18,7 +18,6 @@
 <span id="crmspanid" style="display:none;position:absolute;"  onmouseover="show('crmspanid');">
    <a class="link"  align="right" href="javascript:;">{$APP.LBL_EDIT_BUTTON}</a>
 </span>
-
 <br>
 <!-- Shadow table -->
 <table align="center" border="0" cellpadding="0" cellspacing="0" width="98%">
@@ -114,7 +113,6 @@
 									No</td>
 									{/if}
 									
-
 									<td class="dvtCellLabel" align="right" width="20%">状态</td>
 									<td class="dvtCellInfo" align="left" width="30%">									
 									{if $COLUMNS.status eq 'Active'}
@@ -172,7 +170,6 @@
 					</td>
 				</tr>
 				</table>
-
 		
 	</div>
 	</td>
@@ -189,9 +186,6 @@
 			</tr>
 			</table>
 			
-
-
-
 <br>
 {$JAVASCRIPT}
 <div id="tempdiv" style="display:block;position:absolute;left:350px;top:200px;"></div>
@@ -227,15 +221,12 @@ function fetchUserGroups(id)
                         }
                 }
         );
-
 }
-
 function showAuditTrail()
 {
 	var userid =  document.getElementById('userid').value;
 	window.open("index.php?module=Users&action=UsersAjax&file=ShowAuditTrail&userid="+userid,"","width=650,height=800,resizable=0,scrollbars=1,left=100");
 }
-
 function deleteUser(userid)
 {
         $("status").style.display="inline";
@@ -276,13 +267,10 @@ function getListViewEntries_js(module,url)
                 {rdelim}
         );
 {rdelim}
-
 function getListViewWithPageNo(module,pageElement)
 {ldelim}
 	//var pageno = document.getElementById('listviewpage').value;
 	var pageno = pageElement.options[pageElement.options.selectedIndex].value;
 	getListViewEntries_js(module,'start='+pageno);
 {rdelim}
-
 </script>
-

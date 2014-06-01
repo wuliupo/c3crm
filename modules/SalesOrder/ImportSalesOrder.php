@@ -1,12 +1,10 @@
 <?php
-
 require_once 'include/PHPExcel/Classes/PHPExcel/IOFactory.php';
 require_once('include/logging.php');
 require_once('include/database/PearDatabase.php');
 require_once('modules/Contacts/Contacts.php');
 require_once('modules/Accounts/Accounts.php');
 require_once('modules/SalesOrder/SalesOrder.php');
-
 class ImportSalesOrder{
     var $accountfile;
     var $contactfile;
@@ -18,7 +16,6 @@ class ImportSalesOrder{
 	var $skip_record;
 	var $total_reocrd;
 	var $skip_rows;
-
     function ImportSalesOrder(){
         $this->accountInf=array();
 		$this->existprefix=date("Ymd His");
@@ -26,24 +23,19 @@ class ImportSalesOrder{
 		$this->total_reocrd=0;
 		$this->skip_rows=array();
     }
-
     function resetAccount(){
         $this->accountInf=array();
         $this->accountInf['contacts']=array();
     }
-
     function createContactInfo(){
         $contactinfo=array();
         $contactinfo['notes']=array();
         return $contactinfo;
     }
-
     function setAccountFile($filepath){
         $this->accountfile=$filepath;
     }
-
    
-
     function excelAccountRel(){
         $accountrelation=array(
 			'subject'=>0,
@@ -59,7 +51,6 @@ class ImportSalesOrder{
 			'commet'=>10
 			
         );
-
         return $accountrelation;
     }
 	/*
@@ -71,30 +62,22 @@ class ImportSalesOrder{
 			'duedate'=>3,
 			
         );
-
         return $accountrelation;
     }
 	*/
-
    
-
     
-
-
     function parseExcel(){
 		global $log;
 		$log->debug("Entering into function parseExcel()");
        
-
 		$objReader = PHPExcel_IOFactory::createReader('Excel5');
 		$objReader->setReadDataOnly(true);
 		$objPHPExcel = $objReader->load($this->accountfile);
 		$objWorksheet = $objPHPExcel->getActiveSheet();
-
 		$highestRow = $objWorksheet->getHighestRow(); // e.g. 10
 		$highestColumn = $objWorksheet->getHighestColumn();
 		$highestColumnIndex = PHPExcel_Cell::columnIndexFromString($highestColumn);
-
         $accountrel=$this->excelAccountRel();
         for ($row = 2; $row <= $highestRow; ++$row) {
             $salesorderinf=array();
@@ -128,7 +111,6 @@ class ImportSalesOrder{
 		//save entries
         $this->saveEntries();
 		$log->debug("Exit function parseExcel()");
-
     }
     
 	function salesorderIsExist(&$salesorderinf){
@@ -151,9 +133,7 @@ class ImportSalesOrder{
 			if($adb->num_rows($result)==0) return 1;
 			else return 0;
 		}
-
     }
-
 	function productIsExist($productcode){
         global $adb;
         $sql="select productid from ec_products where deleted=0 and productcode='$productcode' ";
@@ -165,7 +145,6 @@ class ImportSalesOrder{
 			return $adb->query_result($result,0,"productid");
 		}
     }
-
     //1:Account,2:Contact
     function transferExcelProps($moduletype,$prop,$val){
 		global $adb;
@@ -209,7 +188,6 @@ class ImportSalesOrder{
         $focus = new Accounts();
 		$query = '';
 		// if user is defining the ec_account id to be associated with this contact..
-
 		//Modified to remove the spaces at first and last in ec_account name -- after 4.2 patch 2
 		$acc_name = trim(addslashes($acc_name));
 		//Modified the query to get the available account only ie., which is not deleted
@@ -249,27 +227,22 @@ class ImportSalesOrder{
 		{
 			return; 
 		}
-
         $arr = array();
 		// check if it already exists
         $focus = new Contacts();
 		$query = '';
 		// if user is defining the ec_contact id to be associated with this contact..
-
 		//Modified to remove the spaces at first and last in ec_contactdetails name -- after 4.2 patch 2
 		$contact_name = trim(addslashes($contact_name));
-
 		//Modified the query to get the available account only ie., which is not deleted
 		$query = "select ec_contactdetails.* from ec_contactdetails WHERE lastname='{$contact_name}' and deleted=0";
         $result = $adb->query($query);
-
         $row = $adb->fetchByAssoc($result, -1, false);
 		// we found a row with that id
         if (isset($row['contactid']) && $row['contactid'] != -1)
         {
 			$focus->id = $row['contactid'];
         }
-
 		// if we didnt find the ec_contactdetails, so create it
         if (! isset($focus->id) || $focus->id == '')
         {
@@ -279,17 +252,14 @@ class ImportSalesOrder{
 			$focus->column_fields['modified_user_id'] = $current_user->id;
 			$focus->save("Contacts");
 			$contact_id = $focus->id;
-
 			// avoid duplicate mappings:
 			if (! isset( $imported_ids[$contact_id]) )
 			{
 				$imported_ids[$acc_id] = 1;
 			}
         }
-
 		// now just link the ec_contactdetails
         return $focus->id;
-
     }
 	
     function saveEntries(){
@@ -305,12 +275,9 @@ class ImportSalesOrder{
 		$log->debug("Exit function saveEntries()");
     }
 	
-
     
     
-
      
-
     
     
      function insertSalesOrder($salesorderinf){
@@ -329,7 +296,6 @@ class ImportSalesOrder{
 		$log->debug("Exit function insertSalesOrder()");
 		return $focus->id;
     }
-
     function updateOrderProduct($productinfs,$salesorderid){
 		
 		global $adb;
@@ -341,7 +307,6 @@ class ImportSalesOrder{
 			$listprice = $proinf['listprice'];
 			$comment = addslashes($proinf['commet']);
 			//$totalprice+=$qty*$listprice;
-
 			$query ="insert into ec_inventoryproductrel(id, productid, sequence_no, quantity, listprice, comment) values($salesorderid, $prod_id , $seq, $qty, $listprice, '$comment')";
 			$seq++;
 			$adb->query($query);
@@ -349,9 +314,7 @@ class ImportSalesOrder{
 		$updatequery  = "update ec_salesorder set total='$totalprice' where salesorderid='$salesorderid' ";
 		$adb->query($updatequery);
     }
-
    
-
 	function createXls($accountinfs) {
 		$headArr=array('合同订单编号','状态','客户名称','联系人姓名','签约日期','合同金额','产品名称','产品编码','数量','价格','备注');
 		$filepath=$this->accountfile;
@@ -380,11 +343,8 @@ class ImportSalesOrder{
 				$rowIndex+=1;
 			}
 			$objWriter->save($filepath);
-
 		}
 	}
-
     
 }
-
 ?>

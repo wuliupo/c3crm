@@ -2,11 +2,9 @@
    <tr>
 	<td>&nbsp;</td>
    </tr>
-
    <tr>
 	<td align="left" class="genHeaderSmall">{$APP.LBL_ACTIONS}</td>
    </tr>
-
    <!-- SO Actions starts -->
     <tr>
 	<td align="left" style="padding-left:10px;">
@@ -26,8 +24,6 @@
 		<a href="javascript: document.DetailView.module.value='Invoice'; document.DetailView.action.value='EditView'; document.DetailView.return_module.value='SalesOrder'; document.DetailView.return_action.value='DetailView'; document.DetailView.return_id.value='{$ID}'; document.DetailView.record.value='{$ID}'; document.DetailView.convertmode.value='sotoinvoice'; document.DetailView.submit();" class="webMnu">{$APP.LBL_CREATE_BUTTON_LABEL}{$APP.Invoice}</a> 
 	</td>
    </tr>
-
-
    <tr>
 	<td align="left">
 		<span class="genHeaderSmall">{$APP.LBL_TOOLS}</span><br /> 
@@ -35,7 +31,6 @@
    </tr>
    {assign var=export_pdf_action value="CreateSOPDF"}
 	
-
    <tr>
 	<td align="left" style="padding-left:10px;">
 		<img src="{$IMAGE_PATH}pointer.gif" hspace="5" align="absmiddle"/>

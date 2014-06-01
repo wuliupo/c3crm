@@ -47,6 +47,5 @@ $mod_strings = array (
   'MODULE_TIPS' => 'Tips：Click Viewscope to select records.Click View to select records.Click add image to add record.Click search image to search records.',
   'Potential Name' => 'Potential Name',
   'project' => 'Project',
-
 );
 ?>

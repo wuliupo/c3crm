@@ -6,19 +6,16 @@
  * 如果您确定直接使用本程序，使用之前请仔细确认相关安全设置。
  * 
  */
-
 require_once 'JSON.php';
  
 $php_path = dirname(__FILE__) . '/';
 $php_url = dirname($_SERVER['PHP_SELF']) . '/';
-
 //根目录路径，可以指定绝对路径，比如 /var/www/attached/
 $root_path = $php_path . '../attached/';
 //根目录URL，可以指定绝对路径，比如 http://www.yoursite.com/attached/
 $root_url = $php_url . '../attached/';
 //图片扩展名
 $ext_arr = array('gif', 'jpg', 'jpeg', 'png', 'bmp');
-
 //根据path参数，设置各路径和URL
 if (empty($_GET['path'])) {
 	$current_path = realpath($root_path) . '/';
@@ -33,7 +30,6 @@ if (empty($_GET['path'])) {
 }
 //排序形式，name or size or type
 $order = empty($_GET['order']) ? 'name' : strtolower($_GET['order']);
-
 //不允许使用..移动到上一级目录
 if (preg_match('/\.\./', $current_path)) {
 	echo 'Access is not allowed.';
@@ -49,7 +45,6 @@ if (!file_exists($current_path) || !is_dir($current_path)) {
 	echo 'Directory does not exist.';
 	exit;
 }
-
 //遍历目录取得文件信息
 $file_list = array();
 if ($handle = opendir($current_path)) {
@@ -78,7 +73,6 @@ if ($handle = opendir($current_path)) {
 	}
 	closedir($handle);
 }
-
 //排序
 function cmp_func($a, $b) {
 	global $order;
@@ -103,7 +97,6 @@ function cmp_func($a, $b) {
 	}
 }
 usort($file_list, 'cmp_func');
-
 $result = array();
 //相对于根目录的上一级目录
 $result['moveup_dir_path'] = $moveup_dir_path;
@@ -115,7 +108,6 @@ $result['current_url'] = $current_url;
 $result['total_count'] = count($file_list);
 //文件列表数组
 $result['file_list'] = $file_list;
-
 //输出JSON字符串
 header('Content-type: application/json; charset=UTF-8');
 $json = new Services_JSON();

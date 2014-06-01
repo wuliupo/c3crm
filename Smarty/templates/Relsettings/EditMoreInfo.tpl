@@ -17,7 +17,6 @@
 		{/if}
 	</li>
 </ul>
-
 {if $RELSETMODE == 'edit'}
 	<input type="hidden" name="user_name" value="{$user_name}">
     <input type="hidden" name="record" value="{$record}">
@@ -63,7 +62,6 @@
 		</tbody>
 	</table>
 {/if}
-
 <script>
 {literal}
 function check()

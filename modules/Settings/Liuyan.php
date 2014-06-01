@@ -16,23 +16,17 @@ global $app_strings;
 global $app_list_strings;
 global $current_user;
 global $list_max_entries_per_page;
-
 //Display the mail send status
 $smarty = new CRMSmarty();
-
 global $adb;
 global $theme;
 $theme_path="themes/".$theme."/";
 $image_path=$theme_path."images/";
-
-
 $listview_header =array("id"=>"ID","name"=>"姓名","tel"=>"电话","content"=>"留言","createdtime"=>"提交时间","reply"=>"是否回复","replytime"=>"回复时间");
 $smarty->assign("LISTHEADER", $listview_header);
 $smarty->assign("countheader", count($listview_header));
-
 $search_url = '';
 $where = '';
-
 //排序
 $ordercol = array(
 	"id"=>"ec_liuyan.id",
@@ -53,17 +47,13 @@ if(empty($sorder)){
 }
 $ordersql = $ordercol[$order_by];
 //$order_url = "&order_by={$order_by}&sorder={$sorder}";
-
 if(isset($_REQUEST['change']) && $_REQUEST['change'] == 1 && $_REQUEST['id'] != ''){
 	$updatesql = "update ec_liuyan set reply=1,replytime='".date("Y-m-d H:i:s")."' where id='".$_REQUEST['id']."' ";
 	$adb->query($updatesql);
 }
-
-
 $today = date("Y-m-d");
 $lastweek = date("Y-m-d",strtotime("-1 week"));
 $nextweek = date("Y-m-d",strtotime("1 week"));
-
 $name = $_REQUEST['name'];
 if(!empty($name)){
 	$where .=" and ec_liuyan.name like '%".$name."%'";
@@ -82,43 +72,30 @@ if(!empty($content)){
 	$search_url .="&content=$content";
 	$smarty->assign("content", $content);
 }
-
 $smarty->assign("search_notype", $search_url);
-
-
-
 $query = "select * from ec_liuyan where 1 ";
 $query .=$where;			
-
 $count_result = $adb->query( mkCountQuery( $query));
 $noofrows = $adb->query_result($count_result,0,"count");
-
 $start = $_REQUEST['start'];
 if($start ==''){
 	$start = 1;
 }
 $navigation_array = getNavigationValues($start, $noofrows, $list_max_entries_per_page);
-
 $start_rec = $navigation_array['start'];
 $end_rec = $navigation_array['end_val'];
-
 $_SESSION['nav_start']=$start_rec;
 $_SESSION['nav_end']=$end_rec;
-
 if ($start_rec ==0)
 	$limit_start_rec = 0;
 else
 	$limit_start_rec = $start_rec -1;
-
 $query .=" order by {$ordersql} {$sorder} "; 
 $query.=" limit $limit_start_rec,$list_max_entries_per_page";
-
 $result = $adb->getList($query);
 $nun_rows = $adb->num_rows($result); 
-
 $stop = 0;
 $currentdate = date("Y-m-d");
-
 if($nun_rows > 0){
 	$i=1;
 	foreach($result as $row) {		
@@ -147,9 +124,7 @@ if($nun_rows > 0){
 		$i++;
 	}
 }
-
 $smarty->assign("LISTENTITY", $listview_entries);
-
 foreach($listview_header as $key=>$header){
 	if(in_array($key,$orderkeycol)){
 		$sorderimg = "";
@@ -171,17 +146,12 @@ foreach($listview_header as $key=>$header){
 	
 }
 $smarty->assign("headerhtml", $headerhtml);
-
 $smarty->assign("MOD", return_module_language($current_language,'Settings'));
-
 $record_string= $app_strings["LBL_SHOWING"]." " .$start_rec." - ".$end_rec." " .$app_strings["LBL_LIST_OF"] ." ".$noofrows;
 $navigationOutput = getTableHeaderNavigation($navigation_array, '',"Settings","Liuyan",'');
-
 $smarty->assign("NAVIGATION", $navigationOutput);
 $smarty->assign("RECORD_COUNTS", $record_string);
 $smarty->assign("search_url", $search_url);
-
-
 $smarty->assign("IMAGE_PATH",$image_path);
 $smarty->assign("APP", $app_strings);
 $smarty->assign("CMOD", $mod_strings);

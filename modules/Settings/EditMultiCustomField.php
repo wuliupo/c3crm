@@ -3,10 +3,6 @@ require_once('include/CRMSmarty.php');
 require_once('include/database/PearDatabase.php');
 require_once('include/CustomFieldUtil.php');
 require_once('include/utils/MultiFieldUtils.php');
-
-
-
-
 global $mod_strings;
 global $app_strings;
 $smarty = new CRMSmarty();
@@ -15,9 +11,7 @@ $smarty->assign("APP",$app_strings);
 global $theme;
 $theme_path="themes/".$theme."/";
 $image_path=$theme_path."images/";
-
 $smarty->assign("IMAGE_PATH", $image_path);
-
 $multifieldid=$_REQUEST["multifieldid"];
 $fieldinfo=getMultiFieldInfo($multifieldid,false);
 $smarty->assign("FieldInfo",$fieldinfo);
@@ -25,14 +19,7 @@ $tab_mod_strings = return_module_language($current_language, $fieldinfo['modulen
 $smarty->assign("CMOD",$tab_mod_strings);
 $smarty->assign("FieldInfo",$fieldinfo);
 $smarty->assign("CFENTRIES",getCFListEntries($fieldinfo["fields"],$multifieldid,$tab_mod_strings));
-
-
-
-
-
 $smarty->display('Settings/EditMultiCustomField.tpl');
-
-
 	/**
 	* Function to get customfield entries
 	* @param string $module - Module name
@@ -65,8 +52,6 @@ function getCFListEntries($fields,$multifieldid,$tab_mod_strings)
                 <img src='{$image_path}editfield.gif' border='0' style='cursor:pointer;' onClick='getCreateCustomFieldForm(\"$multifieldid\",\"$count\",\"\",this);' alt='批量增加' title='批量增加'/>&nbsp;
                 <img src='{$image_path}RolesEdit.gif' border='0' style='cursor:pointer;' onClick='getEditCustomFieldForm(\"$multifieldid\",\"$count\",\"\",this);' alt='修改下拉框选项' title='修改下拉框选项'/>&nbsp;
             ";
-
-
 			$cf_element['type']=$fld_type_name;
             $typeofdata=$eachfield["typeofdata"];
             if(strpos($typeofdata,"~O")!==false){
@@ -75,7 +60,6 @@ function getCFListEntries($fields,$multifieldid,$tab_mod_strings)
                 $checkedstr="checked";
             }
 			$cf_element['tool']="<input type='checkbox' name='multifieldcheck{$count}' $checkedstr value='1'>";
-
 			$cflist[] = $cf_element;
 			$count++;
     }
@@ -83,10 +67,4 @@ function getCFListEntries($fields,$multifieldid,$tab_mod_strings)
 	
 	return $cflist;
 }
-
-
-
-
 ?>
-
-

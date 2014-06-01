@@ -18,21 +18,15 @@ if(isset($_REQUEST['record']) && $_REQUEST['record']!='') {
     $focus->retrieve_entity_info($_REQUEST['record'],"Maillists");
     $focus->id = $_REQUEST['record'];
     $focus->maillistname=$focus->column_fields['maillistname'];
-
 $log->debug("id is ".$focus->id);
-
 $log->debug("name is ".$focus->name);
 }
-
 global $mod_strings;
 global $app_strings;
 global $theme;
 $theme_path="themes/".$theme."/";
 $image_path=$theme_path."images/";
-
-
 $smarty = new CRMSmarty();
-
 if(isset($_REQUEST['isDuplicate']) && $_REQUEST['isDuplicate'] == 'true') {
         $focus->id = "";
 }
@@ -43,7 +37,6 @@ if(isset($_REQUEST['mode']) && $_REQUEST['mode'] != ' ') {
  {
        unset($_SESSION['rlvs']);
  }
-
 $category = getParentTab();
 $smarty->assign("CATEGORY",$category);
 $smarty->assign("UPDATEINFO",updateInfo($focus->id));
@@ -57,10 +50,8 @@ $smarty->assign("MOD",$mod_strings);
 $smarty->assign("APP",$app_strings);
 $smarty->assign("THEME", $theme);
 $smarty->assign("IMAGE_PATH", $image_path);
-
 $check_button = Button_Check($module);
 $smarty->assign("CHECK", $check_button);
-
 $smarty->display("Maillists/RelatedLists.tpl");
 }
 ?>

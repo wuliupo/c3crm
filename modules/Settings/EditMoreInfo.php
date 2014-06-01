@@ -22,7 +22,6 @@ $record = $_SESSION['authenticated_user_id'];
 if(empty($userid)){
 	die("Record is null!");
 }
-
 if(isset($_REQUEST['ajax']) && $_REQUEST['ajax'] == 'true')
 {
 		$phone = trim($_REQUEST['phone_mobile']);
@@ -30,7 +29,6 @@ if(isset($_REQUEST['ajax']) && $_REQUEST['ajax'] == 'true')
 		if($phone != "") {
 			$query = "SELECT * FROM ec_users WHERE deleted=0 and id !=".$userid." and phone_mobile='".$phone."' ";
 			$result = $adb->query($query);
-
 			if($adb->num_rows($result) > 0)
 			{
 				echo 'FAILEDPHONE';
@@ -41,7 +39,6 @@ if(isset($_REQUEST['ajax']) && $_REQUEST['ajax'] == 'true')
 		{
 			$query2 = "SELECT * FROM ec_users WHERE deleted=0 and id !=".$userid." and email1='".$email."' ";
 			$result2 = $adb->query($query2);
-
 			if($adb->num_rows($result2) > 0)
 			{
 				echo 'FAILEDEMAIL';
@@ -54,14 +51,10 @@ if(isset($_REQUEST['ajax']) && $_REQUEST['ajax'] == 'true')
 			}
 		}
 }
-
 $smarty->assign("userid", $userid);
-
 //if(isset($_REQUEST['mode']) && $_REQUEST['mode'] !=''){
 	$mode = 'edit';
 //}
-
-
 $selectsql = "select is_admin,user_name,department,last_name,phone_mobile,email1 from ec_users where id=$userid";
 $row = $adb->getFirstLine($selectsql);
 if(!empty($row)){
@@ -84,19 +77,14 @@ if(!empty($row)){
 }else{
 	die("No this record! Please Do Login Again!");
 }
-
-
-
 global $theme;
 $theme_path="themes/".$theme."/";
 $image_path=$theme_path."images/";
-
 $smarty->assign("MOD", return_module_language($current_language,'Settings'));
 $smarty->assign("IMAGE_PATH",$image_path);
 $smarty->assign("SETTYPE", "EditMoreInfo");//added by ligangze
 $smarty->assign("APP", $app_strings);
 $smarty->assign("CMOD", $mod_strings);
 $smarty->assign("mode", $mode);
-
 $smarty->display("Settings/EditMoreInfo.tpl");
 ?>

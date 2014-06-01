@@ -19,17 +19,14 @@
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  * @version    $Id: Loc.php 23775 2011-03-01 17:25:24Z ralph $
  */
-
 /**
  * @see Zend_Validate_Abstract
  */
 require_once 'include/Zend/Validate/Abstract.php';
-
 /**
  * @see Zend_Uri
  */
 require_once 'include/Zend/Uri.php';
-
 /**
  * Validates whether a given value is valid as a sitemap <loc> value
  *
@@ -49,7 +46,6 @@ class Zend_Validate_Sitemap_Loc extends Zend_Validate_Abstract
      */
     const NOT_VALID = 'sitemapLocNotValid';
     const INVALID   = 'sitemapLocInvalid';
-
     /**
      * Validation failure message template definitions
      *
@@ -59,7 +55,6 @@ class Zend_Validate_Sitemap_Loc extends Zend_Validate_Abstract
         self::NOT_VALID => "'%value%' is no valid sitemap location",
         self::INVALID   => "Invalid type given. String expected",
     );
-
     /**
      * Validates if a string is valid as a sitemap location
      *
@@ -74,14 +69,12 @@ class Zend_Validate_Sitemap_Loc extends Zend_Validate_Abstract
             $this->_error(self::INVALID);
             return false;
         }
-
         $this->_setValue($value);
         $result = Zend_Uri::check($value);
         if ($result !== true) {
             $this->_error(self::NOT_VALID);
             return false;
         }
-
         return true;
     }
 }

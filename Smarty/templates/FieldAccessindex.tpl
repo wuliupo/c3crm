@@ -14,7 +14,6 @@
         {include file='SettingsMenu.tpl'}
 <td width="75%" valign="top">
 <table width="99%" cellpadding="2" cellspacing="5" border="0">
-
 <tr>
 <td class="detailedViewHeader" align="left" colspan=2><b><a href="index.php?module=Settings&action=index&parenttab=Settings">{$MOD.LBL_SETTINGS} </a> > {$MOD.LBL_USER_MANAGEMENT} > {$MOD.LBL_FIELD_ACCESSIBILITY}</b></td></tr>
 <tr>
@@ -40,4 +39,3 @@
 </tr>
 </table>
         {include file='SettingsSubMenu.tpl'}
-

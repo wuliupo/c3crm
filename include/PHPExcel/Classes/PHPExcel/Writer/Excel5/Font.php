@@ -24,7 +24,6 @@
  * @license    http://www.gnu.org/licenses/old-licenses/lgpl-2.1.txt	LGPL
  * @version    1.7.2, 2010-01-11
  */
-
  
 /** PHPExcel root directory */
 if (!defined('PHPEXCEL_ROOT')) {
@@ -33,14 +32,10 @@ if (!defined('PHPEXCEL_ROOT')) {
 	 */
 	define('PHPEXCEL_ROOT', dirname(__FILE__) . '/../../../');
 }
-
 /** PHPExcel_Shared_String */
 require_once PHPEXCEL_ROOT . 'PHPExcel/Shared/String.php';
-
 /** PHPExcel_Style_Font */
 require_once PHPEXCEL_ROOT . 'PHPExcel/Style/Font.php';
-
-
 /**
  * PHPExcel_Writer_Excel5_Font
  *
@@ -56,21 +51,18 @@ class PHPExcel_Writer_Excel5_Font
 	 * @var int
 	 */
 	private $_BIFFVersion;
-
 	/**
 	 * Color index
 	 *
 	 * @var int
 	 */
 	private $_colorIndex;
-
 	/**
 	 * Font
 	 *
 	 * @var PHPExcel_Style_Font
 	 */
 	private $_font;
-
 	/**
 	 * Constructor
 	 *
@@ -82,7 +74,6 @@ class PHPExcel_Writer_Excel5_Font
 		$this->_colorIndex = 0x7FFF;
 		$this->_font = $font;
 	}
-
 	/**
 	 * Set the color index
 	 *
@@ -92,7 +83,6 @@ class PHPExcel_Writer_Excel5_Font
 	{
 		$this->_colorIndex = $colorIndex;
 	}
-
 	/**
 	 * Get font record data
 	 *
@@ -102,7 +92,6 @@ class PHPExcel_Writer_Excel5_Font
 	{
 		$font_outline = 0;
 		$font_shadow = 0;
-
 		$icv = $this->_colorIndex; // Index to color palette
 		if ($this->_font->getSuperScript()) {
 			$sss = 1;
@@ -113,7 +102,6 @@ class PHPExcel_Writer_Excel5_Font
 		}
 		$bFamily = 0; // Font family
 		$bCharSet = PHPExcel_Shared_Font::getCharsetFromFontName($this->_font->getName()); // Character set
-
 		$record = 0x31; // Record identifier
 		$reserved = 0x00; // Reserved
 		$grbit = 0x00; // Font attributes
@@ -129,7 +117,6 @@ class PHPExcel_Writer_Excel5_Font
 		if ($font_shadow) {
 			$grbit |= 0x20;
 		}
-
 		if ($this->_BIFFVersion == 0x0500) {
 			$data = pack("vvvvvCCCCC",
 				$this->_font->getSize() * 20,
@@ -158,13 +145,10 @@ class PHPExcel_Writer_Excel5_Font
 			);
 			$data .= PHPExcel_Shared_String::UTF8toBIFF8UnicodeShort($this->_font->getName());
 		}
-
 		$length = strlen($data);
 		$header = pack("vv", $record, $length);
-
 		return($header . $data);
 	}
-
 	/**
 	 * Set BIFF version
 	 *
@@ -174,7 +158,6 @@ class PHPExcel_Writer_Excel5_Font
 	{
 		$this->_BIFFVersion = $BIFFVersion;
 	}
-
 	/**
 	 * Map to BIFF5-BIFF8 codes for bold
 	 *
@@ -187,7 +170,6 @@ class PHPExcel_Writer_Excel5_Font
 		}
 		return 0x190;
 	}
-
 	/**
 	 * Map underline
 	 *
@@ -204,5 +186,4 @@ class PHPExcel_Writer_Excel5_Font
 			default:												return 0x00;
 		}
 	}
-
 }

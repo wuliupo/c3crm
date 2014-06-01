@@ -1,24 +1,18 @@
 <?php
-
 require_once('include/logging.php');
 require_once('include/database/PearDatabase.php');
 global $adb;
 global $log;
 global $current_user;
-
 $cvid = $_REQUEST["record"];
 $cvmodule = $_REQUEST["cvmodule"];
-
 $return_module = $_REQUEST["return_module"];
 $parenttab = $_REQUEST["parenttab"];
 $return_action = $_REQUEST["return_action"];
-
 if($cvmodule != "")
 {
 	$viewname = $_REQUEST["viewName"];
-
  	$allKeys = array_keys($_POST);
-
 	//<<<<<<<standardfilters>>>>>>>>>
 	$stdfiltercolumn = $_REQUEST["stdDateFilterField"];
 	$std_filter_list["columnname"] = $stdfiltercolumn;
@@ -42,7 +36,6 @@ if($cvmodule != "")
 	}
 	
 	//<<<<<<<standardfilters>>>>>>>>>
-
 	//<<<<<<<advancedfilter>>>>>>>>>
 	for ($i=0;$i<count($allKeys);$i++)
 	{
@@ -52,7 +45,6 @@ if($cvmodule != "")
            	$adv_filter_col[] = $_REQUEST[$allKeys[$i]];
    	   }
 	}
-
 	for ($i=0;$i<count($allKeys);$i++)
 	{
 	   $string = substr($allKeys[$i], 0, 3);
@@ -70,8 +62,6 @@ if($cvmodule != "")
    	   }
 	}
 	//<<<<<<<advancedfilter>>>>>>>>
-
-
 	if(isset($_REQUEST["publictype"]) && $_REQUEST["publictype"] !=''){
 		if($_REQUEST["publictype"] == 'public'){
 			$smownerid = 0;
@@ -101,7 +91,6 @@ if($cvmodule != "")
 							VALUES
 								(".$genCVid.",
 								".$adb->quote($std_filter_list["columnname"]).",
-
 								".$adb->quote($std_filter_list["stdfilter"]).",
 								".$std_filter_list["startdate"].",
 								".$std_filter_list["enddate"].")";
@@ -124,25 +113,20 @@ if($cvmodule != "")
 						$advfilterresult = $adb->query($advfiltersql);
 					}
 					$log->info("Fenzu :: Save :: ec_cvadvfilterfenzu created successfully");
-
 			}
 			$cvid = $genCVid;
 		}
 	}
 	else
 	{
-
 		$updatecvsql = "UPDATE ec_fenzu SET viewname = ".$adb->quote($viewname).",smownerid='".$smownerid."' WHERE cvid = ".$cvid;
 		$updatecvresult = $adb->query($updatecvsql);
 			$log->info("Fenzu :: Save :: ec_fenzu upated successfully");
-
 			$deletesql = "DELETE FROM ec_cvstdfilterfenzu WHERE cvid = ".$cvid;
 			$deleteresult = $adb->query($deletesql);
-
 			$deletesql = "DELETE FROM ec_cvadvfilterfenzu WHERE cvid = ".$cvid;
 			$deleteresult = $adb->query($deletesql);
 			$log->info("Fenzu :: Save :: ec_cvcolumnlist,cvstdfilter,cvadvfilter deleted successfully before update");
-
 		$genCVid = $cvid;
 		if($updatecvresult)
 		{
@@ -177,7 +161,6 @@ if($cvmodule != "")
 					$advfilterresult = $adb->query($advfiltersql);
 				}
 				$log->info("Fenzu :: Save :: ec_cvadvfilterfenzu update successfully".$genCVid);
-
 		}
 	}
 }

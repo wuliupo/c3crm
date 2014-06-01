@@ -18,17 +18,14 @@
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  * @version    $Id: Int.php 23775 2011-03-01 17:25:24Z ralph $
  */
-
 /**
  * @see Zend_Validate_Abstract
  */
 require_once 'include/Zend/Validate/Abstract.php';
-
 /**
  * @see Zend_Locale_Format
  */
 require_once 'include/Zend/Locale/Format.php';
-
 /**
  * @category   Zend
  * @package    Zend_Validate
@@ -39,7 +36,6 @@ class Zend_Validate_Int extends Zend_Validate_Abstract
 {
     const INVALID = 'intInvalid';
     const NOT_INT = 'notInt';
-
     /**
      * @var array
      */
@@ -47,9 +43,7 @@ class Zend_Validate_Int extends Zend_Validate_Abstract
         self::INVALID => "Invalid type given. String or integer expected",
         self::NOT_INT => "'%value%' does not appear to be an integer",
     );
-
     protected $_locale;
-
     /**
      * Constructor for the integer validator
      *
@@ -60,7 +54,6 @@ class Zend_Validate_Int extends Zend_Validate_Abstract
         if ($locale instanceof Zend_Config) {
             $locale = $locale->toArray();
         }
-
         if (is_array($locale)) {
             if (array_key_exists('locale', $locale)) {
                 $locale = $locale['locale'];
@@ -68,19 +61,16 @@ class Zend_Validate_Int extends Zend_Validate_Abstract
                 $locale = null;
             }
         }
-
         if (empty($locale)) {
             require_once 'include/Zend/Registry.php';
             if (Zend_Registry::isRegistered('Zend_Locale')) {
                 $locale = Zend_Registry::get('Zend_Locale');
             }
         }
-
         if ($locale !== null) {
             $this->setLocale($locale);
         }
     }
-
     /**
      * Returns the set locale
      */
@@ -88,7 +78,6 @@ class Zend_Validate_Int extends Zend_Validate_Abstract
     {
         return $this->_locale;
     }
-
     /**
      * Sets the locale to use
      *
@@ -100,7 +89,6 @@ class Zend_Validate_Int extends Zend_Validate_Abstract
         $this->_locale = Zend_Locale::findLocale($locale);
         return $this;
     }
-
     /**
      * Defined by Zend_Validate_Interface
      *
@@ -115,22 +103,18 @@ class Zend_Validate_Int extends Zend_Validate_Abstract
             $this->_error(self::INVALID);
             return false;
         }
-
         if (is_int($value)) {
             return true;
         }
-
         $this->_setValue($value);
         if ($this->_locale === null) {
             $locale        = localeconv();
             $valueFiltered = str_replace($locale['decimal_point'], '.', $value);
             $valueFiltered = str_replace($locale['thousands_sep'], '', $valueFiltered);
-
             if (strval(intval($valueFiltered)) != $valueFiltered) {
                 $this->_error(self::NOT_INT);
                 return false;
             }
-
         } else {
             try {
                 if (!Zend_Locale_Format::isInteger($value, array('locale' => $this->_locale))) {
@@ -142,7 +126,6 @@ class Zend_Validate_Int extends Zend_Validate_Abstract
                 return false;
             }
         }
-
         return true;
     }
 }

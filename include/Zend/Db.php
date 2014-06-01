@@ -1,5 +1,4 @@
 <?php
-
 /**
  * Zend Framework
  *
@@ -19,8 +18,6 @@
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  * @version    $Id: Db.php 24417 2011-08-28 10:15:47Z padraic $
  */
-
-
 /**
  * Class for connecting to SQL databases and performing common operations.
  *
@@ -31,44 +28,36 @@
  */
 class Zend_Db
 {
-
     /**
      * Use the PROFILER constant in the config of a Zend_Db_Adapter.
      */
     const PROFILER = 'profiler';
-
     /**
      * Use the CASE_FOLDING constant in the config of a Zend_Db_Adapter.
      */
     const CASE_FOLDING = 'caseFolding';
-
     /**
      * Use the FETCH_MODE constant in the config of a Zend_Db_Adapter.
      */
     const FETCH_MODE = 'fetchMode';
-
     /**
      * Use the AUTO_QUOTE_IDENTIFIERS constant in the config of a Zend_Db_Adapter.
      */
     const AUTO_QUOTE_IDENTIFIERS = 'autoQuoteIdentifiers';
-
     /**
      * Use the ALLOW_SERIALIZATION constant in the config of a Zend_Db_Adapter.
      */
     const ALLOW_SERIALIZATION = 'allowSerialization';
-
     /**
      * Use the AUTO_RECONNECT_ON_UNSERIALIZE constant in the config of a Zend_Db_Adapter.
      */
     const AUTO_RECONNECT_ON_UNSERIALIZE = 'autoReconnectOnUnserialize';
-
     /**
      * Use the INT_TYPE, BIGINT_TYPE, and FLOAT_TYPE with the quote() method.
      */
     const INT_TYPE    = 0;
     const BIGINT_TYPE = 1;
     const FLOAT_TYPE  = 2;
-
     /**
      * PDO constant values discovered by this script result:
      *
@@ -170,7 +159,6 @@ class Zend_Db
     const PARAM_NULL = 0;
     const PARAM_STMT = 4;
     const PARAM_STR = 2;
-
     /**
      * Factory for Zend_Db_Adapter_Abstract classes.
      *
@@ -201,7 +189,6 @@ class Zend_Db
         if ($config instanceof Zend_Config) {
             $config = $config->toArray();
         }
-
         /*
          * Convert Zend_Config argument to plain string
          * adapter name and separate config object.
@@ -216,7 +203,6 @@ class Zend_Db
                 $adapter = null;
             }
         }
-
         /*
          * Verify that adapter parameters are in an array.
          */
@@ -227,7 +213,6 @@ class Zend_Db
             require_once 'include/Zend/Db/Exception.php';
             throw new Zend_Db_Exception('Adapter parameters must be in an array or a Zend_Config object');
         }
-
         /*
          * Verify that an adapter name has been specified.
          */
@@ -238,7 +223,6 @@ class Zend_Db
             require_once 'include/Zend/Db/Exception.php';
             throw new Zend_Db_Exception('Adapter name must be specified in a string');
         }
-
         /*
          * Form full adapter class name
          */
@@ -249,11 +233,9 @@ class Zend_Db
             }
             unset($config['adapterNamespace']);
         }
-
         // Adapter no longer normalized- see http://framework.zend.com/issues/browse/ZF-5606
         $adapterName = $adapterNamespace . '_';
         $adapterName .= str_replace(' ', '_', ucwords(str_replace('_', ' ', strtolower($adapter))));
-
         /*
          * Load the adapter class.  This throws an exception
          * if the specified class cannot be loaded.
@@ -262,13 +244,11 @@ class Zend_Db
             require_once 'include/Zend/Loader.php';
             Zend_Loader::loadClass($adapterName);
         }
-
         /*
          * Create an instance of the adapter class.
          * Pass the config to the adapter class constructor.
          */
         $dbAdapter = new $adapterName($config);
-
         /*
          * Verify that the object created is a descendent of the abstract adapter type.
          */
@@ -279,8 +259,6 @@ class Zend_Db
             require_once 'include/Zend/Db/Exception.php';
             throw new Zend_Db_Exception("Adapter class '$adapterName' does not extend Zend_Db_Adapter_Abstract");
         }
-
         return $dbAdapter;
     }
-
 }

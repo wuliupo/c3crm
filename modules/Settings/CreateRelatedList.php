@@ -1,11 +1,7 @@
 <?php
 global $mod_strings,$theme;
-
 $theme_path="themes/".$theme."/";
 $image_path=$theme_path."images/";
-
-
-
 $fld_module=$_REQUEST['fld_module'];
 $label=$_REQUEST['label'];
 $sequence=$_REQUEST['sequence'];
@@ -16,7 +12,6 @@ if($presence == '0') {
 } else {
 	$presence = "";
 }
-
 $output .= '<div id="createRelatedListLayer" style="display:block;" class="layerPopup">
 	<form action="index.php" method="post" name="addtodb" onSubmit="return validate_relatedlist()">
 	  <input type="hidden" name="module" value="Settings">
@@ -25,7 +20,6 @@ $output .= '<div id="createRelatedListLayer" style="display:block;" class="layer
       <input type="hidden" name="action" value="AddRelatedListToDB">
 	  <input type="hidden" name="relation_id" value="'.$relation_id.'">
 	  <input type="hidden" name="mode" value="'.$mode.'">
-
 	  
 		<table width="100%" border="0" cellpadding="5" cellspacing="0" class="layerHeadingULine">
 			<tr style="cursor:move;">';

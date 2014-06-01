@@ -66,7 +66,6 @@ if($where && !empty($where)){
 	$query .= $where;	
 }
 $query .= "group by {$groupsql} ";
-
 ///page
 $currentpage = '1';
 if($_REQUEST['start'] && $_REQUEST['start'] > 0){
@@ -78,7 +77,6 @@ if($_REQUEST['limitpage'] && $_REQUEST['limitpage'] > 0){
 	$currentpage = '1';
 	$findurlstr .= "&limitpage=".$list_max_entries_per_page."&start=".$currentpage;
 }
-
 $noofrows = $adb->num_rows($adb->query($query));//总记录数
 $navigation_array = getNavigationValues($currentpage, $noofrows, $list_max_entries_per_page);
 $navigation_array['totalnum'] = $noofrows;
@@ -94,7 +92,6 @@ if ($start_rec == 0)
 else
 	$limit_start_rec = $start_rec -1;
 $record_string = $app_strings["LBL_SHOWING"]." " .$start_rec." - ".$end_rec." " .$app_strings["LBL_LIST_OF"] ." ".$noofrows;
-
 $result = $adb->limitQuery2($query,$limit_start_rec,$list_max_entries_per_page,$order,$desc);
 if($noofrows && $noofrows > 0){
 	$for_i = 1;$listentryhtml = '';
@@ -131,7 +128,6 @@ if(count($months_count) > 0) {
 } else {
 	$return = "No Data";
 }
-
 $title = "会员地区分布统计";
 $connection = '<a href="#" onclick="setsearch_click();return false;">搜索</a> | 
 				<a href="javascript:;" onclick="exportReport();return false;">导出</a>';
@@ -152,21 +148,17 @@ $smarty->assign("dateFilterHtml", $dateFilterHtml);
 $smarty->assign("dateFilterJs", $dateFilterJs);
 $smarty->assign("startdate", $startdate);
 $smarty->assign("enddate", $enddate);
-
 $grouptypearr = array("day"=>"以天为单位查询","week"=>"以周为单位查询",
 						"month"=>"以月为单位查询","year"=>"以年为单位查询");
 $smarty->assign("GROUPTYPEARR", $grouptypearr);
 $smarty->assign("grouptype", $grouptype);
-
 $flashtypearr = array("vertical"=>"三维柱状图","horizontal"=>"二维柱状图",
 						"line"=>"折线表图","pie"=>"三维饼状图","pie2d"=>"二维饼状图");
 $smarty->assign("FLASHTYPEARR", $flashtypearr);
 $smarty->assign("flashtype", $flashtype);
-
 $smarty->assign("NAVIGATION", $navigationOutput);
 $smarty->assign("RECORD_COUNTS", $record_string);
 $smarty->display("Addressreports/ListView.tpl");
-
 function horizontal_graph_Pie2D($datax,$datay,$title,$width = 800,$height=400){	
 	if(!is_array($datay) || !is_array($datax)) {
 		return;

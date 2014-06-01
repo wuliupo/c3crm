@@ -1,49 +1,37 @@
 <?php
 // TODO: deprecate connection.php file
 //require_once("connection.php");
-
 // TODO: introduce MySQL port as parameters to use non-default value 3306
 //$sock_path=":" .$mysql_port;
 $hostname = $_SERVER['SERVER_NAME'];
-
 // TODO: introduce Apache port as parameters to use non-default value 80
 //$web_root = $_SERVER['SERVER_NAME']. ":" .$_SERVER['SERVER_PORT'].$_SERVER['PHP_SELF'];
 //$web_root = $hostname.$_SERVER['PHP_SELF'];
 $web_root = $HTTP_SERVER_VARS["HTTP_HOST"] . $HTTP_SERVER_VARS["REQUEST_URI"];
 $web_root = str_replace("/install.php", "", $web_root);
 $web_root = "http://".$web_root;
-
 $current_dir = pathinfo(dirname(__FILE__));
 $current_dir = $current_dir['dirname']."/";
 $cache_dir = "cache/";
-
 if (is_file("config.php") && is_file("config.inc.php")) {
 	require_once("config.inc.php");
 	session_start();
-
 	if(isset($upload_maxsize))
 	$_SESSION['upload_maxsize'] = $upload_maxsize;
-
 	if(isset($allow_exports))
 	$_SESSION['allow_exports'] = $allow_exports;
-
 	if(isset($disable_persistent_connections))
 	$_SESSION['disable_persistent_connections'] = $disable_persistent_connections;
-
 	if(isset($default_language))
 	$_SESSION['default_language'] = $default_language;
-
 	if(isset($translation_string_prefix))
 	$_SESSION['translation_string_prefix'] = $translation_string_prefix;
-
 	if(isset($default_charset))
 	$_SESSION['default_charset'] = $default_charset;
-
 	if(isset($languages)) {
 		// need to encode the languages in a way that can be retrieved later
 		$language_keys = Array();
 		$language_values = Array();
-
 		foreach($languages as $key=>$value) {
 			$language_keys[] = $key;
 			$language_values[] = $value;
@@ -53,45 +41,37 @@ if (is_file("config.php") && is_file("config.inc.php")) {
 	}
 													
 	global $dbconfig;
-
 	if (isset($_REQUEST['db_hostname']))
 	$db_hostname = $_REQUEST['db_hostname'];
 	elseif (isset($dbconfig['db_hostname']))
 	$db_hostname = $dbconfig['db_hostname'];
 	else
 	$db_hostname = $hostname;
-
 	if (isset($_REQUEST['db_username']))
 	$db_username = $_REQUEST['db_username'];
 	elseif (isset($dbconfig['db_username']))
 	$db_username = $dbconfig['db_username'];
-
 	if (isset($_REQUEST['db_password']))
 	$db_password = $_REQUEST['db_password'];
 	elseif (isset($dbconfig['db_password']))
 	$db_password = $dbconfig['db_password'];
-
 	if (isset($_REQUEST['db_type']))
 	$db_type = $_REQUEST['db_type'];
 	elseif (isset($dbconfig['db_type']))
 	$db_type = $dbconfig['db_type'];
-
 	if (isset($_REQUEST['db_name']))
 	$db_name = $_REQUEST['db_name'];
 	elseif (isset($dbconfig['db_name']) && $dbconfig['db_name']!='_DBC_NAME_')
 	$db_name = $dbconfig['db_name'];
 	else
 	$db_name = 'dbcrmone';
-
 	!isset($_REQUEST['db_drop_tables']) ? $db_drop_tables = "0" : $db_drop_tables = $_REQUEST['db_drop_tables'];
 	if (isset($_REQUEST['host_name'])) $host_name = $_REQUEST['host_name'];
 	else $host_name = $hostname;
-
 	if (isset($_REQUEST['site_URL'])) $site_URL = $_REQUEST['site_URL'];
 	elseif (isset($site_URL) && $site_URL!='_SITE_URL_')
 	$site_URL = $site_URL;
 	else $site_URL = $web_root;
-
 	if(isset($_REQUEST['root_directory'])) $root_directory = $_REQUEST['root_directory'];
 	else $root_directory = $current_dir;
 	    
@@ -116,7 +96,6 @@ if (is_file("config.php") && is_file("config.inc.php")) {
 		$db_options['mysql'] = 'MySQL';
 	}
 ?>
-
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
@@ -124,15 +103,12 @@ if (is_file("config.php") && is_file("config.inc.php")) {
 	<title>易客CRM - 安装向导 - 系统配置</title>
 	<link href="include/install/install.css" rel="stylesheet" type="text/css">
 </head>
-
 <body class="small cwPageBg" topmargin="0" leftmargin="0" marginheight="0" marginwidth="0">
 <style>
 	.hide_tab{display:none;}
 	.show_tab{display:inline-table;}
 </style>
-
 <script type="text/javascript" language="Javascript">
-
 	function fnShow_Hide(){
 		var sourceTag = document.getElementById('check_createdb').checked;
 		if(sourceTag){
@@ -145,7 +121,6 @@ if (is_file("config.php") && is_file("config.inc.php")) {
 			document.getElementById('root_pass').className = 'hide_tab';
 		}
 	}
-
 function trim(s) {
         while (s.substring(0,1) == " ") {
                 s = s.substring(1, s.length);
@@ -153,10 +128,8 @@ function trim(s) {
         while (s.substring(s.length-1, s.length) == ' ') {
                 s = s.substring(0,s.length-1);
         }
-
         return s;
 }
-
 function verify_data(form) {
 	var isError = false;
 	var errorMessage = "";
@@ -192,7 +165,6 @@ function verify_data(form) {
                 errorMessage += "\n 缓存目录";
                 form.cache_dir.focus();
         }
-
 	if(document.getElementById('check_createdb').checked == true)
 	{
 		if (trim(form.root_user.value) =='') {
@@ -201,7 +173,6 @@ function verify_data(form) {
 			form.root_user.focus();
 		}
 	}
-
 	// Here we decide whether to submit the form.
 	if (isError == true) {
 		alert("必填字段: " + errorMessage);
@@ -212,15 +183,12 @@ function verify_data(form) {
 		form.admin_email.focus();
 		exit();
 	}
-
 	form.submit();
 }
 // end hiding contents from old browsers  -->
 </script>
-
 	<br><br><br>
 	<!-- Table for cfgwiz starts -->
-
 	<table border=0 cellspacing=0 cellpadding=0 width=80% align=center>
 	<tr>
 		<td class="cwHeadBg" align=left><img src="include/install/images/configwizard.gif" alt="Configuration Wizard" hspace="20" title="Configuration Wizard"></td>
@@ -230,7 +198,6 @@ function verify_data(form) {
 	<table border=0 cellspacing=0 cellpadding=0 width=80% align=center>
 	<tr>
 		<td background="include/install/images/topInnerShadow.gif" align=left><img src="include/install/images/topInnerShadow.gif" ></td>
-
 	</tr>
 	</table>
 	<table border=0 cellspacing=0 cellpadding=10 width=80% align=center>
@@ -240,7 +207,6 @@ function verify_data(form) {
 			<table border=0 cellspacing=0 cellpadding=0 width=97%>
 			<tr>
 				<td width=20% valign=top>
-
 				<!-- Left side tabs -->
 					<table border=0 cellspacing=0 cellpadding=10 width=100%>
 					<tr><td class="small cwUnSelectedTab" align=right><div align="left">欢迎使用易客CRM</div></td></tr>
@@ -261,13 +227,11 @@ function verify_data(form) {
 					  <hr noshade size=1></td></tr>
 				    <tr>
 					<td align=left class="small" style="padding-left:20px">
-
 	
 				<table width="100%" cellpadding="5"  cellspacing="1" border="0" class=small><tbody>
 				<tr>
 					<td >
 		          		<b>请输入以下的数据库配置信息...</b><br>
-
 					  如果您没有数据库的管理权限(例如您在虚拟主机上安装), 您应该在进行下一步之前创建易客CRM系统需要的数据库。然后，安装程序将创建需要的数据库表。
 					  <br><br>
 			
@@ -275,7 +239,6 @@ function verify_data(form) {
 					  
 					  *- 必填信息
 					  
-
 					</td>
 				</tr>
 				</table>
@@ -356,7 +319,6 @@ function verify_data(form) {
 				<td align="left" bgcolor="white"><?php echo $root_directory; ?><input class="dataInput" type="text" name="cache_dir" size='14' value="<?php if (isset($cache_dir)) echo $cache_dir; ?>" size="40" /> </td>
           </tr>
           </table>
-
 		<!-- System Configuration -->
 		</td>
 		</tr>
@@ -379,7 +341,6 @@ function verify_data(form) {
 	</table>
 	<table border=0 cellspacing=0 cellpadding=0 width=80% align=center>
 	<tr>
-
 		<td background="include/install/images/bottomGradient.gif"><img src="include/install/images/bottomGradient.gif"></td>
 	</tr>
 	</table>

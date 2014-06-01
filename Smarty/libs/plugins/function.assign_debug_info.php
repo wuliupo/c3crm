@@ -4,7 +4,6 @@
  * @package Smarty
  * @subpackage plugins
  */
-
 /**
  * Smarty {assign_debug_info} function plugin
  *
@@ -34,7 +33,5 @@ function smarty_function_assign_debug_info($params, &$smarty)
     
     $smarty->assign("_debug_tpls", $included_templates);
 }
-
 /* vim: set expandtab: */
-
 ?>

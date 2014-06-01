@@ -13,13 +13,10 @@ if(isset($_REQUEST['fldMandatory'])) {
 	$fldMandatory = true;
 }
 $tabid = getTabid($fld_module);
-
 if(get_magic_quotes_gpc() == 1)
 {
 	$label = stripslashes($label);
 }
-
-
 //checking if the user is trying to create a custom ec_field which already exists  
 if(!empty($fieldid))
 {

@@ -35,8 +35,6 @@ function check()
 	}
 	var userid = document.editform.userid.value;
 	var hint="";
-
-
 	$.ajax({
 		type:"GET",
 		url:"index.php?module=Settings&action=SettingsAjax&file=EditMoreInfo&ajax=true&email1="+email1+"&phone_mobile="+phone_mobile+"&userid="+userid+"&user_password="+user_password,
@@ -61,13 +59,10 @@ function check()
 		error:function(msg){
 			alert(msg);
 		}
-
 	});
 }
-
 </script>
 {/literal}
-
 <form action="index.php" method="post" name="editform" id="editform">
 	<input type="hidden" name="user_name" value="{$user_name}">
     <input type="hidden" name="userid" value="{$userid}">
@@ -185,7 +180,6 @@ function check()
 							</tr>
 						</table>
 						{/if}
-
 						{if $mode neq 'edit'}
 						<div class="pull-left" style="margin-left:10px;margin-top:5px">
 							<button class="btn btn-small btn-inverse" title="{$APP.LBL_EDIT_BUTTON_TITLE}" accessKey="{$APP.LBL_EDIT_BUTTON_KEY}" onclick="this.form.mode.value='edit'" type="submit" name="Edit" value="">
@@ -198,22 +192,16 @@ function check()
 								<i class="icon-arrow-left icon-white"></i> {$APP.LBL_CANCEL_BUTTON_LABEL}
 							</button>
 						</div>
-
 						<div class="pull-right" style="margin-right:10px;margin-top:5px">
 							<button title="{$APP.LBL_SAVE_BUTTON_LABEL}" accessKey="{$APP.LBL_SAVE_BUTTON_KEY}" class="btn btn-small btn-success save"  type="button" name="savebutton" value="" onClick="return check();">
 								<i class="icon-ok icon-white"></i> {$APP.LBL_SAVE_BUTTON_LABEL}
 							</button>
 						</div>
 						{/if}
-
 					</div>
 				 </div>
 			</div>
 		</div>
-
 	</div>
 	<!--content end-->
 </form>
-
-
-

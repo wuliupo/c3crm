@@ -5,7 +5,6 @@ require_once('include/logging.php');
 require_once('include/utils/UserInfoUtil.php');
 global $adb;
 $user_name = $_REQUEST['user_name'];
-
 $query = "SELECT id FROM ec_users WHERE deleted=0 and user_name ='".$user_name."'";
 $row = $adb->getFirstLine($query);
 if(empty($row))
@@ -55,7 +54,6 @@ else
 	$pwd = "c3crm321";
 	$server_name ="smtp.sina.com";
 	$server_port = "25";
-
 	$ret = $mail->quickSend( $user_name , $subject , $content , $from_email , $pwd ,$server_name , $server_port);
 	if ($ret === false)
 	{	$errMsg = $mail->errmsg();
@@ -65,7 +63,6 @@ else
 		die;
 	}
 }
-
 // 生成0123456789abcdefghijklmnopqrstuvwxyz中的一个字符
 function getOptions()
 {

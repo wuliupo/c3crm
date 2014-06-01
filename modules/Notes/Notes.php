@@ -2,23 +2,16 @@
 require_once('include/logging.php');
 require_once('include/database/PearDatabase.php');
 require_once('data/CRMEntity.php');
-
-
 // Note is used to store customer information.
 class Notes extends CRMEntity {
 	var $log;
 	var $db;
-
-
 	var $tab_name = Array('ec_crmentity','ec_notes');
 	var $tab_name_index = Array('ec_crmentity'=>'crmid','ec_notes'=>'notesid');
 	var $entity_table = "ec_notes";
-
 	var $column_fields = Array();
-
     //var $sortby_fields = Array('notes_title','modifiedtime','contact_id','filename','smownerid');
 	var $sortby_fields = Array('notes_title','contact_date','accountid','contact_id','notetype');
-
 	// This is the list of ec_fields that are in the lists.
 	var $list_fields = Array(
 				'Note Title'=>Array('notes'=>'title'),
@@ -62,11 +55,9 @@ class Notes extends CRMEntity {
 				     );
 	var $required_fields =  array("title"=>1);
 	var $list_link_field= 'title';
-
 	//Added these variables which are used as default order by and sortorder in ListView
 	var $default_order_by = 'modifiedtime';
 	var $default_sort_order = 'DESC';
-
 	function Notes() {
 		$this->log = LoggerManager::getLogger('notes');
 		$this->log->debug("Entering Notes() method ...");
@@ -74,7 +65,6 @@ class Notes extends CRMEntity {
 		$this->column_fields = getColumnFields('Notes');
 		$this->log->debug("Exiting Note method ...");
 	}
-
 	function save_module($module)
 	{
 		$date_var = date('YmdHis');
@@ -100,15 +90,9 @@ class Notes extends CRMEntity {
 				$this->db->query($query);
 			}
 		}
-
-
-
 		//Inserting into attachments table
 		//$this->insertIntoAttachment($this->id,'Notes');
-
 	}
-
-
 	/**
 	 *      This function is used to add the ec_attachments. This will call the function uploadAndSaveFile which will upload the attachment into the server and save that attachment information in the database.
 	 *      @param int $id  - entity id to which the ec_files to be uploaded
@@ -118,9 +102,7 @@ class Notes extends CRMEntity {
 	{
 		global $log, $adb;
 		$log->debug("Entering into insertIntoAttachment($id,$module) method.");
-
 		$file_saved = false;
-
 		foreach($_FILES as $fileindex => $files)
 		{
 			if($files['name'] != '' && $files['size'] > 0)
@@ -128,11 +110,8 @@ class Notes extends CRMEntity {
 				$file_saved = $this->uploadAndSaveFile($id,$module,$files);
 			}
 		}
-
 		$log->debug("Exiting from insertIntoAttachment($id,$module) method.");
 	}
-
-
 	/** Function to export the notes in CSV Format
 	* @param reference variable - order by is passed when the query is executed
 	* @param reference variable - where condition is passed when the query is executed
@@ -142,9 +121,7 @@ class Notes extends CRMEntity {
 	{
 		global $log;
 		$log->debug("Entering create_export_query(".$order_by.",". $where.") method ...");
-
 		include("include/utils/ExportUtils.php");
-
 		//To get the Permitted fields query and the permitted fields list
 		$sql = getPermittedFieldsQuery("Notes", "detail_view");
 		global $mod_strings;
@@ -153,7 +130,6 @@ class Notes extends CRMEntity {
 			$mod_strings = return_module_language($current_language,"Notes");
 		}
 		$fields_list = getFieldsListFromQuery($sql,$mod_strings);
-
 		$query = "SELECT $fields_list FROM ec_notes
 				LEFT JOIN ec_account
 					ON ec_notes.accountid=ec_account.accountid
@@ -162,11 +138,9 @@ class Notes extends CRMEntity {
 				LEFT JOIN ec_users as ucreator
 					ON ec_notes.smcreatorid = ucreator.id
 				WHERE ec_notes.deleted=0 ".$where;
-
 		$log->debug("Exiting create_export_query method ...");
         return $query;
     }
-
      /**Function used to get the sort order for Sales Order listview
 	 *	@return string	$sorder	- first check the $_REQUEST['sorder'] if request value is empty then check in the $_SESSION['SALESORDER_SORT_ORDER'] if this session value is empty then default sort order will be returned.
 	 */
@@ -181,7 +155,6 @@ class Notes extends CRMEntity {
 		$log->debug("Exiting getSortOrder() method ...");
 		return $sorder;
 	}
-
     /**	Function used to get the order by value for Sales Order listview
 	 *	@return string	$order_by  - first check the $_REQUEST['order_by'] if request value is empty then check in the $_SESSION['SALESORDER_ORDER_BY'] if this session value is empty then default order by will be returned.
 	 */

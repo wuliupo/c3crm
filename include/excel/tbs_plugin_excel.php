@@ -1,22 +1,17 @@
 <?php
-
 /*
 ********************************************************
 TinyButStrong plug-in: Excel Worksheets
 Version 1.0.5, on 2006-11-27, by Skrol29 for TBS >= 3.2.0
 ********************************************************
 */
-
 // Name of the class is a keyword used for Plug-In authentication. So i'ts better to save it into a constant.
 define('TBS_EXCEL','clsTbsExcel');
 define('TBS_EXCEL_FILENAME',1);
 define('TBS_EXCEL_DOWNLOAD',2);
 define('TBS_EXCEL_INLINE',3);
-
 class clsTbsExcel {
-
 	// TBS events -----------------------------
-
 	function OnInstall() {
 		$this->Version = '1.0.5';
 		// Constants for the plug-in
@@ -27,7 +22,6 @@ class clsTbsExcel {
 		$this->ForceDownload = true;
 		return array('OnCommand','BeforeLoadTemplate','AfterShow','OnOperation','BeforeMergeBlock','AfterMergeBlock');
 	}
-
 	function OnCommand($Cmd,$Value='') {
 		if ($Cmd==TBS_EXCEL_FILENAME) {
 			// Change file name
@@ -40,14 +34,11 @@ class clsTbsExcel {
 			$this->ForceDownload = false;
 		}
 	}
-
 	function BeforeLoadTemplate(&$File,&$HtmlCharSet) {
 		if ($this->TemplateFileName==='') $this->TemplateFileName = $File;
 		if ($HtmlCharSet==='') $HtmlCharSet = '=clsTbsExcel.f_XmlConv';
 	}
-
 	function BeforeMergeBlock(&$TplSource,&$BlockBeg,&$BlockEnd,&$PrmLst,&$DataSrc,&$LocR) {
-
 		// Process the ope=xlXXX for cached TBS tags. This manifestly optimizes execution time.
 		$iMax = count($LocR->BDefLst)-1;
 		for ($i=0;$i<=$iMax;$i++) {
@@ -97,9 +88,7 @@ class clsTbsExcel {
 				}
 			}
 		}
-
 	}
-
 	function AfterMergeBlock(&$Buffer,&$DataSrc,&$LocR) {
 		// Replace attribute ss:Index if necessary, only one time for the block.
 		if ($this->ssIndex) {
@@ -110,12 +99,9 @@ class clsTbsExcel {
 			$this->ssIndex = false;
 		}
 	}
-
 	function AfterShow(&$Render) {
-
 		// Delete optional XML attributes that could become invalide after the merge
 		$this->tag_DelOptionalTableAtt($this->TBS->Source);
-
 		// Makes a download instead of displaying the result.
 		if (($Render & TBS_OUTPUT)==TBS_OUTPUT) {
 			$Render = $Render - TBS_OUTPUT;
@@ -123,9 +109,7 @@ class clsTbsExcel {
 			if ($FileName==='') $FileName = $this->f_DefaultFileName();
 			$this->f_Display($FileName,$this->ForceDownload); // Output with header
 		}
-
 	}
-
   function OnOperation($FieldName,&$Value,&$PrmLst,&$Source,$PosBeg,$PosEnd,$Loc) {
   	if (isset($this->TypeLst[$PrmLst['ope']])) {
   		$this->tag_ChangeCellType($Source,$Loc,$this->TypeLst[$PrmLst['ope']]);
@@ -133,16 +117,12 @@ class clsTbsExcel {
   		$this->tag_ChangeFormula($Source,$Loc,$Value,true);
   	}
 	}
-
 	// Functions for internal job -----------------------------
-
 function f_XmlConv($x) {
 // Convertion of data items
 	 return htmlspecialchars(utf8_encode($x));
 }
-
 function f_Display($FileName,$Download) {
-
 	if ($Download) {
 	  header ('Pragma: no-cache');
 	//  header ('Content-type: application/x-msexcel');
@@ -164,7 +144,6 @@ function f_Display($FileName,$Download) {
 	echo($this->TBS->Source);
 	
 }
-
 function f_DefaultFileName() {
 	if ($this->TemplateFileName==='') {
 		return 'worksheet.xls';
@@ -183,10 +162,8 @@ function f_DefaultFileName() {
 		return $File;
 	}
 }
-
 function tag_ChangeFormula(&$Txt,&$Loc,&$Value,$First) {
 	// The process assumes that the TBS is embeded into a N("") function
-
 	if (isset($Loc->xlExend)) {
 		
 		if (!$Loc->xlExend) return false;
@@ -249,16 +226,13 @@ function tag_ChangeFormula(&$Txt,&$Loc,&$Value,$First) {
 		// Calculate the relative index
 		$x = intval(substr($Txt,$br_o+1,$br_c-$br_o-1));
 		if ($x==0) return false;
-
 		// Save information in the locator, useful for cached locators
 		$Loc->xlVal = $x;
 	  $Loc->xlExtraStr = substr($Txt,$br_c,$exp_beg-$br_c);
 		$Loc->xlExend = true;
 		$Loc->PosBeg = $br_o + 1;
 		$Loc->PosEnd = $exp_end;
-
 		$Loc->ConvMode = -1; // No contents conversion
-
 	}
 	
 	// Calculate the new index
@@ -270,11 +244,9 @@ function tag_ChangeFormula(&$Txt,&$Loc,&$Value,$First) {
 	$Value = strval($x).$Loc->xlExtraStr;
   
 }
-
 function tag_ChangeCellType(&$Txt,&$Loc,$NewType) {
 // Assuming that $Pos is the position of a value embedded into a <Data> tag with attribute ss:Type="String",
 // this function changes this attribute into ss:Type="Number".
-
 	// Search the attribute's value delimited by (")
 	$p = $Loc->PosBeg - 1; // We go backward
 	$close = false;
@@ -299,7 +271,6 @@ function tag_ChangeCellType(&$Txt,&$Loc,$NewType) {
 		}
 		if ($cont) $p--;
 	} while ($cont);
-
 	if ($val_beg===false) return false;
 	
 	// Replace old attribute's value by the new one
@@ -318,7 +289,6 @@ function tag_ChangeCellType(&$Txt,&$Loc,$NewType) {
 		$Loc->PosBeg += $delta;
 	}
 	$Txt = substr_replace($Txt,$x,$val_beg,$len1);
-
 	// If DateTime => apply format
 	if ( ($NewType==='DateTime') and (!isset($Loc->PrmLst['frm'])) ) {
 		// We have to use parameter "frm" instead of chnaging the value because this function can be called for cached TBS tags.
@@ -329,7 +299,6 @@ function tag_ChangeCellType(&$Txt,&$Loc,$NewType) {
 	}
 	return true;
 }
-
 function tag_DelOptionalTableAtt(&$Txt) {
 // Two Table attributes give the size of the zone, this zone may be extended after a MergeBlock()
 // Hopefully, those attributes are optional, so we delete them. 
@@ -364,7 +333,6 @@ function tag_DelOptionalTableAtt(&$Txt) {
 	}
 	
 }
-
 function tag_Debug_DisplayInfo(&$Txt,$Tag) {
 	$Pos = 0;
 	$AttBeg = 0;
@@ -380,7 +348,6 @@ function tag_Debug_DisplayInfo(&$Txt,$Tag) {
 		}
 	}
 }
-
 function tag_FoundTag(&$Txt,&$Pos,$Tag) {
 // 
 	$p = $Pos;
@@ -399,25 +366,21 @@ function tag_FoundTag(&$Txt,&$Pos,$Tag) {
 	}
 	
 }
-
 function tag_ReadNextAttr(&$Txt,&$Pos,&$AttBeg,&$AttName,&$AttVal,&$AttDelim,&$AttEnd,$TagEnd) {
 // Read the next attribute
 // if ($TagEnd!==false) then the end of the tag is met.
-
 	$AttBeg = false;
 	$AttName = false;
 	$AttVal = false;
 	$AttDelim = false;
 	$AttEnd = false;
 	$TagEnd = false;
-
 	$PosMax = strlen($Txt);
 	$Continue = true;
 	$Status = 0; // 0: name not started, 1: name started, 2: name ended, 3: equal found, 4: value started
 	$DelimMode = false;
 	
 	while ($Continue) {
-
 		$x = $Txt[$Pos];
 		
 		if ($DelimMode) { // Reading in the string
@@ -439,7 +402,6 @@ function tag_ReadNextAttr(&$Txt,&$Pos,&$AttBeg,&$AttName,&$AttVal,&$AttDelim,&$A
 		} else { // Reading outside a string
 			
 			if ($x==='>') { // End of tag
-
 				$TagEnd = $Pos;
 				$Continue = false;
 				if ($Status===1) { // name started
@@ -449,7 +411,6 @@ function tag_ReadNextAttr(&$Txt,&$Pos,&$AttBeg,&$AttName,&$AttVal,&$AttDelim,&$A
 					$AttEnd = $Pos-1;
 					$AttVal = substr($Txt,$AttValBeg,$AttEnd-$AttValBeg+1);
 				}
-
 			} elseif (($x===' ') or ($x==="\r") or ($x==="\n")) { // Space
 				//echo " **** ok space <br>";
 				if ($Status===1) { // name started
@@ -461,7 +422,6 @@ function tag_ReadNextAttr(&$Txt,&$Pos,&$AttBeg,&$AttName,&$AttVal,&$AttDelim,&$A
 					$Continue = false;
 					$AttVal = substr($Txt,$AttValBeg,$AttEnd-$AttValBeg+1);
 				}
-
 			} elseif (($x==='"') or ($x==='\'')) { // String delimiter
 				
 				if ($Status===0) { // name not stared
@@ -488,9 +448,7 @@ function tag_ReadNextAttr(&$Txt,&$Pos,&$AttBeg,&$AttName,&$AttVal,&$AttDelim,&$A
 					//$AtValEnd = $AttEnd;
 					$AttVal = substr($Txt,$AttValBeg,$AttEnd-$AttValBeg+1);
 				}
-
 			} elseif($x==='=') { // Equal
-
 				if ($Status===0) { // name not started (this may be an error because no name)
 					$Status = 3; // => equal found
 					$AttBeg = $Pos;
@@ -525,7 +483,6 @@ function tag_ReadNextAttr(&$Txt,&$Pos,&$AttBeg,&$AttName,&$AttVal,&$AttDelim,&$A
 		}
 		
 		//echo "- Txt[".$Pos."]='".$x."' , Status=$Status , DelimMode=".(($DelimMode)? "o":"n")." <br>";
-
 		// Next char
 		if ($Continue) {
 			if ($PosMax>$Pos) {
@@ -534,14 +491,9 @@ function tag_ReadNextAttr(&$Txt,&$Pos,&$AttBeg,&$AttName,&$AttVal,&$AttDelim,&$A
 				$Continue = false;
 			}
 		}
-
 	}
-
 	//echo " --------------------- <br>";
 	return ($AttBeg!==false);
-
 }
-
 }
-
 ?>

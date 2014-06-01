@@ -8,23 +8,19 @@
 * All Rights Reserved.
 *
 ********************************************************************************/
-
 require_once('include/logging.php');
 	
 class ListViewSession {
-
 	var $module = null;
 	var $viewname = null;
 	var $start = null;
 	var $sorder = null;
 	var $sortby = null;
 	var $page_view = null;
-
 /**initializes ListViewSession 
  * Portions created by vtigerCRM are Copyright (C) vtigerCRM.
  * All Rights Reserved.
 */
-
 	function ListViewSession()
 	{
 		global $log,$currentModule;
@@ -34,6 +30,5 @@ class ListViewSession {
 		$this->sortby = 'ASC';
 		$this->start =1;
 	}
-
 }
 ?>

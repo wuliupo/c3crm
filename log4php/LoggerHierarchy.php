@@ -15,12 +15,10 @@
  * 
  * @package log4php
  */
-
 /**
  * @ignore 
  */
 if (!defined('LOG4PHP_DIR')) define('LOG4PHP_DIR', dirname(__FILE__)); 
-
 /**
  */
 require_once(LOG4PHP_DIR . '/LoggerLog.php');
@@ -28,7 +26,6 @@ require_once(LOG4PHP_DIR . '/LoggerLevel.php');
 require_once(LOG4PHP_DIR . '/LoggerRoot.php');
 require_once(LOG4PHP_DIR . '/or/LoggerRendererMap.php');
 require_once(LOG4PHP_DIR . '/LoggerDefaultCategoryFactory.php');
-
 /**
  * This class is specialized in retrieving loggers by name and also maintaining 
  * the logger hierarchy.
@@ -51,7 +48,6 @@ require_once(LOG4PHP_DIR . '/LoggerDefaultCategoryFactory.php');
  * @package log4php
  */
 class LoggerHierarchy {
-
     /**
      * @var object currently unused
      */
@@ -62,7 +58,6 @@ class LoggerHierarchy {
      * @see LoggerLog
      */
     var $debug = false;
-
     /**
      * @var array hierarchy tree. saves here all loggers
      */
@@ -77,7 +72,6 @@ class LoggerHierarchy {
      * @var LoggerRendererMap
      */
     var $rendererMap;
-
     /**
      * @var LoggerLevel main level threshold
      */
@@ -87,7 +81,6 @@ class LoggerHierarchy {
      * @var boolean currently unused
      */
     var $emittedNoAppenderWarning       = false;
-
     /**
      * @var boolean currently unused
      */
@@ -97,7 +90,6 @@ class LoggerHierarchy {
 /* --------------------------------------------------------------------------*/
 /* --------------------------------------------------------------------------*/
 /* --------------------------------------------------------------------------*/
-
     function &singleton()
     {
         static $instance;
@@ -161,7 +153,6 @@ class LoggerHierarchy {
     {
         return in_array($name, array_keys($this->ht));
     }
-
     function fireAddAppenderEvent($logger, $appender)
     {
         return;
@@ -278,7 +269,6 @@ class LoggerHierarchy {
     {
         return $this->threshold;
     } 
-
     /**
      * This method will return true if this repository is disabled 
      * for level object passed as parameter and false otherwise.

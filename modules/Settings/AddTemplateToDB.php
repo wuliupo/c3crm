@@ -5,8 +5,6 @@ $fld_module=$_REQUEST['fld_module'];
 $parenttab=$_REQUEST['parenttab'];
 $templatename=$_REQUEST['templatename'];
 $tabid = getTabid($fld_module);
-
-
 //checking if the user is trying to create a custom ec_field which already exists  
 if(!empty($templatename))
 {
@@ -34,7 +32,6 @@ if(!empty($templatename))
 		}
 	}
 }
-
 echo "<script language='javascript'>";
 echo "document.location.href='index.php?module=Settings&action=PrintTemplate&fld_module=".$fld_module."&parenttab=Settings"."';";
 echo "</script>";

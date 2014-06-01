@@ -17,18 +17,14 @@
  * @copyright  Copyright (c) 2005-2007 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  */
-
 /**
  * Zend_Json
  */
 require_once 'include/Zend/Json.php';
-
 /**
  * Zend_Json_Exception
  */
 require_once 'include/Zend/Json/Exception.php';
-
-
 /**
  * Decode JSON encoded string to PHP variable constructs
  *
@@ -52,21 +48,18 @@ class Zend_Json_Decoder
     const RBRACKET    = 5;
     const COMMA       = 6;
     const COLON        = 7;
-
     /**
      * Use to maintain a "pointer" to the source being decoded
      *
      * @var string
      */
     protected $_source;
-
     /**
      * Caches the source length
      *
      * @var int
      */
     protected $_sourceLength;
-
     /**
      * The offset within the souce being decoded
      *
@@ -74,14 +67,12 @@ class Zend_Json_Decoder
      *
      */
     protected $_offset;
-
     /**
      * The current token being considered in the parser cycle
      *
      * @var int
      */
     protected $_token;
-
     /**
      * Flag indicating how objects should be decoded
      *
@@ -89,7 +80,6 @@ class Zend_Json_Decoder
      * @access protected
      */
     protected $_decodeType;
-
     /**
      * Constructor
      *
@@ -106,18 +96,15 @@ class Zend_Json_Decoder
         $this->_sourceLength = strlen($source);
         $this->_token        = self::EOF;
         $this->_offset       = 0;
-
         // Normalize and set $decodeType
         if (!in_array($decodeType, array(Zend_Json::TYPE_ARRAY, Zend_Json::TYPE_OBJECT)))
         {
             $decodeType = Zend_Json::TYPE_ARRAY;
         }
         $this->_decodeType   = $decodeType;
-
         // Set pointer at first token
         $this->_getNextToken();
     }
-
     /**
      * Decode a JSON source string
      *
@@ -153,13 +140,9 @@ class Zend_Json_Decoder
         } elseif (!is_string($source)) {
             throw new Zend_Json_Exception('Can only decode JSON encoded strings');
         }
-
         $decoder = new self($source, $objectDecodeType);
-
         return $decoder->_decodeValue();
     }
-
-
     /**
      * Recursive driving rountine for supported toplevel tops
      *
@@ -184,7 +167,6 @@ class Zend_Json_Decoder
                 break;
         }
     }
-
     /**
      * Decodes an object of the form:
      *  { "attribute: value, "attribute2" : value,...}
@@ -203,34 +185,26 @@ class Zend_Json_Decoder
     {
         $members = array();
         $tok = $this->_getNextToken();
-
         while ($tok && $tok != self::RBRACE) {
             if ($tok != self::DATUM || ! is_string($this->_tokenValue)) {
                 throw new Zend_Json_Exception('Missing key in object encoding: ' . $this->_source);
             }
-
             $key = $this->_tokenValue;
             $tok = $this->_getNextToken();
-
             if ($tok != self::COLON) {
                 throw new Zend_Json_Exception('Missing ":" in object encoding: ' . $this->_source);
             }
-
             $tok = $this->_getNextToken();
             $members[$key] = $this->_decodeValue();
             $tok = $this->_token;
-
             if ($tok == self::RBRACE) {
                 break;
             }
-
             if ($tok != self::COMMA) {
                 throw new Zend_Json_Exception('Missing "," in object encoding: ' . $this->_source);
             }
-
             $tok = $this->_getNextToken();
         }
-
         switch ($this->_decodeType) {
             case Zend_Json::TYPE_OBJECT:
                 // Create new StdClass and populate with $members
@@ -244,11 +218,9 @@ class Zend_Json_Decoder
                 $result = $members;
                 break;
         }
-
         $this->_getNextToken();
         return $result;
     }
-
     /**
      * Decodes a JSON array format:
      *    [element, element2,...,elementN]
@@ -260,28 +232,20 @@ class Zend_Json_Decoder
         $result = array();
         $starttok = $tok = $this->_getNextToken(); // Move past the '['
         $index  = 0;
-
         while ($tok && $tok != self::RBRACKET) {
             $result[$index++] = $this->_decodeValue();
-
             $tok = $this->_token;
-
             if ($tok == self::RBRACKET || !$tok) {
                 break;
             }
-
             if ($tok != self::COMMA) {
                 throw new Zend_Json_Exception('Missing "," in array encoding: ' . $this->_source);
             }
-
             $tok = $this->_getNextToken();
         }
-
         $this->_getNextToken();
         return($result);
     }
-
-
     /**
      * Removes whitepsace characters from the source input
      */
@@ -298,8 +262,6 @@ class Zend_Json_Decoder
             $this->_offset += strlen($matches[0][0]);
         }
     }
-
-
     /**
      * Retrieves the next token from the source stream
      *
@@ -310,16 +272,13 @@ class Zend_Json_Decoder
         $this->_token      = self::EOF;
         $this->_tokenValue = null;
         $this->_eatWhitespace();
-
         if ($this->_offset >= $this->_sourceLength) {
             return(self::EOF);
         }
-
         $str        = $this->_source;
         $str_length = $this->_sourceLength;
         $i          = $this->_offset;
         $start      = $i;
-
         switch ($str{$i}) {
             case '{':
                $this->_token = self::LBRACE;
@@ -346,7 +305,6 @@ class Zend_Json_Decoder
                     if ($i >= $str_length) {
                         break;
                     }
-
                     $chr = $str{$i};
                     if ($chr == '\\') {
                         $i++;
@@ -392,7 +350,6 @@ class Zend_Json_Decoder
                         $result .= $chr;
                     }
                 } while ($i < $str_length);
-
                 $this->_token = self::DATUM;
                 //$this->_tokenValue = substr($str, $start + 1, $i - $start - 1);
                 $this->_tokenValue = $result;
@@ -419,19 +376,15 @@ class Zend_Json_Decoder
                 $i += 3;
                 break;
         }
-
         if ($this->_token != self::EOF) {
             $this->_offset = $i + 1; // Consume the last token character
             return($this->_token);
         }
-
         $chr = $str{$i};
         if ($chr == '-' || $chr == '.' || ($chr >= '0' && $chr <= '9')) {
             if (preg_match('/-?([0-9])*(\.[0-9]*)?((e|E)((-|\+)?)[0-9]+)?/s',
                 $str, $matches, PREG_OFFSET_CAPTURE, $start) && $matches[0][1] == $start) {
-
                 $datum = $matches[0][0];
-
                 if (is_numeric($datum)) {
                     if (preg_match('/^0\d+$/', $datum)) {
                         throw new Zend_Json_Exception("Octal notation not supported by JSON (value: $datum)");
@@ -443,15 +396,12 @@ class Zend_Json_Decoder
                 } else {
                     throw new Zend_Json_Exception("Illegal number format: $datum");
                 }
-
                 $this->_token = self::DATUM;
                 $this->_offset = $start + strlen($datum);
             }
         } else {
             throw new Zend_Json_Exception('Illegal Token');
         }
-
         return($this->_token);
     }
 }
-

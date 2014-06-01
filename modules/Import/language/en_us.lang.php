@@ -134,7 +134,6 @@ $mod_strings = array (
   'ERR_MAP_MANDORY' => 'Pls select required fields',
   'ERR_SAVE_MAP' => 'Pls input map field name',
   'LBL_OVERWRITE' => 'Overwrite'
-
 );
 $mod_list_strings = array (
   'contacts_import_fields' =>
@@ -234,6 +233,5 @@ $mod_list_strings = array (
     'notecontent' => 'Content',
     'assigned_user_id' => 'Assigned To',
   ),
-
 );
 ?>

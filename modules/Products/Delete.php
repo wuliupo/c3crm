@@ -17,24 +17,16 @@
  * Description:  Deletes an Account record and then redirects the browser to the 
  * defined return URL.
  ********************************************************************************/
-
 require_once('modules/Products/Products.php');
 global $mod_strings;
-
 require_once('include/logging.php');
 $log = LoggerManager::getLogger('product_delete');
-
 $focus = new Products();
-
 if(!isset($_REQUEST['record']))
 	die($mod_strings['ERR_DELETE_RECORD']);
-
 DeleteEntity($_REQUEST['module'],$_REQUEST['return_module'],$focus,$_REQUEST['record'],$_REQUEST['return_id']);
-
 if(isset($_REQUEST['activity_mode']))
 	$activitymode = '&activity_mode='.$_REQUEST['activity_mode'];
-
 if(isset($_REQUEST['parenttab']) && $_REQUEST['parenttab'] != "") $parenttab = $_REQUEST['parenttab'];
-
 header("Location: index.php?module=".$_REQUEST['return_module']."&action=".$_REQUEST['return_action']."&record=".$_REQUEST['return_id'].$activitymode."&parenttab=".$parenttab."&relmodule=".$_REQUEST['module']);
 ?>

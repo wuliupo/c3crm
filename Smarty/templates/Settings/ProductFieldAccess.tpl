@@ -14,12 +14,9 @@
 <div id="createviewtablediv" style="display:block;position:absolute;left:700px;top:290px;"></div>
 <script>
 {literal}
-
-
    function previewProductTable(nowmodule)
 {
     //alert('0000000');
-
     nowmodule = $("fld_module").value;
     //alert('1111111111');
     new Ajax.Request(
@@ -30,15 +27,11 @@
 				onComplete: function(response) {
 					$("createviewtablediv").innerHTML=response.responseText;
 					eval($("addDefaultPlan").innerHTML);
-
 				}
                            }
 		);
     // return false;
-
 }
-
-
 {/literal}
 </script>
 <script>
@@ -46,7 +39,6 @@ var def_field='{$DEF_MODULE}_fields';
 </script>
 <script>
 {literal}
-
 function changemodules(selectmodule)
 {
 	hide(def_field);
@@ -55,7 +47,6 @@ function changemodules(selectmodule)
 	def_field = module+"_fields";
 	show(def_field);
 }
-
 function checkInt()
 {
   //alert("123");
@@ -74,7 +65,6 @@ function checkInt()
 }
 {/literal}
 </script>
-
 <br>
 <table align="center" border="0" cellpadding="0" cellspacing="0" width="98%">
 <tbody><tr>
@@ -164,7 +154,6 @@ function checkInt()
                                     <td width=5%></td>
                                     <td width=10%><strong>字段名</strong></td>
                                     <td width=9%><strong>字段宽度</strong></td>
-
                                 </tr>
                                 <tr>
                                 </tr>
@@ -200,5 +189,3 @@ function checkInt()
    </tr>
 </tbody>
 </table>
-
-

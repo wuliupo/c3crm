@@ -48,6 +48,5 @@ $mod_strings = array (
   'REMINDER_NEWMSG_1' => 'You have ',
   'REMINDER_NEWMSG_2' => ' new private messages.',
   'LBL_CONFIG_PORTLETS' => 'Config Portlets',
-
 );
 ?>

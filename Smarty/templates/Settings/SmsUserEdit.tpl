@@ -105,7 +105,6 @@
     </td>
     </tr>
     </table>
-
 </div>
 </form>
 	
@@ -113,5 +112,3 @@
 </tr>
 </tbody>
 </table>
-
-

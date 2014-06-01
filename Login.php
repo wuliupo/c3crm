@@ -7,7 +7,6 @@ $default_theme = "softed";
 $default_user_name = "";
 $default_password = "";
 $default_company_name = "";
-
 ?>
 <!DOCTYPE html>
 <html lang="en"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
@@ -21,7 +20,6 @@ $default_company_name = "";
     <link href="themes/bootcss/css/bootstrap-responsive.min.css" rel="stylesheet">
     <link href="themes/bootcss/css/style.css" rel="stylesheet">
     <link href="themes/bootcss/css/cus-icons.css" rel="stylesheet">
-
 	<link href="themes/bootcss/css/Login.css" rel="stylesheet">
   </head>
 <script language="javascript">
@@ -43,7 +41,6 @@ function logining_load(){
 }
 </script>
 <body onLoad="logining_load()">
-
 <div class="navbar navbar-fixed-top">	
 	<div class="navbar-inner">
 		<div class="container">
@@ -56,8 +53,6 @@ function logining_load(){
 		</div> <!-- /container -->
 	</div> <!-- /navbar-inner -->
 </div> <!-- /navbar -->
-
-
 <div id="login-container">
 	<div id="login-header">
 		<h3 style="line-height: 15px;">登录</h3>
@@ -126,7 +121,6 @@ function logining_load(){
 		
 		<div id="login-extra">
 			<p>
-
 			</p>
 			
              <br>

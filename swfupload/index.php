@@ -1,12 +1,10 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <?php
 	session_start();
-
 	if (count($_FILES)) {
         // Handle degraded form uploads here.  Degraded form uploads are POSTed to index.php.  SWFUpload uploads
 		// are POSTed to upload.php
 	}
-
 ?>
 <html xmlns="http://www.w3.org/1999/xhtml" >
 <head>
@@ -19,13 +17,11 @@
     <script type="text/javascript" src="js/handlers.js"></script>
 	<script type="text/javascript">
 		var upload1, upload2;
-
 		window.onload = function() {
 			upload1 = new SWFUpload({
 				// Backend Settings
 				upload_url: "upload.php",	// Relative to the SWF file (or you can use absolute paths)
 				post_params: {"PHPSESSID" : "<?php echo session_id(); ?>"},
-
 				
 				// File Upload Settings
 				file_size_limit : "3096000",	// 30MB
@@ -33,7 +29,6 @@
 				file_types_description : "All Files",
 				file_upload_limit : "1",
 				file_queue_limit : "0",
-
 				// Event Handler Settings (all my handlers are in the Handler.js file)
 				file_dialog_start_handler : fileDialogStart,
 				file_queued_handler : fileQueued,
@@ -44,7 +39,6 @@
 				upload_error_handler : uploadError,
 				upload_success_handler : uploadSuccess,
 				upload_complete_handler : uploadComplete,
-
 				// Button Settings
 				button_image_url : "images/XPButtonUploadText_61x22.png",
 				button_placeholder_id : "spanButtonPlaceholder1",
@@ -54,7 +48,6 @@
 				// Flash Settings
 				flash_url : "swf/swfupload.swf",
 				
-
 				custom_settings : {
 					progressTarget : "fsUploadProgress1",
 					cancelButtonId : "btnCancel1"
@@ -63,19 +56,16 @@
 				// Debug Settings
 				debug: false
 			});
-
 			upload2 = new SWFUpload({
 				// Backend Settings
 				upload_url: "upload.php",	// Relative to the SWF file (or you can use absolute paths)
 				post_params: {"PHPSESSID" : "<?php echo session_id(); ?>"},
-
 				// File Upload Settings
 				file_size_limit : "30960",	// 20MB
 				file_types : "*.csv",
 				file_types_description : "All Files",
 				file_upload_limit : "1",
 				file_queue_limit : "0",
-
 				// Event Handler Settings (all my handlers are in the Handler.js file)
 				file_dialog_start_handler : fileDialogStart,
 				file_queued_handler : fileQueued,
@@ -86,7 +76,6 @@
 				upload_error_handler : uploadError,
 				upload_success_handler : uploadSuccess,
 				upload_complete_handler : uploadComplete,
-
 				// Button Settings
 				button_image_url : "images/XPButtonUploadText_61x22.png",
 				button_placeholder_id : "spanButtonPlaceholder2",
@@ -95,22 +84,17 @@
 				
 				// Flash Settings
 				flash_url : "swf/swfupload.swf",
-
 				swfupload_element_id : "flashUI2",		// Setting from graceful degradation plugin
 				degraded_element_id : "degradedUI2",	// Setting from graceful degradation plugin
-
 				custom_settings : {
 					progressTarget : "fsUploadProgress2",
 					cancelButtonId : "btnCancel2"
 				},
-
 				// Debug Settings
 				debug: false
 			});
-
 	     }
 	</script>
-
 </head>
 <body>
 	<div class="title"><a class="likeParent" href="index.php">SWFUpload v2.0 Multi-Instance Demo</a></div>

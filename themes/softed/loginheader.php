@@ -18,25 +18,17 @@
  * components such as form headers and footers.  Intended to be modified on a per
  * theme basis.
  ********************************************************************************/
-
 require_once('include/CRMSmarty.php');
 require_once("data/Tracker.php");
 require_once("include/utils/utils.php");
-
-
 global $currentModule;
 global $moduleList;
 global $theme;
 $theme_path="themes/".$theme."/";
 $image_path=$theme_path."images/";
-
-
 global $app_strings;
-
 $smarty = new CRMSmarty();
 $smarty->assign("APP", $app_strings);
-
-
 if(isset($app_strings['LBL_CHARSET']))
 {
 	$smarty->assign("LBL_CHARSET", $app_strings['LBL_CHARSET']);
@@ -45,11 +37,8 @@ else
 {
 	$smarty->assign("LBL_CHARSET", $default_charset);
 }
-
 $smarty->assign("THEME", $theme);
 $smarty->assign("IMAGE_PATH", $image_path);
 //$smarty->assign("PRINT_URL", "phprint.php?jt=".session_id().$GLOBALS['request_string']);
-
 $smarty->display('loginheader.tpl');
-
 ?>

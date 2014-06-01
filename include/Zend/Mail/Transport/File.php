@@ -19,13 +19,10 @@
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  * @version    $Id$
  */
-
 /**
  * @see Zend_Mail_Transport_Abstract
  */
 require_once 'include/Zend/Mail/Transport/Abstract.php';
-
-
 /**
  * File transport
  *
@@ -45,14 +42,12 @@ class Zend_Mail_Transport_File extends Zend_Mail_Transport_Abstract
      * @var string
      */
     protected $_path;
-
     /**
      * Callback function generating a file name
      *
      * @var string|array
      */
     protected $_callback;
-
     /**
      * Constructor
      *
@@ -66,7 +61,6 @@ class Zend_Mail_Transport_File extends Zend_Mail_Transport_Abstract
         } elseif (!is_array($options)) {
             $options = array();
         }
-
         // Making sure we have some defaults to work with
         if (!isset($options['path'])) {
             $options['path'] = sys_get_temp_dir();
@@ -74,10 +68,8 @@ class Zend_Mail_Transport_File extends Zend_Mail_Transport_Abstract
         if (!isset($options['callback'])) {
             $options['callback'] = array($this, 'defaultCallback');
         }
-
         $this->setOptions($options);
     }
-
     /**
      * Sets options
      *
@@ -93,7 +85,6 @@ class Zend_Mail_Transport_File extends Zend_Mail_Transport_Abstract
             $this->_callback = $options['callback'];
         }
     }
-
     /**
      * Saves e-mail message to a file
      *
@@ -104,7 +95,6 @@ class Zend_Mail_Transport_File extends Zend_Mail_Transport_Abstract
     protected function _sendMail()
     {
         $file = $this->_path . DIRECTORY_SEPARATOR . call_user_func($this->_callback, $this);
-
         if (!is_writable(dirname($file))) {
             require_once 'include/Zend/Mail/Transport/Exception.php';
             throw new Zend_Mail_Transport_Exception(sprintf(
@@ -112,15 +102,12 @@ class Zend_Mail_Transport_File extends Zend_Mail_Transport_Abstract
                 dirname($file)
             ));
         }
-
         $email = $this->header . $this->EOL . $this->body;
-
         if (!file_put_contents($file, $email)) {
             require_once 'include/Zend/Mail/Transport/Exception.php';
             throw new Zend_Mail_Transport_Exception('Unable to send mail');
         }
     }
-
     /**
      * Default callback for generating filenames
      *

@@ -2,7 +2,6 @@
 require_once('include/CRMSmarty.php');
 require_once('include/database/PearDatabase.php');
 require_once('include/CustomFieldUtil.php');
-
 global $mod_strings;
 global $app_strings;
 $smarty = new CRMSmarty();
@@ -11,10 +10,8 @@ $smarty->assign("APP",$app_strings);
 global $theme;
 $theme_path="themes/".$theme."/";
 $image_path=$theme_path."images/";
-
 $smarty->assign("IMAGE_PATH", $image_path);
 $module_array=getCustomFieldSupportedModules();
-
 $cfimagecombo = Array($image_path."text.gif",
 $image_path."number.gif",
 $image_path."percent.gif",
@@ -27,7 +24,6 @@ $image_path."url.gif",
 $image_path."checkbox.gif",
 $image_path."text.gif",
 $image_path."picklist.gif");
-
 $cftextcombo = Array($mod_strings['Text'],
 $mod_strings['Number'],
 $mod_strings['Percent'],
@@ -41,8 +37,6 @@ $mod_strings['LBL_CHECK_BOX'],
 $mod_strings['LBL_TEXT_AREA'],
 $mod_strings['LBL_MULTISELECT_COMBO']
 );
-
-
 $smarty->assign("MODULES",$module_array);
 $smarty->assign("CFTEXTCOMBO",$cftextcombo);
 $smarty->assign("CFIMAGECOMBO",$cfimagecombo);
@@ -57,7 +51,6 @@ if(isset($_REQUEST["duplicate"]) && $_REQUEST["duplicate"] == "yes")
 	$error= $mod_strings['custom_field_exists'];
 	$smarty->assign("DUPLICATE_ERROR", $error);
 }
-
 if($_REQUEST['mode'] !='')
 	$mode = $_REQUEST['mode'];
 $smarty->assign("MODE", $mode);
@@ -67,12 +60,10 @@ $smarty->assign("SETTYPE", "CustomFieldList");
 $smarty->assign("IMAGE_PATH",$image_path);
 $smarty->assign("APP", $app_strings);
 $smarty->assign("MOD", $mod_strings);
-
 if($_REQUEST['ajax'] != 'true')
 	$smarty->display('Settings/CustomFieldList.tpl');	
 else
 	$smarty->display('Settings/CustomFieldEntries.tpl');
-
 	/**
 	* Function to get customfield entries
 	* @param string $module - Module name
@@ -100,16 +91,13 @@ function getCFListEntries($module)
 			if(isset($mod_strings[$fld_type_name])) {
 				$fld_type_name = $mod_strings[$fld_type_name];
 			}
-
 			$cf_element['type']=$fld_type_name;
 			$cf_element['tool']='<img src="'.$image_path.'editfield.gif" border="0" style="cursor:pointer;" onClick="getCreateCustomFieldForm(\''.$module.'\',\''.$row["fieldid"].'\',\''.$tabid.'\',\''.$row["uitype"].'\')" alt="'.$app_strings['LBL_EDIT'].'" title="'.$app_strings['LBL_EDIT'].'"/>&nbsp;|&nbsp;<img style="cursor:pointer;" onClick="deleteCustomField('.$row["fieldid"].',\''.$module.'\', \''.$row["columnname"].'\', \''.$row["uitype"].'\')" src="'.$image_path.'delete.gif" border="0"  alt="'.$app_strings['LBL_DELETE'].'" title="'.$app_strings['LBL_DELETE'].'"/></a>';
-
 			$cflist[] = $cf_element;
 			$count++;
 		}
 	return $cflist;
 }
-
 /**
 * Function to Lead customfield Mapping entries
 * @param integer  $cfid   - Lead customfield id
@@ -128,7 +116,6 @@ function getListLeadMapping($cfid)
 		$contactid = $adb->query_result($result,$i,'contactfid');
 		$potentialid = $adb->query_result($result,$i,'potentialfid');
 		$cfmid = $adb->query_result($result,$i,'cfmid');
-
 		$sql2="select fieldlabel from ec_field where fieldid ='".$accountid."'";
 		$result2 = $adb->query($sql2);
 		$accountfield = $adb->query_result($result2,0,'fieldlabel');
@@ -145,10 +132,8 @@ function getListLeadMapping($cfid)
 	}
 	return $label;
 }
-
 /* function to get the modules supports Custom Fields
 */
-
 function getCustomFieldSupportedModules()
 {
 	global $adb;

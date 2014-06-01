@@ -15,7 +15,6 @@
  * 
  * @package log4php
  */
-
 /**
  * @ignore 
  */
@@ -25,7 +24,6 @@ if (!defined('LOG4PHP_DIR')) define('LOG4PHP_DIR', dirname(__FILE__));
  */
 require_once(LOG4PHP_DIR . '/LoggerLevel.php');
 require_once(LOG4PHP_DIR . '/spi/LoggerLoggingEvent.php');
-
 /**
  * This class has been deprecated and replaced by the Logger subclass.
  *
@@ -35,7 +33,6 @@ require_once(LOG4PHP_DIR . '/spi/LoggerLoggingEvent.php');
  * @see Logger
  */
 class LoggerCategory {
-
     /**
      * Additivity is set to true by default, that is children inherit the 
      * appenders of their ancestors by default.
@@ -47,7 +44,6 @@ class LoggerCategory {
      * @var string fully qualified class name
      */  
     var $fqcn           = 'LoggerCategory';
-
     /**
      * @var LoggerLevel The assigned level of this category.
      */
@@ -62,12 +58,10 @@ class LoggerCategory {
      * @var Logger The parent of this category.
      */
     var $parent         = null;
-
     /**
      * @var LoggerHierarchy the object repository
      */
     var $repository     = null; 
-
     /**
      * @var array collection of appenders
      * @see LoggerAppender
@@ -77,7 +71,6 @@ class LoggerCategory {
 /* --------------------------------------------------------------------------*/
 /* --------------------------------------------------------------------------*/
 /* --------------------------------------------------------------------------*/
-
     /**
      * Constructor.
      *
@@ -111,7 +104,6 @@ class LoggerCategory {
             $this->error($msg);
         }
     } 
-
     /**
      * Call the appenders in the hierarchy starting at this.
      *
@@ -145,7 +137,6 @@ class LoggerCategory {
             $this->forcedLog($this->fqcn, $caller, $debugLevel, $message);
         }
     } 
-
     /**
      * Log a message object with the ERROR level including the caller.
      *
@@ -209,7 +200,6 @@ class LoggerCategory {
         // $fqcn = is_object($caller) ? get_class($caller) : (string)$caller;
         $this->callAppenders(new LoggerLoggingEvent($fqcn, $this, $level, $message));
     } 
-
     /**
      * Get the additivity flag for this Category instance.
      * @return boolean
@@ -279,7 +269,6 @@ class LoggerCategory {
     {
         return $this->getLoggerRepository();
     } 
-
     /**
      * Starting from this category, search the category hierarchy for a non-null level and return it.
      * @see LoggerLevel
@@ -302,7 +291,6 @@ class LoggerCategory {
     {
         return LoggerManager::getLogger($name);
     }
-
     /**
      * Returns the assigned Level, if any, for this Category.
      * @return LoggerLevel or null 
@@ -311,7 +299,6 @@ class LoggerCategory {
     {
         return $this->level;
     } 
-
     /**
      * Return the the repository where this Category is attached.
      * @return LoggerHierarchy
@@ -320,7 +307,6 @@ class LoggerCategory {
     {
         return $this->repository;
     } 
-
     /**
      * Return the category name.
      * @return string
@@ -329,7 +315,6 @@ class LoggerCategory {
     {
         return $this->name;
     } 
-
     /**
      * Returns the parent of this category.
      * @return Logger
@@ -338,7 +323,6 @@ class LoggerCategory {
     {
         return $this->parent;
     }      
-
     /**
      * Please use getLevel() instead.
      * @deprecated
@@ -355,7 +339,6 @@ class LoggerCategory {
     {
         return;
     } 
-
     /**
      * Returns the string resource coresponding to key in this category's inherited resource bundle.
      */
@@ -363,7 +346,6 @@ class LoggerCategory {
     {
         return;
     } 
-
     /**
      * Return the root of the default category hierrachy.
      * @return LoggerRoot
@@ -372,7 +354,6 @@ class LoggerCategory {
     {
         return LoggerManager::getRootLogger();
     } 
-
     /**
      * Log a message object with the INFO Level.
      *
@@ -412,7 +393,6 @@ class LoggerCategory {
         }
         return ($debugLevel->isGreaterOrEqual($this->getEffectiveLevel()));
     }       
-
     /**
      * Check whether this category is enabled for a given Level passed as parameter.
      *
@@ -426,7 +406,6 @@ class LoggerCategory {
         }
         return (bool)($level->isGreaterOrEqual($this->getEffectiveLevel()));
     } 
-
     /**
      * Check whether this category is enabled for the info Level.
      * @return boolean
@@ -440,7 +419,6 @@ class LoggerCategory {
         }
         return ($infoLevel->isGreaterOrEqual($this->getEffectiveLevel()));
     } 
-
     /**
      * Log a localized and parameterized message.
      */
@@ -448,7 +426,6 @@ class LoggerCategory {
     {
         return;
     } 
-
     /**
      * This generic form is intended to be used by wrappers.
      *
@@ -465,7 +442,6 @@ class LoggerCategory {
             $this->forcedLog($this->fqcn, $caller, $priority, $message);
         }
     }
-
     /**
      * Remove all previously added appenders from this Category instance.
      */
@@ -493,7 +469,6 @@ class LoggerCategory {
             unset($this->aai[$appender]);
         }
     } 
-
     /**
      * Set the additivity flag for this Category instance.
      *
@@ -512,7 +487,6 @@ class LoggerCategory {
     {
         $this->setLevel($priority);
     } 
-
     /**
      * Only the Hiearchy class can set the hiearchy of a
      * category.
@@ -523,7 +497,6 @@ class LoggerCategory {
     {
         $this->repository =& $repository;
     }
-
     /**
      * Set the level of this Category.
      *
@@ -533,7 +506,6 @@ class LoggerCategory {
     {
         $this->level = $level;
     } 
-
     /**
      * Set the resource bundle to be used with localized logging methods 
      */
@@ -567,6 +539,5 @@ class LoggerCategory {
             $this->forcedLog($this->fqcn, $caller, $warnLevel, $message);
         }
     }
-
 }  
 ?>

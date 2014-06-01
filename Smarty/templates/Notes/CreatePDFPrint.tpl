@@ -25,7 +25,6 @@
 			<td valign=top align=left >
                 <table border=0 cellspacing=0 cellpadding=3 width=100% class="dvtContentSpace">
 				<tr>
-
 					<td align=left>
 					<!-- content cache -->
 					
@@ -40,7 +39,6 @@
 					<td  colspan=4 style="padding:5px">		
 					
 						
-
 							</td>
 						     </tr>{/strip}
 						     <tr><td>

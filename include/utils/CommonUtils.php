@@ -2,7 +2,6 @@
 require_once('include/database/PearDatabase.php');
 require_once('include/utils/utils.php'); //new
 require_once('include/utils/addon_utils.php'); //new
-
 /**
  * Check if user id belongs to a system admin.
  * Portions created by SugarCRM are Copyright (C) SugarCRM, Inc.
@@ -20,7 +19,6 @@ function is_admin($user) {
 		return true;
 	}
 }
-
 /**
  * THIS FUNCTION IS DEPRECATED AND SHOULD NOT BE USED; USE get_select_options_with_id()
  * Create HTML to display select options in a dropdown list.  To be used inside
@@ -37,7 +35,6 @@ function get_select_options (&$option_list, $selected, $advsearch='false') {
 	$log->debug("Exiting get_select_options  method ...");
 	return get_select_options_with_id($option_list, $selected, $advsearch);
 }
-
 /**
  * Create HTML to display select options in a dropdown list.  To be used inside
  * of a select statement in a form.   This method expects the option list to have keys and values.  The keys are the ids.  The values is an array of the datas
@@ -53,7 +50,6 @@ function get_select_options_with_id (&$option_list, $selected_key, $advsearch='f
 	$log->debug("Exiting get_select_options_with_id  method ...");
 	return get_select_options_with_id_separate_key($option_list, $option_list, $selected_key, $advsearch);
 }
-
 /**
  * Create HTML to display select options in a dropdown list.  To be used inside
  * of a select statement in a form.   This method expects the option list to have keys and values.  The keys are the ids.
@@ -65,7 +61,6 @@ function get_select_options_array (&$option_list, $selected_key, $advsearch='fal
 	$log->debug("Exiting get_select_options_array  method ...");
         return get_options_array_seperate_key($option_list, $option_list, $selected_key, $advsearch);
 }
-
 /**
  * Create HTML to display select options in a dropdown list.  To be used inside
  * of a select statement in a form.   This method expects the option list to have keys and values.  The keys are the ids.  The value is an array of data
@@ -84,12 +79,10 @@ function get_options_array_seperate_key (&$label_list, &$key_list, $selected_key
 	$select_options = "\n<OPTION value=''>--NA--</OPTION>";
 	else
 	$select_options = "";
-
 	//for setting null selection values to human readable --None--
 	$pattern = "/'0?'></";
 	$replacement = "''>".$app_strings['LBL_NONE']."<";
 	if (!is_array($selected_key)) $selected_key = array($selected_key);
-
 	//create the type dropdown domain and set the selected value if $opp value already exists
 	foreach ($key_list as $option_key=>$option_value) {
 		$selected_string = '';
@@ -99,24 +92,19 @@ function get_options_array_seperate_key (&$label_list, &$key_list, $selected_key
 		{
 			$selected_string = 'selected';
 		}
-
 		$html_value = $option_key;
-
 		$select_options .= "\n<OPTION ".$selected_string."value='$html_value'>$label_list[$option_key]</OPTION>";
 		$options[$html_value]=array($label_list[$option_key]=>$selected_string);
 	}
 	$select_options = preg_replace($pattern, $replacement, $select_options);
-
 	$log->debug("Exiting get_options_array_seperate_key  method ...");
 	return $options;
 }
-
 /**
  * Create HTML to display select options in a dropdown list.  To be used inside
  * of a select statement in a form.   This method expects the option list to have keys and values.  The keys are the ids.
  * The values are the display strings.
  */
-
 function get_select_options_with_id_separate_key(&$label_list, &$key_list, $selected_key, $advsearch='false')
 {
 	global $log;
@@ -129,28 +117,22 @@ function get_select_options_with_id_separate_key(&$label_list, &$key_list, $sele
 		$select_options = "\n<OPTION value=''>--NA--</OPTION>";
     else
 		$select_options = "";
-
     $pattern = "/'0?'></";
     $replacement = "''>".$app_strings['LBL_NONE']."<";
     if (!is_array($selected_key)) $selected_key = array($selected_key);
-
     foreach ($key_list as $option_key=>$option_value) {
         $selected_string = '';
         if (($option_key != '' && $selected_key == $option_key) || ($selected_key == '' && $option_key == '') || (in_array($option_key, $selected_key)))
         {
             $selected_string = 'selected ';
         }
-
         $html_value = $option_key;
-
         $select_options .= "\n<OPTION ".$selected_string."value='$html_value'>$label_list[$option_key]</OPTION>";
     }
     $select_options = preg_replace($pattern, $replacement, $select_options);
     $log->debug("Exiting get_select_options_with_id_separate_key method ...");
     return $select_options;
-
 }
-
 /**
  * Converts localized date format string to jscalendar format
  * Example: $array = array_csort($array,'town','age',SORT_DESC,'name');
@@ -178,13 +160,11 @@ function parse_calendardate($local_format) {
 	return $dt_popup_fmt;
 	//return "%Y-%m-%d";
 }
-
 /**
  * Decodes the given set of special character
  * input values $string - string to be converted, $encode - flag to decode
  * returns the decoded value in string fromat
  */
-
 function from_html($string, $encode=true){
 	global $log;
 	$log->debug("Entering from_html() method ...");
@@ -197,39 +177,32 @@ function from_html($string, $encode=true){
 	$log->debug("Exiting from_html method ...");
     return $string;
 }
-
 /**
  *	Function used to decodes the given single quote and double quote only. This function used for popup selection
  *	@param string $string - string to be converted, $encode - flag to decode
  *	@return string $string - the decoded value in string fromat where as only single and double quotes will be decoded
  */
-
 function popup_from_html($string, $encode=true)
 {
 	global $log;
 	$log->debug("Entering popup_from_html() method ...");
-
 	$popup_toHtml = array(
         			'"' => '&quot;',
 			        "'" =>  '&#039;',
 			     );
-
         //if($encode && is_string($string))$string = html_entity_decode($string, ENT_QUOTES);
         if($encode && is_string($string))
 	{
                 $string = addslashes(str_replace(array_values($popup_toHtml), array_keys($popup_toHtml), $string));
         }
-
 	$log->debug("Exiting popup_from_html method ...");
         return $string;
 }
-
 /**
  * Function to get the tabid
  * Takes the input as $module - module name
  * returns the tabid, integer type
  */
-
 function getTabid($module)
 {
 	global $log;
@@ -239,7 +212,6 @@ function getTabid($module)
 	$key = "moduletabid_".$module;
 	$tabid = getSqlCacheData($key);
 	if(!$tabid) {
-
 		global $adb;
 		$sql = "select tabid from ec_tab where name='".$module."'";
 		$result = $adb->query($sql);
@@ -248,15 +220,12 @@ function getTabid($module)
 	}
 	$log->debug("Exiting getTabid method ...");
 	return $tabid;
-
 }
-
 /**
  * Function to get the tabid
  * Takes the input as $module - module name
  * returns the tabid, integer type
  */
-
 function getSalesEntityType($crmid)
 {
 	global $log;
@@ -272,14 +241,12 @@ function getSalesEntityType($crmid)
 	$log->debug("Exiting getSalesEntityType method ...");
 	return $parent_module;
 }
-
 /**
  * Function to get the AccountName when a ec_account id is given
  * Takes the input as $acount_id - ec_account id
  * returns the ec_account name in string format.
  * changed by chengliang on 2012-04-05
  */
-
 function getAccountName($account_id)
 {
 	global $log; 
@@ -326,7 +293,6 @@ function getAccountName($account_id)
 	$log->debug("Exiting getAccountName method ...");
 	return $accountname;
 }
-
 /**
  * Function to get the SettingName when a ec_sfasettings id is given
  * Takes the input as $sfasettingsid - ec_sfasettings id
@@ -372,13 +338,11 @@ function getSettingName($sfasettingsid){
 		}
 	}
 }
-
 /**
  * Function to get the ProductName when a product id is given
  * Takes the input as $product_id - product id
  * returns the product name in string format.
  */
-
 function getProductName($product_id)
 {
 	global $log;
@@ -393,18 +357,15 @@ function getProductName($product_id)
 	$log->debug("Exiting getProductName method ...");
 	return $productname;
 }
-
 /**
  * Function to get the Potentail Name when a ec_potential id is given
  * Takes the input as $potential_id - ec_potential id
  * returns the ec_potential name in string format.
  */
-
 function getPotentialName($potential_id)
 {
 	global $log;
 	$log->debug("Entering getPotentialName() method ...");
-
 	global $adb;
 	$potentialname = '';
 	if($potential_id != '')
@@ -416,13 +377,11 @@ function getPotentialName($potential_id)
 	$log->debug("Exiting getPotentialName method ...");
 	return $potentialname;
 }
-
 /**
  * Function to get the Contact Name when a contact id is given
  * Takes the input as $contact_id - contact id
  * returns the Contact Name in string format.
  */
-
 function getContactName($contact_id)
 {
 	global $log;
@@ -441,7 +400,6 @@ function getContactName($contact_id)
 	$log->debug("Exiting getContactName method ...");
 	return $contact_name;
 }
-
 function getMainContactName($accountid)
 {
 	global $log;
@@ -470,7 +428,6 @@ function getMainContactName($accountid)
 	$log->debug("Exiting getMainContactName method ...");
 	return $contact_name;
 }
-
 function getContactPhone($contact_id)
 {
 	global $log;
@@ -504,7 +461,6 @@ function getContactMBPhone($contact_id)
  * Takes the input as $salesorder_id - ec_salesorder id
  * returns the Salesorder Name in string format.
  */
-
 function getSoName($so_id)
 {
 	global $log;
@@ -520,11 +476,9 @@ function getSoName($so_id)
 	$log->debug("Exiting getSoName method ...");
 	return $so_name;
 }
-
 /**
  * Get the username by giving the user id.   This method expects the user id
  */
-
 function getUserName($userid)
 {
 	global $log;
@@ -546,7 +500,6 @@ function getUserName($userid)
 	if(isset($userNameList[$userid])) return $userNameList[$userid];
 	else return "";
 }
-
 /**	Function to get the user Email id based on column name and column value
   *	$name -- column name of the ec_users ec_table
   *	$val  -- column value
@@ -569,12 +522,10 @@ function getUserEmailId($name,$val)
 		return '';
 	}
 }
-
 /**
 * Get the user full name by giving the user id.   This method expects the user id
 * DG 30 Aug 2006
 */
-
 function getUserFullName($userid)
 {
 	global $log;
@@ -596,12 +547,10 @@ function getUserFullName($userid)
 	if(isset($userNameList[$userid])) return $userNameList[$userid];
 	else return "";
 }
-
 /**
  * Creates and returns database query. To be used for search and other text links.   This method expects the module object.
  * param $focus - the module object contains the column ec_fields
  */
-
 function getURLstring($focus)
 {
 	global $log;
@@ -626,20 +575,16 @@ function getURLstring($focus)
 	{
 		$qry .="&advanced=true";
 	}
-
 	if($qry !='')
 	{
 		$qry .="&query=true";
 	}
 	$log->debug("Exiting getURLstring method ...");
 	return $qry;
-
 }
-
 /** This function returns the date in user specified format.
   * param $cur_date_val - the default date format
  */
-
 function getDisplayDate($cur_date_val)
 {
 	global $log;
@@ -651,7 +596,6 @@ function getDisplayDate($cur_date_val)
 		//changed by dingjianting on 2006-12-4 for simplized chinese dateformat
 		$dat_fmt = 'yyyy-mm-dd';
 	}
-
 	$date_value = explode(' ',$cur_date_val);
 	if(!isValidDate($date_value[0])) {
 		return "";
@@ -659,7 +603,6 @@ function getDisplayDate($cur_date_val)
 	list($y,$m,$d) = explode('-',$date_value[0]);
 	if($dat_fmt == 'yyyy-mm-dd')
 	{
-
 		$display_date = $y.'-'.$m.'-'.$d;
 	}
 	elseif($dat_fmt == 'dd-mm-yyyy')
@@ -668,7 +611,6 @@ function getDisplayDate($cur_date_val)
 	}
 	elseif($dat_fmt == 'mm-dd-yyyy')
 	{
-
 		$display_date = $m.'-'.$d.'-'.$y;
 	}
 	if(isset($date_value[1]) && $date_value[1] != "" && substr_count($date_value[1],'00:00:00') == 0)
@@ -677,21 +619,16 @@ function getDisplayDate($cur_date_val)
 	}
 	$log->debug("Exiting getDisplayDate method ...");
 	return $display_date;
-
 }
-
 function isValidDate($dateValue) {
 	if(!empty($dateValue) && substr_count($dateValue,"0000-00-00") == 0 && substr_count($dateValue,"1900-01-01") == 0) {
 		return true;
 	}
 	return false;
-
 }
-
 /** This function returns the date in user specified format.
   * param $cur_date_val - the default date format
  */
-
 function getDisplayDate_WithTime($cur_date_val)
 {
 	global $log;
@@ -703,7 +640,6 @@ function getDisplayDate_WithTime($cur_date_val)
 		//changed by dingjianting on 2006-12-4 for simplized chinese dateformat
 		$dat_fmt = 'yyyy-mm-dd';
 	}
-
 		$date_value = explode(' ',$cur_date_val);
 		list($y,$m,$d) = explode('-',$date_value[0]);
 		if($dat_fmt == 'dd-mm-yyyy')
@@ -712,24 +648,18 @@ function getDisplayDate_WithTime($cur_date_val)
 		}
 		elseif($dat_fmt == 'mm-dd-yyyy')
 		{
-
 			$display_date = $m.'-'.$d.'-'.$y;
 		}
 		elseif($dat_fmt == 'yyyy-mm-dd')
 		{
-
 			$display_date = $y.'-'.$m.'-'.$d;
 		}
-
     $log->debug("Exiting getDisplayDate_WithTime method ...");
 	return $display_date;
-
 }
-
 /** This function returns the date in user specified format.
   * Takes no param, receives the date format from current user object
   */
-
 function getNewDisplayDate()
 {
 	global $log;
@@ -756,12 +686,10 @@ function getNewDisplayDate()
 	{
 		$display_date = date('Y-m-d');
 	}
-
 	//echo $display_date;
 	$log->debug("Exiting getNewDisplayDate method ...");
 	return $display_date;
 }
-
 function ec_number_format($number,$isEdit=false) {
 	global $default_number_digits;
 	global $default_number_grouping_seperator;
@@ -774,7 +702,6 @@ function ec_number_format($number,$isEdit=false) {
 		} else {
 			$grouping_seperator = ',';
 		}
-
 	}
 	if(isset($default_number_digits)) {
 		$number = number_format($number,$default_number_digits,$default_number_decimal_seperator,$grouping_seperator);
@@ -783,11 +710,9 @@ function ec_number_format($number,$isEdit=false) {
 	}
 	return $number;
 }
-
 /** This function returns a string with removed new line character, single quote, and back slash double quoute.
   * param $str - string to be converted.
   */
-
 function br2nl($str) {
    global $log;
    $log->debug("Entering br2nl() method ...");
@@ -797,11 +722,9 @@ function br2nl($str) {
    $log->debug("Exiting br2nl method ...");
    return $str;
 }
-
 /** This function returns a text, which escapes the html encode for link tag/ a href tag
 *param $text - string/text
 */
-
 function make_clickable($text)
 {
    global $log;
@@ -809,28 +732,22 @@ function make_clickable($text)
    $text = preg_replace('#(script|about|applet|activex|chrome):#is', "\\1&#058;", $text);
    // pad it with a space so we can match things at the start of the 1st line.
    $ret = ' ' . $text;
-
    // matches an "xxxx://yyyy" URL at the start of a line, or after a space.
    // xxxx can only be alpha characters.
    // yyyy is anything up to the first space, newline, comma, double quote or <
    $ret = preg_replace("#(^|[\n ])([\w]+?://.*?[^ \"\n\r\t<]*)#is", "\\1<a href=\"\\2\" target=\"_blank\">\\2</a>", $ret);
-
    // matches a "www|ftp.xxxx.yyyy[/zzzz]" kinda lazy URL thing
    // Must contain at least 2 dots. xxxx contains either alphanum, or "-"
    // zzzz is optional.. will contain everything up to the first space, newline,
    // comma, double quote or <.
    $ret = preg_replace("#(^|[\n ])((www|ftp)\.[\w\-]+\.[\w\-.\~]+(?:/[^ \"\t\n\r<]*)?)#is", "\\1<a href=\"http://\\2\" target=\"_blank\">\\2</a>", $ret);
-
    // matches an email@domain type address at the start of a line, or after a space.
    // Note: Only the followed chars are valid; alphanums, "-", "_" and or ".".
    $ret = preg_replace("#(^|[\n ])([a-z0-9&\-_.]+?)@([\w\-]+\.([\w\-\.]+\.)*[\w]+)#i", "\\1<a href=\"mailto:\\2@\\3\">\\2@\\3</a>", $ret);
-
    // Remove our padding..
    $ret = substr($ret, 1);
-
    //remove comma, fullstop at the end of url
    $ret = preg_replace("#,\"|\.\"|\)\"|\)\.\"|\.\)\"#", "\"", $ret);
-
    $log->debug("Exiting make_clickable method ...");
    return($ret);
 }
@@ -887,30 +804,25 @@ function getBlocks($module,$disp_view,$mode,$col_fields='',$info_type='',$crmid=
 			if ($info_type != '')
 			{
 					$sql = "SELECT ec_field.* FROM ec_field INNER JOIN ec_def_org_field ON ec_def_org_field.fieldid=ec_field.fieldid AND ec_def_org_field.visible=0 WHERE ec_field.tabid=".$tabid." AND ec_field.block IN (select blockid from ec_blocks where tabid=".$tabid." and visible = 0) AND ".$display_type_check." AND info_type = '".$info_type."' ORDER BY block,sequence";
-
 			}
 			else
 			{
 				$sql = "SELECT ec_field.* FROM ec_field INNER JOIN ec_def_org_field ON ec_def_org_field.fieldid=ec_field.fieldid AND ec_def_org_field.visible=0 WHERE ec_field.tabid=".$tabid." AND ec_field.block IN (select blockid from ec_blocks where tabid=".$tabid." and visible = 0) AND ".$display_type_check." ORDER BY block,sequence";
 				
 			}
-
 		}
 		$blockviewList = $adb->query($sql);
 		setSqlCacheData($key,$blockviewList);
 	}
-
 	if($disp_view == "detail_view")
 	{
 		
 		$getBlockInfo=getDetailBlockInformation($module,$blockviewList,$col_fields,$tabid,$block_label);
-
 	}
 	else
 	{
         $getBlockInfo=getBlockInformation($module,$blockviewList,$col_fields,$tabid,$block_label,$mode,$supportmultiapprove);
 	}
-
 	$index_count =1;
 	$max_index =0;
 	if(!isset($getBlockInfo)) {
@@ -923,7 +835,6 @@ function getBlocks($module,$disp_view,$mode,$col_fields='',$info_type='',$crmid=
 		foreach($contents as $block_row => $elements)
 		{
 			$max_index= $no_rows+$index_count;
-
 			for($i=0;$i<count($elements);$i++)
 			{
 				if(isset($getBlockInfo[$label][$block_row][$i]) && sizeof($getBlockInfo[$label][$block_row][$i])!=0)
@@ -935,14 +846,12 @@ function getBlocks($module,$disp_view,$mode,$col_fields='',$info_type='',$crmid=
 				}
 			}
 			$index_count++;
-
 		}
 	}
 	$log->debug("Exiting getBlocks method ...");
 	//print_r($getBlockInfo);die;
 	return $getBlockInfo;
 }
-
 /**
  * This function returns the ec_blocks and its related information for given module.
  * Input Parameter are $module - module name, $disp_view = display view (edit,detail or create),$mode - edit, $col_fields - * column ec_fields/
@@ -961,7 +870,6 @@ function getDetailBlocks($module,$col_fields)
 	$block_detail = Array();
 	$getBlockinfo = "";
 	$prev_header = "";
-
 	//block cache on 2008-12-23 for performance by dingjianting
 	$key = "blockid_list_".$tabid."_".$disp_view;
 	$key2 = "block_label_".$tabid."_".$disp_view;
@@ -992,7 +900,6 @@ function getDetailBlocks($module,$col_fields)
 		$sql = "SELECT ec_field.* FROM ec_field INNER JOIN ec_def_org_field ON ec_def_org_field.fieldid=ec_field.fieldid AND ec_def_org_field.visible=0 WHERE ec_field.tabid=".$tabid." AND ec_field.block IN $blockid_list AND ec_field.displaytype IN (1,2,4) ORDER BY block,sequence";
 		setSqlCacheData($key,$sql);
 	}
-
 	$result = $adb->query($sql);
 	$getBlockInfo=getDetailBlockInformation($module,$result,$col_fields,$tabid,$block_label);
 	$index_count =1;
@@ -1007,7 +914,6 @@ function getDetailBlocks($module,$col_fields)
 		foreach($contents as $block_row => $elements)
 		{
 			$max_index= $no_rows+$index_count;
-
 			for($i=0;$i<count($elements);$i++)
 			{
 				if(isset($getBlockInfo[$label][$block_row][$i]) && sizeof($getBlockInfo[$label][$block_row][$i])!=0)
@@ -1024,13 +930,11 @@ function getDetailBlocks($module,$col_fields)
 	$log->debug("Exiting getDetailBlocks method ...");
 	return $getBlockInfo;
 }
-
 /**
  * This function is used to get the display type.
  * Takes the input parameter as $mode - edit  (mostly)
  * This returns string type value
  */
-
 function getView($mode)
 {
 	global $log;
@@ -1047,7 +951,6 @@ function getView($mode)
  * Takes the input parameter as $tabid - module tabid and $label - custom label
  * This returns string type value
  */
-
 function getBlockId($tabid,$label)
 {
 	global $log;
@@ -1068,7 +971,6 @@ function getBlockId($tabid,$label)
 	$log->debug("Exiting getBlockId method ...");
 	return $blockid;
 }
-
 /**
  * This function is used to get the Parent and Child ec_tab relation array.
  * This returns array type value
@@ -1099,7 +1001,6 @@ function getHeaderArray()
 //	}
 	return $resultant_array;
 }
-
 function getParentTabName($parenttabid)
 {
 	global $log;
@@ -1119,7 +1020,6 @@ function getParentTabName($parenttabid)
 			$id=$adb->query_result($result,$i,'parenttabid');
 			$label=$adb->query_result($result,$i,'parenttab_label');
 			$resultant_array[$id]=$label;
-
 		}
 		setSqlCacheData($key,$resultant_array);
 	}
@@ -1129,14 +1029,11 @@ function getParentTabName($parenttabid)
 	$log->debug("Exiting getParentTabName method ...");
 	return $parent_tabname;
 }
-
 /**
  * This function is used to get the Parent Tab name for a given module.
  * Takes the input parameter as $module - module name
  * This returns value string type 
  */
-
-
 function getParentTabFromModule($module)
 {	
 	global $log;
@@ -1157,11 +1054,9 @@ function getParentTabFromModule($module)
 			$parenttabid=$adb->query_result($result,$i,'parenttabid');
 			$tabid=$adb->query_result($result,$i,'tabid');
 			$resultant_array[$tabid]=$parenttabid;
-
 		}
 		setSqlCacheData($key,$resultant_array);
 	}
-
 	//echo "tabid:".$tabid."<br>";
 	if($tabid == 16) $tabid = 9;//event -> calendar
 	if(isset($resultant_array[$tabid])) {		 
@@ -1174,13 +1069,11 @@ function getParentTabFromModule($module)
 	$log->debug("Exiting getParentTabName method ..."); 
 	return $parent_tabname;
 }
-
 /**
  * This function is used to get the Parent Tab name for a given module.
  * Takes no parameter but gets the ec_parenttab value from form request
  * This returns value string type 
  */
-
 function getParentTab()
 {
 //    global $log;	
@@ -1197,7 +1090,6 @@ function getParentTab()
 //		$log->debug("Exiting getParentTab method ...");
 //        return getParentTabFromModule($_REQUEST['module']);
 //    }
-
 }
 /**
  * This function is used to get the days in between the current time and the modified time of an entity .
@@ -1205,7 +1097,6 @@ function getParentTab()
  * the current time and the modified time from the ec_crmentity ec_table and return the result as a string.
  * The return format is updated <No of Days> day ago <(date when updated)>
  */
-
 function updateInfo($id)
 {
 //    global $log;
@@ -1245,19 +1136,16 @@ function updateInfo($id)
 //    $log->debug("Exiting updateInfo method ...");
 //    return $update_info;
 }
-
  /**
  * This function is used to generate file name if more than one image with same name is added to a given Product.
  * Param $filename - product file name
  * Param $exist - number time the file name is repeated.
  */
-
 function file_exist_fn($filename,$exist)
 {
 	global $log;
 	$log->debug("Entering file_exist_fn() method ...");
 	global $uploaddir;
-
 	if(!isset($exist))
 	{
 		$exist=0;
@@ -1300,12 +1188,10 @@ function file_exist_fn($filename,$exist)
 		return $filename;
 	}
 }
-
 /**
  * This function is used get the User Count.
  * It returns the array which has the total ec_users ,admin ec_users,and the non admin ec_users
  */
-
 function UserCount()
 {
 	global $log;
@@ -1320,14 +1206,12 @@ function UserCount()
 	$log->debug("Exiting UserCount method ...");
 	return $count;
 }
-
 /**
  * This function is used to create folders recursively.
  * Param $dir - directory name
  * Param $mode - directory access mode
  * Param $recursive - create directory recursive, default true
  */
-
 function mkdirs($dir, $mode = 0777, $recursive = true)
 {
 	global $log;
@@ -1347,7 +1231,6 @@ function mkdirs($dir, $mode = 0777, $recursive = true)
 	$log->debug("Exiting mkdirs method ...");
 	return FALSE;
 }
-
 /**This function returns the module name which has been set as default home view for a given user.
  * Takes no parameter, but uses the user object $current_user.
  */
@@ -1362,10 +1245,7 @@ function DefHomeView()
 		$defaultview=$adb->query_result($result,0,'defhomeview');
 		$log->debug("Exiting DefHomeView method ...");
 		return $defaultview;
-
 }
-
-
 /**
  * This function is used to set the Object values from the REQUEST values.
  * @param  object reference $focus - reference of the object
@@ -1390,12 +1270,9 @@ function setObjectValuesFromRequest($focus)
 			$value = $_REQUEST[$fieldname];
 			$focus->column_fields[$fieldname] = $value;
 		}
-
 	}
 	$log->debug("Exiting setObjectValuesFromRequest method ...");
 }
-
-
 function getUserslist()
 {
 	global $log;
@@ -1417,7 +1294,6 @@ function getUserslist()
 	$log->debug("Exiting getUserslist method ...");
 	return $change_owner;
 }
-
 function getPMUserList()
 {
 	global $log;
@@ -1440,7 +1316,6 @@ function getPMUserList()
 	$log->debug("Exiting getPMUserList method ...");
 	return $change_owner;
 }
-
 function getUserslist_Nocache($userid)
 {
 	global $log;
@@ -1456,8 +1331,6 @@ function getUserslist_Nocache($userid)
 	$log->debug("Exiting getUserslist_Nocache method ...");
 	return $change_owner;
 }
-
-
 function getGroupslist($groupid=0)
 {
 	global $log;
@@ -1479,8 +1352,6 @@ function getGroupslist($groupid=0)
 	$log->debug("Exiting getGroupslist method ...");
 	return $change_groups_owner;
 }
-
-
 /**
   *	Function to Check for Security whether the Buttons are permitted in List/Edit/Detail View of all Modules
   *	@param string $module -- module name
@@ -1499,7 +1370,6 @@ function Button_Check($module)
 						 'index' => '',
 						 'Import' => '',
 						 'Export' => '' );
-
 		foreach($permit_arr as $action => $perr)
 		{
 			 $tempPer = isPermitted($module,$action,'');
@@ -1508,12 +1378,9 @@ function Button_Check($module)
 		$permit_arr["Calendar"] = isPermitted("Calendar","index",'');
 		setSqlCacheData($key,$permit_arr);
 	}
-
 	$log->debug("Exiting Button_Check method ...");
 	return $permit_arr;
-
 }
-
 /**
   *	Function to Check whether the User is allowed to delete a particular record from listview of each module using
   *	mass delete button.
@@ -1561,7 +1428,6 @@ function getEntityName($module, $ids_list)
 	}
 	$log->debug("Exiting getEntityName method ...");
 }
-
 /**
   *	Function to get entity name for uitype 10
   *	mass delete button.
@@ -1586,7 +1452,6 @@ function getEntityNameForTen($rel_tablename,$rel_entityname,$fieldname,$value)
 }
 /**Function to get all permitted modules for a user with their parent
 */
-
 function getAllParenttabmoduleslist()
 {
         global $adb;
@@ -1602,15 +1467,12 @@ function getAllParenttabmoduleslist()
 				$resultant_array[$parenttabname][] = Array($modulename,$tablabel);
 				
         }
-
 		if($is_admin)
 		{
 				$resultant_array['Settings'][] = Array('Settings','Settings');
 		}
-
 	    return $resultant_array;
 }
-
 /**
  * 	This function is used to decide the File Storage Path in where we will upload the file in the server.
  * 	return string $filepath  - filepath inwhere the file should be stored in the server will be return
@@ -1621,24 +1483,20 @@ function decideFilePath()
 	$log->debug("Entering into decideFilePath() method ...");
 	$filepath = 'storage/';
 	//$filepath = 'storage/';
-
 	$year  = date('Y');
 	$month = date('F');
 	$day  = date('j');
 	$week   = '';
-
 	if(!is_dir($filepath.$year))
 	{
 		//create new folder
 		mkdir($filepath.$year);
 	}
-
 	if(!is_dir($filepath.$year."/".$month))
 	{
 		//create new folder
 		mkdir($filepath."$year/$month");
 	}
-
 	if($day > 0 && $day <= 7)
 		$week = 'week1';
 	elseif($day > 7 && $day <= 14)
@@ -1649,22 +1507,16 @@ function decideFilePath()
 		$week = 'week4';
 	else
 		$week = 'week5';
-
 	if(!is_dir($filepath.$year."/".$month."/".$week))
 	{
 		//create new folder
 		mkdir($filepath."$year/$month/$week");
 	}
-
 	$filepath = $filepath.$year."/".$month."/".$week."/";
-
 	$log->debug("Year=$year & Month=$month & week=$week && filepath=\"$filepath\"");
 	$log->debug("Exiting from decideFilePath() method ...");
-
 	return $filepath;
 }
-
-
 /**
  * 	This function is used to check whether the attached file is a image file or not
  *	@param string $file_details  - ec_files array which contains all the uploaded file details
@@ -1674,11 +1526,9 @@ function validateImageFile($file_details)
 {
 	global $adb, $log;
 	$log->debug("Entering into validateImageFile() method.");
-
 	$savefile = 'true';
 	$file_type_details = explode("/",$file_details['type']);
 	$filetype = $file_type_details['1'];
-
 	if (($filetype == "jpeg" ) || ($filetype == "png") || ($filetype == "jpg" ) || ($filetype == "pjpeg" ) || ($filetype == "x-png") || ($filetype == "gif") || ($filetype == "bmp"))
 	{
 		$saveimage = 'true';
@@ -1687,19 +1537,15 @@ function validateImageFile($file_details)
 	{
 		$saveimage = 'false';
 		$_SESSION['image_type_error'] .= "<br> &nbsp;&nbsp;Allowed file types - jpeg, png, jpg, pjpeg, x-png or gif.";
-
 	}
-
 	$log->debug("Exiting from validateImageFile( method.");
 	return $saveimage;
 }
-
 /**
  * 	This function is used to get the Email Template Details like subject and content for particular template.
  *	@param integer $templateid  - Template Id for an Email Template
  * 	return array $returndata - Returns Subject, Body of Template of the the particular email template.
 */
-
 function getTemplateDetails($templateid)
 {
         global $adb,$log;
@@ -1712,7 +1558,6 @@ function getTemplateDetails($templateid)
         $log->debug("Exiting from getTemplateDetails($templateid) method ...");
         return $returndata;
 }
-
 /**	Function used to retrieve a single field value from database
  *	@param string $tablename - tablename from which we will retrieve the field value
  *	@param string $fieldname - fieldname to which we want to get the value from database
@@ -1726,12 +1571,9 @@ function getSingleFieldValue($tablename, $fieldname, $idname, $id)
 	$log->debug("Entering into function getSingleFieldValue()");
 	$result = $adb->query("select $fieldname from $tablename where $idname = $id");
 	$fieldval = $adb->query_result($result,0,$fieldname);
-
 	$log->debug("Exit from function getSingleFieldValue()");
-
 	return $fieldval;
 }
-
 function get_users_emails($userids_array) {
 	global $adb;
 	if(!is_array($userids_array)) {
@@ -1754,7 +1596,6 @@ function get_users_emails($userids_array) {
 	}
 	return $user_emails;
 }
-
 function getUserIDFilterHTML($module,$selected="")
 {
     global $current_user;
@@ -1805,13 +1646,11 @@ function getUserIDFilterHTML($module,$selected="")
 	*/
     return $shtml;
 }
-
 function getUserIDS($viewscope="all_to_me")
 {
     global $log;
     $log->debug("Entering getUserIDS() method ...");
     global $current_user;
-
     if(empty($viewscope)) $viewscope="all_to_me";
 	$key = "sqluserids_".$viewscope."_".$current_user->id;
 	$userIDS = getSqlCacheData($key);
@@ -1820,7 +1659,6 @@ function getUserIDS($viewscope="all_to_me")
 		$sec_query = "";
 		$userIDS = '';
 		
-
 		if($viewscope == "all_to_me") {
 			
 			$sec_query = "select id as userid from ec_users where status='Active'";
@@ -1865,9 +1703,7 @@ function getUserIDS($viewscope="all_to_me")
 			}
 			$userIDS .=')';
 		} elseif($viewscope == "current_user") {
-
 				$userIDS .='('.$current_user->id;
-
 				$userIDS .=')';
 		} elseif($viewscope == "current_group") {
 				$sec_query .= "select ec_users2group.userid from ec_users2group where ec_users2group.groupid in ".getCurrentUserGroupList()."";
@@ -1885,26 +1721,21 @@ function getUserIDS($viewscope="all_to_me")
 					$i++;
 				}
 				$userIDS .=')';
-
 		} else {
 			$userIDS .= '('.$viewscope.')';
-
 		}
 		setSqlCacheData($key,$userIDS);
 	}
 	if($userIDS == "()") {
 		$userIDS = "(-1)";
 	}
-
     $log->debug("Exiting getUserIDS method ...");
     return $userIDS;
 }
-
 /** call back function to change the array values in to lower case */
 function lower_array(&$string){
 	    $string = strtolower(trim($string));
 }
-
 /** Function to check whether the relationship entries are exist or not on elationship tables */
 function is_related($relation_table,$crm_field,$related_module_id,$crmid)
 {
@@ -1916,7 +1747,6 @@ function is_related($relation_table,$crm_field,$related_module_id,$crmid)
 	else
 		return false;
 }
-
 function decode_html($str)
 {
 	global $default_charset;
@@ -1925,13 +1755,11 @@ function decode_html($str)
 	else
 		return html_entity_decode($str,ENT_QUOTES,$default_charset);
 }
-
 /** Returns the URL for Basic and Advance Search
  ** Added to fix the issue 4600
  **/
 function getBasic_Advance_SearchURL()
 {
-
 	$url = '';
 	if($_REQUEST['searchtype'] == 'BasicSearch')
 	{
@@ -1956,9 +1784,7 @@ function getBasic_Advance_SearchURL()
 		$url .= (isset($_REQUEST['matchtype']))?'&matchtype='.$_REQUEST['matchtype']:'';
 	}
 	return $url;
-
 }
-
 function getTimeFilter($filtercolumn,$startdate,$enddate)
 {
 	$filter_sql = "";
@@ -1976,13 +1802,11 @@ function getTimeFilter($filtercolumn,$startdate,$enddate)
 		}
 	}
 	return $filter_sql;
-
 }
 function getStdDateFilterHtml($selcriteria = "")
 {
 	global $app_strings;
 	$filter = array();
-
 	$stdfilter = Array("custom"=>"".$app_strings['Custom']."",
 			"prevfy"=>"".$app_strings['Previous FY']."",
 			"thisfy"=>"".$app_strings['Current FY']."",
@@ -2022,9 +1846,7 @@ function getStdDateFilterHtml($selcriteria = "")
 		}
 	}
 	return $shtml;
-
 }
-
 /** to get the standard filter criteria scripts
   * @returns  $jsStr : Type String
   * This function will return the script to set the start data and end date
@@ -2032,48 +1854,37 @@ function getStdDateFilterHtml($selcriteria = "")
   */
 function getStdDateFilterJs($fieldname="jscal_field")
 {
-
-
 	$today = date("Y-m-d",mktime(0, 0, 0, date("m")  , date("d"), date("Y")));
 	$tomorrow  = date("Y-m-d",mktime(0, 0, 0, date("m")  , date("d")+1, date("Y")));
 	$yesterday  = date("Y-m-d",mktime(0, 0, 0, date("m")  , date("d")-1, date("Y")));
-
 	$currentmonth0 = date("Y-m-d",mktime(0, 0, 0, date("m"), "01",   date("Y")));
 	$currentmonth1 = date("Y-m-t");
 	$lastmonth0 = date("Y-m-d",mktime(0, 0, 0, date("m")-1, "01",   date("Y")));
 	$lastmonth1 = date("Y-m-t", mktime(0, 0, 0, date("m")-1, "01",   date("Y")));
 	$nextmonth0 = date("Y-m-d",mktime(0, 0, 0, date("m")+1, "01",   date("Y")));
 	$nextmonth1 = date("Y-m-t", mktime(0, 0, 0, date("m")+1, "01",   date("Y")));
-
 	$lastweek0 = date("Y-m-d",strtotime("-2 week Sunday"));
 	$lastweek1 = date("Y-m-d",strtotime("-1 week Saturday"));
-
 	$thisweek0 = date("Y-m-d",strtotime("-1 week Sunday"));
 	$thisweek1 = date("Y-m-d",strtotime("this Saturday"));
-
 	$nextweek0 = date("Y-m-d",strtotime("this Sunday"));
 	$nextweek1 = date("Y-m-d",strtotime("+1 week Saturday"));
-
 	$next7days = date("Y-m-d",mktime(0, 0, 0, date("m")  , date("d")+6, date("Y")));
 	$next30days = date("Y-m-d",mktime(0, 0, 0, date("m")  , date("d")+29, date("Y")));
 	$next60days = date("Y-m-d",mktime(0, 0, 0, date("m")  , date("d")+59, date("Y")));
 	$next90days = date("Y-m-d",mktime(0, 0, 0, date("m")  , date("d")+89, date("Y")));
 	$next120days = date("Y-m-d",mktime(0, 0, 0, date("m")  , date("d")+119, date("Y")));
-
 	$last7days = date("Y-m-d",mktime(0, 0, 0, date("m")  , date("d")-6, date("Y")));
 	$last30days = date("Y-m-d",mktime(0, 0, 0, date("m")  , date("d")-29, date("Y")));
 	$last60days = date("Y-m-d",mktime(0, 0, 0, date("m")  , date("d")-59, date("Y")));
 	$last90days = date("Y-m-d",mktime(0, 0, 0, date("m")  , date("d")-89, date("Y")));
 	$last120days = date("Y-m-d",mktime(0, 0, 0, date("m")  , date("d")-119, date("Y")));
-
 	$currentFY0 = date("Y-m-d",mktime(0, 0, 0, "01", "01",   date("Y")));
 	$currentFY1 = date("Y-m-t",mktime(0, 0, 0, "12", date("d"),   date("Y")));
 	$lastFY0 = date("Y-m-d",mktime(0, 0, 0, "01", "01",   date("Y")-1));
 	$lastFY1 = date("Y-m-t", mktime(0, 0, 0, "12", date("d"), date("Y")-1));
-
 	$nextFY0 = date("Y-m-d",mktime(0, 0, 0, "01", "01",   date("Y")+1));
 	$nextFY1 = date("Y-m-t", mktime(0, 0, 0, "12", date("d"), date("Y")+1));
-
 	if(date("m") <= 3)
 	{
 		$cFq = date("Y-m-d",mktime(0, 0, 0, "01","01",date("Y")));
@@ -2091,7 +1902,6 @@ function getStdDateFilterJs($fieldname="jscal_field")
 		$cFq1 = date("Y-m-d",mktime(0, 0, 0, "06","30",date("Y")));
 		$nFq = date("Y-m-d",mktime(0, 0, 0, "07","01",date("Y")));
 		$nFq1 = date("Y-m-d",mktime(0, 0, 0, "09","30",date("Y")));
-
 	}
 	else if(date("m") > 7 and date("m") <= 9)
 	{
@@ -2101,7 +1911,6 @@ function getStdDateFilterJs($fieldname="jscal_field")
 		$cFq1 = date("Y-m-d",mktime(0, 0, 0, "09","30",date("Y")));
 		$nFq = date("Y-m-d",mktime(0, 0, 0, "10","01",date("Y")));
 		$nFq1 = date("Y-m-d",mktime(0, 0, 0, "12","31",date("Y")));
-
 	}
 	else
 	{
@@ -2112,7 +1921,6 @@ function getStdDateFilterJs($fieldname="jscal_field")
 		$cFq = date("Y-m-d",mktime(0, 0, 0, "10","01",date("Y")));
 		$cFq1 = date("Y-m-d",mktime(0, 0, 0, "12","31",date("Y")));
 	}
-
 	$sjsStr = '<script language="JavaScript" type="text/javaScript">
 		function showDateRange_'.$fieldname.'( type )
 		{
@@ -2142,7 +1950,6 @@ function getStdDateFilterJs($fieldname="jscal_field")
 			}
 			else if( type == "tomorrow" )
 			{
-
 				document.getElementById("'.$fieldname.'_date_start").value = "'.$tomorrow.'";
 				document.getElementById("'.$fieldname.'_date_end").value = "'.$tomorrow.'";
 			}
@@ -2263,10 +2070,8 @@ function getStdDateFilterJs($fieldname="jscal_field")
 			}
 		}
 	</script>';
-
 	return $sjsStr;
 }
-
 function getModulePicklistOptionsHtml($module,$selected_key="") {
 	global $log;
     $log->debug("Entering getModulePicklistOptionsHtml method ...");
@@ -2304,18 +2109,15 @@ function getFieldLabel($module,$columnname) {
 	if(isset($cur_mod_strings[$fieldlabel])) {
 			$fieldlabel = $cur_mod_strings[$fieldlabel];
 	}
-
 	$log->debug("Exit getFieldLabel method ...");
 	return $fieldlabel;
 }
-
 function javaStrPos($base,$findme)
 {
 	$result = stripos($base,$findme);
 	if ($result === false) $result = -1;
 	return $result;
 }
-
 function sendMessage($content,$touser,$fromuser='System') {
 	global $log;
     $log->debug("Entering sendPM method ...");
@@ -2363,8 +2165,6 @@ function insertPicklistValues($values, $fieldname)
 	}
 	$log->debug("Exiting insertPicklistValues method ...");
 }
-
-
 function setRelmodFieldList($relatedmodule,$focus) {
 	global $log,$adb;
 	$log->debug("Entering getRelmodFieldList() method ...");
@@ -2409,10 +2209,8 @@ function setRelmodFieldList($relatedmodule,$focus) {
 			$focus->list_fields_name = $list_fields_name;
 		}
 	}
-
 	$log->debug("Exiting getRelmodFieldList method ...");
 }
-
 function InsertNickInfo($nick,$source=""){ 
 	global $log,$adb;
 	require_once('modules/Users/Users.php');
@@ -2425,7 +2223,6 @@ function InsertNickInfo($nick,$source=""){
 	$focus->column_fields['department'] = $source;
 	$focus->save("Users");
 	$return_id = $focus->id; 
-
 	$log->debug("Exiting InsertNickInfo method ...");
 	if(!empty($return_id) && $return_id != 0){
 		return $return_id;
@@ -2474,7 +2271,6 @@ function getUserIDByNicheng($nick){
 	$log->debug("Exiting getUserIDByNicheng method ...");
 	return $id;
 }
-
 function getProductFieldList($basemodule)
 {
 	global $log;
@@ -2500,7 +2296,6 @@ function getProductFieldList($basemodule)
 	$log->debug("Exiting getProductFieldList method ...");
 	return $fieldlist;
 }
-
 function getProductFieldLabelList($basemodule)
 {
 	$fieldLabelList = array();
@@ -2538,7 +2333,6 @@ function getProductFieldLabelList($basemodule)
 	$log->debug("Exiting getProductFieldLabelList method ...");
 	return $fieldLabelList;
 }
-
 /**	Function used to retrieve the rate converted into dollar tobe saved into database
  *	The function accepts the price in the current currency
  *	return integer $conv_price  - 
@@ -2552,8 +2346,6 @@ function getProductFieldLabelList($basemodule)
 	 $price = ec_number_format($price,true);
 	 return $price;
  }
-
-
 /**	Function used to get the converted amount from dollar which will be showed to the user
  *	@param float $price - amount in dollor which we want to convert to the user configured amount
  *	@return float $conv_price  - amount in user configured currency
@@ -2571,7 +2363,6 @@ function getConvertedPriceFromDollar($price)
 	$price = ec_number_format($price,true);
 	return $price;
 }
-
 function convertToDollar($amount,$crate){
 	/*
 	global $log;
@@ -2585,7 +2376,6 @@ function convertToDollar($amount,$crate){
 	$amount = ec_number_format($amount);
 	return $amount;
 }
-
 /** This function returns the amount converted from dollar.
   * param $amount - amount to be converted.
     * param $crate - conversion rate.
@@ -2603,7 +2393,6 @@ function convertFromDollar($amount,$crate){
 	$amount = ec_number_format($amount);
     return $amount;
 }
-
 function deleteInventoryProductDetails($objectid, $return_old_values='')
 {
 	global $log, $adb;
@@ -2612,13 +2401,9 @@ function deleteInventoryProductDetails($objectid, $return_old_values='')
 	$query2 = "delete from ec_inventoryproductrel where id=".$objectid;
 	$adb->query($query2);
 	//end:changed by dingjianting on 2006-12-3 for qinjie's newbug
-
 	$log->debug("Exit from function deleteInventoryProductDetails().");
 	return $ext_prod_arr;
 }
-
-
-
 // grabs client ip address and returns its value
 function query_client_ip()
 {
@@ -2639,7 +2424,6 @@ function query_client_ip()
 				break;
 			}
 		}
-
 	}
 	elseif(isset($_SERVER['HTTP_FROM']))
 	{
@@ -2671,15 +2455,6 @@ function clean_string($str, $filter = "STANDARD") {
 		return $str;
 	}
 }
-function getJSONObj() {
-	static $json = null;
-	if(!isset($json)) {
-		require_once('service/utils/JSON.php');
-		$json = new JSON(JSON_LOOSE_TYPE);
-	}
-	return $json;
-}
-
 function convertPriceIntoRen($price,$rate) 
 {
 	if(!empty($rate) && $rate != 0) {
@@ -2688,7 +2463,6 @@ function convertPriceIntoRen($price,$rate)
 	$price = ec_number_format($price,true);
 	return $price;
 }
-
 function doAlipayInfo($out_trade_no,$trade_no,$total_fee){
 	session_start();
 	global $adb;
@@ -2701,7 +2475,6 @@ function doAlipayInfo($out_trade_no,$trade_no,$total_fee){
 		$chargetime   = $row['chargetime'];
 		$endtime   = $row['endtime'];
 		//$total_fee   = $row['chargefee'];
-
 		$query2 = "select * from ec_systemcharges where userid = '".$userid."' ";
 		$result = $adb->getFirstLine($query2);
 		
@@ -2720,7 +2493,6 @@ function doAlipayInfo($out_trade_no,$trade_no,$total_fee){
 		$adb->query("delete from ec_systemchargetmps where userid=$userid");	
 	}
 }
-
 /**
  * 通过模块名取到当前模块的表名、编号名、id名
  */
@@ -2748,5 +2520,4 @@ function getModTabName($modname) {
 	$log->debug("Exiting getModTabName method ...");
 	return $entityname;
 }
-
 ?>

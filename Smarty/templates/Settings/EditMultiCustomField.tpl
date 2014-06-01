@@ -24,9 +24,7 @@ function getCustomFieldList(customField)
 		{rdelim}
 	);
 {rdelim}
-
 {literal}
-
 function theformvalidate2()
 {
     for(var i=1;i<=3;i++)
@@ -49,7 +47,6 @@ function theformvalidate2()
     }
     return true;
 }
-
 function savemultifieldvalue(multifieldid,level,parentfieldid)
 {
     var pick_arr=new Array();
@@ -71,7 +68,6 @@ function savemultifieldvalue(multifieldid,level,parentfieldid)
 			}
 		}
 		i = curr_iter
-
 	}
 	
 		if(trim($("picklist_values").value) == '')
@@ -81,12 +77,10 @@ function savemultifieldvalue(multifieldid,level,parentfieldid)
 			return false;
 		}
 	
-
     $("status").style.display = "inline";
 	//Effect.Puff($('editdiv'),{duration:2});
 	var body = escape($("picklist_values").value);
 	var post_url = 'index.php?action=SettingsAjax&module=Settings&directmode=ajax&file=UpdateMultiComboValues&multifieldid='+multifieldid+'&level='+level+'&listarea='+body+'&parentfieldid='+parentfieldid;
-
 	new Ajax.Request(
         	post_url,
 	        {queue: {position: 'end', scope: 'command'},
@@ -99,9 +93,7 @@ function savemultifieldvalue(multifieldid,level,parentfieldid)
 	             }
         	}
 	);
-
 }
-
 function getCreateCustomFieldForm(multifieldid,level,parentfieldid,selfel)
 {
       
@@ -134,13 +126,9 @@ function getCreateCustomFieldForm(multifieldid,level,parentfieldid,selfel)
                 	}
                 }
         );
-
-
 }
-
 function getEditCustomFieldForm(multifieldid,level,parentfieldid,selfel)
 {
-
         var parentfieldid=0;
         if(level>1){
             var parentlevel=level-1;
@@ -152,10 +140,7 @@ function getEditCustomFieldForm(multifieldid,level,parentfieldid,selfel)
         }
         var url='index.php?action=PopupMultiFieldTree&module=Settings&multifieldid='+multifieldid+'&level='+level+'&parentfieldid='+parentfieldid
         window.open(url,"test","width=450,height=450,resizable=1,scrollbars=1");
-
-
 }
-
 function updateChildOptions(multifieldid,level)
 {
     var level=parseInt(level);
@@ -177,7 +162,6 @@ function updateChildOptions(multifieldid,level)
             }
         );
 }
-
 function reloadOptions(multifieldid)
 {
      if($('multifieldvalue2')) $('multifieldvalue2').update("<option value=''>--未选择--</option>");
@@ -190,7 +174,6 @@ function reloadOptions(multifieldid)
                 onComplete: function(response) {
                     var optionval=response.responseText;
                      if($('multifieldvalue1')) $('multifieldvalue1').update(optionval);
-
                 }
             }
         );
@@ -201,20 +184,14 @@ function CustomFieldMapping()
         document.form.submit();
 }
 var gselected_fieldtype = '';
-
 function theformvalidate() {
 	var nummaxlength = 255;
-
-
 	lengthLayer=getObj("lengthdetails")
-
         var str = getObj("fldLabel").value;
         if (!emptyCheck("fldLabel",'字段标签'))
                 return false;
 	return true;
-
 }
-
 function gotoBack(modulename)
 {
     window.location.href="index.php?module=Settings&action=CustomMultiFieldList&fld_module="+modulename+"&parenttab=Settings";
@@ -228,30 +205,25 @@ function gotoBack(modulename)
         <td valign="top"><img src="{$IMAGE_PATH}showPanelTopLeft.gif"></td>
         <td class="showPanelBg" style="padding: 10px;" valign="top" width="100%">
         <br>
-
 	<div align=center>
 			{include file='SetMenu.tpl'}
 			<!-- DISPLAY -->
 			{if $MODE neq 'edit'}
 			<b><font color=red>{$DUPLICATE_ERROR} </font></b>
 			{/if}
-
 				<table class="settingsSelUITopLine" border="0" cellpadding="5" cellspacing="0" width="100%">
 				<tbody><tr>
 					<td rowspan="2" valign="top" width="50"><img src="{$IMAGE_PATH}relatedfield.gif" alt="Users" title="Users" border="0" height="48" width="48"></td>
 					<td class="heading2" valign="bottom"><b><a href="index.php?module=Settings&action=index&parenttab=Settings">{$MOD.LBL_SETTINGS}</a> &gt; 编辑级联字段信息</b></td>
 				</tr>
-
 				<tr>
 					<td class="small" valign="top">- 编辑级联字段信息。</td>
 				</tr>
 				</tbody></table>
-
 				<br>
 				<table border="0" cellpadding="10" cellspacing="0" width="100%">
 				<tbody><tr>
 				<td>
-
 				
 				<div id="cfList">
                         <form action="index.php" method="post" name="form">
@@ -276,16 +248,13 @@ function gotoBack(modulename)
                                <input type="button" name="Edit" value="取消" class="crmButton small edit" onclick="gotoBack('{$FieldInfo.modulename}');">
                             </tr>
                             </table>
-
                             <table class="listTable" border="0" cellpadding="5" cellspacing="0" width="100%">
-
                                 <tr>
                                     <td class="colHeader small" width="5%">#</td>
                                     <td class="colHeader small" width="20%">级联字段标签</td>
                                     <td class="colHeader small" width="20%">级联字段值</td>
                                     <td class="colHeader small" width="20%">是否必填</td>
                                 </tr>
-
                                 {foreach item=entries key=id from=$CFENTRIES}
                                 <tr>
                                     {foreach item=value from=$entries}
@@ -296,12 +265,9 @@ function gotoBack(modulename)
                     </table>
                     </form>
                     <br>
-
-
                 </div>
 			<table border="0" cellpadding="5" cellspacing="0" width="100%">
 			<tr>
-
 		  	<td class="small" align="right" nowrap="nowrap"><a href="#top">{$MOD.LBL_SCROLL}</a></td>
 			</tr>
 			</table>
@@ -309,7 +275,6 @@ function gotoBack(modulename)
 			</tr>
 			</table>
 		<!-- End of Display -->
-
 		</td>
         </tr>
         </table>
@@ -317,7 +282,6 @@ function gotoBack(modulename)
         </tr>
         </table>
         </div>
-
         </td>
         <td valign="top"><img src="{$IMAGE_PATH}showPanelTopRight.gif"></td>
         </tr>

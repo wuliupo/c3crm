@@ -24,8 +24,6 @@
  * @license    http://www.gnu.org/licenses/old-licenses/lgpl-2.1.txt	LGPL
  * @version    1.7.2, 2010-01-11
  */
-
-
 /**
  * PHPExcel_Worksheet_SheetView
  *
@@ -43,7 +41,6 @@ class PHPExcel_Worksheet_SheetView
 	 * @var int
 	 */
 	private $_zoomScale;
-
 	/**
 	 * ZoomScaleNormal
 	 * 
@@ -52,7 +49,6 @@ class PHPExcel_Worksheet_SheetView
 	 * @var int
 	 */
 	private $_zoomScaleNormal;
-
     /**
      * Create a new PHPExcel_Worksheet_SheetView
      */
@@ -62,7 +58,6 @@ class PHPExcel_Worksheet_SheetView
     	$this->_zoomScale 				= 100;
     	$this->_zoomScaleNormal 		= 100;
     }
-
 	/**
 	 * Get ZoomScale
 	 *
@@ -71,7 +66,6 @@ class PHPExcel_Worksheet_SheetView
 	public function getZoomScale() {
 		return $this->_zoomScale;
 	}
-
 	/**
 	 * Set ZoomScale
 	 *
@@ -98,7 +92,6 @@ class PHPExcel_Worksheet_SheetView
 	public function getZoomScaleNormal() {
 		return $this->_zoomScaleNormal;
 	}
-
 	/**
 	 * Set ZoomScale
 	 *
@@ -116,7 +109,6 @@ class PHPExcel_Worksheet_SheetView
 		}
 		return $this;
 	}
-
 	/**
 	 * Implement PHP __clone to create a deep clone, not just a shallow copy.
 	 */

@@ -13,7 +13,6 @@ require_once('include/utils/ListViewUtils.php');
 require_once('modules/CustomView/CustomView.php');
 require_once('include/DatabaseUtil.php');
 require_once('include/utils/CommonUtils.php');
-
 class Homestuff
 {
 	var $userid;
@@ -142,7 +141,6 @@ class Homestuff
 		$homeframe=$homeval;
 		return $homeframe;
 	}
-
 	function getSelectedStuff()
 	{
 		global $adb;
@@ -164,7 +162,6 @@ class Homestuff
 		}
 		return $homeval;
 	}
-
 	function getHomePageStuff($sid,$stuffType)
 	{
 		global $adb;
@@ -261,7 +258,6 @@ class Homestuff
 		else
 			echo "<font color='red'>Permission Denied</font>";
 	}
-
 	Private function getRssDetails($rid)
 	{
 		if(isPermitted('Rss','index') == "yes"){
@@ -286,7 +282,6 @@ class Homestuff
 			echo "<font color='red'>Not Accessible</font>";
 		return $return_value;	
 	}
-
 	function getDashDetails($did,$chart='')
 	{
 		global $adb;
@@ -406,10 +401,6 @@ class Homestuff
 		if(count($home_values) > 0)
 			$return_value=Array('Maxentries'=>$maxval,'Details'=>$home_values);
 		return $return_value;
-
 	}
-
 }
-
-
 ?>

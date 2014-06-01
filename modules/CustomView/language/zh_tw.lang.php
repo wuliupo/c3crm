@@ -205,6 +205,5 @@ $mod_strings = array (
   'Open Quotes' => '待定報價',
   'LBL_SETPUBLIC' => '公共檢視',
   'LBL_SETROLE' => '角色',
-
 );
 ?>

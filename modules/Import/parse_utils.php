@@ -12,12 +12,10 @@
  * All Rights Reserved.
  * Contributor(s): ______________________________________.
  ********************************************************************************/
-
 // takes a string and parses it into one record per line,
 // one ec_field per delimiter, to a maximum number of lines
 // some ec_files have a header, some dont.
 // keeps track of which ec_fields are used
-
 /**	function used to parse the file
  *	@param string $file_name - file name
  *	@param character $delimiter - delimiter of the csv file
@@ -48,7 +46,6 @@ function parse_import($file_name,$delimiter,$max_lines,$has_header)
 		$_SESSION['import_rows_in_excel'] = $return;
 	}
 	
-
 	if(is_array($return) && count($return) > 0)
 	{
 		foreach($return as $sheet)
@@ -85,11 +82,8 @@ function parse_import($file_name,$delimiter,$max_lines,$has_header)
 		"rows"=>&$rows,
 		"field_count"=>$field_count
 	);
-
 	return $ret_array;
-
 }
-
 function parse_import_new($file_name,$delimiter,$max_lines,$has_header)
 {
     include_once("include/utils/utils.php");
@@ -100,7 +94,6 @@ function parse_import_new($file_name,$delimiter,$max_lines,$has_header)
 	{
 		return -1;
 	}
-
 //	if(isset($_SESSION['import_rows_in_excel']) && $_SESSION['import_rows_in_excel'] != "")
 //	{
 //		$return = $_SESSION['import_rows_in_excel'];
@@ -112,9 +105,7 @@ function parse_import_new($file_name,$delimiter,$max_lines,$has_header)
 //		$_SESSION['import_rows_in_excel'] = $return;
 //	}
 	$return = array();
-
     Read_Excel_File2($file_name,$return);
-
 	if(is_array($return) && count($return) > 0)
 	{
 		foreach($return as $sheet)
@@ -151,26 +142,18 @@ function parse_import_new($file_name,$delimiter,$max_lines,$has_header)
 		"rows"=>&$rows,
 		"field_count"=>$field_count
 	);
-
 	return $ret_array;
-
 }
-
 function parse_import_csv($file_name,$delimiter,$max_lines,$has_header)
 {
 	$line_count = 0;
-
 	$field_count = 0;
-
 	$rows = array();
-
 	if (! is_file($file_name))
 	{
 		return -1;
 	}
-
 	$fh = fopen($file_name,"r");
-
 	if (! $fh)
 	{
 		return -1;
@@ -179,24 +162,18 @@ function parse_import_csv($file_name,$delimiter,$max_lines,$has_header)
 	while ( (( $fields = fgetcsv($fh, 4096, $delimiter) ) !== FALSE)
 		&& ( $max_lines == -1 || $line_count < $max_lines))
 	{
-
 		if ( count($fields) == 1 && isset($fields[0]) && $fields[0] == '')
 		{
 			break;
 		}
 		$this_field_count = count($fields);
-
 		if ( $this_field_count > $field_count)
 		{
 			$field_count = $this_field_count;
 		}
-
 		array_push($rows,$fields);
-
 		$line_count++;
-
 	}
-
 	// got no rows
 	if ( count($rows) == 0)
 	{
@@ -214,14 +191,11 @@ function parse_import_csv($file_name,$delimiter,$max_lines,$has_header)
 			$rows[$rowKey] = $row;
 		}
 	}
-
 	$ret_array = array(
 		"rows"=>&$rows,
 		"field_count"=>$field_count
 	);
-
 	return $ret_array;
-
 }
 function chkCode($string){
    $code = array('ASCII', 'GBK', 'UTF-8');
@@ -235,9 +209,7 @@ function chkCode($string){
 function parse_import_csv_new($file_name,$delimiter,$max_lines,$has_header)
 {
 	$line_count = 0;
-
 	$field_count = 0;
-
 	$rows = array();
 	/*if (! is_file($file_name))
 	{
@@ -265,7 +237,6 @@ function parse_import_csv_new($file_name,$delimiter,$max_lines,$has_header)
 	//echo "fh2:".$fh."<br>";
     //phpinfo();
     //exit();
-
 	$line_arr =  str_getcsv($fh,"\n");
 	$line_count = count($line_arr);// num
 	
@@ -287,9 +258,7 @@ function parse_import_csv_new($file_name,$delimiter,$max_lines,$has_header)
 	unlink($file_name);
 	
 	return $ret_array;
-
 }
-
 /**	function used to parse the act file
  *	@param string $file_name - file name
  *	@param character $delimiter - delimiter of the csv file
@@ -300,61 +269,43 @@ function parse_import_csv_new($file_name,$delimiter,$max_lines,$has_header)
 function parse_import_act($file_name,$delimiter,$max_lines,$has_header)
 {
 	$line_count = 0;
-
 	$field_count = 0;
-
 	$rows = array();
-
 	if (! is_file($file_name))
 	{
 		return -1;
 	}
-
 	$fh = fopen($file_name,"r");
-
 	if (! $fh)
 	{
 		return -1;
 	}
-
 	while ( ($line = fgets($fh, 4096))
                 && ( $max_lines == -1 || $line_count < $max_lines) )
-
 	{
-
 		$line = trim($line);
 		$line = substr_replace($line,"",0,1);
 		$line = substr_replace($line,"",-1);
 		$fields = explode("\",\"",$line);
-
 		$this_field_count = count($fields);
-
 		if ( $this_field_count > $field_count)
 		{
 			$field_count = $this_field_count;
 		}
-
 		array_push($rows,$fields);
-
 		$line_count++;
-
 	}
-
 	// got no rows
 	if ( count($rows) == 0)
 	{
 		return -3;
 	}
-
 	$ret_array = array(
 		"rows"=>&$rows,
 		"field_count"=>$field_count
 	);
-
 	return $ret_array;
-
 }
-
 function Read_Excel_File2($file_name,&$result){
 	global $log;
 	$log->debug("Entering into function Read_Excel_File2()");
@@ -385,7 +336,6 @@ function Read_Excel_File2($file_name,&$result){
                         $value=PHPExcel_Style_NumberFormat::toFormattedString($value,$formatcode);
                     }
 //                    echo $value,$formatcode,'<br>';
-
                 }
                 $result[$sheetname][$row-1][$col]=$value;
             }

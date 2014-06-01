@@ -512,6 +512,5 @@ $mod_strings = array (
   'Title' => '職稱',
   'Description' => '備注',
   'Approve' => '審批',
-
 );
 ?>

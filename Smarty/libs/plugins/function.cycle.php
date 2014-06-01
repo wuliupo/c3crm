@@ -4,7 +4,6 @@
  * @package Smarty
  * @subpackage plugins
  */
-
 /**
  * Smarty {cycle} function plugin
  *
@@ -62,7 +61,6 @@ function smarty_function_cycle($params, &$smarty)
         }
         $cycle_vars[$name]['values'] = $params['values'];
     }
-
     $cycle_vars[$name]['delimiter'] = (isset($params['delimiter'])) ? $params['delimiter'] : ',';
     
     if(is_array($cycle_vars[$name]['values'])) {
@@ -85,7 +83,6 @@ function smarty_function_cycle($params, &$smarty)
     } else {
         $retval = null;
     }
-
     if($advance) {
         if ( $cycle_vars[$name]['index'] >= count($cycle_array) -1 ) {
             $cycle_vars[$name]['index'] = 0;
@@ -96,7 +93,5 @@ function smarty_function_cycle($params, &$smarty)
     
     return $retval;
 }
-
 /* vim: set expandtab: */
-
 ?>

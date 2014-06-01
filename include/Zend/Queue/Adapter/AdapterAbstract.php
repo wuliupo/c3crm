@@ -19,17 +19,14 @@
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  * @version    $Id: AdapterAbstract.php 23775 2011-03-01 17:25:24Z ralph $
  */
-
 /**
  * @see Zend_Queue
  */
 require_once 'include/Zend/Queue.php';
-
 /**
  * @see Zend_Queue_Adapter_AdapterInterface
  */
 require_once 'include/Zend/Queue/Adapter/AdapterInterface.php';
-
 /**
  * Class for connecting to queues performing common operations.
  *
@@ -46,33 +43,28 @@ abstract class Zend_Queue_Adapter_AdapterAbstract
      * Default timeout for createQueue() function
      */
     const CREATE_TIMEOUT_DEFAULT = 30;
-
     /**
      * Default timeout for recieve() function
      */
     const RECEIVE_TIMEOUT_DEFAULT = 30;
-
     /**
      * User-provided options
      *
      * @var array
      */
     protected $_options = array();
-
     /**
      * Internal array of queues to save on lookups
      *
      * @var array
      */
     protected $_queues = array();
-
     /**
      * Contains the Zend_Queue that this object
      *
      * @var Zend_Queue_Adapter_Abstract
      */
     protected $_queue = null;
-
     /**
      * Constructor.
      *
@@ -101,7 +93,6 @@ abstract class Zend_Queue_Adapter_AdapterAbstract
         if ($options instanceof Zend_Config) {
             $options = $options->toArray();
         }
-
         /*
          * Verify that adapter parameters are in an array.
          */
@@ -109,22 +100,18 @@ abstract class Zend_Queue_Adapter_AdapterAbstract
             require_once 'include/Zend/Queue/Exception.php';
             throw new Zend_Queue_Exception('Adapter options must be an array or Zend_Config object');
         }
-
         // set the queue
         if ($queue !== null) {
             $this->setQueue($queue);
         }
-
         $adapterOptions = array();
         $driverOptions  = array();
-
         // Normalize the options and merge with the defaults
         if (array_key_exists('options', $options)) {
             if (!is_array($options['options'])) {
                 require_once 'include/Zend/Queue/Exception.php';
                 throw new Zend_Queue_Exception("Configuration array 'options' must be an array");
             }
-
             // Can't use array_merge() because keys might be integers
             foreach ($options['options'] as $key => $value) {
                 $adapterOptions[$key] = $value;
@@ -140,7 +127,6 @@ abstract class Zend_Queue_Adapter_AdapterAbstract
         $this->_options['options']       = $adapterOptions;
         $this->_options['driverOptions'] = $driverOptions;
     }
-
     /********************************************************************
     * Queue management functions
      *********************************************************************/
@@ -153,7 +139,6 @@ abstract class Zend_Queue_Adapter_AdapterAbstract
     {
         return $this->_queue;
     }
-
     /**
      * set the Zend_Queue class for this object
      *
@@ -165,7 +150,6 @@ abstract class Zend_Queue_Adapter_AdapterAbstract
         $this->_queue = $queue;
         return $this;
     }
-
     /**
      * Returns the configuration options in this adapter.
      *
@@ -175,7 +159,6 @@ abstract class Zend_Queue_Adapter_AdapterAbstract
     {
         return $this->_options;
     }
-
     /**
      * Indicates if a function is supported or not.
      *
@@ -185,7 +168,6 @@ abstract class Zend_Queue_Adapter_AdapterAbstract
     public function isSupported($name)
     {
         $list = $this->getCapabilities();
-
         return (isset($list[$name]) && $list[$name]);
      }
 }

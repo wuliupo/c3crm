@@ -9,22 +9,17 @@
 *
  ********************************************************************************/
 -->*}
-
-
 <script type="text/javascript" src="modules/{$MODULE}/{$SINGLE_MOD}.js"></script>
 <script type="text/javascript" src="include/js/general.js"></script>
 <script>
-
 function getImportSavedMap(impoptions)
 {ldelim}
 	var mapping = impoptions.options[impoptions.options.selectedIndex].value;
-
 	//added to show the delete link
 	if(mapping != -1)
 		document.getElementById("delete_mapping").style.visibility = "visible";
 	else
 		document.getElementById("delete_mapping").style.visibility = "hidden";
-
 	new Ajax.Request(
 		'index.php',
 		{ldelim}queue: {ldelim}position: 'end', scope: 'command'{rdelim},
@@ -40,7 +35,6 @@ function deleteMapping()
 {ldelim}
 	var options_collection = document.getElementById("saved_source").options;
 	var mapid = options_collection[options_collection.selectedIndex].value;
-
 	new Ajax.Request(
 		'index.php',
 		{ldelim}queue: {ldelim}position: 'end', scope: 'command'{rdelim},
@@ -51,17 +45,14 @@ function deleteMapping()
 				{rdelim}
 			{rdelim}
 		);
-
 	//we have emptied the map name from the select list
 	document.getElementById("saved_source").options[options_collection.selectedIndex] = null;
 	document.getElementById("delete_mapping").style.visibility = "hidden";
 	alert(alert_arr.MAPPING_LIST_DELETED);
 {rdelim}
-
 </script>
 <!-- header - level 2 tabs -->
 {include file='Buttons_List1.tpl'}	
-
 <table align="center" border="0" cellpadding="0" cellspacing="0" width="98%" class="small">
 <tbody>
    <tr>
@@ -82,7 +73,6 @@ function deleteMapping()
 				<input type="hidden" name="return_id" value="{$RETURN_ID}">
 				<input type="hidden" name="return_action" value="{$RETURN_ACTION}">
 				<input type="hidden" name="parenttab" value="{$CATEGORY}">
-
 				<!-- IMPORT LEADS STARTS HERE  -->
 				<br />
 				<table align="center" cellpadding="5" cellspacing="0" width="95%" class="mailClient importLeadUI small">
@@ -185,4 +175,3 @@ function deleteMapping()
 	</td>
    </tr>
 </table>
-

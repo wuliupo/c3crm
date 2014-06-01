@@ -5,7 +5,6 @@
 * Türkçe Versiyonu
 * ÝZYAZILIM - Elçin Özel - Can Yýlmaz - Mehmet Benlioðlu
 */
-
 $PHPMAILER_LANG['authenticate']         = 'SMTP Hatasý: Doðrulanamýyor.';
 $PHPMAILER_LANG['connect_host']         = 'SMTP Hatasý: SMTP hosta baðlanýlamýyor.';
 $PHPMAILER_LANG['data_not_accepted']    = 'SMTP Hatasý: Veri kabul edilmedi.';

@@ -17,14 +17,10 @@
  * @copyright  Copyright (c) 2005-2007 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  */
-
-
 /**
  * Zend_Exception
  */
 require_once 'include/Zend/Exception.php';
-
-
 /**
  * @category   Zend
  * @package    Zend_Json
@@ -33,4 +29,3 @@ require_once 'include/Zend/Exception.php';
  */
 class Zend_Json_Exception extends Zend_Exception
 {}
-

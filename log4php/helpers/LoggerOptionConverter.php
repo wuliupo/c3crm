@@ -16,19 +16,15 @@
  * @package log4php
  * @subpackage helpers
  */
-
 /**
  * @ignore 
  */
 if (!defined('LOG4PHP_DIR')) define('LOG4PHP_DIR', dirname(__FILE__) . '/..');
-
 require_once(LOG4PHP_DIR . '/LoggerLevel.php');
-
 define('LOG4PHP_OPTION_CONVERTER_DELIM_START',      '${');
 define('LOG4PHP_OPTION_CONVERTER_DELIM_STOP',       '}');
 define('LOG4PHP_OPTION_CONVERTER_DELIM_START_LEN',  2);
 define('LOG4PHP_OPTION_CONVERTER_DELIM_STOP_LEN',   1);
-
 /**
  * A convenience class to convert property values to specific types.
  *
@@ -40,7 +36,6 @@ define('LOG4PHP_OPTION_CONVERTER_DELIM_STOP_LEN',   1);
  * @since 0.5
  */
 class LoggerOptionConverter {
-
     /** 
      * OptionConverter is a static class. 
      */
@@ -48,7 +43,6 @@ class LoggerOptionConverter {
     {
         return;
     }
-
     /**
      * @param array $l
      * @param array $r
@@ -60,7 +54,6 @@ class LoggerOptionConverter {
     {
         return array_merge($l, $r);
     }
-
     /**
     * Read a predefined var.
     *
@@ -79,7 +72,6 @@ class LoggerOptionConverter {
     function getSystemProperty($key, $def)
     {
         LoggerLog::debug("LoggerOptionConverter::getSystemProperty():key=[{$key}]:def=[{$def}].");
-
         if (defined($key)) {
             return (string)constant($key);
         } elseif (isset($_ENV[$key])) {
@@ -88,7 +80,6 @@ class LoggerOptionConverter {
             return $def;
         }
     }
-
     /**
      * If <var>$value</var> is <i>true</i>, then <i>true</i> is
      * returned. If <var>$value</var> is <i>false</i>, then
@@ -116,7 +107,6 @@ class LoggerOptionConverter {
             return false;
         return $default;
     }
-
     /**
      * @param string $value
      * @param integer $default
@@ -132,7 +122,6 @@ class LoggerOptionConverter {
             return $default;
         }
     }
-
     /**
      * Converts a standard or custom priority level to a Level
      * object.
@@ -164,7 +153,6 @@ class LoggerOptionConverter {
     {
         if($value === null)
             return $defaultValue;
-
         $hashIndex = strpos($value, '#');
         if ($hashIndex === false) {
             if("NULL" == strtoupper($value)) {
@@ -174,24 +162,17 @@ class LoggerOptionConverter {
 	            return LoggerLevel::toLevel($value, $defaultValue);
             }
         }
-
         $result = $defaultValue;
-
         $clazz = substr($value, ($hashIndex + 1));
         $levelName = substr($value, 0, $hashIndex);
-
         // This is degenerate case but you never know.
         if("NULL" == strtoupper($levelName)) {
         	return null;
         }
-
         LoggerLog::debug("LoggerOptionConverter::toLevel():class=[{$clazz}]:pri=[{$levelName}]");
-
         if (!class_exists($clazz))
             @include_once("{$clazz}.php");
-
         $clazz = basename($clazz);
-
         if (class_exists($clazz)) {
             $result = @call_user_func(array($clazz, 'toLevel'), $value, $defaultValue);
             if (!is_a($result, 'loggerlevel')) {
@@ -203,7 +184,6 @@ class LoggerOptionConverter {
         }
         return $result;
     }
-
     /**
      * @param string $value
      * @param float $default
@@ -215,7 +195,6 @@ class LoggerOptionConverter {
     {
         if ($value === null)
             return $default;
-
         $s = strtoupper(trim($value));
         $multiplier = (float)1;
         if(($index = strpos($s, 'KB')) !== false) {
@@ -235,7 +214,6 @@ class LoggerOptionConverter {
         }
         return $default;
     }
-
     /**
      * Find the value corresponding to <var>$key</var> in
      * <var>$props</var>. Then perform variable substitution on the
@@ -255,7 +233,6 @@ class LoggerOptionConverter {
         }
         return LoggerOptionConverter::substVars($value, $props);
     }
-
     /**
      * Perform variable substitution in string <var>$val</var> from the
      * values of keys found with the {@link getSystemProperty()} method.
@@ -330,7 +307,6 @@ class LoggerOptionConverter {
 	                if($replacement == null and $props !== null) {
             	        $replacement = @$props[$key];
 	                }
-
                     if(!empty($replacement)) {
 	                    // Do variable substitution on the replacement string
                 	    // such that we can solve "Hello ${x2}" as "Hello p1" 
@@ -345,6 +321,5 @@ class LoggerOptionConverter {
             }
         }
     }
-
 }
 ?>

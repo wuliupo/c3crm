@@ -24,7 +24,6 @@ function getCustomBlockList(customField)
 		{rdelim}
 	);	
 {rdelim}
-
 {literal}
 function deleteCustomBlock(blockid, fld_module)
 {
@@ -34,7 +33,6 @@ function deleteCustomBlock(blockid, fld_module)
                 document.form.submit();
         }
 }
-
 function getCreateCustomBlockForm(customModule,blockid,tabid,label,order)
 {
         var modulename = customModule;
@@ -49,7 +47,6 @@ function getCreateCustomBlockForm(customModule,blockid,tabid,label,order)
 			}
 		}
 	);
-
 }
 function makeFieldSelected(oField,fieldid)
 {
@@ -89,7 +86,6 @@ function validate_block() {
 <table align="center" border="0" cellpadding="0" cellspacing="0" width="98%">
 <tbody><tr>
         <td class="showPanelBg" style="padding: 10px;" valign="top" width="100%">
-
 	<div align=center>
 			{include file='SetMenu.tpl'}
 			<!-- DISPLAY -->
@@ -102,7 +98,6 @@ function validate_block() {
 					<td rowspan="2" valign="top" width="50"><img src="{$IMAGE_PATH}blocklist.gif" alt="Users" title="Users" border="0" height="48" width="48"></td>
 					<td class="heading2" valign="bottom"><b><a href="index.php?module=Settings&action=index&parenttab=Settings">{$MOD.LBL_SETTINGS}</a> &gt; {$MOD.LBL_BLOCK_EDITOR}</b></td>
 				</tr>
-
 				<tr>
 					<td class="small" valign="top">{$MOD.LBL_BLOCK_DESCRIPTION}</td>
 				</tr>
@@ -112,7 +107,6 @@ function validate_block() {
 				<table border="0" cellpadding="10" cellspacing="0" width="100%">
 				<tbody><tr>
 				<td>
-
 				<table class="tableHeading" border="0" cellpadding="5" cellspacing="0" width="100%">
 				<tbody><tr>
 					<td class="small" align="left">
@@ -137,7 +131,6 @@ function validate_block() {
                 </div>	
 			<table border="0" cellpadding="5" cellspacing="0" width="100%">
 			<tr>
-
 		  	<td class="small" align="right" nowrap="nowrap"><a href="#top">{$MOD.LBL_SCROLL}</a></td>
 			</tr>
 			</table>
@@ -153,7 +146,6 @@ function validate_block() {
         </tr>
         </table>
         </div>
-
         </td>
         </tr>
 </tbody>

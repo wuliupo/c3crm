@@ -4,20 +4,15 @@ require_once('include/logging.php');
 require_once('include/database/PearDatabase.php');
 require_once('data/CRMEntity.php');
 require_once('modules/Relsettings/ModuleConfig.php');
-
 // Note is used to store customer information.
 class Relsettings extends CRMEntity {
 	var $log;
 	var $db;
-
 	var $tab_name = Array('ec_crmentity','ec_relsettings');
 	var $tab_name_index = Array('ec_crmentity'=>'crmid','ec_relsettings'=>'relsettingsid');
 	var $entity_table = "ec_relsettings";
-
 	var $column_fields = Array();
-
 	var $sortby_fields = Array('relsettingname');
-
 	// This is the list of ec_fields that are in the lists.
 	/* Format: Field Label => Array(tablename, columnname) */
 	// tablename should not have prefix 'ec_'
@@ -46,12 +41,10 @@ class Relsettings extends CRMEntity {
 	//added for import and export function
 	var $special_functions =  array("create_user","add_create_account");
 	var $importable_fields = Array();
-
 	//Added these variables which are used as default order by and sortorder in ListView
 	var $default_order_by = 'modifiedtime';
 	var $default_sort_order = 'DESC';
 	var $is_custom_module = true;
-
 	function Relsettings() {
 		$this->log = LoggerManager::getLogger('relsettings');
 		$this->log->debug("Entering Relsettings() method ...");
@@ -73,7 +66,6 @@ class Relsettings extends CRMEntity {
 			$num   = $row['num'];
 			$enddate   = $row['enddate'];
 			$total_fee   = $row['total_fee'];
-
 			$query2 = "select * from ec_messageaccount where userid = '".$userid."' ";
 			$result = $adb->getFirstLine($query2);
 			

@@ -12,9 +12,7 @@
 <script language="JavaScript" type="text/javascript" src="include/js/menu.js"></script>
 <script language="JavaScript" type="text/javascript" src="include/js/ColorPicker2.js"></script>
 <script language="JAVASCRIPT" type="text/javascript" src="include/js/smoothscroll.js"></script>
-
 <script language="JavaScript" type="text/javascript">
-
  	var cp2 = new ColorPicker('window');
 	
 function pickColor(color)
@@ -22,12 +20,10 @@ function pickColor(color)
 	ColorPicker_targetInput.value = color;
         ColorPicker_targetInput.style.backgroundColor = color;
 {rdelim}	
-
 function openPopup(){ldelim}
 		window.open("index.php?module=Users&action=UsersAjax&file=RolePopup&parenttab=Settings","roles_popup_window","height=425,width=640,toolbar=no,menubar=no,dependent=yes,resizable =no");
 	{rdelim}	
 </script>	
-
 <script language="javascript">
 function check_duplicate()
 {ldelim}
@@ -46,18 +42,13 @@ function check_duplicate()
                         {rdelim}
                 {rdelim}
         );
-
 {rdelim}
-
 </script>
-
-
 <table align="center" border="0" cellpadding="0" cellspacing="0" width="98%">
 <tbody>
 <tr>
       <td class="showPanelBg" style="padding: 1px;" valign="top" width="100%">
       
-
 	<div align=center>
     
 	{if $PARENTTAB eq 'Settings'}
@@ -75,7 +66,6 @@ function check_duplicate()
 		<input type="hidden" name="return_module" value="{$RETURN_MODULE}">
 		<input type="hidden" name="return_id" value="{$RETURN_ID}">
 		<input type="hidden" name="return_action" value="{$RETURN_ACTION}">
-
 	<table width="100%"  border="0" cellspacing="0" cellpadding="0" >
     <tr><td>&nbsp;</td></tr>
 	<tr>
@@ -107,7 +97,6 @@ function check_duplicate()
 	
 	<tr><td class="padTab" align="left">
 				<table width="100%" border="0" cellpadding="0" cellspacing="0">
-
 		<tr><td colspan="2">
 			<table align="center" border="0" cellpadding="0" cellspacing="0" width="100%">
 			<tr>
@@ -149,13 +138,11 @@ function check_duplicate()
 <input name="is_admin" tabindex="6" type="checkbox" disabled></td>
 {/if}
 {/if}
-
 </tr>
 <tr >
 <td class="dvtCellLabel" align="right" width="20%">
 <font color="red">*</font> Email</td>
 <td class="dvtCellInfo" align="left" width="30%"><input name="email1" id="email1" value="{$COLUMNS.email1}" tabindex="7" class="detailedViewTextBox" onfocus="this.className='detailedViewTextBoxOn'" onblur="this.className='detailedViewTextBox'" type="text"></td>
-
 <td class="dvtCellLabel" align="right" width="20%">状态</td>
 <td class="dvtCellInfo" align="left" width="30%">
 {if $ISADMIN}
@@ -229,7 +216,6 @@ function check_duplicate()
 					</td>
 				</tr>
 				</table>
-
 </td>
 </tr>
 </table>

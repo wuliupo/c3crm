@@ -11,7 +11,6 @@ $phone = $_REQUEST['phone'];
 if($phone != "") {
 	$where .= " or phone like '".$phone."%' ";
 }
-
 if($email != "") {
 	$where .= " or email like '".$email."%' ";
 }

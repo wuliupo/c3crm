@@ -19,12 +19,10 @@
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  * @version    $Id: Lastmod.php 23775 2011-03-01 17:25:24Z ralph $
  */
-
 /**
  * @see Zend_Validate_Abstract
  */
 require_once 'include/Zend/Validate/Abstract.php';
-
 /**
  * Validates whether a given value is valid as a sitemap <lastmod> value
  *
@@ -43,14 +41,12 @@ class Zend_Validate_Sitemap_Lastmod extends Zend_Validate_Abstract
      *
      */
     const LASTMOD_REGEX = '/^[0-9]{4}-(0[1-9]|1[0-2])-(0[1-9]|[1-2][0-9]|3[0-1])(T([0-1][0-9]|2[0-3])(:[0-5][0-9])(:[0-5][0-9])?(\\+|-)([0-1][0-9]|2[0-3]):[0-5][0-9])?$/';
-
     /**
      * Validation key for not valid
      *
      */
     const NOT_VALID = 'sitemapLastmodNotValid';
     const INVALID   = 'sitemapLastmodInvalid';
-
     /**
      * Validation failure message template definitions
      *
@@ -60,7 +56,6 @@ class Zend_Validate_Sitemap_Lastmod extends Zend_Validate_Abstract
         self::NOT_VALID => "'%value%' is no valid sitemap lastmod",
         self::INVALID   => "Invalid type given. String expected",
     );
-
     /**
      * Validates if a string is valid as a sitemap lastmod
      *
@@ -75,14 +70,12 @@ class Zend_Validate_Sitemap_Lastmod extends Zend_Validate_Abstract
             $this->_error(self::INVALID);
             return false;
         }
-
         $this->_setValue($value);
         $result = @preg_match(self::LASTMOD_REGEX, $value);
         if ($result != 1) {
             $this->_error(self::NOT_VALID);
             return false;
         }
-
         return true;
     }
 }

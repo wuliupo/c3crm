@@ -19,14 +19,10 @@
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  * @version    $Id: Pgsql.php 23775 2011-03-01 17:25:24Z ralph $
  */
-
-
 /**
  * @see Zend_Db_Adapter_Pdo_Abstract
  */
 require_once 'include/Zend/Db/Adapter/Pdo/Abstract.php';
-
-
 /**
  * Class for connecting to PostgreSQL databases and performing common operations.
  *
@@ -38,14 +34,12 @@ require_once 'include/Zend/Db/Adapter/Pdo/Abstract.php';
  */
 class Zend_Db_Adapter_Pdo_Pgsql extends Zend_Db_Adapter_Pdo_Abstract
 {
-
     /**
      * PDO type.
      *
      * @var string
      */
     protected $_pdoType = 'pgsql';
-
     /**
      * Keys are UPPERCASE SQL datatypes or the constants
      * Zend_Db::INT_TYPE, Zend_Db::BIGINT_TYPE, or Zend_Db::FLOAT_TYPE.
@@ -71,7 +65,6 @@ class Zend_Db_Adapter_Pdo_Pgsql extends Zend_Db_Adapter_Pdo_Abstract
         'NUMERIC'            => Zend_Db::FLOAT_TYPE,
         'REAL'               => Zend_Db::FLOAT_TYPE
     );
-
     /**
      * Creates a PDO object and connects to the database.
      *
@@ -83,15 +76,12 @@ class Zend_Db_Adapter_Pdo_Pgsql extends Zend_Db_Adapter_Pdo_Abstract
         if ($this->_connection) {
             return;
         }
-
         parent::_connect();
-
         if (!empty($this->_config['charset'])) {
             $sql = "SET NAMES '" . $this->_config['charset'] . "'";
             $this->_connection->exec($sql);
         }
     }
-
     /**
      * Returns a list of the tables in the database.
      *
@@ -112,10 +102,8 @@ class Zend_Db_Adapter_Pdo_Pgsql extends Zend_Db_Adapter_Pdo_Abstract
              . "AND NOT EXISTS (SELECT 1 FROM pg_views WHERE viewname = c.relname) "
              . "AND NOT EXISTS (SELECT 1 FROM pg_user WHERE usesysid = c.relowner) "
              . "AND c.relname !~ '^pg_'";
-
         return $this->fetchCol($sql);
     }
-
     /**
      * Returns the column descriptions for a table.
      *
@@ -173,12 +161,9 @@ class Zend_Db_Adapter_Pdo_Pgsql extends Zend_Db_Adapter_Pdo_Abstract
             $sql .= " AND n.nspname = ".$this->quote($schemaName);
         }
         $sql .= ' ORDER BY a.attnum';
-
         $stmt = $this->query($sql);
-
         // Use FETCH_NUM so we are not dependent on the CASE attribute of the PDO connection
         $result = $stmt->fetchAll(Zend_Db::FETCH_NUM);
-
         $attnum        = 0;
         $nspname       = 1;
         $relname       = 2;
@@ -191,7 +176,6 @@ class Zend_Db_Adapter_Pdo_Pgsql extends Zend_Db_Adapter_Pdo_Abstract
         $length        = 9;
         $contype       = 10;
         $conkey        = 11;
-
         $desc = array();
         foreach ($result as $key => $row) {
             $defaultValue = $row[$default_value];
@@ -232,8 +216,6 @@ class Zend_Db_Adapter_Pdo_Pgsql extends Zend_Db_Adapter_Pdo_Abstract
         }
         return $desc;
     }
-
-
     /**
      * Adds an adapter-specific LIMIT clause to the SELECT statement.
      *
@@ -252,7 +234,6 @@ class Zend_Db_Adapter_Pdo_Pgsql extends Zend_Db_Adapter_Pdo_Abstract
             require_once 'include/Zend/Db/Adapter/Exception.php';
             throw new Zend_Db_Adapter_Exception("LIMIT argument count=$count is not valid");
         }
-
         $offset = intval($offset);
         if ($offset < 0) {
             /**
@@ -261,15 +242,12 @@ class Zend_Db_Adapter_Pdo_Pgsql extends Zend_Db_Adapter_Pdo_Abstract
             require_once 'include/Zend/Db/Adapter/Exception.php';
             throw new Zend_Db_Adapter_Exception("LIMIT argument offset=$offset is not valid");
         }
-
         $sql .= " LIMIT $count";
         if ($offset > 0) {
             $sql .= " OFFSET $offset";
         }
-
         return $sql;
     }
-
     /**
      * Return the most recent value from the specified sequence in the database.
      * This is supported only on RDBMS brands that support sequences
@@ -287,7 +265,6 @@ class Zend_Db_Adapter_Pdo_Pgsql extends Zend_Db_Adapter_Pdo_Abstract
                . ")");
         return $value;
     }
-
     /**
      * Generate a new value from the specified sequence in the database, and return it.
      * This is supported only on RDBMS brands that support sequences
@@ -305,7 +282,6 @@ class Zend_Db_Adapter_Pdo_Pgsql extends Zend_Db_Adapter_Pdo_Abstract
                . ")");
         return $value;
     }
-
     /**
      * Gets the last ID generated automatically by an IDENTITY/AUTOINCREMENT column.
      *
@@ -332,5 +308,4 @@ class Zend_Db_Adapter_Pdo_Pgsql extends Zend_Db_Adapter_Pdo_Abstract
         }
         return $this->_connection->lastInsertId($tableName);
     }
-
 }

@@ -1,10 +1,7 @@
 <?php
 /*****
 新浪云商店自动升级demo
-
 自动升级程序依赖于sae的SVN版本控制
-
-
 */
 error_reporting(E_ALL);
 header("Content-type: text/html; charset=utf-8"); 
@@ -15,12 +12,8 @@ $rv_info = parse_ini_file($rv_file);
 $upgrade_api = 'http://qyapi.sae.sina.com.cn/qy_updater.php?appname=%s&rv=%s';
 if(!$rv_info)
     echo 'info file error';
-
 $query = sprintf($upgrade_api, substr($rv_info['appname'],5),$rv_info['revision']);
-
 $ret = getJsonContentsAndDecode($query);
-
-
 if($ret && $ret['code']==0)
 {
     if($ret['data']['result']=='last'){
@@ -31,9 +24,7 @@ if($ret && $ret['code']==0)
         $path_parts = pathinfo($path);
         $down_file = AROOT.$path_parts["basename"];
         $down = download_file($ret['data']['result'],$down_file);
-
         if (file_exists($down_file)) {
-
             include_once( 'dUnzip2.inc.php' );
             $zip = new dUnzip2( $down_file );
             @mkdir( AROOT . 'apps'.DS . $folder );
@@ -55,7 +46,6 @@ if($ret && $ret['code']==0)
 }else{
 	echo 'api error';
 }
-
 function download_file($file_url, $save_to)
 {
     $in=    fopen($file_url, "rb");
@@ -67,8 +57,6 @@ function download_file($file_url, $save_to)
     fclose($in);
     fclose($out);
 }
-
-
 function getJsonContentsAndDecode($url)	//获取对应URL的JSON格式数据并解码
 {
     if(empty($url))
@@ -99,5 +87,4 @@ function getJsonContentsAndDecode($url)	//获取对应URL的JSON格式数据并解码
     else
         return false;
 }
-
 ?>

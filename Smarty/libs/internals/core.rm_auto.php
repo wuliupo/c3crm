@@ -4,7 +4,6 @@
  * @package Smarty
  * @subpackage plugins
  */
-
 /**
  * delete an automagically created file by name and id
  *
@@ -14,14 +13,11 @@
  * @param integer $exp_time
  * @return boolean
  */
-
 // $auto_base, $auto_source = null, $auto_id = null, $exp_time = null
-
 function smarty_core_rm_auto($params, &$smarty)
 {
     if (!@is_dir($params['auto_base']))
       return false;
-
     if(!isset($params['auto_id']) && !isset($params['auto_source'])) {
         $_params = array(
             'dirname' => $params['auto_base'],
@@ -32,7 +28,6 @@ function smarty_core_rm_auto($params, &$smarty)
         $_res = smarty_core_rmdir($_params, $smarty);
     } else {
         $_tname = $smarty->_get_auto_filename($params['auto_base'], $params['auto_source'], $params['auto_id']);
-
         if(isset($params['auto_source'])) {
             if (isset($params['extensions'])) {
                 $_res = false;
@@ -62,10 +57,7 @@ function smarty_core_rm_auto($params, &$smarty)
             }
         }
     }
-
     return $_res;
 }
-
 /* vim: set expandtab: */
-
 ?>

@@ -1,7 +1,6 @@
 <script type="text/javascript" src="modules/{$MODULE}/{$SINGLE_MOD}.js"></script>
 {*<!-- Contents -->*}
 {include file='EditViewHidden.tpl'}
-
 <!-- center start -->
      <div class="container-fluid">
         <div class="row-fluid">
@@ -64,7 +63,6 @@
      </div>
      <!-- center end -->
 </form>
-
 <script language="javascript">
         var fieldname = new Array({$VALIDATION_DATA_FIELDNAME})
         var fieldlabel = new Array({$VALIDATION_DATA_FIELDLABEL})
@@ -78,9 +76,6 @@
 				getObj("subject").setAttribute("readOnly","true");
 			{rdelim}
 		{rdelim}
-
-
-
  
 	{literal}
 	function callSearch(searchtype){
@@ -132,7 +127,6 @@
 			urlstring +='&vendor_id='+$('vendor_id').val();
 		return urlstring;
 	} 
-
 	var gPopupAlphaSearchUrl = '';
 	function getListViewEntries_js(module,url){
 		popuptype = document.getElementById('popup_type').value;
@@ -157,7 +151,6 @@
 			}
 		});
 	} 
-
 	function getListViewWithPageSize(module,pageElement){
 		//var pageno = document.getElementById('listviewpage').value;
 		var pagesize = pageElement.options[pageElement.options.selectedIndex].value;

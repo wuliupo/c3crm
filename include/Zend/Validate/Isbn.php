@@ -18,12 +18,10 @@
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  * @version    $Id: Isbn.php 23775 2011-03-01 17:25:24Z ralph $
  */
-
 /**
  * @see Zend_Validate_Abstract
  */
 require_once 'include/Zend/Validate/Abstract.php';
-
 /**
  * @category   Zend
  * @package    Zend_Validate
@@ -37,7 +35,6 @@ class Zend_Validate_Isbn extends Zend_Validate_Abstract
     const ISBN13  = '13';
     const INVALID = 'isbnInvalid';
     const NO_ISBN = 'isbnNoIsbn';
-
     /**
      * Validation failure message template definitions.
      *
@@ -47,21 +44,18 @@ class Zend_Validate_Isbn extends Zend_Validate_Abstract
         self::INVALID => "Invalid type given. String or integer expected",
         self::NO_ISBN => "'%value%' is no valid ISBN number",
     );
-
     /**
      * Allowed type.
      *
      * @var string
      */
     protected $_type = self::AUTO;
-
     /**
      * Separator character.
      *
      * @var string
      */
     protected $_separator = '';
-
     /**
      * Set up options.
      *
@@ -82,18 +76,15 @@ class Zend_Validate_Isbn extends Zend_Validate_Abstract
             require_once 'include/Zend/Validate/Exception.php';
             throw new Zend_Validate_Exception('Invalid options provided.');
         }
-
         // set type
         if (array_key_exists('type', $options)) {
             $this->setType($options['type']);
         }
-
         // set separator
         if (array_key_exists('separator', $options)) {
             $this->setSeparator($options['separator']);
         }
     }
-
     /**
      * Detect input format.
      *
@@ -105,7 +96,6 @@ class Zend_Validate_Isbn extends Zend_Validate_Abstract
         $sep      = quotemeta($this->_separator);
         $patterns = array();
         $lengths  = array();
-
         // check for ISBN-10
         if ($this->_type == self::ISBN10 || $this->_type == self::AUTO) {
             if (empty($sep)) {
@@ -115,11 +105,9 @@ class Zend_Validate_Isbn extends Zend_Validate_Abstract
                 $pattern = "/^[0-9]{1,7}[{$sep}]{1}[0-9]{1,7}[{$sep}]{1}[0-9]{1,7}[{$sep}]{1}[0-9X]{1}$/";
                 $length  = 13;
             }
-
             $patterns[$pattern] = self::ISBN10;
             $lengths[$pattern]  = $length;
         }
-
         // check for ISBN-13
         if ($this->_type == self::ISBN13 || $this->_type == self::AUTO) {
             if (empty($sep)) {
@@ -129,21 +117,17 @@ class Zend_Validate_Isbn extends Zend_Validate_Abstract
                 $pattern = "/^[0-9]{1,9}[{$sep}]{1}[0-9]{1,5}[{$sep}]{1}[0-9]{1,9}[{$sep}]{1}[0-9]{1,9}[{$sep}]{1}[0-9]{1}$/";
                 $length  = 17;
             }
-
             $patterns[$pattern] = self::ISBN13;
             $lengths[$pattern]  = $length;
         }
-
         // check pattern list
         foreach ($patterns as $pattern => $type) {
             if ((strlen($this->_value) == $lengths[$pattern]) && preg_match($pattern, $this->_value)) {
                 return $type;
             }
         }
-
         return null;
     }
-
     /**
      * Defined by Zend_Validate_Interface.
      *
@@ -158,10 +142,8 @@ class Zend_Validate_Isbn extends Zend_Validate_Abstract
             $this->_error(self::INVALID);
             return false;
         }
-
         $value = (string) $value;
         $this->_setValue($value);
-
         switch ($this->_detectFormat()) {
             case self::ISBN10:
                 // sum
@@ -170,7 +152,6 @@ class Zend_Validate_Isbn extends Zend_Validate_Abstract
                 for ($i = 0; $i < 9; $i++) {
                     $sum += (10 - $i) * $isbn10{$i};
                 }
-
                 // checksum
                 $checksum = 11 - ($sum % 11);
                 if ($checksum == 11) {
@@ -179,7 +160,6 @@ class Zend_Validate_Isbn extends Zend_Validate_Abstract
                     $checksum = 'X';
                 }
                 break;
-
             case self::ISBN13:
                 // sum
                 $isbn13 = str_replace($this->_separator, '', $value);
@@ -197,12 +177,10 @@ class Zend_Validate_Isbn extends Zend_Validate_Abstract
                     $checksum = '0';
                 }
                 break;
-
             default:
                 $this->_error(self::NO_ISBN);
                 return false;
         }
-
         // validate
         if (substr($this->_value, -1) != $checksum) {
             $this->_error(self::NO_ISBN);
@@ -210,7 +188,6 @@ class Zend_Validate_Isbn extends Zend_Validate_Abstract
         }
         return true;
     }
-
     /**
      * Set separator characters.
      *
@@ -230,11 +207,9 @@ class Zend_Validate_Isbn extends Zend_Validate_Abstract
             require_once 'include/Zend/Validate/Exception.php';
             throw new Zend_Validate_Exception('Invalid ISBN separator.');
         }
-
         $this->_separator = $separator;
         return $this;
     }
-
     /**
      * Get separator characters.
      *
@@ -244,7 +219,6 @@ class Zend_Validate_Isbn extends Zend_Validate_Abstract
     {
         return $this->_separator;
     }
-
     /**
      * Set allowed ISBN type.
      *
@@ -262,11 +236,9 @@ class Zend_Validate_Isbn extends Zend_Validate_Abstract
             require_once 'include/Zend/Validate/Exception.php';
             throw new Zend_Validate_Exception('Invalid ISBN type');
         }
-
         $this->_type = $type;
         return $this;
     }
-
     /**
      * Get allowed ISBN type.
      *

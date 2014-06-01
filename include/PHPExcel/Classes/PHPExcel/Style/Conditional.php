@@ -24,8 +24,6 @@
  * @license    http://www.gnu.org/licenses/old-licenses/lgpl-2.1.txt	LGPL
  * @version    1.7.2, 2010-01-11
  */
-
-
 /** PHPExcel root directory */
 if (!defined('PHPEXCEL_ROOT')) {
 	/**
@@ -33,14 +31,10 @@ if (!defined('PHPEXCEL_ROOT')) {
 	 */
 	define('PHPEXCEL_ROOT', dirname(__FILE__) . '/../../');
 }
-
 /** PHPExcel_Style */
 require_once PHPEXCEL_ROOT . 'PHPExcel/Style.php';
-
 /** PHPExcel_IComparable */
 require_once PHPEXCEL_ROOT . 'PHPExcel/IComparable.php';
-
-
 /**
  * PHPExcel_Style_Conditional
  *
@@ -260,7 +254,6 @@ class PHPExcel_Style_Conditional implements PHPExcel_IComparable
    		$this->_style = $pValue;
    		return $this;
     }
-
 	/**
 	 * Get hash code
 	 *

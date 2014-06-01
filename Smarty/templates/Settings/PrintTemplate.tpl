@@ -11,15 +11,12 @@
 -->*}
 <script language="JAVASCRIPT" type="text/javascript" src="include/js/smoothscroll.js"></script>
 <script language="JavaScript" type="text/javascript" src="include/js/menu.js"></script>
-
 <script language="JavaScript" type="text/javascript">
     var allOptions = null;
-
     function setAllOptions(inputOptions) 
     {ldelim}
         allOptions = inputOptions;
     {rdelim}
-
     function modifyMergeFieldSelect(cause, effect) 
     {ldelim}
         var selected = cause.options[cause.selectedIndex].value;  id="mergeFieldValue"
@@ -33,7 +30,6 @@
         document.getElementById('mergeFieldValue').value = '';
     {rdelim}
     
-
    function typeSave()
    {ldelim}
 	var value1 = $F("TemplateType");
@@ -60,7 +56,6 @@
     );
        
    {rdelim}
-
    function typeChoose(value)
    {ldelim}
      if(value == 0 || value == "") {ldelim}
@@ -94,7 +89,6 @@
     );
        
    {rdelim}
-
    function DefTemplate()
    {ldelim}
         var moduleType = $F('ModuleType');
@@ -115,7 +109,6 @@
                         {rdelim}
                         );
    {rdelim}
-
    function updateTemplateOptions()
    {ldelim}
         var moduleType = $F('ModuleType');
@@ -135,7 +128,6 @@
 	    {rdelim}
 	);
  {rdelim}
-
 function CreateTemplate()
 {ldelim}
         var moduleType = $F('ModuleType');
@@ -154,9 +146,7 @@ function CreateTemplate()
 			{rdelim}
 		{rdelim}
 	);
-
 {rdelim}
-
 function DeleteTemplate()
 {ldelim}
         var templateType = $F('TemplateType');
@@ -178,9 +168,7 @@ function DeleteTemplate()
 			{rdelim}
 		);
 	{rdelim}
-
 {rdelim}
-
 function updateVarOptions()
    {ldelim}
         var ModuleVar = $F('ModuleVar');
@@ -200,7 +188,6 @@ function updateVarOptions()
 	    {rdelim}
 	);
  {rdelim}
-
  function fieldChoose(value)
  {ldelim}							
 	if(value != 0) {ldelim}
@@ -213,8 +200,6 @@ function updateVarOptions()
 	{rdelim}
   {rdelim}       
 </script>
-
-
   
 <div id="createtemplate" style="display:block;position:absolute;width:300px;"></div>
 <br>
@@ -265,12 +250,10 @@ function updateVarOptions()
                               <tr>
                                 <td colspan="3" valign="top" class="small" style="background-color:#cccccc"><strong>打印模板定制</strong></td>
                                 </tr>
-
 			    <tr>
 			        <td width="10%" valign="top" class="cellLabel small">模板选择</td>
                                 <td colspan="3" valign="top" class="small">
 				<table width="100%"  border="0" cellspacing="0" cellpadding="5" >
-
 				<tr><td><select id="ModuleType" name="ModuleType" onchange="javascript:updateTemplateOptions();">
                                              <option value=0 selected> {$APP.LBL_NONE} </option>
 					     {$PRINTTYPEOPTION}
@@ -281,16 +264,10 @@ function updateVarOptions()
 				     </td>
 				     <td><div id="templatepatch"></div></td>
                                   </tr>
-
-
-
-
                             
                                 </table>
                                 </td>
                               </tr>
-
-
 			    
                               <tr>
                                 <td valign="top" class="cellLabel small">{$UMOD.LBL_MESSAGE}</td>
@@ -298,15 +275,12 @@ function updateVarOptions()
                                     </td>
                                 <td valign="top" class="cellText small" style="border-left:2px dotted #cccccc;"></td>
                               </tr>
-
                           </table></td>
                           
                         </tr>
                       </table></td>
 					  </tr>
 					</table>
-
-
                                         <table border=0 cellspacing=0 cellpadding=5 width=100% >
 					<tr>
 					  <td colspan="2" valign=top class="cellText small"><table width="100%"  border="0" cellspacing="0" cellpadding="0" class="thickBorder">
@@ -315,14 +289,9 @@ function updateVarOptions()
                               <tr>
                                 <td colspan="10" valign="top" class="small" style="background-color:#cccccc"><strong>模板变量信息</strong></td>
                                 </tr>
-
                         
-
 			
-
                     
-
-
                                <tr>
 			        <td width="10%" valign="top" class="cellLabel small">备注</td>
                                 <td colspan="3" valign="top" class="small">
@@ -353,14 +322,11 @@ function updateVarOptions()
                                 </table>
                                 </td>
                                </tr>
-
                           </table></td>
-
                         </tr>
                       </table></td>
 					  </tr>
 					</table>
-
 					<br>
 					<table border=0 cellspacing=0 cellpadding=5 width=100% >
 					<tr>
@@ -382,7 +348,6 @@ function updateVarOptions()
 	</table>
 		
 	</div>
-
 </td>
    </tr>
 </tbody>

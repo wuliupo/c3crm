@@ -3,9 +3,7 @@ require_once('include/CRMSmarty.php');
 require_once("data/Tracker.php");
 require_once('include/ListView/ListView.php');
 require_once('include/DatabaseUtil.php');
-
 global $app_strings,$mod_strings,$list_max_entries_per_page;
-
 global $currentModule,$image_path,$theme;
 $smarty = new CRMSmarty();
 //if(is_file('modules/Home/c3crm_news.php'))
@@ -14,7 +12,6 @@ $smarty = new CRMSmarty();
 	//$c3crm_news = $html_contents;
 	//$smarty->assign("C3CRM_NEWS", $c3crm_news);
 //}
-
 //noted by ligangze on 2013/11/27
 //if(is_file('modules/Home/key_customview.php'))
 //{
@@ -23,7 +20,6 @@ $smarty = new CRMSmarty();
 //	$key_customview = $html_contents;
 //	$smarty->assign("KEY_CUSTOMVIEW", $key_customview);
 //}
-
 $dashboard_arr = array();
 if($current_user->is_admin===true){
     $isadmin = "";
@@ -32,21 +28,15 @@ if($current_user->is_admin===true){
 }
 //====================================一周内待联系客户===========================//
 $query="select * from ec_account where  deleted=0 and smownerid='".$current_user->id."' and contact_date !='' and contact_date !='0000-00-00'  and contact_date between '".date("Y-m-d")."' and '".date("Y-m-d",strtotime("1 week"))."' order by contact_date asc"; 
-
 $result = $adb->getList($query);
 foreach($result as $row){
 	    $accountid = $row['accountid'];
 		$NextContactAccount[$accountid] = "<img src=\"themes/softed/images/s1.png\" border=0/> &nbsp;&nbsp;<a href=\"index.php?module=Accounts&action=DetailView&record=".$row['accountid']."\" >".$row['accountname']."</a> &nbsp;&nbsp; ".$row['contact_date']." &nbsp;&nbsp;<a href=\"index.php?module=Notes&action=EditView&&return_module=Accounts&return_action=ListView&return_id=".$row['accountid']."\" >新增联系记录</a>";
 }
-
 $dashboard_arr['contact']['title'] = "7天内待联系客户(下次联系日期)";
 $dashboard_arr['contact']['type'] = "text";
 $dashboard_arr['contact']['divid'] = "7_day_contact";
 $dashboard_arr['contact']['content'] = $NextContactAccount;
-
-
-
-
 //=========================一月内到期纪念日==================================//
 $onemonthlater = date("m-d",strtotime("1 month"));
 $query="select * from ec_memdays where  deleted=0 and smownerid='".$current_user->id."' and substr(memday946,-5) between '".date("m-d")."' and '".$onemonthlater."'  order by memday946 asc";  
@@ -60,8 +50,6 @@ $dashboard_arr['memday']['title'] = "一月内到期纪念日";
 $dashboard_arr['memday']['type'] = "text";
 $dashboard_arr['memday']['divid'] = "1_month_memday";
 $dashboard_arr['memday']['content'] = $OneMonthMemday;
-
-
 //=========================最近6个月销售情况=====================================//
 $date_start = date('Y-m-d',mktime(0,0,0,date("m")-5,date("d"),date("Y")));
 $date_end = date('Y-m-d',mktime (0,0,0,date("m"),date("d"),date("Y")));
@@ -82,11 +70,9 @@ $query = "SELECT ".db_convert('ec_salesorder.orderdate','date_format',array("'%Y
 $query .= " AND ".$where.$soadmin;
 $query .= " GROUP BY ".db_convert('ec_salesorder.orderdate','date_format',array("'%Y-%m'"),array("'YYYY-MM'"))." ORDER BY m";
 $result = $adb->query($query);
-
 $categorys = date("Y-m",strtotime("-5 month")).",".date("Y-m",strtotime("-4 month")).",".date("Y-m",strtotime("-3 month")).
 ",".date("Y-m",strtotime("-2 month")).",".date("Y-m",strtotime("-1 month")).",".date("Y-m",strtotime("now"));
 $datearr = explode(",",$categorys);
-
 //订单金额 and 订单数量
 $j=0;
 $series = "";
@@ -103,9 +89,7 @@ for($i=0;$i<count($datearr);$i++){
 }
 $series = rtrim($series,",");
 $so_count = rtrim($so_count,",");
-
 $series = $series."_".$so_count;
-
 $dashboard_arr['salesorder']['title'] = "最近6个月销售情况";
 $dashboard_arr['salesorder']['type'] = "column,spline";
 $dashboard_arr['salesorder']['divid'] = "6_month_sale";
@@ -113,10 +97,6 @@ $dashboard_arr['salesorder']['categorys'] = $categorys;
 $dashboard_arr['salesorder']['series'] = $series;
 $dashboard_arr['salesorder']['name'] = "销售额,订单数";
 $dashboard_arr['salesorder']['content'] = "waiting...";
-
-
-
-
     $week = date("W");
     $year = date("Y");
     $timestamp = mktime(1,0,0,1,1,$year);
@@ -129,19 +109,14 @@ $dashboard_arr['salesorder']['content'] = "waiting...";
     $monday = strtotime('+'.($week - 1).' week', $firstweek);
     $sunday = strtotime('+6 days', $monday);
     $start = date("Y-m-d", $monday);
-
     $lastweek = date("Y-m-d",strtotime("-1 week"));
     $lastweek_start = date("Y-m-d",strtotime("-1 week",$monday));
     $lastweek_end = date("Y-m-d",strtotime("-1 week",$sunday));
    // var_dump($lastweek_start);
     $end   = date("Y-m-d", $sunday);
-
-
 //===================本周新增客户数========================//
 $query  = "SELECT COUNT(*) AS daytotal FROM ec_account WHERE LEFT(createdtime,10)>='".$start."' AND deleted=0".$isadmin;
 $lw_query = "SELECT COUNT(*) AS lwaccount FROM ec_account where LEFT(createdtime,10) BETWEEN '".$lastweek_start."' AND '".$lastweek_end."' AND deleted=0".$isadmin;
-
-
 $result =$adb->query($query);
 $lw_result = $adb->query($lw_query);
 $daytotal = $adb->query_result($result,0,"daytotal");
@@ -157,18 +132,14 @@ if($lw_account==0){
 }else{
     $week_account_percent = "U0%";
 }
-
-
 //===================本周订单成交额=========================//
 $query = "select sum(total) as monthdealorder from ec_salesorder where left(orderdate,10) between '".$start."' and '".$end."' and deleted=0".$isadmin;
 $lw_query = "select sum(total) as lwdealorder from ec_salesorder where  deleted=0 and left(orderdate,10) between '".$lastweek_start."' and '".$lastweek_end."'".$isadmin;
-
 $result = $adb->query($query);
 $month_deal_order = $adb->query_result($result,0,"monthdealorder");
 if(!$month_deal_order) $month_deal_order=0;
 $lw_result = $adb->query($lw_query);
 $lwdealorder = $adb->query_result($lw_result,0,"lwdealorder");
-
 if($lwdealorder==0){
     $week_order_percent="U".($month_deal_order*100)."%";
 }elseif($month_deal_order==0){
@@ -180,17 +151,13 @@ if($lwdealorder==0){
 }else{
     $week_order_percent = "U0%";
 }
-
-
 //===================本周订单成交量=========================//
 $query = "select count(*) as monthdealorder from ec_salesorder where left(orderdate,10) between '".$start."' and '".$end."' and deleted=0".$isadmin;
 $lw_query = "select count(*) as lwdealorder from ec_salesorder where  deleted=0 and left(orderdate,10) between '".$lastweek_start."' and '".$lastweek_end."'".$isadmin;
-
 $result = $adb->query($query);
 $month_deal_count_order = $adb->query_result($result,0,"monthdealorder");
 $lw_result = $adb->query($lw_query);
 $lwdealorder = $adb->query_result($lw_result,0,"lwdealorder");
-
 if($lwdealorder==0){
     $week_order_count_percent="U".($month_deal_count_order*100)."%";
 }elseif($month_deal_count_order==0){
@@ -202,17 +169,13 @@ if($lwdealorder==0){
 }else{
     $week_order_count_percent = "U0%";
 }
-
-
 //==================本周联系记录数=====================================//
 $query = "select count(*) as weeknotes from ec_notes where left(createdtime,10)>='".$start."' and deleted=0".$isadmin;
 $lw_query = "select count(*) as lwnotes from ec_notes where left(createdtime,10)between '".$lastweek_start."' and '".$lastweek_end."' and deleted=0".$isadmin;
-
 $result = $adb->query($query);
 $weeknewnotes = $adb->query_result($result,0,"weeknotes");
 $lw_result = $adb->query($lw_query);
 $lwnewnotes = $adb->query_result($lw_result,0,"lwnotes");
-
 if($lwnewnotes==0){
     $week_notes_percent="U".($weeknewnotes*100)."%";
 }elseif($weeknewnotes==0){
@@ -224,7 +187,6 @@ if($lwnewnotes==0){
 }else{
     $week_notes_percent = "U0%";
 }
-
 //=============================关键视图============================================//
 $query = "select ec_customview.* from ec_customview inner join ec_tab on ec_tab.name = ec_customview.entitytype where ec_customview.setmetrics = 1 order by ec_customview.entitytype";
 $result = $adb->query($query);
@@ -239,7 +201,6 @@ for($i=0;$i<$adb->num_rows($result);$i++) {
     $metr_name = $adb->query_result($result,$i,'viewname');
     $metr_module = $adb->query_result($result,$i,'entitytype');
     $metr_count = "";
-
 	$listquery = getListQuery($metr_module,'',true);
 	$oCustomView = new CustomView($metr_module);
 	$metricsql = $oCustomView->getMetricsCvListQuery($metr_id,$listquery,$metr_module);
@@ -260,25 +221,20 @@ for($i=0;$i<$adb->num_rows($result);$i++) {
 		}
 	}
 }
-
 $dashboard_arr['keyview']['title'] = "关键视图";
 $dashboard_arr['keyview']['type'] = "table";
 $dashboard_arr['keyview']['divid'] = "keyview";
 $dashboard_arr['keyview']['thead'] = array("视图名","模块","数量");
 $dashboard_arr['keyview']['tbody'] = $keyview_body;
 $dashboard_arr['keyview']['content'] = $OneMonthMemday;
-
 //=================================易客CRM新闻=================================//
-
 /*
 require('modules/Home/c3crm_news.php');
-
 $dashboard_arr['crmnews']['title'] = "易客CRM新闻";
 $dashboard_arr['crmnews']['type'] = "text";
 $dashboard_arr['crmnews']['divid'] = "crmnews";
 $dashboard_arr['crmnews']['content']= $html_contents;
 */
-
 $theme_path="themes/".$theme."/";
 $image_path=$theme_path."images/";
 $smarty->assign("MOD", $mod_strings);
@@ -301,9 +257,6 @@ $smarty->assign("NOTESUPDOWN",substr($week_notes_percent,0,1));
 $smarty->assign("ORDERCOUNTPERCENT",substr($week_order_count_percent,1));
 $smarty->assign("ORDERCOUNT",$month_deal_count_order);//订单数量
 $smarty->assign("ORDERCOUNTUPDOWN",substr($week_order_count_percent,0,1));
-
-
-
 if(isset($_REQUEST['ajax']) && $_REQUEST['ajax'] != '')
 	$smarty->display("Home/ListViewEntries.tpl");
 else

@@ -4,8 +4,6 @@
  * @package Smarty
  * @subpackage plugins
  */
-
-
 /**
  * Smarty {popup_init} function plugin
  *
@@ -34,7 +32,5 @@ function smarty_function_popup_init($params, &$smarty)
         $smarty->trigger_error("popup_init: missing src parameter");
     }
 }
-
 /* vim: set expandtab: */
-
 ?>

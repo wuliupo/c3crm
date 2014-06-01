@@ -154,6 +154,5 @@ $mod_strings = array (
   'assignstatus' => 'Status',
   'LBL_ASSIGN_BUTTON_LABEL' => 'Assign',
   'smcreator' => 'Creator',
-
 );
 ?>

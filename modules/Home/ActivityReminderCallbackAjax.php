@@ -12,7 +12,6 @@
  * All Rights Reserved.
  * Contributor(s): ______________________________________.
  ********************************************************************************/
-
 global $app_strings,$mod_strings;
 global $currentModule,$image_path,$theme,$adb, $current_user;
 require_once('config.php');
@@ -38,7 +37,6 @@ if(is_dir($reminderFilterFilesDir) && is_readable($reminderFilterFilesDir)) {
 }
 //end create new PM by reminder filter defined
 $smarty = new CRMSmarty;
-
 //set online status and ping time
 $query = "UPDATE ec_users SET is_online='1', last_ping='".time()."' WHERE user_name='".$current_user->user_name."'";
 $adb->query($query);
@@ -53,14 +51,11 @@ if(rand(1, 100) <= 30) {
    }
    $adb->query($query);
 }
-
 // Get the list of activity for which reminder needs to be sent
 //step1: get uncomplieted calendar and smownerid today
 //step2: compare timestart and reminder time 
 //step3: send reminder to smownerid or groupname or inviter
-
 $dateTimeNow = date('Y-m-d H:i:s');
-
 //New Reminder
 $query = "select * from ec_reminders where userid ='$current_user->id' and isused=0 and remindertime >= '".$dateTimeNow."'";
 $result = $adb->getList($query);
@@ -79,7 +74,6 @@ $result = $adb->getList($query);
 		}
 	    $curr_time = strtotime(date("Y-m-d H:i"))/60;
 		$current_date = date('Y-m-d');
-
 		$activity_time = strtotime(date("$remindertime"))/60;
 		$needed_remindertime = $activity_time - $curr_time;
 		$reminder_time = 60;
@@ -90,7 +84,6 @@ $result = $adb->getList($query);
 		//$log->debug("****new curr_time:".$curr_time);
 		//$log->debug("****new needed_remindertime:".$needed_remindertime);
 		
-
 		if ($needed_remindertime > 0  &&  $needed_remindertime <= $reminder_time)
 		{
 			$upd_query = "UPDATE ec_reminders SET isused=1 where reminderid=".$reminderid;
@@ -99,7 +92,6 @@ $result = $adb->getList($query);
 			
 		}
 	}
-
 //new msg reminder
 //$today = strtotime(date('Y-m-d'));
 $query = "SELECT count(*) as msgcount FROM ec_message where recipient='".$current_user->id."' and deleted_recipient=0 and received=0";
@@ -109,7 +101,6 @@ if($msgcount >= 1)
 {		
 	$subject = $mod_strings["REMINDER_NEWMSG_1"].$msgcount.$mod_strings["REMINDER_NEWMSG_2"];
 	$crmid = $current_user->id;
-
 	$log->debug("****Starting for msg reminder start");
 	$smarty->assign("theme", $theme);
 	$smarty->assign("MOD", $mod_strings);
@@ -122,10 +113,7 @@ if($msgcount >= 1)
 	$smarty->display("ActivityReminderCallback.tpl");
 	$log->debug("****Exiting for msg reminder end");
 }
-
-
 echo "<script type='text/javascript'>if(typeof(ActivityReminderRegisterCallback) != 'undefined') ActivityReminderRegisterCallback(".$default_reminder_interval.");</script>";
-
 /*
 CREATE TABLE IF NOT EXISTS `ec_activity_reminder_popup` (
   `reminderid` int(19) NOT NULL auto_increment,
@@ -149,5 +137,4 @@ CREATE TABLE IF NOT EXISTS `ec_message` (
   UNIQUE KEY `id` (`id`)
 ) ENGINE=MyISAM  DEFAULT CHARSET=utf8
 */
-
 ?>

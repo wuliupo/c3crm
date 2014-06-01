@@ -1,9 +1,6 @@
 <?php
-
 if (!defined('LOG4PHP_DIR')) define('LOG4PHP_DIR', dirname(__FILE__));
 ini_set('display_errors',0);
-
-
 class SaeLog {
     function SaeLog() 
 	{
@@ -28,13 +25,11 @@ class SaeLog {
         sae_debug($message);
     }
     
-
     function error($message)
     {
         sae_debug($message);
     }
     
-
     function warn($message)
     {
         sae_debug($message);

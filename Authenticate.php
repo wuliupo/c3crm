@@ -6,25 +6,17 @@ unset($_SESSION['nick']);
 unset($_SESSION['authenticated_user_id']); 
 unset($_SESSION['app_unique_key']); 
 unset($_SESSION['topsession']);
-
 require_once('config.php');
 require_once('modules/Users/Users.php');
 require_once('include/logging.php');
-
 global $mod_strings;
 global $app_strings;
-
-
 $focus = new Users();
-
 // Add in defensive code here.
 $focus->column_fields["user_name"] = to_html($_REQUEST['user_name']);
 $user_password = $_REQUEST['user_password'];
 $theme = $_REQUEST['login_theme'];
 $focus->load_user($user_password);
-
-
-
 if($focus->is_authenticated()) {
 	$query = "UPDATE ec_users SET is_online='1', last_ping='".time()."' WHERE user_name='".$focus->column_fields["user_name"]."'";
 	$adb->query($query);
@@ -43,7 +35,6 @@ if($focus->is_authenticated()) {
 	$_SESSION['app_unique_key'] = $application_unique_key;
 	$_SESSION['nick'] = $_REQUEST['user_name'];
 	$_SESSION['topsession'] = $application_unique_key;
-
 	// store the user's theme in the session
 	if (isset($_REQUEST['login_theme'])) {
 		$authenticated_user_theme = $_REQUEST['login_theme'];
@@ -59,7 +50,6 @@ if($focus->is_authenticated()) {
 	else {
 		$authenticated_user_language = $default_language;
 	}
-
 	$_SESSION['authenticated_user_theme'] = $authenticated_user_theme;
 	$_SESSION['authenticated_user_language'] = $authenticated_user_language;
     redirect("index.php?module=Home&action=index"); 

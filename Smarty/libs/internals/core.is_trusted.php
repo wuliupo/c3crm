@@ -4,7 +4,6 @@
  * @package Smarty
  * @subpackage plugins
  */
-
 /**
  * determines if a resource is trusted or not
  *
@@ -12,9 +11,7 @@
  * @param string $resource_name
  * @return boolean
  */
-
  // $resource_type, $resource_name
-
 function smarty_core_is_trusted($params, &$smarty)
 {
     $_smarty_trusted = false;
@@ -32,16 +29,12 @@ function smarty_core_is_trusted($params, &$smarty)
                 }
             }
         }
-
     } else {
         // resource is not on local file system
         $_smarty_trusted = call_user_func_array($smarty->_plugins['resource'][$params['resource_type']][0][3],
                                                 array($params['resource_name'], $smarty));
     }
-
     return $_smarty_trusted;
 }
-
 /* vim: set expandtab: */
-
 ?>

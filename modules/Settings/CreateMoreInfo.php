@@ -16,7 +16,6 @@ if(isset($_REQUEST['ajax']) && $_REQUEST['ajax'] == 'true')
 		if($user_name != "") {
 			$query = "SELECT * FROM ec_users WHERE deleted=0 and user_name='".$user_name."' ";
 			$result = $adb->query($query);
-
 			if($adb->num_rows($result) > 0)
 			{
 				echo 'FAILEDUSER';
@@ -26,7 +25,6 @@ if(isset($_REQUEST['ajax']) && $_REQUEST['ajax'] == 'true')
 		if($phone != "") {
 			$query = "SELECT * FROM ec_users WHERE deleted=0 and phone_mobile='".$phone."' ";
 			$result = $adb->query($query);
-
 			if($adb->num_rows($result) > 0)
 			{
 				echo 'FAILEDPHONE';
@@ -46,7 +44,6 @@ if(isset($_REQUEST['ajax']) && $_REQUEST['ajax'] == 'true')
 		{
 			$query2 = "SELECT * FROM ec_users WHERE deleted=0 and email1='".$email."' ";
 			$result2 = $adb->query($query2);
-
 			if($adb->num_rows($result2) > 0)
 			{
 				echo 'FAILEDEMAIL';
@@ -59,17 +56,14 @@ if(isset($_REQUEST['ajax']) && $_REQUEST['ajax'] == 'true')
 			}
 		}
 }
-
 global $theme;
 $theme_path="themes/".$theme."/";
 $image_path=$theme_path."images/";
-
 $smarty->assign("MOD", return_module_language($current_language,'Settings'));
 $smarty->assign("IMAGE_PATH",$image_path);
 $smarty->assign("APP", $app_strings);
 $smarty->assign("CMOD", $mod_strings);
 $smarty->assign("mode", $mode);
 $smarty->assign("SETTYPE","CreateMoreInfo");
-
 $smarty->display("Settings/CreateMoreInfo.tpl");
 ?>

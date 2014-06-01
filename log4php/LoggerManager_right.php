@@ -15,7 +15,6 @@
  * 
  * @package log4php
  */
-
 /**
  * LOG4PHP_DIR points to the log4php root directory.
  *
@@ -25,9 +24,7 @@
  * @var string 
  */
 if (!defined('LOG4PHP_DIR')) define('LOG4PHP_DIR', dirname(__FILE__));
-
 require_once(LOG4PHP_DIR . '/LoggerHierarchy.php');
-
 /**
  * Use the LoggerManager to get Logger instances.
  *
@@ -38,7 +35,6 @@ require_once(LOG4PHP_DIR . '/LoggerHierarchy.php');
  * @todo create a configurator selector  
  */
 class LoggerManager {
-
     /**
      * check if a given logger exists.
      * 
@@ -51,7 +47,6 @@ class LoggerManager {
         $repository =& LoggerManager::getLoggerRepository();
         return $repository->exists($name);
     }
-
     /**
      * Returns an array this whole Logger instances.
      * 
@@ -103,7 +98,6 @@ class LoggerManager {
         return LoggerHierarchy::singleton();    
     }
     
-
     /**
      * Destroy loggers object tree.
      * 
@@ -135,11 +129,9 @@ class LoggerManager {
         return $repository->shutdown();    
     }
 }
-
 // ---------------------------------------------------------------------------
 // ---------------------------------------------------------------------------
 // ---------------------------------------------------------------------------
-
 if (!defined('LOG4PHP_DEFAULT_INIT_OVERRIDE')) {
     if (isset($_ENV['log4php.defaultInitOverride'])) {
         /**
@@ -173,7 +165,6 @@ if (!defined('LOG4PHP_DEFAULT_INIT_OVERRIDE')) {
         define('LOG4PHP_DEFAULT_INIT_OVERRIDE', false);
     }
 }
-
 if (!defined('LOG4PHP_CONFIGURATION')) {
     if (isset($_ENV['log4php.configuration'])) {
         /**
@@ -197,7 +188,6 @@ if (!defined('LOG4PHP_CONFIGURATION')) {
         define('LOG4PHP_CONFIGURATION', 'log4php.properties');
     }
 }
-
 if (!defined('LOG4PHP_CONFIGURATOR_CLASS')) {
     if ( strtolower(substr( LOG4PHP_CONFIGURATION, -4 )) == '.xml') { 
         /**
@@ -225,12 +215,10 @@ if (!defined('LOG4PHP_CONFIGURATOR_CLASS')) {
         define('LOG4PHP_CONFIGURATOR_CLASS', LOG4PHP_DIR . '/LoggerPropertyConfigurator');
     }
 }
-
 if (!LOG4PHP_DEFAULT_INIT_OVERRIDE) {
     if (!LoggerManagerDefaultInit())
         LoggerLog::warn("LOG4PHP main() Default Init failed.");
 }
-
 /**
  * Default init procedure.
  *
@@ -252,11 +240,9 @@ function LoggerManagerDefaultInit()
     if (class_exists($configuratorClass)) {
         
         return call_user_func(array($configuratorClass, 'configure'), LOG4PHP_CONFIGURATION);         
-
     } else {
         LoggerLog::warn("LoggerManagerDefaultInit() Configurator '{$configuratorClass}' doesnt exists");
         return false;
     }
 }
-
 ?>

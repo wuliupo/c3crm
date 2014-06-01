@@ -25,20 +25,16 @@ $options = array(
     )
 );
 $queue = new Zend_Queue('Db', $options);
-
 //一分钟发送25条
 $messages = $queue->receive(100);
-
 foreach ($messages as $i => $message) {
      //参数字符串
     $postdata =  $message->body;	
-
 	$posts = explode("&",$postdata);
 	
 	//sjid
 	$sjid_arr = explode("=",$posts[0]);
 	$sjid = $sjid_arr['1'];
-
 	//maillogsid
 	$maillogsid_arr = explode("=",$posts[1]);
 	$maillogsid = $maillogsid_arr['1'];
@@ -47,11 +43,9 @@ foreach ($messages as $i => $message) {
 	if(!$mailflag){
 		continue;
 	}
-
 	//to_email
 	$to_email_arr = explode("=",$posts[2]);
 	$to_email = $to_email_arr['1'];
-
 	//receiver
 	$receiver_arr = explode("=",$posts[3]);
 	$receiver = $receiver_arr['1'];
@@ -77,7 +71,6 @@ foreach ($messages as $i => $message) {
 	$mailcontent =  str_replace("##",'&',$mailcontent);	 
 	
 	$mailcontent = str_replace("\$name\$",$receiver,$mailcontent);
-
 	//userid
 	$userid_arr = explode("=",$posts[9]);
 	$userid =  $userid_arr[1];
@@ -89,10 +82,8 @@ foreach ($messages as $i => $message) {
 	
 	//$mailcontent = stripHTML($mailcontent);
 	
-
 	//失败回调地址
 	//$callback = $site_URL."/domailfailed.php?sjid=$sjid&mailid=$maillogsid";
-
 	//发送邮件
 	$msg = send_webmail($to_email,$receiver,$from_name,$from_email,$subject,$mailcontent,$maillogsid,$userid); 
 	//send_webmail($to_email,$subject,$mailcontent,$callback);
@@ -143,12 +134,9 @@ function send_webmail($to_email,$receiver,$from_name,$from_email,$subject,$conte
 		return "No Smtp Server!";
 	}
 	require_once('include/phpmailer/class.phpmailer.php');
-
 	$mail = new PHPMailer(true); // the true param means it will throw exceptions on errors, which we need to catch
-
 	$mail->IsSMTP(); // telling the class to use SMTP
 	$result = "";
-
 	try {
 	  $mail->CharSet = "UTF-8";
 	  $mail->Host       = $server; // SMTP server
@@ -186,23 +174,16 @@ function saveMailLog($sjid,$maillogsid,$receiver,$receiver_email,$subject,$mailc
 		$adb->query($updatesql);
 	}
 }
-
 function stripHTML($text) {
-
   # strip HTML, and turn links into the full URL
   $text = preg_replace("/\r/","",$text);
-
   #$text = preg_replace("/\n/","###NL###",$text);
   $text = preg_replace("/<script[^>]*>(.*?)<\/script\s*>/is","",$text);
   $text = preg_replace("/<style[^>]*>(.*?)<\/style\s*>/is","",$text);
-
   # would prefer to use < and > but the strip tags below would erase that.
 #  $text = preg_replace("/<a href=\"(.*?)\"[^>]*>(.*?)<\/a>/is","\\2\n{\\1}",$text,100);
-
 #  $text = preg_replace("/<a href=\"(.*?)\"[^>]*>(.*?)<\/a>/is","[URLTEXT]\\2[/URLTEXT][LINK]\\1[/LINK]",$text,100);
-
   $text = preg_replace("/<a[^>]*href=[\"\'](.*)[\"\'][^>]*>(.*)<\/a>/Umis","[URLTEXT]\\2[ENDURLTEXT][LINK]\\1[ENDLINK]\n",$text);
-
   $text = preg_replace("/<b>(.*?)<\/b\s*>/is","*\\1*",$text);
   $text = preg_replace("/<h[\d]>(.*?)<\/h[\d]\s*>/is","**\\1**\n",$text);
 #  $text = preg_replace("/\s+/"," ",$text);
@@ -213,7 +194,6 @@ function stripHTML($text) {
   $text = preg_replace("/<br[^>]*?\/>/i","<br\/>\n",$text);
   $text = preg_replace("/<table/i","\n\n<table",$text);
   $text = strip_tags($text);
-
   # find all URLs and replace them back
   preg_match_all('~\[URLTEXT\](.*)\[ENDURLTEXT\]\[LINK\](.*)\[ENDLINK\]~Umis', $text, $links);
   foreach ($links[0] as $matchindex => $fullmatch) {
@@ -230,9 +210,7 @@ function stripHTML($text) {
     $text = str_replace($fullmatch,$linkreplace,$text);
   }
   $text = preg_replace("/<a href=[\"\'](.*?)[\"\'][^>]*>(.*?)<\/a>/is","[URLTEXT]\\2[ENDURLTEXT][LINK]\\1[ENDLINK]",$text,500);
-
   $text = replaceChars($text);
-
   $text = preg_replace("/###NL###/","\n",$text);
   # reduce whitespace
   while (preg_match("/  /",$text))
@@ -240,10 +218,8 @@ function stripHTML($text) {
   while (preg_match("/\n\s*\n\s*\n/",$text))
     $text = preg_replace("/\n\s*\n\s*\n/","\n\n",$text);
   $text = wordwrap($text,70);
-
   return $text;
 }
-
 function checkMaillog($maillogsid){
 	global $adb;
 	$query = "select id from ec_maillogs where id = '$maillogsid'";

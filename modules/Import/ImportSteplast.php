@@ -16,7 +16,6 @@
  * $Header$
  * Description:  TODO: To be written.
  ********************************************************************************/
-
 require_once('include/CRMSmarty.php');
 require_once('data/Tracker.php');
 require_once('modules/Import/ImportContact.php');
@@ -28,17 +27,14 @@ require_once('include/ListView/ListView.php');
 require_once('modules/Contacts/Contacts.php');
 require_once('include/utils/utils.php');
 require_once('modules/Import/ImportNote.php');
-
 global $mod_strings;
 global $app_list_strings;
 global $app_strings;
 global $current_user;
-
 if (! isset( $_REQUEST['module']))
 {
 	$_REQUEST['module'] = 'Home';
 }
-
 if (! isset( $_REQUEST['return_id']))
 {
 	$_REQUEST['return_id'] = '';
@@ -47,29 +43,22 @@ if (! isset( $_REQUEST['return_module']))
 {
 	$_REQUEST['return_module'] = '';
 }
-
 if (! isset( $_REQUEST['return_action']))
 {
 	$_REQUEST['return_action'] = '';
 }
-
 global $theme;
 $theme_path="themes/".$theme."/";
 $image_path=$theme_path."images/";
-
-
 $log->info("Import Step last");
-
 $parenttab = getParenttab();
 //This Buttons_List1.tpl is is called to display the add, search, import and export buttons ie., second level tabs
 $smarty = new CRMSmarty();
-
 $smarty->assign("MOD", $mod_strings);
 $smarty->assign("APP", $app_strings);
 $smarty->assign("IMP", $import_mod_strings);
 $smarty->assign("THEME", $theme);
 $smarty->assign("IMAGE_PATH", $image_path);
-
 $smarty->assign("MODULE", $_REQUEST['modulename']);
 $smarty->assign("SINGLE_MOD", $_REQUEST['modulename']);
 $smarty->assign("CATEGORY", $_SESSION['import_parenttab']);
@@ -82,15 +71,12 @@ $smarty->assign("CATEGORY", $_SESSION['import_parenttab']);
 if(isset($_SESSION["eventrecord"])) {
 	session_unregister('eventrecord');
 }
-
 $smarty->display("Buttons_List1.tpl");
 $skipped_record_count = $_REQUEST['skipped_record_count'];
-
 if (isset($_REQUEST['message']))
 {
 	?>
 	<br>
-
 	<table align="center" cellpadding="5" cellspacing="0" width="95%" class="mailClient importLeadUI small">
 	   <tr>
 		<td height="50" valign="middle" align="left" class="mailClientBg genHeaderSmall">

@@ -4,8 +4,6 @@
  * @package Smarty
  * @subpackage plugins
  */
-
-
 /**
  * Smarty lower modifier plugin
  *
@@ -22,5 +20,4 @@ function smarty_modifier_lower($string)
 {
     return strtolower($string);
 }
-
 ?>

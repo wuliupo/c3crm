@@ -9,9 +9,7 @@
   *
  ********************************************************************************/
 -->*}
-
 <script language="JAVASCRIPT" type="text/javascript" src="include/js/smoothscroll.js"></script>
-
 <br>
 <table align="center" border="0" cellpadding="0" cellspacing="0" width="98%">
 <tbody><tr>
@@ -23,9 +21,7 @@
 <input type='hidden' name='return_action' value='ListView'>
 <input type='hidden' name='return_module' value='Users'>
 <input type='hidden' name='parenttab' value='Settings'>
-
         <br>
-
 	<div align=center>
 			{include file='SetMenu.tpl'}
 				<!-- DISPLAY -->
@@ -92,17 +88,14 @@
 	</table>
 		
 	</div>
-
 </td>
         <td valign="top"><img src="{$IMAGE_PATH}showPanelTopRight.gif"></td>
    </tr>
 </tbody>
 </form>
 </table>
-
 {literal}
 <script>
-
 function viewenabled(ochkbox)
 {
 	if(ochkbox.checked == true)
@@ -134,7 +127,5 @@ function viewenabled(ochkbox)
 			
 	setTimeout("hide('view_info')",3000);
 }
-
 </script>
 {/literal}
-

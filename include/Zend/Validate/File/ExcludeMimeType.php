@@ -18,12 +18,10 @@
  * @license   http://framework.zend.com/license/new-bsd     New BSD License
  * @version   $Id: ExcludeMimeType.php 23775 2011-03-01 17:25:24Z ralph $
  */
-
 /**
  * @see Zend_Validate_File_MimeType
  */
 require_once 'include/Zend/Validate/File/MimeType.php';
-
 /**
  * Validator for the mime type of a file
  *
@@ -37,7 +35,6 @@ class Zend_Validate_File_ExcludeMimeType extends Zend_Validate_File_MimeType
     const FALSE_TYPE   = 'fileExcludeMimeTypeFalse';
     const NOT_DETECTED = 'fileExcludeMimeTypeNotDetected';
     const NOT_READABLE = 'fileExcludeMimeTypeNotReadable';
-
     /**
      * Defined by Zend_Validate_Interface
      *
@@ -57,13 +54,11 @@ class Zend_Validate_File_ExcludeMimeType extends Zend_Validate_File_MimeType
                 'name' => $value
             );
         }
-
         // Is file readable ?
         require_once 'include/Zend/Loader.php';
         if (!Zend_Loader::isReadable($value)) {
             return $this->_throw($file, self::NOT_READABLE);
         }
-
         $mimefile = $this->getMagicFile();
         if (class_exists('finfo', false)) {
             $const = defined('FILEINFO_MIME_TYPE') ? FILEINFO_MIME_TYPE : FILEINFO_MIME;
@@ -72,13 +67,11 @@ class Zend_Validate_File_ExcludeMimeType extends Zend_Validate_File_MimeType
             } else {
                 $mime = new finfo($const);
             }
-
             if (!empty($mime)) {
                 $this->_type = $mime->file($value);
             }
             unset($mime);
         }
-
         if (empty($this->_type)) {
             if (function_exists('mime_content_type') && ini_get('mime_magic.magicfile')) {
                 $this->_type = mime_content_type($value);
@@ -86,16 +79,13 @@ class Zend_Validate_File_ExcludeMimeType extends Zend_Validate_File_MimeType
                 $this->_type = $file['type'];
             }
         }
-
         if (empty($this->_type)) {
             return $this->_throw($file, self::NOT_DETECTED);
         }
-
         $mimetype = $this->getMimeType(true);
         if (in_array($this->_type, $mimetype)) {
             return $this->_throw($file, self::FALSE_TYPE);
         }
-
         $types = explode('/', $this->_type);
         $types = array_merge($types, explode('-', $this->_type));
         foreach($mimetype as $mime) {
@@ -103,7 +93,6 @@ class Zend_Validate_File_ExcludeMimeType extends Zend_Validate_File_MimeType
                 return $this->_throw($file, self::FALSE_TYPE);
             }
         }
-
         return true;
     }
 }

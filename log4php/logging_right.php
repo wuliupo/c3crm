@@ -16,15 +16,10 @@
  * $Header: /advent/projects/wesat/vtiger_crm/sugarcrm/include/logging.php,v 1.1 2004/08/17 13:23:37 gjayakrishnan Exp $
  * Description:  Kicks off log4php.
  ********************************************************************************/
-
-
 define('LOG4PHP_DIR', 'log4php');
 define('LOG4PHP_DEFAULT_INIT_OVERRIDE', true);
 require_once(LOG4PHP_DIR.'/LoggerManager.php');
 require_once(LOG4PHP_DIR.'/LoggerPropertyConfigurator.php');
-
 $config = new LoggerPropertyConfigurator();
 $config->configure('log4php.properties');
-
-
 ?>

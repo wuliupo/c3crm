@@ -24,11 +24,9 @@
  * @license    http://www.gnu.org/licenses/old-licenses/lgpl-2.1.txt	LGPL
  * @version    1.7.2, 2010-01-11
  */
-
 if (!defined('DATE_W3C')) {
   define('DATE_W3C', 'Y-m-d\TH:i:sP');
 }
-
 /**
  * PHPExcel_Shared_XMLWriter
  *
@@ -40,21 +38,18 @@ class PHPExcel_Shared_XMLWriter {
 	/** Temporary storage method */
 	const STORAGE_MEMORY	= 1;
 	const STORAGE_DISK		= 2;
-
 	/**
 	 * Internal XMLWriter
 	 *
 	 * @var XMLWriter
 	 */
 	private $_xmlWriter;
-
 	/**
 	 * Temporary filename
 	 *
 	 * @var string
 	 */
 	private $_tempFileName = '';
-
 	/**
 	 * Create a new PHPExcel_Shared_XMLWriter instance
 	 *
@@ -64,38 +59,32 @@ class PHPExcel_Shared_XMLWriter {
     public function __construct($pTemporaryStorage = self::STORAGE_MEMORY, $pTemporaryStorageFolder = './') {
     	// Create internal XMLWriter
     	$this->_xmlWriter = new XMLWriter();
-
     	// Open temporary storage
     	if ($pTemporaryStorage == self::STORAGE_MEMORY) {
     		$this->_xmlWriter->openMemory();
     	} else {
     		// Create temporary filename
     		$this->_tempFileName = @tempnam($pTemporaryStorageFolder, 'xml');
-
     		// Open storage
     		if ($this->_xmlWriter->openUri($this->_tempFileName) === false) {
     			// Fallback to memory...
     			$this->_xmlWriter->openMemory();
     		}
     	}
-
     	// Set default values
     	$this->_xmlWriter->setIndent(true);
     }
-
     /**
      * Destructor
      */
     public function __destruct() {
     	// Desctruct XMLWriter
     	unset($this->_xmlWriter);
-
     	// Unlink temporary files
     	if ($this->_tempFileName != '') {
     		@unlink($this->_tempFileName);
     	}
     }
-
     /**
      * Get written data
      *
@@ -109,7 +98,6 @@ class PHPExcel_Shared_XMLWriter {
     		return file_get_contents($this->_tempFileName);
     	}
     }
-
     /**
      * Catch function calls (and pass them to internal XMLWriter)
      *
@@ -123,7 +111,6 @@ class PHPExcel_Shared_XMLWriter {
     		// Do nothing!
     	}
     }
-
     /**
      * Fallback method for writeRaw, introduced in PHP 5.2
      *
@@ -135,7 +122,6 @@ class PHPExcel_Shared_XMLWriter {
     	if (isset($this->_xmlWriter) && is_object($this->_xmlWriter) && (method_exists($this->_xmlWriter, 'writeRaw'))) {
             return $this->_xmlWriter->writeRaw(htmlspecialchars($text));
     	}
-
     	return $this->text($text);
     }
 }

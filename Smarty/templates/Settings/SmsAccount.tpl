@@ -20,7 +20,6 @@
 					<input type="hidden" name="userid" value="{$userid}" />
 					<input type="hidden" name="module" value="Settings" />
 					<input type="hidden" name="action" value="SaveSmsAccount" />
-
 					<div style="margin-top:-8px">
 						<div class="pull-left">
 							<button type="button" class="btn btn-primary btn-small" onclick="goback()">
@@ -34,10 +33,8 @@
 						</div>
 					</div>
 					<br><br>
-
 					<!--content start-->
 					<div >
-
 						<table class="table table-condensed table-bordered table-hover">
 							<tbody style="text-align: center;">
 							  <tr>
@@ -96,7 +93,6 @@
 		</div>
 	</div>
 </div>
-
 <script>
 {literal}
 function check(){

@@ -9,7 +9,6 @@
 		</button>
 	</li>
 </ul>
-
 <input type="hidden" name="userid" value="{$userid}">
 <table class="table table-condensed table-bordered ">
 	<tbody style="text-align: center;">
@@ -60,7 +59,6 @@
 		</td>
 	</tr>
 </table>
-
 <script>
 {literal}
 function check(){

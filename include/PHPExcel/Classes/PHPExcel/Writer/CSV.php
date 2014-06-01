@@ -24,8 +24,6 @@
  * @license    http://www.gnu.org/licenses/old-licenses/lgpl-2.1.txt	LGPL
  * @version    1.7.2, 2010-01-11
  */
-
-
 /** PHPExcel root directory */
 if (!defined('PHPEXCEL_ROOT')) {
 	/**
@@ -33,20 +31,14 @@ if (!defined('PHPEXCEL_ROOT')) {
 	 */
 	define('PHPEXCEL_ROOT', dirname(__FILE__) . '/../../');
 }
-
 /** PHPExcel_IWriter */
 require_once PHPEXCEL_ROOT . 'PHPExcel/Writer/IWriter.php';
-
 /** PHPExcel_Cell */
 require_once PHPEXCEL_ROOT . 'PHPExcel/Cell.php';
-
 /** PHPExcel_RichText */
 require_once PHPEXCEL_ROOT . 'PHPExcel/RichText.php';
-
 /** PHPExcel_Shared_String */
 require_once PHPEXCEL_ROOT . 'PHPExcel/Shared/String.php';
-
-
 /**
  * PHPExcel_Writer_CSV
  *
@@ -61,49 +53,42 @@ class PHPExcel_Writer_CSV implements PHPExcel_Writer_IWriter {
 	 * @var PHPExcel
 	 */
 	private $_phpExcel;
-
 	/**
 	 * Delimiter
 	 *
 	 * @var string
 	 */
 	private $_delimiter;
-
 	/**
 	 * Enclosure
 	 *
 	 * @var string
 	 */
 	private $_enclosure;
-
 	/**
 	 * Line ending
 	 *
 	 * @var string
 	 */
 	private $_lineEnding;
-
 	/**
 	 * Sheet index to write
 	 *
 	 * @var int
 	 */
 	private $_sheetIndex;
-
 	/**
 	 * Pre-calculate formulas
 	 *
 	 * @var boolean
 	 */
 	private $_preCalculateFormulas = true;
-
 	/**
 	 * Whether to write a BOM (for UTF8).
 	 *
 	 * @var boolean
 	 */
 	private $_useBOM = false;
-
 	/**
 	 * Create a new PHPExcel_Writer_CSV
 	 *
@@ -116,7 +101,6 @@ class PHPExcel_Writer_CSV implements PHPExcel_Writer_IWriter {
 		$this->_lineEnding 	= PHP_EOL;
 		$this->_sheetIndex 	= 0;
 	}
-
 	/**
 	 * Save PHPExcel to file
 	 *
@@ -126,35 +110,27 @@ class PHPExcel_Writer_CSV implements PHPExcel_Writer_IWriter {
 	public function save($pFilename = null) {
 		// Fetch sheet
 		$sheet = $this->_phpExcel->getSheet($this->_sheetIndex);
-
 		$saveArrayReturnType = PHPExcel_Calculation::getArrayReturnType();
 		PHPExcel_Calculation::setArrayReturnType(PHPExcel_Calculation::RETURN_ARRAY_AS_VALUE);
-
 		// Open file
 		$fileHandle = fopen($pFilename, 'w');
 		if ($fileHandle === false) {
 			throw new Exception("Could not open file $pFilename for writing.");
 		}
-
 		if ($this->_useBOM) {
 			// Write the UTF-8 BOM code
 			fwrite($fileHandle, "\xEF\xBB\xBF");
 		}
-
 		// Convert sheet to array
 		$cellsArray = $sheet->toArray('', $this->_preCalculateFormulas);
-
 		// Write rows to file
 		foreach ($cellsArray as $row) {
 			$this->_writeLine($fileHandle, $row);
 		}
-
 		// Close file
 		fclose($fileHandle);
-
 		PHPExcel_Calculation::setArrayReturnType($saveArrayReturnType);
 	}
-
 	/**
 	 * Get delimiter
 	 *
@@ -163,7 +139,6 @@ class PHPExcel_Writer_CSV implements PHPExcel_Writer_IWriter {
 	public function getDelimiter() {
 		return $this->_delimiter;
 	}
-
 	/**
 	 * Set delimiter
 	 *
@@ -174,7 +149,6 @@ class PHPExcel_Writer_CSV implements PHPExcel_Writer_IWriter {
 		$this->_delimiter = $pValue;
 		return $this;
 	}
-
 	/**
 	 * Get enclosure
 	 *
@@ -183,7 +157,6 @@ class PHPExcel_Writer_CSV implements PHPExcel_Writer_IWriter {
 	public function getEnclosure() {
 		return $this->_enclosure;
 	}
-
 	/**
 	 * Set enclosure
 	 *
@@ -197,7 +170,6 @@ class PHPExcel_Writer_CSV implements PHPExcel_Writer_IWriter {
 		$this->_enclosure = $pValue;
 		return $this;
 	}
-
 	/**
 	 * Get line ending
 	 *
@@ -206,7 +178,6 @@ class PHPExcel_Writer_CSV implements PHPExcel_Writer_IWriter {
 	public function getLineEnding() {
 		return $this->_lineEnding;
 	}
-
 	/**
 	 * Set line ending
 	 *
@@ -217,7 +188,6 @@ class PHPExcel_Writer_CSV implements PHPExcel_Writer_IWriter {
 		$this->_lineEnding = $pValue;
 		return $this;
 	}
-
 	/**
 	 * Get whether BOM should be used
 	 *
@@ -226,7 +196,6 @@ class PHPExcel_Writer_CSV implements PHPExcel_Writer_IWriter {
 	public function getUseBOM() {
 		return $this->_useBOM;
 	}
-
 	/**
 	 * Set whether BOM should be used
 	 *
@@ -237,7 +206,6 @@ class PHPExcel_Writer_CSV implements PHPExcel_Writer_IWriter {
 		$this->_useBOM = $pValue;
 		return $this;
 	}
-
 	/**
 	 * Get sheet index
 	 *
@@ -246,7 +214,6 @@ class PHPExcel_Writer_CSV implements PHPExcel_Writer_IWriter {
 	public function getSheetIndex() {
 		return $this->_sheetIndex;
 	}
-
 	/**
 	 * Set sheet index
 	 *
@@ -257,7 +224,6 @@ class PHPExcel_Writer_CSV implements PHPExcel_Writer_IWriter {
 		$this->_sheetIndex = $pValue;
 		return $this;
 	}
-
 	/**
 	 * Write line to CSV file
 	 *
@@ -269,35 +235,28 @@ class PHPExcel_Writer_CSV implements PHPExcel_Writer_IWriter {
 		if (!is_null($pFileHandle) && is_array($pValues)) {
 			// No leading delimiter
 			$writeDelimiter = false;
-
 			// Build the line
 			$line = '';
-
 			foreach ($pValues as $element) {
 				// Escape enclosures
 				$element = str_replace($this->_enclosure, $this->_enclosure . $this->_enclosure, $element);
-
 				// Add delimiter
 				if ($writeDelimiter) {
 					$line .= $this->_delimiter;
 				} else {
 					$writeDelimiter = true;
 				}
-
 				// Add enclosed string
 				$line .= $this->_enclosure . $element . $this->_enclosure;
 			}
-
 			// Add line ending
 			$line .= $this->_lineEnding;
-
 			// Write to file
 			fwrite($pFileHandle, $line);
 		} else {
 			throw new Exception("Invalid parameters passed.");
 		}
 	}
-
     /**
      * Get Pre-Calculate Formulas
      *
@@ -306,7 +265,6 @@ class PHPExcel_Writer_CSV implements PHPExcel_Writer_IWriter {
     public function getPreCalculateFormulas() {
     	return $this->_preCalculateFormulas;
     }
-
     /**
      * Set Pre-Calculate Formulas
      *

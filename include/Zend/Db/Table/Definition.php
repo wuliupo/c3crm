@@ -19,7 +19,6 @@
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  * @version    $Id: Definition.php 23775 2011-03-01 17:25:24Z ralph $
  */
-
 /**
  * Class for SQL table interface.
  *
@@ -31,12 +30,10 @@
  */
 class Zend_Db_Table_Definition
 {
-
     /**
      * @var array
      */
     protected $_tableConfigs = array();
-
     /**
      * __construct()
      *
@@ -50,7 +47,6 @@ class Zend_Db_Table_Definition
             $this->setOptions($options);
         }
     }
-
     /**
      * setConfig()
      *
@@ -62,7 +58,6 @@ class Zend_Db_Table_Definition
         $this->setOptions($config->toArray());
         return $this;
     }
-
     /**
      * setOptions()
      *
@@ -76,7 +71,6 @@ class Zend_Db_Table_Definition
         }
         return $this;
     }
-
     /**
      * @param string $tableName
      * @param array  $tableConfig
@@ -87,15 +81,12 @@ class Zend_Db_Table_Definition
         // @todo logic here
         $tableConfig[Zend_Db_Table::DEFINITION_CONFIG_NAME] = $tableName;
         $tableConfig[Zend_Db_Table::DEFINITION] = $this;
-
         if (!isset($tableConfig[Zend_Db_Table::NAME])) {
             $tableConfig[Zend_Db_Table::NAME] = $tableName;
         }
-
         $this->_tableConfigs[$tableName] = $tableConfig;
         return $this;
     }
-
     /**
      * getTableConfig()
      *
@@ -106,7 +97,6 @@ class Zend_Db_Table_Definition
     {
         return $this->_tableConfigs[$tableName];
     }
-
     /**
      * removeTableConfig()
      *
@@ -116,7 +106,6 @@ class Zend_Db_Table_Definition
     {
         unset($this->_tableConfigs[$tableName]);
     }
-
     /**
      * hasTableConfig()
      *
@@ -127,5 +116,4 @@ class Zend_Db_Table_Definition
     {
         return (isset($this->_tableConfigs[$tableName]));
     }
-
 }

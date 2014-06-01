@@ -6,7 +6,6 @@ $default_theme = "softed";
 $default_user_name = "";
 $default_password = "";
 $default_company_name = "";
-
 ?>
 <!DOCTYPE html>
 <html lang="en"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
@@ -20,7 +19,6 @@ $default_company_name = "";
     <link href="themes/bootcss/css/bootstrap-responsive.min.css" rel="stylesheet">
     <link href="themes/bootcss/css/style.css" rel="stylesheet">
     <link href="themes/bootcss/css/cus-icons.css" rel="stylesheet">
-
 	<link href="themes/bootcss/css/Login.css" rel="stylesheet">
   </head>
 <script language="javascript">
@@ -37,7 +35,6 @@ function check() {
 	} else {
 		check_duplicate();
 	}
-
 }
 function logining_load(){
 	document.loginform.user_name.focus();
@@ -57,11 +54,9 @@ function check_duplicate()
                         }
                 }
         );
-
 }
 </script>
 <body onLoad="logining_load()">
-
 <div class="navbar navbar-fixed-top">	
 	<div class="navbar-inner">
 		<div class="container">
@@ -79,8 +74,6 @@ function check_duplicate()
 		</div> <!-- /container -->
 	</div> <!-- /navbar-inner -->
 </div> <!-- /navbar -->
-
-
 <div id="login-container">
 	<div id="login-header">
 		<h3 style="line-height: 15px;">找回密码</h3>

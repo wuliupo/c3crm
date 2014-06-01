@@ -18,12 +18,10 @@
  * @license   http://framework.zend.com/license/new-bsd     New BSD License
  * @version   $Id: Md5.php 23775 2011-03-01 17:25:24Z ralph $
  */
-
 /**
  * @see Zend_Validate_File_Hash
  */
 require_once 'include/Zend/Validate/File/Hash.php';
-
 /**
  * Validator for the md5 hash of given files
  *
@@ -40,7 +38,6 @@ class Zend_Validate_File_Md5 extends Zend_Validate_File_Hash
     const DOES_NOT_MATCH = 'fileMd5DoesNotMatch';
     const NOT_DETECTED   = 'fileMd5NotDetected';
     const NOT_FOUND      = 'fileMd5NotFound';
-
     /**
      * @var array Error message templates
      */
@@ -49,14 +46,12 @@ class Zend_Validate_File_Md5 extends Zend_Validate_File_Hash
         self::NOT_DETECTED   => "A md5 hash could not be evaluated for the given file",
         self::NOT_FOUND      => "File '%value%' is not readable or does not exist",
     );
-
     /**
      * Hash of the file
      *
      * @var string
      */
     protected $_hash;
-
     /**
      * Sets validator options
      *
@@ -75,10 +70,8 @@ class Zend_Validate_File_Md5 extends Zend_Validate_File_Hash
             require_once 'include/Zend/Validate/Exception.php';
             throw new Zend_Validate_Exception('Invalid options to validator provided');
         }
-
         $this->setMd5($options);
     }
-
     /**
      * Returns all set md5 hashes
      *
@@ -88,7 +81,6 @@ class Zend_Validate_File_Md5 extends Zend_Validate_File_Hash
     {
         return $this->getHash();
     }
-
     /**
      * Sets the md5 hash for one or multiple files
      *
@@ -101,12 +93,10 @@ class Zend_Validate_File_Md5 extends Zend_Validate_File_Hash
         if (!is_array($options)) {
             $options = (array) $options;
         }
-
         $options['algorithm'] = 'md5';
         parent::setHash($options);
         return $this;
     }
-
     /**
      * Sets the md5 hash for one or multiple files
      *
@@ -118,7 +108,6 @@ class Zend_Validate_File_Md5 extends Zend_Validate_File_Hash
         $this->setHash($options);
         return $this;
     }
-
     /**
      * Adds the md5 hash for one or multiple files
      *
@@ -131,12 +120,10 @@ class Zend_Validate_File_Md5 extends Zend_Validate_File_Hash
         if (!is_array($options)) {
             $options = (array) $options;
         }
-
         $options['algorithm'] = 'md5';
         parent::addHash($options);
         return $this;
     }
-
     /**
      * Adds the md5 hash for one or multiple files
      *
@@ -148,7 +135,6 @@ class Zend_Validate_File_Md5 extends Zend_Validate_File_Hash
         $this->addHash($options);
         return $this;
     }
-
     /**
      * Defined by Zend_Validate_Interface
      *
@@ -165,19 +151,16 @@ class Zend_Validate_File_Md5 extends Zend_Validate_File_Hash
         if (!Zend_Loader::isReadable($value)) {
             return $this->_throw($file, self::NOT_FOUND);
         }
-
         $hashes = array_unique(array_keys($this->_hash));
         $filehash = hash_file('md5', $value);
         if ($filehash === false) {
             return $this->_throw($file, self::NOT_DETECTED);
         }
-
         foreach($hashes as $hash) {
             if ($filehash === $hash) {
                 return true;
             }
         }
-
         return $this->_throw($file, self::DOES_NOT_MATCH);
     }
 }

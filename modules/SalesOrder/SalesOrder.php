@@ -7,24 +7,15 @@ require_once('include/utils/utils.php');
 class SalesOrder extends CRMEntity {
 	var $log;
 	var $db;
-
 	var $table_name = "ec_salesorder";
 	var $tab_name = Array('ec_crmentity','ec_salesorder');
 	var $tab_name_index = Array('ec_crmentity'=>'crmid','ec_salesorder'=>'salesorderid');
-
 	var $entity_table = "ec_salesorder";
-
 	var $object_name = "SalesOrder";
-
 	var $new_schema = true;
-
 	var $module_id = "salesorderid";
-
 	var $column_fields = Array();
-
 	var $sortby_fields = Array('subject','smownerid');
-
-
 	// This is the list of ec_fields that are in the lists.
 	var $list_fields = Array(
 				'Subject'=>Array('salesorder'=>'subject'),
@@ -37,7 +28,6 @@ class SalesOrder extends CRMEntity {
 				'ratetotal'=>Array('salesorder'=>'ratetotal'),
                  '合计'=>Array('salesorder'=>'total')
 				);
-
 	var $list_fields_name = Array(
 				'Subject'=>'subject',
 		        //'ordername'=>'ordername',
@@ -49,7 +39,6 @@ class SalesOrder extends CRMEntity {
 				'ratetotal'=>'ratetotal'
 				);
 	var $list_link_field= 'subject';
-
 	var $search_fields = Array(
 				'Subject'=>Array('salesorder'=>'subject'),
 				'ordername'=>Array('salesorder'=>'ordername'),
@@ -60,7 +49,6 @@ class SalesOrder extends CRMEntity {
 				'rate'=>Array('salesorder'=>'rate'),
 				'ratetotal'=>Array('salesorder'=>'ratetotal')
 				);
-
 	var $search_fields_name = Array(
 				'Subject'=>'subject',
 		        'ordername'=>'ordername',
@@ -71,14 +59,11 @@ class SalesOrder extends CRMEntity {
 				'rate'=>'rate',
 				'ratetotal'=>'ratetotal'
 				);
-
 	// This is the list of ec_fields that are required.
 	var $required_fields =  array("account_id"=>1);
-
 	//Added these variables which are used as default order by and sortorder in ListView
 	var $default_order_by = 'modifiedtime';
 	var $default_sort_order = 'DESC';
-
 	/** Constructor Function for SalesOrder class
 	 *  This function creates an instance of LoggerManager class using getLogger method
 	 *  creates an instance for PearDatabase class and get values for column_fields array of SalesOrder class.
@@ -88,7 +73,6 @@ class SalesOrder extends CRMEntity {
 		$this->db = & getSingleDBInstance();
 		$this->column_fields = getColumnFields('SalesOrder');
 	}
-
 	function save_module($module)
 	{
      	
@@ -105,8 +89,6 @@ class SalesOrder extends CRMEntity {
 		{
            	$this->saveAccountTotals($this->column_fields['account_id']);
 		}
-
-
 		//Based on the total Number of rows we will save the product relationship with this entity
 		//in ajax save we should not call this function, because this will delete all the existing product values
 		if($_REQUEST['action'] != 'SalesOrderAjax' && $_REQUEST['ajxaction'] != 'DETAILVIEW')
@@ -114,7 +96,6 @@ class SalesOrder extends CRMEntity {
 			//Based on the total Number of rows we will save the product relationship with this entity
 			$this->saveInventoryProductDetails();
 		}
-
 	}
 	function saveAccountTotals($accountid){
 		$query = "select sum(total) as total,count(*) as num from ec_salesorder where accountid=$accountid and deleted=0";
@@ -125,7 +106,6 @@ class SalesOrder extends CRMEntity {
 		$query3 = "update ec_account set ordertotal ='".$total."',ordernum='".$num."'  where accountid='".$accountid."'";
 		$this->db->query($query3);
 	}
-
      /** Function to export the account records in CSV Format
 	* @param reference variable - order by is passed when the query is executed
 	* @param reference variable - where condition is passed when the query is executed
@@ -136,9 +116,7 @@ class SalesOrder extends CRMEntity {
 		global $log;
 		global $current_user;
                 $log->debug("Entering create_export_query(".$order_by.",".$where.") method ...");
-
 		include("include/utils/ExportUtils.php");
-
 		//To get the Permitted fields query and the permitted fields list
 		$sql = getPermittedFieldsQuery("SalesOrder", "detail_view");
 		global $mod_strings;
@@ -147,7 +125,6 @@ class SalesOrder extends CRMEntity {
 			$mod_strings = return_module_language($current_language,"SalesOrder");
 		}
 		$fields_list = $this->getFieldsListFromQuery($sql,$mod_strings);
-
 		//echo($fields_list);
 		$query = "SELECT $fields_list FROM ec_salesorder
 				LEFT JOIN ec_account
@@ -157,22 +134,17 @@ class SalesOrder extends CRMEntity {
 				LEFT JOIN ec_inventoryproductrel
 					ON ec_salesorder.salesorderid=ec_inventoryproductrel.id";
 		$where_auto = " ec_salesorder.deleted = 0 ";
-
 		if($where != "")
 			$query .= "WHERE ($where) AND ".$where_auto;
 		else
 			$query .= "WHERE ".$where_auto;
-
 		//we should add security check when the user has Private Access
 		
-
 		if(!empty($order_by))
 			$query .= " ORDER BY $order_by, ec_inventoryproductrel.sequence_no";
-
 		$log->debug("Exiting create_export_query method ...");
 		return $query;
 	}
-
 	/**	function used to get the list of fields from the input query as a comma seperated string
 	 *	@param string $query - field table query which contains the list of fields
 	 *	@return string $fields - list of fields as a comma seperated string
@@ -182,7 +154,6 @@ class SalesOrder extends CRMEntity {
 		global $log,$app_strings;
 		global $current_language;
 		$log->debug("Entering into the function getFieldsListFromQuery()");
-
 		$pro_mod_strings = return_module_language($current_language,"Products");
 		//$result = $this->db->query($query);
 		//$num_rows = $this->db->num_rows($result);
@@ -237,7 +208,6 @@ class SalesOrder extends CRMEntity {
 				}
 			}
 		}
-
 		/*
 		$fieldlabellist = getProductFieldLabelList("SalesOrder");
 		$fieldnamelist = getProductFieldList("SalesOrder");
@@ -247,12 +217,10 @@ class SalesOrder extends CRMEntity {
 			$productfieldname=$fieldnamelist[$i];
 			$productlabel=$fieldlabellist[$i];
 			$productlabel=$productlabel['LABEL'];
-
 			if($productfieldname=='catalogname') $producttablename="ec_catalog";
 			elseif($productfieldname=='vendorname') $producttablename="ec_vendor";
 			elseif(strpos($productfieldname,"cf")===0) $producttablename="ec_productcf";
 			else $producttablename="ec_products";
-
 			$fields .= $producttablename.".".$productfieldname. " as '" .$productlabel."',";
 		}
 		$fields .="ec_inventoryproductrel.quantity as '数量',";
@@ -260,11 +228,9 @@ class SalesOrder extends CRMEntity {
 		$fields .="ec_inventoryproductrel.comment as '备注',";
 		*/
 		$fields = trim($fields,",");
-
 		$log->debug("Exit from the function getFieldsListFromQuery()");
 		return $fields;
 	}
-
 	/**	Function used to get the sort order for Sales Order listview
 	 *	@return string	$sorder	- first check the $_REQUEST['sorder'] if request value is empty then check in the $_SESSION['SALESORDER_SORT_ORDER'] if this session value is empty then default sort order will be returned.
 	 */
@@ -279,7 +245,6 @@ class SalesOrder extends CRMEntity {
 		$log->debug("Exiting getSortOrder() method ...");
 		return $sorder;
 	}
-
 	/**	Function used to get the order by value for Sales Order listview
 	 *	@return string	$order_by  - first check the $_REQUEST['order_by'] if request value is empty then check in the $_SESSION['SALESORDER_ORDER_BY'] if this session value is empty then default order by will be returned.
 	 */
@@ -294,7 +259,6 @@ class SalesOrder extends CRMEntity {
 		$log->debug("Exiting getOrderBy method ...");
 		return $order_by;
 	}
-
 	
 	/**	Function used to get the Status history of the Sales Order
 	 *	@param $id - salesorder id
@@ -306,7 +270,6 @@ class SalesOrder extends CRMEntity {
 		$log->debug("Entering get_sostatushistory(".$id.") method ...");
 		global $mod_strings;
 		global $app_strings;
-
 		$query = 'select ec_sostatushistory.*, ec_salesorder.subject from ec_sostatushistory inner join ec_salesorder on ec_salesorder.salesorderid = ec_sostatushistory.salesorderid where ec_salesorder.deleted = 0 and ec_salesorder.salesorderid = '.$id." order by ec_sostatushistory.lastmodified desc";
 		$result=$this->db->getList($query);
 		$header[] = $mod_strings['Subject'];
@@ -317,25 +280,18 @@ class SalesOrder extends CRMEntity {
 		foreach($result as $row)
 		{
 			$entries = Array();
-
 			$entries[] = $row['subject'];
 			$entries[] = $row['accountname'];
 			$entries[] = $row['total'];
 			$entries[] = $row['sostatus'];
 			$entries[] = getDisplayDate($row['lastmodified']);
-
 			$entries_list[] = $entries;
 		}
-
 		$return_data = Array('header'=>$header,'entries'=>$entries_list);
-
 	 	$log->debug("Exiting get_sostatushistory method ...");
-
 		return $return_data;
 	}
-
 	
-
 	//get next salesorder id
 	function get_next_id() {
 		$query = "select count(*) as num from ec_salesorder";
@@ -346,7 +302,6 @@ class SalesOrder extends CRMEntity {
 		elseif($num > 9) return "0".$num;
 		else return "00".$num;
 	}
-
 	
 	function getAssociatedProducts()
 	{
@@ -355,10 +310,8 @@ class SalesOrder extends CRMEntity {
 		$output = '';
 		global $current_user;
 		$product_Detail = Array();
-
 		$query="select ec_products.*,ec_inventoryproductrel.*,ec_products.productid as crmid from ec_inventoryproductrel inner join ec_products on ec_products.productid=ec_inventoryproductrel.productid     where ec_inventoryproductrel.id=".$this->id." ORDER BY sequence_no";
 		$fieldlist = getProductFieldList("SalesOrder");
-
 		$result = $this->db->query($query);
 		$num_rows=$this->db->num_rows($result);
 		for($i=1;$i<=$num_rows;$i++)
@@ -380,7 +333,6 @@ class SalesOrder extends CRMEntity {
 					if(strpos($fieldname,"price")) {
 						$fieldvalue = getConvertedPriceFromDollar($fieldvalue,1);
 					}
-
 				}
 				$product_Detail[$i][$fieldname.$i] = $fieldvalue;
 			}
@@ -402,18 +354,13 @@ class SalesOrder extends CRMEntity {
 			$product_Detail[$i]['productTotal'.$i]=$productTotal;
 			$product_Detail[$i]['netPrice'.$i] = $productTotal;
 		}
-
 		//To set the grand total
 		$grandTotal = ($this->column_fields['hdnGrandTotal'] != '')?$this->column_fields['hdnGrandTotal']:'0.00';
 		$grandTotal = getConvertedPriceFromDollar($grandTotal);
 		$product_Detail[1]['final_details']['grandTotal'] = $grandTotal;
-
 		$log->debug("Exiting getAssociatedProducts method ...");
-
 		return $product_Detail;
-
 	}
-
 	function getDetailAssociatedProducts()
 	{
 		global $log;
@@ -427,7 +374,6 @@ class SalesOrder extends CRMEntity {
 		$output = '';
 		$fieldlabellist = getProductFieldLabelList("SalesOrder");
 		$fieldnamelist = getProductFieldList("SalesOrder");
-
 		$output .= '<table  class="table table-bordered table-hover table-condensedforev dvtable" id="proTab">
 		   <tr valign="top">
 			<td colspan="50" class="dvInnerHeader"><b>'.$app_strings['LBL_PRODUCT_DETAILS'].'</b></td>
@@ -443,13 +389,11 @@ class SalesOrder extends CRMEntity {
 		$output .= '<td width=10% nowrap class="lvtCol" align="right"><b>'.$app_strings['LBL_PRODUCT_TOTAL'].'</b></td>';
 		$output .= '</tr>';
 		$query="select ec_products.*,ec_inventoryproductrel.*,ec_products.productid as crmid  from ec_inventoryproductrel inner join ec_products on ec_products.productid=ec_inventoryproductrel.productid    where ec_inventoryproductrel.id=".$this->id." ORDER BY sequence_no";
-
 		$result = $adb->query($query);
 		$num_rows=$adb->num_rows($result);
 		$netTotal = '0.00';
 		for($i=1;$i<=$num_rows;$i++)
 		{
-
 			$productid=$adb->query_result($result,$i-1,'crmid');
 			$comment=$adb->query_result($result,$i-1,'comment');
 			if(empty($comment)) $comment = "&nbsp;";
@@ -480,7 +424,6 @@ class SalesOrder extends CRMEntity {
 			$netTotal = $netTotal + $netprice; 
 		}
 		$output .= '</table>';
-
 		//Display the total, adjustment, S&H details
 		$output .= '<table  class="table table-bordered table-hover table-condensedforev dvtable" style="margin-top:5px;">';
  
@@ -493,9 +436,7 @@ class SalesOrder extends CRMEntity {
 		$output .= '</table>';
 		$log->debug("Exiting getDetailAssociatedProducts method ...");
 		return $output;
-
 	}
-
 	function getAssociatedProductsFromQuote($quoteid)
 	{
 		global $log;
@@ -503,10 +444,8 @@ class SalesOrder extends CRMEntity {
 		$output = '';
 		global $current_user;
 		$product_Detail = Array();
-
 		$query="select ec_products.*,ec_inventoryproductrel.*,ec_products.productid as crmid from ec_inventoryproductrel inner join ec_products on ec_products.productid=ec_inventoryproductrel.productid   where ec_inventoryproductrel.id=".$quoteid." ORDER BY sequence_no";
 		$fieldlist = getProductFieldList("SalesOrder");
-
 		$result = $this->db->query($query);
 		$num_rows=$this->db->num_rows($result);
 		for($i=1;$i<=$num_rows;$i++)
@@ -528,7 +467,6 @@ class SalesOrder extends CRMEntity {
 					if(strpos($fieldname,"price")) {
 						$fieldvalue = convertFromDollar($fieldvalue,1);
 					}
-
 				} else {
 					$image_query = 'select ec_attachments.path, ec_attachments.attachmentsid, ec_attachments.name from ec_products left join ec_seattachmentsrel on ec_seattachmentsrel.crmid=ec_products.productid inner join ec_attachments on ec_attachments.attachmentsid=ec_seattachmentsrel.attachmentsid where productid='.$productid;
 					$result_image = $this->db->query($image_query);
@@ -566,19 +504,14 @@ class SalesOrder extends CRMEntity {
 			$product_Detail[$i]['productTotal'.$i]=$productTotal;
 			$product_Detail[$i]['netPrice'.$i] = $productTotal;
 		}
-
-
 		//Get the Final Discount, S&H charge, Tax for S&H and Adjustment values
 		//To set the Final Discount details
 		$finalDiscount = '0.00';
 		$product_Detail[1]['final_details']['discount_type_final'] = 'zero';
-
 		$subTotal = ($this->column_fields['hdnSubTotal'] != '')?$this->column_fields['hdnSubTotal']:'0.00';
 		$subTotal = getConvertedPriceFromDollar($subTotal);
-
 		$discountPercent = ($this->column_fields['hdnDiscountPercent'] != '')?$this->column_fields['hdnDiscountPercent']:'0.00';
 		$discountAmount = ($this->column_fields['hdnDiscountAmount'] != '')?$this->column_fields['hdnDiscountAmount']:'0.00';
-
 		if($this->column_fields['hdnDiscountPercent'] != '' && $this->column_fields['hdnDiscountPercent'] != '0.0')
 		{
 			$finalDiscount = ($subTotal*$discountPercent/100);
@@ -593,7 +526,6 @@ class SalesOrder extends CRMEntity {
 			$finalDiscount = $this->column_fields['hdnDiscountAmount'];
 			$finalDiscount = getConvertedPriceFromDollar($finalDiscount);
 			$discountAmount = getConvertedPriceFromDollar($discountAmount);
-
 			$product_Detail[1]['final_details']['discount_type_final'] = 'amount';
 			$product_Detail[1]['final_details']['discount_amount_final'] = $discountAmount;
 			$product_Detail[1]['final_details']['checked_discount_amount_final'] = ' checked';
@@ -601,29 +533,21 @@ class SalesOrder extends CRMEntity {
 			$product_Detail[1]['final_details']['style_discount_percentage_final'] = ' style="visibility:hidden"';
 		}
 		$product_Detail[1]['final_details']['discountTotal_final'] = $finalDiscount;
-
-
 		//To set the Shipping & Handling charge
 		$shCharge = ($this->column_fields['hdnS_H_Amount'] != '')?$this->column_fields['hdnS_H_Amount']:'0.00';
 		$shCharge = getConvertedPriceFromDollar($shCharge);
 		$product_Detail[1]['final_details']['shipping_handling_charge'] = $shCharge;
-
 		//To set the Adjustment value
 		$adjustment = ($this->column_fields['txtAdjustment'] != '')?$this->column_fields['txtAdjustment']:'0.00';
 		$adjustment = getConvertedPriceFromDollar($adjustment);
 		$product_Detail[1]['final_details']['adjustment'] = $adjustment;
-
 		//To set the grand total
 		$grandTotal = ($this->column_fields['hdnGrandTotal'] != '')?$this->column_fields['hdnGrandTotal']:'0.00';
 		$grandTotal = getConvertedPriceFromDollar($grandTotal);
 		$product_Detail[1]['final_details']['grandTotal'] = $grandTotal;
-
 		$log->debug("Exiting getAssociatedProductsFromQuote method ...");
-
 		return $product_Detail;
-
 	}
-
 	/**	Function used to save the Inventory product details for the passed entity
 	 *	@param object reference $this - object reference to which we want to save the product details from REQUEST values where as the entity will be Purchase Order, Sales Order, Quotes or Invoice
 	 *	@param string $module - module name
@@ -631,12 +555,10 @@ class SalesOrder extends CRMEntity {
 	 *	@return void
 	 */
 	function saveInventoryProductDetails()
-
 	{
 		global $log;
 		$log->debug("Entering into function saveInventoryProductDetails().");
 		global $app_strings;
-
 		if($this->mode == 'edit')
 		{
 			$inventarr = $this->getInventProInfo($this->id);
@@ -645,9 +567,7 @@ class SalesOrder extends CRMEntity {
 //			$this->db->query($update_productsql2);
 			deleteInventoryProductDetails($this->id,'');
 		}
-
 		$tot_no_prod = $_REQUEST['totalProductCount'];
-
 		$prod_seq=1;
 		for($i=1; $i<=$tot_no_prod; $i++)
 		{
@@ -655,9 +575,7 @@ class SalesOrder extends CRMEntity {
 			$qty = $_REQUEST['qty'.$i];
 			$listprice = $_REQUEST['listPrice'.$i];
 			$listprice = getConvertedPrice($listprice);//convert the listPrice into $
-
 			$comment = addslashes($_REQUEST['comment'.$i]);
-
 			//if the product is deleted then we should avoid saving the deleted products
 			if($_REQUEST["deleted".$i] == 1)
 				continue;
@@ -665,12 +583,9 @@ class SalesOrder extends CRMEntity {
 			$prod_seq++;
 			$this->db->query($query);
 		}
-
 		//we should update the netprice (subtotal), taxtype, group discount, S&H charge, S&H taxes, adjustment and total
 		//netprice, group discount, taxtype, S&H amount, adjustment and total to entity table
-
 		$updatequery  = " update $this->table_name set ";
-
 		$total = getConvertedPrice($_REQUEST['total']);//convert total to $
 		$updatequery .= " total='".$total."'";
 		$updatequery .= " where salesorderid=$this->id"; 
@@ -691,7 +606,6 @@ class SalesOrder extends CRMEntity {
 		 $log->debug("Exiting getInventProInfo method ...");
 		 return $arr;
 	}
-
 	function get_generalmodules($id,$related_tabname)
 	{
 		global $log, $singlepane_view;
@@ -726,7 +640,6 @@ class SalesOrder extends CRMEntity {
     function afterEntityApprove($crmid,$approveid,$currentstepid,$status,$nextstepid){
  //       file_put_contents("D:\\log.txt", "$crmid   $approveid $currentstepid  $status\r\n", FILE_APPEND | LOCK_EX);
     }
-
   // 获取订单产品信息
     function getProductsInfo($salesorderid) {
 		 global $log;
@@ -746,18 +659,8 @@ class SalesOrder extends CRMEntity {
 			 $row['detail_url'] = "<a href='".$row['detail_url']."' target=\"_blank\">".$row['detail_url']."</a>";
              $arr[] =$row;
 		 }
-
          $log->debug("Exiting getProductsInfo method ...");
 		 return $arr;
     }
-
-
-
-
-
-
-
-
 }
-
 ?>

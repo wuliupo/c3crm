@@ -21,7 +21,6 @@
         </td>
 	</tr>
 </table>
-
 <table class="lvt small" border="0" cellpadding="3" align="center" cellspacing="1" width="95%" >
 <tr>
 	<td class="lvtCol" width="40px">

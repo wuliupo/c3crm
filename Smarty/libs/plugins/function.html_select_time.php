@@ -4,8 +4,6 @@
  * @package Smarty
  * @subpackage plugins
  */
-
-
 /**
  * Smarty {html_select_time} function plugin
  *
@@ -45,7 +43,6 @@ function smarty_function_html_select_time($params, &$smarty)
     $minute_extra       = null;
     $second_extra       = null;
     $meridian_extra     = null;
-
     foreach ($params as $_key=>$_value) {
         switch ($_key) {
             case 'prefix':
@@ -58,7 +55,6 @@ function smarty_function_html_select_time($params, &$smarty)
             case 'meridian_extra':
                 $$_key = (string)$_value;
                 break;
-
             case 'display_hours':
             case 'display_minutes':
             case 'display_seconds':
@@ -66,21 +62,16 @@ function smarty_function_html_select_time($params, &$smarty)
             case 'use_24_hours':
                 $$_key = (bool)$_value;
                 break;
-
             case 'minute_interval':
             case 'second_interval':
                 $$_key = (int)$_value;
                 break;
-
             default:
                 $smarty->trigger_error("[html_select_time] unknown parameter $_key", E_USER_WARNING);
         }
     }
-
     $time = smarty_make_timestamp($time);
-
     $html_result = '';
-
     if ($display_hours) {
         $hours       = $use_24_hours ? range(0, 23) : range(1, 12);
         $hour_fmt = $use_24_hours ? '%H' : '%I';
@@ -106,7 +97,6 @@ function smarty_function_html_select_time($params, &$smarty)
                                                      $smarty);
         $html_result .= "</select>\n";
     }
-
     if ($display_minutes) {
         $all_minutes = range(0, 59);
         for ($i = 0, $for_max = count($all_minutes); $i < $for_max; $i+= $minute_interval)
@@ -133,7 +123,6 @@ function smarty_function_html_select_time($params, &$smarty)
                                                      $smarty);
         $html_result .= "</select>\n";
     }
-
     if ($display_seconds) {
         $all_seconds = range(0, 59);
         for ($i = 0, $for_max = count($all_seconds); $i < $for_max; $i+= $second_interval)
@@ -161,7 +150,6 @@ function smarty_function_html_select_time($params, &$smarty)
                                                      $smarty);
         $html_result .= "</select>\n";
     }
-
     if ($display_meridian && !$use_24_hours) {
         $html_result .= '<select name=';
         if (null !== $field_array) {
@@ -185,10 +173,7 @@ function smarty_function_html_select_time($params, &$smarty)
                                                      $smarty);
         $html_result .= "</select>\n";
     }
-
     return $html_result;
 }
-
 /* vim: set expandtab: */
-
 ?>

@@ -18,19 +18,14 @@
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  * @version    $Id: Message.php 23775 2011-03-01 17:25:24Z ralph $
  */
-
-
 /**
  * Zend_Mime
  */
 require_once 'include/Zend/Mime.php';
-
 /**
  * Zend_Mime_Part
  */
 require_once 'include/Zend/Mime/Part.php';
-
-
 /**
  * @category   Zend
  * @package    Zend_Mime
@@ -39,10 +34,8 @@ require_once 'include/Zend/Mime/Part.php';
  */
 class Zend_Mime_Message
 {
-
     protected $_parts = array();
     protected $_mime = null;
-
     /**
      * Returns the list of all Zend_Mime_Parts in the message
      *
@@ -52,7 +45,6 @@ class Zend_Mime_Message
     {
         return $this->_parts;
     }
-
     /**
      * Sets the given array of Zend_Mime_Parts as the array for the message
      *
@@ -62,7 +54,6 @@ class Zend_Mime_Message
     {
         $this->_parts = $parts;
     }
-
     /**
      * Append a new Zend_Mime_Part to the current message
      *
@@ -75,7 +66,6 @@ class Zend_Mime_Message
          */
         $this->_parts[] = $part;
     }
-
     /**
      * Check if message needs to be sent as multipart
      * MIME message or if it has only one part.
@@ -86,7 +76,6 @@ class Zend_Mime_Message
     {
         return (count($this->_parts) > 1);
     }
-
     /**
      * Set Zend_Mime object for the message
      *
@@ -99,7 +88,6 @@ class Zend_Mime_Message
     {
         $this->_mime = $mime;
     }
-
     /**
      * Returns the Zend_Mime object in use by the message
      *
@@ -113,10 +101,8 @@ class Zend_Mime_Message
         if ($this->_mime === null) {
             $this->_mime = new Zend_Mime();
         }
-
         return $this->_mime;
     }
-
     /**
      * Generate MIME-compliant message from the current configuration
      *
@@ -139,24 +125,19 @@ class Zend_Mime_Message
             $body = $body->getContent($EOL);
         } else {
             $mime = $this->getMime();
-
             $boundaryLine = $mime->boundaryLine($EOL);
             $body = 'This is a message in Mime Format.  If you see this, '
                   . "your mail reader does not support this format." . $EOL;
-
             foreach (array_keys($this->_parts) as $p) {
                 $body .= $boundaryLine
                        . $this->getPartHeaders($p, $EOL)
                        . $EOL
                        . $this->getPartContent($p, $EOL);
             }
-
             $body .= $mime->mimeEnd($EOL);
         }
-
         return trim($body);
     }
-
     /**
      * Get the headers of a given part as an array
      *
@@ -167,7 +148,6 @@ class Zend_Mime_Message
     {
         return $this->_parts[$partnum]->getHeadersArray();
     }
-
     /**
      * Get the headers of a given part as a string
      *
@@ -178,7 +158,6 @@ class Zend_Mime_Message
     {
         return $this->_parts[$partnum]->getHeaders($EOL);
     }
-
     /**
      * Get the (encoded) content of a given part as a string
      *
@@ -189,7 +168,6 @@ class Zend_Mime_Message
     {
         return $this->_parts[$partnum]->getContent($EOL);
     }
-
     /**
      * Explode MIME multipart string into seperate parts
      *
@@ -211,26 +189,21 @@ class Zend_Mime_Message
             // no parts found!
             return array();
         }
-
         // position after first boundary line
         $start = $p + 3 + strlen($boundary);
-
         while (($p = strpos($body, '--' . $boundary . "\n", $start)) !== false) {
             $res[] = substr($body, $start, $p-$start);
             $start = $p + 3 + strlen($boundary);
         }
-
         // no more parts, find end boundary
         $p = strpos($body, '--' . $boundary . '--', $start);
         if ($p===false) {
             throw new Zend_Exception('Not a valid Mime Message: End Missing');
         }
-
         // the remaining part also needs to be parsed:
         $res[] = substr($body, $start, $p-$start);
         return $res;
     }
-
     /**
      * Decodes a MIME encoded string and returns a Zend_Mime_Message object with
      * all the MIME parts set according to the given string
@@ -244,7 +217,6 @@ class Zend_Mime_Message
     {
         require_once 'include/Zend/Mime/Decode.php';
         $parts = Zend_Mime_Decode::splitMessageStruct($message, $boundary, $EOL);
-
         $res = new self();
         foreach ($parts as $part) {
             // now we build a new MimePart for the current Message Part:

@@ -3,11 +3,9 @@ require_once('include/logging.php');
 require_once('modules/Contacts/Contacts.php');
 require_once('modules/Import/UsersLastImport.php');
 require_once('include/database/PearDatabase.php');
-
 // Contact is used to store customer information.
 class ImportContact extends Contacts {
 	var $db;
-
    // This is the list of the functions to run when importing
 	var $special_functions =  array("add_create_account");
 	var $importable_fields = Array();
@@ -47,26 +45,18 @@ class ImportContact extends Contacts {
 		
 		global $imported_ids;
         global $current_user;
-
 		$acc_name = trim($this->column_fields['accountid']);
-
 		if ((! isset($acc_name) || $acc_name == '') )
 		{
 			return; 
 		}
-
         $arr = array();
-
 		// check if it already exists
         $focus = new Accounts();
-
 		$query = '';
-
 		// if user is defining the ec_account id to be associated with this contact..
-
 		//Modified to remove the spaces at first and last in ec_account name -- after 4.2 patch 2
 		$acc_name = trim(addslashes($acc_name));
-
 		//Modified the query to get the available account only ie., which is not deleted
 		$query = "select ec_account.* from ec_account WHERE accountname like '{$acc_name}%' 
 					and ec_account.deleted=0 ORDER BY accountname ";
@@ -77,14 +67,12 @@ class ImportContact extends Contacts {
 		{
 			$focus->id = $row['accountid'];
 		}
-
 		// if we didnt find the ec_account, so create it
 		if (! isset($focus->id) || $focus->id == '')
 		{
 			$focus->column_fields['accountname'] = $acc_name;
 			$focus->column_fields['assigned_user_id'] = $current_user->id;
 			$focus->column_fields['modified_user_id'] = $current_user->id;
-
 			$focus->save("Accounts");
 			$acc_id = $focus->id;
 			// avoid duplicate mappings:
@@ -95,9 +83,7 @@ class ImportContact extends Contacts {
 		}
 		// now just link the ec_account
         $this->column_fields["account_id"] = $focus->id;
-
     }
-
 		
 	/** Constructor which will set the importable_fields as $this->importable_fields[$key]=1 in this object where key is the fieldname in the field table
 	 */
@@ -109,7 +95,6 @@ class ImportContact extends Contacts {
 			$this->importable_fields[$key]=1;
 	}
     function ClearColumnFields() {
-
 		$this->log = LoggerManager::getLogger('import_contact');
 		$this->db = & getSingleDBInstance();
 		$colf = getColumnFields("Contacts");
@@ -117,7 +102,6 @@ class ImportContact extends Contacts {
 			//$this->importable_fields[$key]=1;
 			$this->column_fields[$key]='';
 	}
-
 	function isExist()
 	{
 		$this->log->info("Entering into isExist function");
@@ -139,7 +123,6 @@ class ImportContact extends Contacts {
 		}
 		return false;
 	}
-
 	function save($module) {
        // var_dump($this->column_fields);
         global $current_user;
@@ -165,9 +148,7 @@ class ImportContact extends Contacts {
               }
 			}
 		}
-
     }
-
 	function insertIntoEntityTable($table_name, $module)
 	{
 	  global $log;
@@ -250,9 +231,7 @@ class ImportContact extends Contacts {
 				  }
 			  }		 
 		  }
-
 		  $sql1 = "insert into ".$table_name." (".$column.",smcreatorid,createdtime,modifiedtime) values(".$value.",'".$current_user->id."',".$this->db->formatDate($createdtime).",".$this->db->formatDate($modifiedtime).")";
-
           //$sql1 = "insert into ".$table_name." (".$column.",createdtime,modifiedtime) values(".$value.",".$this->db->formatDate($createdtime).",".$this->db->formatDate($modifiedtime).")";
           //var_dump($sql1);
 		  $eof = $this->db->query($sql1); 
@@ -263,7 +242,6 @@ class ImportContact extends Contacts {
       }else{
         return false;
       }
-
 	  $log->debug("Exiting function insertIntoEntityTable()");
 	}
 	
@@ -292,7 +270,5 @@ class ImportContact extends Contacts {
 		  }
 		$log->debug("Exiting function saveentity");
 	}
-
 }
-
 ?>

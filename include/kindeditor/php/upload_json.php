@@ -6,12 +6,9 @@
  * 如果您确定直接使用本程序，使用之前请仔细确认相关安全设置。
  * 
  */
-
 require_once 'JSON.php';
-
 $php_path = dirname(__FILE__) . '/';
 $php_url = dirname($_SERVER['PHP_SELF']) . '/';
-
 //文件保存目录路径
 $save_path = $php_path . '../attached/';
 //文件保存目录URL
@@ -20,9 +17,7 @@ $save_url = $php_url . '../attached/';
 $ext_arr = array('gif', 'jpg', 'jpeg', 'png', 'bmp');
 //最大文件大小
 $max_size = 1000000;
-
 $save_path = realpath($save_path) . '/';
-
 //有上传文件时
 if (empty($_FILES) === false) {
 	//原文件名
@@ -82,7 +77,6 @@ if (empty($_FILES) === false) {
 	echo $json->encode(array('error' => 0, 'url' => $file_url));
 	exit;
 }
-
 function alert($msg) {
 	header('Content-type: text/html; charset=UTF-8');
 	$json = new Services_JSON();

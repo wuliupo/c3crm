@@ -12,6 +12,5 @@ if(isset($_REQUEST['accountid']) && $_REQUEST['accountid'] != "")
 	$log->info($jsonaccount);
 	echo $jsonaccount;    
 }
-
 die;
 ?>

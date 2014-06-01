@@ -1,15 +1,11 @@
 <?php
-
-
 require_once("include/database/PearDatabase.php");
 global $current_user;
 global $adb;
 $mod_strings =  return_specified_module_language("zh_cn","Settings"); 
-
 $now = date("Y-m-d H:i:s");
 $type = $_REQUEST['t'];
 $userid = $_REQUEST['userid'];
-
 if(empty($userid)){
 	die("CurrentUser->ID is null,Please Check it!");
 }
@@ -25,7 +21,6 @@ switch($type){
     break;
 }
 $adb->query($sql);
-
 //$sql = "select * from ec_systemcharges where userid=$userid";
 //$row = $adb->getFirstLine($sql);
 //if(empty($row)){
@@ -39,7 +34,5 @@ $adb->query($sql);
 //
 //$updatesql = "update ec_systemcharges set endtime='0000-00-00 00:00:00' where userid=$userid ";
 //$adb->query($updatesql); 
-
-
 header("Location: index.php?module=Settings&parenttab=Settings&action=SmsUser");
 ?>

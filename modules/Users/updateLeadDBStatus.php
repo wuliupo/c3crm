@@ -1,5 +1,4 @@
 <?php
-
 /*********************************************************************************
 ** The contents of this file are subject to the vtiger CRM Public License Version 1.0
  * ("License"); You may not use this file except in compliance with the License
@@ -9,10 +8,8 @@
  * All Rights Reserved.
 *
  ********************************************************************************/
-
 require_once('include/database/PearDatabase.php');
 require_once('include/utils/utils.php');
-
 $idlist= $_REQUEST['idlist'];
 $leadstatusval = $_REQUEST['leadval'];
 $idval=$_REQUEST['user_id'];
@@ -22,14 +19,11 @@ $return_action = $_REQUEST['return_action'];
 global $current_user;
 global $adb;
 $storearray = explode(";",trim($idlist,';'));
-
 $ids_list = array();
-
 $date_var = date('YmdHis');
 $modulerel=getEntityTable($return_module);
 $tablename=$modulerel['tablename'];
 $fieldid=$modulerel['entityidfield'];
-
 if((isset($_REQUEST['user_id']) && $_REQUEST['user_id']!=''))
 {
 	foreach($storearray as $id)
@@ -44,10 +38,8 @@ if((isset($_REQUEST['user_id']) && $_REQUEST['user_id']!=''))
 		            $last_smownerid = $adb->getOne($ownersql);
 					if($last_swownerid != $idval) {
 						$sql = "update ec_account set smownerid=".$idval.",modifiedby=".$current_user->id.",modifiedtime=".$adb->formatDate(date('YmdHis'))."  where accountid='".$id."'";
-
 						$query = "update ec_contactdetails set smownerid=".$idval.",modifiedby=".$current_user->id.", modifiedtime=".$adb->formatDate(date('YmdHis'))."  where accountid='".$id."'";
 						$adb->query($query);
-
 						$query = "update ec_notes set smownerid=".$idval.",modifiedby=".$current_user->id.", modifiedtime=".$adb->formatDate(date('YmdHis'))."  where accountid='".$id."'";
 						$adb->query($query);
 					}
@@ -73,7 +65,6 @@ if(count($ids_list) > 0)
 {
         $errormsg = '';
 }
-
 if($return_action == 'ActivityAjax')
 {
 	$view       = $_REQUEST['view'];

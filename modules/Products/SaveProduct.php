@@ -15,8 +15,6 @@ if($productcode != $app_strings["AUTO_GEN_CODE"]) {
 		die;
 	}
 }
-
-
 $focus = new Products();
 $focus->column_fields["productname"] = $productname;
 if($productcode == $app_strings["AUTO_GEN_CODE"]) {

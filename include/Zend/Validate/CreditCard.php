@@ -18,12 +18,10 @@
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  * @version    $Id: CreditCard.php 23775 2011-03-01 17:25:24Z ralph $
  */
-
 /**
  * @see Zend_Validate_Abstract
  */
 require_once 'include/Zend/Validate/Abstract.php';
-
 /**
  * @category   Zend
  * @package    Zend_Validate
@@ -49,7 +47,6 @@ class Zend_Validate_CreditCard extends Zend_Validate_Abstract
     const MASTERCARD       = 'Mastercard';
     const SOLO             = 'Solo';
     const VISA             = 'Visa';
-
     const CHECKSUM       = 'creditcardChecksum';
     const CONTENT        = 'creditcardContent';
     const INVALID        = 'creditcardInvalid';
@@ -57,7 +54,6 @@ class Zend_Validate_CreditCard extends Zend_Validate_Abstract
     const PREFIX         = 'creditcardPrefix';
     const SERVICE        = 'creditcardService';
     const SERVICEFAILURE = 'creditcardServiceFailure';
-
     /**
      * Validation failure message template definitions
      *
@@ -72,7 +68,6 @@ class Zend_Validate_CreditCard extends Zend_Validate_Abstract
         self::SERVICE        => "'%value%' seems to be an invalid creditcard number",
         self::SERVICEFAILURE => "An exception has been raised while validating '%value%'",
     );
-
     /**
      * List of allowed CCV lengths
      *
@@ -91,7 +86,6 @@ class Zend_Validate_CreditCard extends Zend_Validate_Abstract
         self::UNIONPAY         => array(16, 17, 18, 19),
         self::VISA             => array(16),
     );
-
     /**
      * List of accepted CCV provider tags
      *
@@ -118,21 +112,18 @@ class Zend_Validate_CreditCard extends Zend_Validate_Abstract
                                         '622920', '622921', '622922', '622923', '622924', '622925'),
         self::VISA             => array('4'),
     );
-
     /**
      * CCIs which are accepted by validation
      *
      * @var array
      */
     protected $_type = array();
-
     /**
      * Service callback for additional validation
      *
      * @var callback
      */
     protected $_service;
-
     /**
      * Constructor
      *
@@ -148,20 +139,16 @@ class Zend_Validate_CreditCard extends Zend_Validate_Abstract
             if (!empty($options)) {
                 $temp['service'] = array_shift($options);
             }
-
             $options = $temp;
         }
-
         if (!array_key_exists('type', $options)) {
             $options['type'] = self::ALL;
         }
-
         $this->setType($options['type']);
         if (array_key_exists('service', $options)) {
             $this->setService($options['service']);
         }
     }
-
     /**
      * Returns a list of accepted CCIs
      *
@@ -171,7 +158,6 @@ class Zend_Validate_CreditCard extends Zend_Validate_Abstract
     {
         return $this->_type;
     }
-
     /**
      * Sets CCIs which are accepted by validation
      *
@@ -183,7 +169,6 @@ class Zend_Validate_CreditCard extends Zend_Validate_Abstract
         $this->_type = array();
         return $this->addType($type);
     }
-
     /**
      * Adds a CCI to be accepted by validation
      *
@@ -195,20 +180,16 @@ class Zend_Validate_CreditCard extends Zend_Validate_Abstract
         if (is_string($type)) {
             $type = array($type);
         }
-
         foreach($type as $typ) {
             if (defined('self::' . strtoupper($typ)) && !in_array($typ, $this->_type)) {
                 $this->_type[] = $typ;
             }
-
             if (($typ == self::ALL)) {
                 $this->_type = array_keys($this->_cardLength);
             }
         }
-
         return $this;
     }
-
     /**
      * Returns the actual set service
      *
@@ -218,7 +199,6 @@ class Zend_Validate_CreditCard extends Zend_Validate_Abstract
     {
         return $this->_service;
     }
-
     /**
      * Sets a new callback for service validation
      *
@@ -230,11 +210,9 @@ class Zend_Validate_CreditCard extends Zend_Validate_Abstract
             require_once 'include/Zend/Validate/Exception.php';
             throw new Zend_Validate_Exception('Invalid callback given');
         }
-
         $this->_service = $service;
         return $this;
     }
-
     /**
      * Defined by Zend_Validate_Interface
      *
@@ -246,17 +224,14 @@ class Zend_Validate_CreditCard extends Zend_Validate_Abstract
     public function isValid($value)
     {
         $this->_setValue($value);
-
         if (!is_string($value)) {
             $this->_error(self::INVALID, $value);
             return false;
         }
-
         if (!ctype_digit($value)) {
             $this->_error(self::CONTENT, $value);
             return false;
         }
-
         $length = strlen($value);
         $types  = $this->getType();
         $foundp = false;
@@ -272,31 +247,25 @@ class Zend_Validate_CreditCard extends Zend_Validate_Abstract
                 }
             }
         }
-
         if ($foundp == false){
             $this->_error(self::PREFIX, $value);
             return false;
         }
-
         if ($foundl == false) {
             $this->_error(self::LENGTH, $value);
             return false;
         }
-
         $sum    = 0;
         $weight = 2;
-
         for ($i = $length - 2; $i >= 0; $i--) {
             $digit = $weight * $value[$i];
             $sum += floor($digit / 10) + $digit % 10;
             $weight = $weight % 2 + 1;
         }
-
         if ((10 - $sum % 10) % 10 != $value[$length - 1]) {
             $this->_error(self::CHECKSUM, $value);
             return false;
         }
-
         if (!empty($this->_service)) {
             try {
                 require_once 'include/Zend/Validate/Callback.php';
@@ -311,7 +280,6 @@ class Zend_Validate_CreditCard extends Zend_Validate_Abstract
                 return false;
             }
         }
-
         return true;
     }
 }

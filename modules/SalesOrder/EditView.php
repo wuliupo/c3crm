@@ -4,7 +4,6 @@ require_once('data/Tracker.php');
 require_once('modules/SalesOrder/SalesOrder.php');
 require_once('include/utils/utils.php');
 require_once('include/FormValidationUtil.php');
-
 global $app_strings,$mod_strings,$log,$theme,$currentModule,$current_user;
 global $adb;
 $category = getParentTab();
@@ -20,7 +19,6 @@ if(isset($_REQUEST['return_id']))
 	if(isset($_REQUEST['record'])) $return_id = $_REQUEST['record'];
 }
 if (isset($_REQUEST['return_viewname'])) $return_viewname = $_REQUEST['return_viewname'];
-
 $log->debug("Inside Sales Order EditView");
 $category = getParentTab();
 $focus = new SalesOrder();
@@ -32,7 +30,6 @@ if(isset($_REQUEST['record']) && $_REQUEST['record'] != '')
 	$focus->retrieve_entity_info($_REQUEST['record'],"SalesOrder");		
 	$focus->name=$focus->column_fields['subject'];
 }
-
 if(isset($_REQUEST['isDuplicate']) && $_REQUEST['isDuplicate'] == 'true') {
 	$SO_associated_prod = $focus->getAssociatedProducts();
 	$focus->id = "";
@@ -44,9 +41,6 @@ if(isset($_REQUEST['return_module']) && $_REQUEST['return_module'] == 'Accounts'
 	$account_id = $_REQUEST['return_id'];
 	$focus->column_fields['account_id'] = $account_id;
 }
-
-
-
 /*
 // Get Account address if ec_account is given
 if(isset($_REQUEST['account_id']) && $_REQUEST['record']=='' && $_REQUEST['account_id'] != ''){
@@ -81,7 +75,6 @@ else
 	$blocks['basicTab'] = $bas_block;
 	//if(is_array($adv_block ))
 	//	$blocks['moreTab'] = $adv_block;
-
 	$smarty->assign("BLOCKS",$blocks);
 	$smarty->assign("BLOCKS_COUNT",count($blocks));
 }
@@ -106,12 +99,10 @@ elseif(isset($_REQUEST['isDuplicate']) && $_REQUEST['isDuplicate'] == 'true')
 	$smarty->assign("AVAILABLE_PRODUCTS", 'true');
 	$smarty->assign("MODE", $focus->mode);
 }
-
 if(isset($_REQUEST['return_module'])) $smarty->assign("RETURN_MODULE", $_REQUEST['return_module']);
 else $smarty->assign("RETURN_MODULE","SalesOrder");
 if(isset($_REQUEST['return_action'])) $smarty->assign("RETURN_ACTION", $_REQUEST['return_action']);
 else $smarty->assign("RETURN_ACTION","index");
-
 $smarty->assign("RETURN_ID", $return_id);
  
 if (isset($_REQUEST['return_viewname'])) $smarty->assign("RETURN_VIEWNAME", $_REQUEST['return_viewname']);
@@ -119,15 +110,12 @@ $smarty->assign("THEME", $theme);
 $smarty->assign("IMAGE_PATH", $image_path);
 $smarty->assign("MODULE","SalesOrder");
 $smarty->assign("ID", $focus->id);
-
 $fieldlabellist = getProductFieldLabelList("SalesOrder");
 $smarty->assign("PRODUCTLABELLIST",$fieldlabellist);
 $fieldnamelist = getProductFieldList("SalesOrder");
 $smarty->assign("PRODUCTNAMELIST",$fieldnamelist);
-
 $tabid = getTabid("SalesOrder");
 $data = getSplitDBValidationData($focus->tab_name,$tabid);
-
 $smarty->assign("VALIDATION_DATA_FIELDNAME",$data['fieldname']);
 $smarty->assign("VALIDATION_DATA_FIELDDATATYPE",$data['datatype']);
 $smarty->assign("VALIDATION_DATA_FIELDLABEL",$data['fieldlabel']);
@@ -135,5 +123,4 @@ if($focus->mode == 'edit')
 	$smarty->display("SalesOrder/InventoryEditView.tpl");
 else
 	$smarty->display('SalesOrder/InventoryCreateView.tpl');
-
 ?>

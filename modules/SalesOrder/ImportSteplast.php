@@ -16,7 +16,6 @@
  * $Header$
  * Description:  TODO: To be written.
  ********************************************************************************/
-
 require_once('include/CRMSmarty.php');
 require_once('data/Tracker.php');
 require_once('modules/Import/UsersLastImport.php');
@@ -24,18 +23,14 @@ require_once('modules/Import/parse_utils.php');
 require_once('include/ListView/ListView.php');
 require_once('modules/Contacts/Contacts.php');
 require_once('include/utils/utils.php');
-
-
 global $mod_strings;
 global $app_list_strings;
 global $app_strings;
 global $current_user;
-
 if (! isset( $_REQUEST['module']))
 {
 	$_REQUEST['module'] = 'Home';
 }
-
 if (! isset( $_REQUEST['return_id']))
 {
 	$_REQUEST['return_id'] = '';
@@ -44,34 +39,25 @@ if (! isset( $_REQUEST['return_module']))
 {
 	$_REQUEST['return_module'] = '';
 }
-
 if (! isset( $_REQUEST['return_action']))
 {
 	$_REQUEST['return_action'] = '';
 }
-
 global $theme;
 $theme_path="themes/".$theme."/";
 $image_path=$theme_path."images/";
-
-
 $log->info("Import Step last");
-
 $parenttab = getParenttab();
 //This Buttons_List1.tpl is is called to display the add, search, import and export buttons ie., second level tabs
 $smarty = new CRMSmarty();
-
 $smarty->assign("MOD", $mod_strings);
 $smarty->assign("APP", $app_strings);
 $smarty->assign("IMP", $import_mod_strings);
 $smarty->assign("THEME", $theme);
 $smarty->assign("IMAGE_PATH", $image_path);
-
 $smarty->assign("MODULE", 'SalesOrder');
 $smarty->assign("SINGLE_MOD", 'SalesOrder');
 $smarty->assign("CATEGORY",'Accounts');
-
-
 $smarty->display("Buttons_List1.tpl");
 $skipped_record_count = $_SESSION['import_skipped_record_count'];
 $import_mod_strings=return_module_language($current_language, "Import");
@@ -81,7 +67,6 @@ if (isset($_SESSION['import_message']))
 	@session_unregister('import_message');
 	?>
 	<br>
-
 	<table align="center" cellpadding="5" cellspacing="0" width="95%" class="mailClient importLeadUI small">
 	   <tr>
 		<td height="50" valign="middle" align="left" class="mailClientBg genHeaderSmall">

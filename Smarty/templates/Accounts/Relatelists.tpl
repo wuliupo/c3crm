@@ -4,7 +4,6 @@
 	var curryear = "{$curryear}";
 		var currmonth = "{$currmonth}";
 		var currdays = "{$currdays}";
-
 	{literal}
 		function editAccountRelInfo(urlstring){
 			
@@ -22,9 +21,7 @@
 		}
 	{/literal}
 </script>
-
 <div class="modal hide fade" id="account_rel" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" style="width:850px;"></div>
-
  <!-- center start -->
  <div class="container-fluid clearfix">
     <div class="row-fluid">

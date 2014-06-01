@@ -75,7 +75,6 @@
 		</tr>
 	</tbody>
 </table>
-
 {literal}
 <script>
 function searchsms(){

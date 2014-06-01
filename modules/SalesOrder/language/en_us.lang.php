@@ -74,6 +74,5 @@ $mod_strings = array (
   'currency_rate' => 'Currency Rate',
   'ysstatus' => 'Collection Status',
   'smcreator' => 'Creator',
-
 );
 ?>

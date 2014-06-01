@@ -5,10 +5,8 @@ global $adb;
 $multifieldid=$_REQUEST["multifieldid"];
 $level=$_REQUEST["level"];
 $parentfieldid=$_REQUEST["parentfieldid"];
-
 $multifieldinfo=getMultiFieldInfo($multifieldid);
 $tablename=$multifieldinfo["tablename"];
-
 $fieldname = $_REQUEST['catalogName'];
 $mode = $_REQUEST['mode'];
 if(isset($_REQUEST['dup_check']) && $_REQUEST['dup_check']!='')
@@ -40,9 +38,7 @@ if(isset($_REQUEST['dup_check']) && $_REQUEST['dup_check']!='')
 		echo 'SUCESS';
 		die;
 	}
-
 }
-
 //Inserting values into Catalog Table
 if(isset($_REQUEST['mode']) && $_REQUEST['mode'] == 'edit')
 {
@@ -74,11 +70,7 @@ elseif(isset($_REQUEST['mode']) && $_REQUEST['mode'] == 'create')
     $newsortorderid=$sortorderid+1;
     $insertsql="insert into $tablename values($id,'$fieldname','$newsortorderid','0','$level','$parentfieldid')";
     $adb->query($insertsql);
-
 }
-
 $loc = "Location: index.php?action=PopupMultiFieldTree&module=Settings&multifieldid={$multifieldid}&level={$level}&parentfieldid={$parentfieldid}";
 header($loc);
-
-
 ?>

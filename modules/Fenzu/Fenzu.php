@@ -8,16 +8,13 @@
  * All Rights Reserved.
 *
  ********************************************************************************/
-
 global $calpath;
 global $app_strings,$mod_strings;
 global $app_list_strings;
 require_once('include/database/PearDatabase.php');
 require_once('data/CRMEntity.php');
 require_once('include/utils/utils.php');
-
 global $adv_filter_options;
-
 $adv_filter_options = array("e"=>"".$app_strings['equals']."",
                             "n"=>"".$app_strings['not_equal_to']."",
                             "s"=>"".$app_strings['starts_with']."",
@@ -28,27 +25,15 @@ $adv_filter_options = array("e"=>"".$app_strings['equals']."",
                             "m"=>"".$app_strings['less_or_equal']."",
                             "h"=>"".$app_strings['greater_or_equal']."",
                             );
-
 class Fenzu extends CRMEntity{
-
-
-
 	var $module_list = Array();
-
 	var $Fenzumodule;
-
 	var $list_fields;
-
 	var $list_fields_name;
-
 	var $setdefaultviewid;
-
 	var $escapemodule;
-
 	var $mandatoryvalues;
-
 	var $showvalues;
-
 	/** This function sets the currentuser id to the class variable smownerid,
 	  * modulename to the class variable Fenzumodule
 	  * @param $module -- The module Name:: Type String(optional)
@@ -62,8 +47,6 @@ class Fenzu extends CRMEntity{
 		$this->escapemodule[] = "_";
 		$this->smownerid = $current_user->id;
 	}
-
-
 	/** To get the FenzuId of the specified module
 	  * @param $module -- The module Name:: Type String
 	  * @returns  FenzuId :: Type Integer
@@ -72,7 +55,6 @@ class Fenzu extends CRMEntity{
 	{
 		global $adb;
 		global $current_user;
-
 		if(isset($_REQUEST['viewname']) == false)
 		{
 		$query="select cvid from ec_fenzu where  entitytype='".$module."' ";
@@ -83,7 +65,6 @@ class Fenzu extends CRMEntity{
 			$cvresult=$adb->query($query);
 		}
 		$viewid = $adb->query_result($cvresult,0,'cvid');
-
 		}
 		else
 		{
@@ -101,9 +82,7 @@ class Fenzu extends CRMEntity{
 			}
 		}
 		return $viewid;
-
 	}
-
 	// return type array
 	/** to get the details of a Fenzu
 	  * @param $cvid :: Type Integer
@@ -112,7 +91,6 @@ class Fenzu extends CRMEntity{
 	  *                         'setdefault'=>defaultchk,
 	  *                         'setmetrics'=>setmetricschk)
 	 */
-
 	function getFenzuByCvid($cvid)
 	{
 		global $adb;
@@ -121,7 +99,6 @@ class Fenzu extends CRMEntity{
 		}
 		$ssql = "select ec_fenzu.* from ec_fenzu";
 		$ssql .= " where ec_fenzu.cvid=".$cvid;
-
 		$result = $adb->getList($ssql);
         foreach($result as $row)
 		{
@@ -130,13 +107,11 @@ class Fenzu extends CRMEntity{
 		}
 		return $Fenzulist;
 	}
-
 	/** to get the FenzuCombo for the class variable Fenzumodule
 	  * @param $viewid :: Type Integer
 	  * $viewid will make the corresponding selected
 	  * @returns  $FenzuCombo :: Type String
 	 */
-
 	function getFenzuCombo_bakcup($viewid='',$is_relate=false)
 	{
 		global $adb;
@@ -153,7 +128,6 @@ class Fenzu extends CRMEntity{
 			{
 				$cvrow['viewname'] = $app_strings['COMBO_ALL'];
 			}
-
 			if(!$is_relate) {
 				if($cvrow['setdefault'] == 1 && $viewid =='')
 				{
@@ -175,13 +149,11 @@ class Fenzu extends CRMEntity{
 		}
 		return $shtml;
 	}
-
 	/** to get the FenzuCombo for the class variable Fenzumodule
 	  * @param $viewid :: Type Integer
 	  * $viewid will make the corresponding selected
 	  * @returns  $FenzuCombo :: Type String
 	 */
-
 	function getFenzuCombo($viewid='',$is_relate=false)
 	{
 		global $log;
@@ -192,12 +164,10 @@ class Fenzu extends CRMEntity{
 		if(!$FenzuCombo) {
 			global $adb;
 			global $app_strings;
-
 			$tabid = getTabid($this->Fenzumodule);
 			$ssql = "select ec_fenzu.cvid,ec_fenzu.viewname from ec_fenzu";
 			$ssql .= " where ec_fenzu.entitytype='".$this->Fenzumodule."' and (ec_fenzu.smownerid=".$current_user->id." or ec_fenzu.smownerid=0) ";
 			$ssql .= " order by ec_fenzu.cvid ";
-
 			$result = $adb->getList($ssql);
 			$FenzuCombo = array();
 			foreach($result as $cvrow)
@@ -209,14 +179,11 @@ class Fenzu extends CRMEntity{
 		$log->debug("Exiting getFenzuCombo(".$viewid.") method ...");
 		return $FenzuCombo;
 	}
-
-
 	/** to get the FenzuCombo for the class variable Fenzumodule
 	  * @param $viewid :: Type Integer
 	  * $viewid will make the corresponding selected
 	  * @returns  $FenzuCombo :: Type String
 	 */
-
 	function getFenzuCombo_html($viewid='',$is_relate=false)
 	{
 		global $adb;
@@ -224,7 +191,6 @@ class Fenzu extends CRMEntity{
 		global $current_user;
 		
 		$public_condition = " 1 ";
-
 		$tabid = getTabid($this->Fenzumodule);
 		$ssql = "select ec_fenzu.cvid,ec_fenzu.viewname from ec_fenzu inner join ec_tab on ec_tab.name = ec_fenzu.entitytype";
 		$ssql .= " where ec_tab.tabid=".$tabid."  and ".$public_condition;
@@ -233,13 +199,10 @@ class Fenzu extends CRMEntity{
 		foreach($result as $cvrow)
 		{
 			//all should be gotten via app_strings by dingjianting on 2007-04-24 for Fenzu problem
-
 			if($cvrow['viewname'] == $app_strings['All'])
 			{
 				$cvrow['viewname'] = $app_strings['COMBO_ALL'];
 			}
-
-
 			if(!$is_relate) {
 				if($cvrow['setdefault'] == 1 && $viewid =='')
 				{
@@ -262,7 +225,6 @@ class Fenzu extends CRMEntity{
 		}
 		return $shtml;
 	}
-
 	/** to get the getColumnsListbyBlock for the given module and Block
 	  * @param $module :: Type String
 	  * @param $block :: Type Integer
@@ -272,7 +234,6 @@ class Fenzu extends CRMEntity{
 					|
 			         $fieldlabeln =>'$fieldtablenamen:$fieldcolnamen:$fieldnamen:$module_$fieldlabel1n:$fieldtypeofdatan')
 	 */
-
 	function getColumnsListbyBlock($module,$block)
 	{
 		global $adb;
@@ -298,7 +259,6 @@ class Fenzu extends CRMEntity{
 		{
 			$module_columnlist['ec_activity:activitytype:activitytype:Calendar_Activity_Type:C'] = 'Activity Type';
 		}
-
 		for($i=0; $i<$noofrows; $i++)
 		{
 			$fieldtablename = $adb->query_result($result,$i,"tablename");
@@ -317,7 +277,6 @@ class Fenzu extends CRMEntity{
 				$fieldlabel = "Start Date";
 				if($module == 'Calendar' && $block == 19)
 					$module_columnlist['ec_activity:time_start::Calendar_Start_Time:I'] = 'Start Time';
-
 			}
 			$fieldlabel1 = str_replace(" ","_",$fieldlabel);
 			$optionvalue = $fieldtablename.":".$fieldcolname.":".$fieldname.":".$module."_".$fieldlabel1.":".$fieldtypeofdata;
@@ -332,7 +291,6 @@ class Fenzu extends CRMEntity{
 		}
 		return $module_columnlist;
 	}
-
 	/** to get the getModuleColumnsList for the given module
 	  * @param $module :: Type String
 	  * @returns  $ret_module_list Array in the following format
@@ -348,14 +306,9 @@ class Fenzu extends CRMEntity{
 				Array('BlockLabeln' =>
 						Array('$fieldtablename:$fieldcolname:$fieldname:$module_$fieldlabel1:$fieldtypeofdata'=>$fieldlabel,
 	                                        Array('$fieldtablename1:$fieldcolname1:$fieldname1:$module_$fieldlabel11:$fieldtypeofdata1'=>$fieldlabel1,
-
-
 	 */
-
-
 	function getModuleColumnsList($module)
 	{
-
 		$module_info = $this->getFenzuModuleInfo($module);
 		foreach($this->module_list[$module] as $key=>$value)
 		{
@@ -367,13 +320,11 @@ class Fenzu extends CRMEntity{
 		}
 		return $ret_module_list;
 	}
-
 	function getCollectColumnsListbyBlock($module,$block)
 	{
 		global $adb;
 		$tabid = getTabid($module);
 		global $current_user;
-
         $ssql = "select ec_field.* from ec_field INNER JOIN ec_def_org_field ON ec_def_org_field.fieldid=ec_field.fieldid AND ec_def_org_field.visible=0 inner join ec_tab on ec_tab.tabid = ec_field.tabid where ec_field.uitype != 50 and ec_field.tabid=".$tabid." and ec_field.displaytype = 1 and ec_field.block in (".$block.") union select * from ec_field where ec_field.displaytype in (2,3) and ec_field.tabid=".$tabid." and ec_field.block in (".$block.") order by sequence";
 		$result = $adb->query($ssql);
 		$noofrows = $adb->num_rows($result);
@@ -383,7 +334,6 @@ class Fenzu extends CRMEntity{
 		{
 			$module_columnlist['ec_activity:activitytype:activitytype:Calendar_Activity_Type:C'] = 'Activity Type';
 		}
-
 		for($i=0; $i<$noofrows; $i++)
 		{
 			$fieldtablename = $adb->query_result($result,$i,"tablename");
@@ -402,7 +352,6 @@ class Fenzu extends CRMEntity{
 				$fieldlabel = "Start Date";
 				if($module == 'Calendar' && $block == 19)
 					$module_columnlist['ec_activity:time_start::Calendar_Start_Time:I'] = 'Start Time';
-
 			}
 			$fieldlabel1 = str_replace(" ","_",$fieldlabel);
 			$optionvalue = $fieldtablename.":".$fieldcolname.":".$fieldname.":".$module."_".$fieldlabel1.":".$fieldtypeofdata;
@@ -422,10 +371,8 @@ class Fenzu extends CRMEntity{
 		}
 		return $module_columnlist;
 	}
-
 	function getModuleCollectColumnsList($module)
 	{
-
 		$module_info = $this->getFenzuModuleInfo($module);
 		foreach($this->module_list[$module] as $key=>$value)
 		{
@@ -437,7 +384,6 @@ class Fenzu extends CRMEntity{
 		}
 		return $ret_module_list;
 	}
-
 	/** to get the getModuleColumnsList for the given Fenzu
 	  * @param $cvid :: Type Integer
 	  * @returns  $columnlist Array in the following format
@@ -469,7 +415,6 @@ class Fenzu extends CRMEntity{
 		$log->debug("Exiting getColumnsListByCvid method ...");
 		return $columnlist;
 	}
-
 	/** to get the standard filter fields or the given module
 	  * @param $module :: Type String
 	  * @returns  $stdcriteria_list Array in the following format
@@ -482,7 +427,6 @@ class Fenzu extends CRMEntity{
 	{
 		global $adb;
 		$tabid = getTabid($module);
-
 		global $current_user;
 		
 		$module_info = $this->getFenzuModuleInfo($module); 
@@ -505,11 +449,8 @@ class Fenzu extends CRMEntity{
 			$optionvalue = $fieldtablename.":".$fieldcolname.":".$fieldname.":".$module."_".$fieldlabel1;
 			$stdcriteria_list[$optionvalue] = $fieldlabel;
 		}
-
 		return $stdcriteria_list;
-
 	}
-
 	/** to get the standard filter criteria
 	  * @param $selcriteria :: Type String (optional)
 	  * @returns  $filter Array in the following format
@@ -522,7 +463,6 @@ class Fenzu extends CRMEntity{
 	{
 		global $mod_strings;
 		$filter = array();//7,15,30,60,100
-
 		$stdfilter = Array("custom"=>"".$mod_strings['Custom']."",
 				"prevfy"=>"".$mod_strings['Previous FY']."",
 				"thisfy"=>"".$mod_strings['Current FY']."",
@@ -539,7 +479,6 @@ class Fenzu extends CRMEntity{
 				"lastmonth"=>"".$mod_strings['Last Month']."",
 				"thismonth"=>"".$mod_strings['Current Month']."",
 				"nextmonth"=>"".$mod_strings['Next Month']."",
-
 		        "before3days"=>"".$mod_strings['Before 3 Days']."",
 			    "before7days"=>"".$mod_strings['Before 7 Days']."",
 				"before15days"=>"".$mod_strings['Before 15 Days']."",
@@ -554,7 +493,6 @@ class Fenzu extends CRMEntity{
 				"after60days"=>"".$mod_strings['After 60 Days']."",
 				"after100days"=>"".$mod_strings['After 100 Days']."",
 				"after180days"=>"".$mod_strings['After 180 Days']."",
-
                 "last3days"=>"".$mod_strings['Last 3 Days']."",
 				"last7days"=>"".$mod_strings['Last 7 Days']."",
 				"last15days"=>"".$mod_strings['Last 15 Days']."",
@@ -570,7 +508,6 @@ class Fenzu extends CRMEntity{
 				"next90days"=>"".$mod_strings['Next 90 Days']."",
 				"next180days"=>"".$mod_strings['Next 180 Days']."",
 					);
-
 				foreach($stdfilter as $FilterKey=>$FilterValue)
 				{
 					if($FilterKey == $selcriteria)
@@ -586,11 +523,8 @@ class Fenzu extends CRMEntity{
 					}
 					$filter[] = $shtml;
 				}
-
 				return $filter;
-
 	}
-
 	/** to get the standard filter criteria scripts
 	  * @returns  $jsStr : Type String
 	  * This function will return the script to set the start data and end date
@@ -598,28 +532,21 @@ class Fenzu extends CRMEntity{
 	  */
 	function getCriteriaJS()
 	{
-
-
 		$today = date("Y-m-d",mktime(0, 0, 0, date("m")  , date("d"), date("Y")));
 		$tomorrow  = date("Y-m-d",mktime(0, 0, 0, date("m")  , date("d")+1, date("Y")));
 		$yesterday  = date("Y-m-d",mktime(0, 0, 0, date("m")  , date("d")-1, date("Y")));
-
 		$currentmonth0 = date("Y-m-d",mktime(0, 0, 0, date("m"), "01",   date("Y")));
 		$currentmonth1 = date("Y-m-t");
 		$lastmonth0 = date("Y-m-d",mktime(0, 0, 0, date("m")-1, "01",   date("Y")));
 		$lastmonth1 = date("Y-m-t", mktime(0, 0, 0, date("m")-1, "01",   date("Y")));
 		$nextmonth0 = date("Y-m-d",mktime(0, 0, 0, date("m")+1, "01",   date("Y")));
 		$nextmonth1 = date("Y-m-t", mktime(0, 0, 0, date("m")+1, "01",   date("Y")));
-
 		$lastweek0 = date("Y-m-d",strtotime("-2 week Sunday"));
 		$lastweek1 = date("Y-m-d",strtotime("-1 week Saturday"));
-
 		$thisweek0 = date("Y-m-d",strtotime("-1 week Sunday"));
 		$thisweek1 = date("Y-m-d",strtotime("this Saturday"));
-
 		$nextweek0 = date("Y-m-d",strtotime("this Sunday"));
 		$nextweek1 = date("Y-m-d",strtotime("+1 week Saturday"));
-
 		$next3days = date("Y-m-d",mktime(0, 0, 0, date("m")  , date("d")+2, date("Y")));
 		$next7days = date("Y-m-d",mktime(0, 0, 0, date("m")  , date("d")+6, date("Y")));
 		$next15days = date("Y-m-d",mktime(0, 0, 0, date("m")  , date("d")+14, date("Y")));
@@ -627,7 +554,6 @@ class Fenzu extends CRMEntity{
 		$next60days = date("Y-m-d",mktime(0, 0, 0, date("m")  , date("d")+59, date("Y")));
 		$next90days = date("Y-m-d",mktime(0, 0, 0, date("m")  , date("d")+89, date("Y")));
 		$next180days = date("Y-m-d",mktime(0, 0, 0, date("m")  , date("d")+179, date("Y")));
-
 		$last3days = date("Y-m-d",mktime(0, 0, 0, date("m")  , date("d")-2, date("Y")));
 		$last7days = date("Y-m-d",mktime(0, 0, 0, date("m")  , date("d")-6, date("Y")));
 		$last15days = date("Y-m-d",mktime(0, 0, 0, date("m")  , date("d")-14, date("Y")));
@@ -635,7 +561,6 @@ class Fenzu extends CRMEntity{
 		$last60days = date("Y-m-d",mktime(0, 0, 0, date("m")  , date("d")-59, date("Y")));
 		$last90days = date("Y-m-d",mktime(0, 0, 0, date("m")  , date("d")-89, date("Y")));
 		$last180days = date("Y-m-d",mktime(0, 0, 0, date("m")  , date("d")-179, date("Y")));
-
 		$before3days = date("Y-m-d",mktime(0, 0, 0, date("m")  , date("d")-3, date("Y")));
 		$before7days = date("Y-m-d",mktime(0, 0, 0, date("m")  , date("d")-7, date("Y")));
 		$before15days = date("Y-m-d",mktime(0, 0, 0, date("m")  , date("d")-15, date("Y")));
@@ -643,7 +568,6 @@ class Fenzu extends CRMEntity{
 		$before60days = date("Y-m-d",mktime(0, 0, 0, date("m")  , date("d")-60, date("Y")));
 		$before100days = date("Y-m-d",mktime(0, 0, 0, date("m")  , date("d")-100, date("Y")));
 		$before180days = date("Y-m-d",mktime(0, 0, 0, date("m")  , date("d")-180, date("Y")));
-
 		$after3days = date("Y-m-d",mktime(0, 0, 0, date("m")  , date("d")+2, date("Y")));
 		$after7days = date("Y-m-d",mktime(0, 0, 0, date("m")  , date("d")+6, date("Y")));
 		$after15days = date("Y-m-d",mktime(0, 0, 0, date("m")  , date("d")+14, date("Y")));
@@ -651,15 +575,12 @@ class Fenzu extends CRMEntity{
 		$after60days = date("Y-m-d",mktime(0, 0, 0, date("m")  , date("d")+59, date("Y")));
 		$after100days = date("Y-m-d",mktime(0, 0, 0, date("m")  , date("d")+99, date("Y")));
 		$after180days = date("Y-m-d",mktime(0, 0, 0, date("m")  , date("d")+179, date("Y")));
-
 		$currentFY0 = date("Y-m-d",mktime(0, 0, 0, "01", "01",   date("Y")));
 		$currentFY1 = date("Y-m-t",mktime(0, 0, 0, "12", date("d"),   date("Y")));
 		$lastFY0 = date("Y-m-d",mktime(0, 0, 0, "01", "01",   date("Y")-1));
 		$lastFY1 = date("Y-m-t", mktime(0, 0, 0, "12", date("d"), date("Y")-1));
-
 		$nextFY0 = date("Y-m-d",mktime(0, 0, 0, "01", "01",   date("Y")+1));
 		$nextFY1 = date("Y-m-t", mktime(0, 0, 0, "12", date("d"), date("Y")+1));
-
 		if(date("m") <= 3)
 		{
 			$cFq = date("Y-m-d",mktime(0, 0, 0, "01","01",date("Y")));
@@ -677,7 +598,6 @@ class Fenzu extends CRMEntity{
 		  	$cFq1 = date("Y-m-d",mktime(0, 0, 0, "06","30",date("Y")));
       		$nFq = date("Y-m-d",mktime(0, 0, 0, "10","01",date("Y")));
 		  	$nFq1 = date("Y-m-d",mktime(0, 0, 0, "12","31",date("Y")));
-
     	}
 		else if(date("m") > 7 and date("m") <= 9)
     	{
@@ -687,7 +607,6 @@ class Fenzu extends CRMEntity{
 		  	$cFq1 = date("Y-m-d",mktime(0, 0, 0, "06","30",date("Y")));
       		$nFq = date("Y-m-d",mktime(0, 0, 0, "10","01",date("Y")));
 		  	$nFq1 = date("Y-m-d",mktime(0, 0, 0, "12","31",date("Y")));
-
     	}
 		else
     	{
@@ -698,10 +617,8 @@ class Fenzu extends CRMEntity{
       		$cFq = date("Y-m-d",mktime(0, 0, 0, "10","01",date("Y")));
 		  	$cFq1 = date("Y-m-d",mktime(0, 0, 0, "12","31",date("Y")));
     	}
-
 			$maxdate = "2099-12-31";
 			$mindate = "1900-01-01";
-
 		$sjsStr = '<script language="JavaScript" type="text/javaScript">
 			function showDateRange( type )
 			{
@@ -731,7 +648,6 @@ class Fenzu extends CRMEntity{
 				}
 				else if( type == "tomorrow" )
 				{
-
 					document.Fenzu.startdate.value = "'.$tomorrow.'";
 					document.Fenzu.enddate.value = "'.$tomorrow.'";
 				}
@@ -942,16 +858,13 @@ class Fenzu extends CRMEntity{
 				}
 			}
 		</script>';
-
 		return $sjsStr;
 	}
-
 	/** to get the standard filter for the given Fenzu Id
 	  * @param $cvid :: Type Integer
 	  * @returns  $stdfilterlist Array in the following format
 	  * $stdfilterlist = Array( 'columnname' =>  $tablename:$columnname:$fieldname:$module_$fieldlabel,'stdfilter'=>$stdfilter,'startdate'=>$startdate,'enddate'=>$enddate)
 	  */
-
 	function getStdFilterByCvid($cvid)
 	{
 		global $log;
@@ -964,12 +877,9 @@ class Fenzu extends CRMEntity{
 			global $adb;
 			$sSQL = "select ec_cvstdfilterfenzu.* from ec_cvstdfilterfenzu inner join ec_fenzu on ec_fenzu.cvid = ec_cvstdfilterfenzu.cvid";
 			$sSQL .= " where ec_cvstdfilterfenzu.cvid=".$cvid;
-
 			$stdfilterrow = $adb->getFirstLine($sSQL);
-
 			$stdfilterlist["columnname"] = $stdfilterrow["columnname"];
 			$stdfilterlist["stdfilter"] = $stdfilterrow["stdfilter"];
-
 			if($stdfilterrow["stdfilter"] == "custom")
 			{
 				if(isValidDate($stdfilterrow["startdate"]))
@@ -991,7 +901,6 @@ class Fenzu extends CRMEntity{
 		$log->debug("Exiting getStdFilterByCvid method ...");
 		return $stdfilterlist;
 	}
-
 	/** to get the Advanced filter for the given Fenzu Id
 	  * @param $cvid :: Type Integer
 	  * @returns  $stdfilterlist Array in the following format
@@ -1011,7 +920,6 @@ class Fenzu extends CRMEntity{
 		if(!$advfilterlist) {
 			global $adb;
 			global $modules;
-
 			$sSQL = "select ec_cvadvfilterfenzu.* from ec_cvadvfilterfenzu inner join ec_fenzu on ec_cvadvfilterfenzu.cvid = ec_fenzu.cvid";
 			$sSQL .= " where ec_cvadvfilterfenzu.cvid=".$cvid;
 			$result = $adb->getList($sSQL);
@@ -1027,7 +935,6 @@ class Fenzu extends CRMEntity{
 		$log->debug("Exiting advfilterlist method ...");
 		return $advfilterlist;
 	}
-
     function getColumnsListByCvidWithCollect($cvid)
 	{
 		global $log;
@@ -1035,14 +942,12 @@ class Fenzu extends CRMEntity{
 		global $current_user;
 		//changed by dingjianting on 2007-10-3 for cache HeaderArray
 		$key = "columnlistwithcollect_".$cvid;
-
 		//$columnlist = getSqlCacheData($key);
 		if(!$columnlist) {
 			global $adb;
 			$sSQL = "select ec_cvcolumnlist.* from ec_cvcolumnlist";
 			$sSQL .= " inner join ec_customview on ec_customview.cvid = ec_cvcolumnlist.cvid";
 			$sSQL .= " where ec_customview.cvid =".$cvid." order by ec_cvcolumnlist.columnindex";
-
 			$result = $adb->getList($sSQL);
 			foreach($result as $cvrow)
 			{
@@ -1077,7 +982,6 @@ class Fenzu extends CRMEntity{
 				if($value != "")
 				{
 					$list = explode(":",$value);
-
 					//Added For getting status for Activities -Jaguar
 					$sqllist_column = $list[0].".".$list[1];
 					if($this->Fenzumodule == "Calendar")
@@ -1087,16 +991,13 @@ class Fenzu extends CRMEntity{
 							$sqllist_column = "case when (ec_activity.status not like '') then ec_activity.status else ec_activity.eventstatus end as activitystatus";
 						}
 					}
-
 					//Added for for assigned to sorting
 					if($list[1] == "smownerid")
 					{
 						$sqllist_column = "ec_users.user_name";
 					}
-
 					$sqllist[] = $sqllist_column;
 					//Ends
-
 					$tablefield[$list[0]] = $list[1];
 					$fieldlabel = trim(str_replace($this->escapemodule," ",$list[3]));
 					$this->list_fields[$fieldlabel] = $tablefield;
@@ -1106,9 +1007,7 @@ class Fenzu extends CRMEntity{
 			$returnsql = implode(",",$sqllist);
 		}
 		return $returnsql;
-
 	}
-
 	/** to get the Fenzu stdFilter Query for the given Fenzu Id
 	  * @param $cvid :: Type Integer
 	  * @returns  $stdfiltersql as a string
@@ -1198,7 +1097,6 @@ class Fenzu extends CRMEntity{
 					$advfltrow["comparator"] = trim($advfltrow["comparator"]);
 					if($advfltrow["columnname"] != "" && $advfltrow["comparator"] != "")
 					{
-
 						$valuearray = explode(",",trim($advfltrow["value"]));
 						if(isset($valuearray) && count($valuearray) > 1)
 						{
@@ -1231,7 +1129,6 @@ class Fenzu extends CRMEntity{
 		}
 		return $advfsql;
 	}
-
 	/** to get the realvalues for the given value
 	  * @param $tablename :: type string
 	  * @param $fieldname :: type string
@@ -1290,13 +1187,11 @@ class Fenzu extends CRMEntity{
 		}
 		return $value;
 	}
-
 	/** to get the entityId for the given module
 	  * @param $setype :: type string
 	  * @returns  $parent_id as a string of comma seperated id
 	  *       $id,$id1,$id2, ---- $idn
 	  */
-
 	function getSalesEntityId($setype)
 	{
                 global $log;
@@ -1317,12 +1212,10 @@ class Fenzu extends CRMEntity{
 		}
 		return $parent_id;
 	}
-
 	/** to get the salesorder id for the given sales order subject
 	  * @param $so_name :: type string
 	  * @returns  $so_id as a Integer
 	  */
-
 	function getSoId($so_name)
 	{
 		global $log;
@@ -1336,12 +1229,10 @@ class Fenzu extends CRMEntity{
 		}
 		return $so_id;
 	}
-
 	/** to get the Product id for the given Product Name
 	  * @param $product_name :: type string
 	  * @returns  $productid as a Integer
 	  */
-
 	function getProductId($product_name)
 	{
 		global $log;
@@ -1355,12 +1246,10 @@ class Fenzu extends CRMEntity{
 		}
 		return $productid;
 	}
-
 	/** to get the Quote id for the given Quote Name
 	  * @param $quote_name :: type string
 	  * @returns  $quote_id as a Integer
 	  */
-
 	function getQuoteId($quote_name)
 	{
 		global $log;
@@ -1374,12 +1263,10 @@ class Fenzu extends CRMEntity{
 		}
 		return $quote_id;
 	}
-
 	/** to get the Potential  id for the given Potential Name
 	  * @param $pot_name :: type string
 	  * @returns  $potentialid as a Integer
 	  */
-
 	function getPotentialId($pot_name)
 	{
 		 global $log;
@@ -1393,13 +1280,10 @@ class Fenzu extends CRMEntity{
 		}
 		return $potentialid;
 	}
-
 	/** to get the Vendor id for the given Vendor Name
 	  * @param $vendor_name :: type string
 	  * @returns  $vendor_id as a Integer
 	  */
-
-
 	function getVendorId($vendor_name)
 	{
 		 global $log;
@@ -1413,13 +1297,10 @@ class Fenzu extends CRMEntity{
 		}
 		return $vendor_id;
 	}
-
 	/** to get the Contact id for the given Contact Name
 	  * @param $contact_name :: type string
 	  * @returns  $contact_id as a Integer
 	  */
-
-
 	function getContactId($contact_name)
 	{
 		global $log;
@@ -1433,12 +1314,10 @@ class Fenzu extends CRMEntity{
 		}
 		return $contact_id;
 	}
-
 	/** to get the Account id for the given Account Name
 	  * @param $account_name :: type string
 	  * @returns  $accountid as a Integer
 	  */
-
 	function getAccountId($account_name)
 	{
 		 global $log;
@@ -1452,16 +1331,13 @@ class Fenzu extends CRMEntity{
 		}
 		return $accountid;
 	}
-
 	/** to get the comparator value for the given comparator and value
 	  * @param $comparator :: type string
 	  * @param $value :: type string
 	  * @returns  $rtvalue in the format $comparator $value
 	  */
-
 	function getAdvComparator($comparator,$value,$datatype = '')
 	{
-
 		global $adb;
 		if($comparator == "e")
 		{
@@ -1523,23 +1399,19 @@ class Fenzu extends CRMEntity{
 		{
 			$rtvalue = " >= ".$adb->quote($value);
 		}
-
 		return $rtvalue;
 	}
-
 	/** to get the date value for the given type
 	  * @param $type :: type string
 	  * @returns  $datevalue array in the following format
 	  *             $datevalue = Array(0=>$startdate,1=>$enddate)
 	  */
-
 	function getDateforStdFilterBytype($type)
 	{
 		//$thisyear = date("Y");
 		$maxdate = "2099-12-31";
 		$mindate = "1900-01-01";
 		$datevalue = array();
-
 		if($type == "today" )
 		{
 			$today = date("Y-m-d",mktime(0, 0, 0, date("m")  , date("d"), date("Y")));
@@ -1586,7 +1458,6 @@ class Fenzu extends CRMEntity{
 			$datevalue[0] =$currentmonth0;
 			$datevalue[1] = $currentmonth1;
 		}
-
 		elseif($type == "lastmonth" )
 		{
 			$lastmonth0 = date("Y-m-d",mktime(0, 0, 0, date("m")-1, "01",   date("Y")));
@@ -1626,13 +1497,11 @@ class Fenzu extends CRMEntity{
 		{
 			$today = date("Y-m-d",mktime(0, 0, 0, date("m")  , date("d"), date("Y")));
 			$next30days = date("Y-m-d",mktime(0, 0, 0, date("m")  , date("d")+29, date("Y")));
-
 			$datevalue[0] =$today;
 			$datevalue[1] =$next30days;
 		}
 		elseif($type == "next60days" )
 		{
-
 			$today = date("Y-m-d",mktime(0, 0, 0, date("m")  , date("d"), date("Y")));
 			$next60days = date("Y-m-d",mktime(0, 0, 0, date("m")  , date("d")+59, date("Y")));
 			$datevalue[0] = $today;
@@ -1677,13 +1546,11 @@ class Fenzu extends CRMEntity{
 		{
 			//$today = date("Y-m-d",mktime(0, 0, 0, date("m")  , date("d"), date("Y")));
 			$before30days = date("Y-m-d",mktime(0, 0, 0, date("m")  , date("d")-30, date("Y")));
-
 			$datevalue[0] =$mindate;
 			$datevalue[1] =$before30days;
 		}
 		elseif($type == "before60days" )
 		{
-
 			//$today = date("Y-m-d",mktime(0, 0, 0, date("m")  , date("d"), date("Y")));
 			$before60days = date("Y-m-d",mktime(0, 0, 0, date("m")  , date("d")-60, date("Y")));
 			$datevalue[0] = $mindate;
@@ -1728,13 +1595,11 @@ class Fenzu extends CRMEntity{
 		{
 			$today = date("Y-m-d",mktime(0, 0, 0, date("m")  , date("d"), date("Y")));
 			$after30days = date("Y-m-d",mktime(0, 0, 0, date("m")  , date("d")+29, date("Y")));
-
 			$datevalue[0] =$after30days;
 			$datevalue[1] =$maxdate;
 		}
 		elseif($type == "after60days" )
 		{
-
 			$today = date("Y-m-d",mktime(0, 0, 0, date("m")  , date("d"), date("Y")));
 			$after60days = date("Y-m-d",mktime(0, 0, 0, date("m")  , date("d")+59, date("Y")));
 			$datevalue[0] = $after60days;
@@ -1834,13 +1699,11 @@ class Fenzu extends CRMEntity{
     		{
 				$nFq = date("Y-m-d",mktime(0, 0, 0, "07","01",date("Y")));
 				$nFq1 = date("Y-m-d",mktime(0, 0, 0, "09","30",date("Y")));
-
     		}
 			else if(date("m") > 6 and date("m") <= 9)
     		{
 				$nFq = date("Y-m-d",mktime(0, 0, 0, "10","01",date("Y")));
 				$nFq1 = date("Y-m-d",mktime(0, 0, 0, "12","31",date("Y")));
-
     		}
 			else
     		{
@@ -1861,13 +1724,11 @@ class Fenzu extends CRMEntity{
     		{
 				$pFq = date("Y-m-d",mktime(0, 0, 0, "01","01",date("Y")));
 				$pFq1 = date("Y-m-d",mktime(0, 0, 0, "03","31",date("Y")));
-
     		}
 			else if(date("m") > 6 and date("m") <= 9)
     		{
 				$pFq = date("Y-m-d",mktime(0, 0, 0, "04","01",date("Y")));
 				$pFq1 = date("Y-m-d",mktime(0, 0, 0, "06","30",date("Y")));
-
     		}
 			else
     		{
@@ -1883,19 +1744,16 @@ class Fenzu extends CRMEntity{
 			{
 				$cFq = date("Y-m-d",mktime(0, 0, 0, "01","01",date("Y")));
 				$cFq1 = date("Y-m-d",mktime(0, 0, 0, "03","31",date("Y")));
-
     		}
 			else if(date("m") > 3 and date("m") <= 6)
     		{
 				$cFq = date("Y-m-d",mktime(0, 0, 0, "04","01",date("Y")));
 				$cFq1 = date("Y-m-d",mktime(0, 0, 0, "06","30",date("Y")));
-
     		}
 			else if(date("m") > 6 and date("m") <= 9)
     		{
 				$cFq = date("Y-m-d",mktime(0, 0, 0, "07","01",date("Y")));
 				$cFq1 = date("Y-m-d",mktime(0, 0, 0, "09","30",date("Y")));
-
     		}
 			else
     		{
@@ -1910,30 +1768,24 @@ class Fenzu extends CRMEntity{
 			$datevalue[0] = "";
 			$datevalue[1] = "";
 		}
-
 		return $datevalue;
 	}
-
 	/** to get the Fenzu query for the given Fenzu
 	  * @param $viewid (custom view id):: type Integer
 	  * @param $listquery (List View Query):: type string
 	  * @param $module (Module Name):: type string
 	  * @returns  $query
 	  */
-
 	function getModifiedCvListQuery($viewid,$listquery,$module,$is_popup=false,$module_focus=false)
 	{
 		$entityArr = getEntityTable($module);
-
 		$ec_crmentity = $entityArr["tablename"];
 		$entityidfield = $entityArr["entityidfield"];
 		$crmid = $ec_crmentity.".".$entityidfield;
 		if(!$is_popup) {
 			$fieldquery = $ec_crmentity.".*";
-
 			if($viewid != "" && $listquery != "" )
 			{
-
 				$listviewquery = substr($listquery, strpos($listquery,'FROM'),strlen($listquery));
 				if($module == "Calendar" || $module == "Emails")
 				{
@@ -1961,11 +1813,9 @@ class Fenzu extends CRMEntity{
 				else
 				{
 					$query = "select ".$fieldquery." ,".$crmid." as crmid ".$listviewquery;
-
 				}
 				$stdfiltersql = $this->getCVStdFilterSQL($viewid);
 				$advfiltersql = $this->getCVAdvFilterSQL($viewid);
-
 				if(isset($stdfiltersql) && $stdfiltersql != '' && $stdfiltersql != '()')
 				{
 					$query .= ' and '.$stdfiltersql;
@@ -1974,11 +1824,9 @@ class Fenzu extends CRMEntity{
 				{
 					$query .= ' and '.$advfiltersql;
 				}
-
 			} else {
 				$query = $listquery;
 			}
-
 		} else {
 			if($module_focus && is_array($module_focus->search_fields)) {
 				$listviewquery = substr($listquery, strpos($listquery,'FROM'),strlen($listquery));
@@ -2017,7 +1865,6 @@ class Fenzu extends CRMEntity{
 		}
 		return $query;
 	}
-
     /** to get the Fenzu query for the given Fenzu
 	  * @param $viewid (custom view id):: type Integer
 	  * @param $listquery (List View Query):: type string
@@ -2027,7 +1874,6 @@ class Fenzu extends CRMEntity{
       //$type: 1.current page sql 2. all records sql
 	function getModifiedCollectListQuery($viewid,$listquery,$module,$Fenzudtls,$type)
 	{
-
 			if($viewid != "" && $listquery != "" )
 			{
 				$querystr=$Fenzudtls["collectcolumn"];
@@ -2049,14 +1895,11 @@ class Fenzu extends CRMEntity{
 				{
 					$query .= ' and '.$advfiltersql;
 				}
-
 			} else {
 				$query = $listquery;
 			}
-
 		return $query;
 	}
-
 	function getNewCvListQuery($viewid,$listquery,$module,$is_popup=false)
 	{
 		$entityArr = getEntityTable($module);
@@ -2070,7 +1913,6 @@ class Fenzu extends CRMEntity{
 				$fieldquery = $this->getNewCvColumnListSQL($viewid);
 				if($viewid != "" && $listquery != "" && $fieldquery != "")
 				{
-
 					$listviewquery = substr($listquery, strpos($listquery,'FROM'),strlen($listquery));
 					if($module != "Calendar")
 					{
@@ -2090,7 +1932,6 @@ class Fenzu extends CRMEntity{
 					{
 						$query .= ' and '.$advfiltersql;
 					}
-
 				} else {
 					$query = $listquery;
 				}
@@ -2113,7 +1954,6 @@ class Fenzu extends CRMEntity{
 		}
 		return $query;
 	}
-
 	function getNewCvColumnListSQL($cvid)
 	{
 		global $adb;
@@ -2145,7 +1985,6 @@ class Fenzu extends CRMEntity{
 				if($value != "")
 				{
 					$list = explode(":",$value);
-
 					//Added For getting status for Activities -Jaguar
 					$sqllist_column = $list[0].".".$list[1];
 					if($this->Fenzumodule == "Calendar")
@@ -2155,7 +1994,6 @@ class Fenzu extends CRMEntity{
 							$sqllist_column = "case when (ec_activity.status not like '') then ec_activity.status else ec_activity.eventstatus end as activitystatus";
 						}
 					}
-
 					//Added for for assigned to sorting
 					if($list[1] == "smownerid")
 					{
@@ -2179,7 +2017,6 @@ class Fenzu extends CRMEntity{
 						$sqllist[] = $sqllist_column." as ".$list[2];
 					}
 					//Ends
-
 					$tablefield[$list[0]] = $list[1];
 					$fieldlabel = trim(str_replace($this->escapemodule," ",$list[3]));
 					$this->list_fields[$fieldlabel] = $tablefield;
@@ -2189,21 +2026,17 @@ class Fenzu extends CRMEntity{
 			$returnsql = implode(",",$sqllist);
 		}
 		return $returnsql;
-
 	}
-
 	/** to get the popup Fenzu's condition query for the given Fenzu
 	  * @param $viewid (custom view id):: type Integer
 	  * @param $listquery (List View Query):: type string
 	  * @param $module (Module Name):: type string
 	  * @returns  $query
 	  */
-
 	function getPopupCvListQuery($viewid,$listquery,$module)
 	{
 		if($viewid != "" && $listquery != "")
 		{
-
 			$stdfiltersql = $this->getCVStdFilterSQL($viewid);
 			$advfiltersql = $this->getCVAdvFilterSQL($viewid);
 			if(isset($stdfiltersql) && $stdfiltersql != '')
@@ -2214,13 +2047,11 @@ class Fenzu extends CRMEntity{
 			{
 				$query .= ' and '.$advfiltersql;
 			}
-
 		} else {
 			$query = $listquery;
 		}
 		return $query;
 	}
-
 	/** to get the Key Metrics for the home page query for the given Fenzu  to find the no of records
 	  * @param $viewid (custom view id):: type Integer
 	  * @param $listquery (List View Query):: type string
@@ -2232,9 +2063,7 @@ class Fenzu extends CRMEntity{
 		if($viewid != "" && $listquery != "")
                 {
                         $listviewquery = substr($listquery, strpos($listquery,'FROM'),strlen($listquery));
-
                         $query = "select count(*) AS count ".$listviewquery;
-
 			$stdfiltersql = $this->getCVStdFilterSQL($viewid);
                         $advfiltersql = $this->getCVAdvFilterSQL($viewid);
                         if(isset($stdfiltersql) && $stdfiltersql != '')
@@ -2245,17 +2074,12 @@ class Fenzu extends CRMEntity{
                         {
                                 $query .= ' and '.$advfiltersql;
                         }
-
                 }
-
                 return $query;
 	}
-
-
 	/* This function sets the block information for the given module to the class variable module_list
 	* and return the array
 	*/
-
 	function getFenzuModuleInfo($module)
 	{
 		global $adb;
@@ -2285,21 +2109,18 @@ class Fenzu extends CRMEntity{
 		$this->module_list[$module] = $block_info;
 		return $this->module_list;
 	}
-
 		/** to get the Fenzu query for the given Fenzu
 	  * @param $viewid (custom view id):: type Integer
 	  * @param $listquery (List View Query):: type string
 	  * @param $module (Module Name):: type string
 	  * @returns  $query
 	  */
-
 	function getExportModifiedCvListQuery($viewid,$listquery,$module,$is_popup=false)
 	{
 		if(!$is_popup) {
 			$fieldquery = $this->getExportCvColumnListSQL($viewid);
 			if($viewid != "" && $listquery != "" && $fieldquery != "")
 			{
-
 				$listviewquery = substr($listquery, strpos($listquery,'FROM'),strlen($listquery));
 				if($module == "Calendar")
 				{
@@ -2338,7 +2159,6 @@ class Fenzu extends CRMEntity{
 				{
 					$query .= ' and '.$advfiltersql;
 				}
-
 			} else {
 				$query = $listquery;
 			}
@@ -2359,7 +2179,6 @@ class Fenzu extends CRMEntity{
 		}
 		return $query;
 	}
-
 	function getExportCvColumnListSQL($cvid)
 	{
 		global $adb;
@@ -2373,7 +2192,6 @@ class Fenzu extends CRMEntity{
 				{
 					$list = explode(":",$value);
 					$fieldlabel = trim(str_replace($this->escapemodule," ",$list[3]));
-
 					//Added For getting status for Activities -Jaguar
 					$sqllist_column = $list[0].".".$list[1]." as "."'$fieldlabel'";
 					if($this->Fenzumodule == "Calendar")
@@ -2383,7 +2201,6 @@ class Fenzu extends CRMEntity{
 							$sqllist_column = "case when (ec_activity.status not like '') then ec_activity.status else ec_activity.eventstatus end as activitystatus "." as "."'$fieldlabel'";
 						}
 					}
-
 					//Added for for assigned to sorting
 					if($list[1] == "smownerid")
 					{
@@ -2434,10 +2251,8 @@ class Fenzu extends CRMEntity{
 							$sqllist_column = $list[0].".".$list[1]. " '" .$fieldlabel."'";
 						}
 					}
-
 					$sqllist[] = $sqllist_column;
 					//Ends
-
 					$tablefield[$list[0]] = $list[1];
 					$this->list_fields[$fieldlabel] = $tablefield;
 					$this->list_fields_name[$fieldlabel] = $list[2];
@@ -2446,8 +2261,6 @@ class Fenzu extends CRMEntity{
 			$returnsql = implode(",",$sqllist);
 		}
 		return $returnsql;
-
 	}
-
 }
 ?>

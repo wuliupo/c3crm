@@ -11,7 +11,6 @@
 require_once('include/CRMSmarty.php');
 require_once('include/database/PearDatabase.php');
 require_once('include/CustomFieldUtil.php');
-
 global $mod_strings;
 global $app_strings;
 $smarty = new CRMSmarty();
@@ -20,7 +19,6 @@ $smarty->assign("APP",$app_strings);
 global $theme;
 $theme_path="themes/".$theme."/";
 $image_path=$theme_path."images/";
-
 $smarty->assign("IMAGE_PATH", $image_path);
 $module_array = getCustomFieldSupportedModules(); 
 $smarty->assign("MODULES",$module_array);
@@ -34,23 +32,19 @@ else
 	$fld_module = 'Accounts';
 $smarty->assign("MODULE",$fld_module);
 $smarty->assign("BLOCKSENTRY",getLayoutListEntries($fld_module));
-
 if(isset($_REQUEST["duplicate"]) && $_REQUEST["duplicate"] == "yes")
 {
 	$error='Custom Field in the Name '.$_REQUEST["fldlabel"].' already exists. Please specify a different Label';
 	$smarty->assign("DUPLICATE_ERROR", $error);
 }
-
 if($_REQUEST['mode'] !='')
 	$mode = $_REQUEST['mode'];
 $smarty->assign("MODE", $mode);
 $smarty->assign("SETTYPE","LayoutList");
-
 if($_REQUEST['ajax'] != 'true')
 	$smarty->display('Settings/LayoutList.tpl');	
 else
 	$smarty->display('Settings/LayoutEntries.tpl');
-
 	/**
 	* Function to get customfield entries
 	* @param string $module - Module name
@@ -105,7 +99,6 @@ function getLayoutListEntries($module)
 				$cf_element['typeofdata'] = $typeofdata;
 				//getCreateCustomBlockForm(customModule,blockid,tabid,label,order)
 				$cf_element['tool']='<img src="'.$image_path.'editfield.gif" border="0" style="cursor:pointer;" onClick="getFieldLayoutForm(\''.$module.'\',\''.$row["fieldid"].'\',\''.$tabid.'\',\''.$cf_element['fieldlabel'].'\',\''.$blocklabel.'\',\''.$row["sequence"].'\',\''.$row['block'].'\',\''.$typeofdata.'\')" alt="'.$app_strings['LNK_EDIT'].'" title="'.$app_strings['LNK_EDIT'].'"/>';
-
 				$cflist[] = $cf_element;
 				$count++;
 			}
@@ -113,11 +106,8 @@ function getLayoutListEntries($module)
     }
 	return $blcoklist;
 }
-
-
 /* function to get the modules supports Custom Fields
 */
-
 function getCustomFieldSupportedModules()
 {
 	global $adb;

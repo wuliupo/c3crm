@@ -15,12 +15,10 @@
  * 
  * @package log4php
  */
-
 /**
  * @ignore 
  */
 if (!defined('LOG4PHP_DIR')) define('LOG4PHP_DIR', dirname(__FILE__)); 
-
 /**
  * Extend this abstract class to create your own log layout format.
  *  
@@ -30,7 +28,6 @@ if (!defined('LOG4PHP_DIR')) define('LOG4PHP_DIR', dirname(__FILE__));
  * @abstract
  */
 class LoggerLayout {
-
     /**
      * Creates LoggerLayout instances with the given class name.
      *
@@ -48,7 +45,6 @@ class LoggerLayout {
         }
         return null;
     }
-
     /**
      * Override this method
      */
@@ -56,7 +52,6 @@ class LoggerLayout {
     {
         // override;
     }
-
     /**
      * Override this method to create your own layout format.
      *
@@ -85,7 +80,6 @@ class LoggerLayout {
     {
         return null;
     } 
-
     /**
      * Returns the header for the layout format.
      * @return string

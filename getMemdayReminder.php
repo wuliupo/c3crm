@@ -1,19 +1,16 @@
 <?php
-require_once('config.inc.php');
+require_once('config.php');
 require_once('include/utils/utils.php');
 require_once('include/database/PearDatabase.php');
 require_once('Sms/SmsLib.php');
 global $current_user;
 global $adb;
-
 // new a mail
 $mail = new SaeMail();
 $nowdatetime = date("Y-m-d H:i:s");
-
 $queue = new SaeTaskQueue('sendnums');
 $array = array();
 $url = "http://".$_SERVER['HTTP_HOST']."/getSendMailNums.php";
-
 //查出所有用户
 $query =  "select id,phone_mobile,email1,last_name,user_name from ec_users where 1";
 $result = $adb->query($query); 
@@ -149,11 +146,11 @@ if($num_rows > 0){
 									$currenttime = date("Y-m-d H:i:s");
 									
 									$maillogsid = $adb->getUniqueID("ec_maillogs");
-									$imghtml = '<img src="http://crm123.sinaapp.com/getMailId.php?mailid='.$maillogsid.'"  border=0 width="1" height="1" />';
+									$imghtml = '<img src="'.$site_URL.'/getMailId.php?mailid='.$maillogsid.'"  border=0 width="1" height="1" />';
 									$content = $content.$imghtml;
 									
 									//失败回调地址
-									$callback = "http://".$_SERVER['HTTP_HOST']."/domailfailed.php?mailid=$maillogsid";		
+									$callback = $site_URL."/domailfailed.php?mailid=$maillogsid";		
 		
 									 $res = send_webmail($mail,$email,$subject,$content,$userid,$callback);
 									 $array[] = array('url'=>$url,"postdata" => "email=$email");
@@ -180,11 +177,11 @@ if($num_rows > 0){
 									$currenttime = date("Y-m-d H:i:s");
 									
 									$maillogsid = $adb->getUniqueID("ec_maillogs");
-									$imghtml = '<img src="http://crm123.sinaapp.com/getMailId.php?mailid='.$maillogsid.'"  border=0 width="1" height="1" />';
+									$imghtml = '<img src="'.$site_URL.'/getMailId.php?mailid='.$maillogsid.'"  border=0 width="1" height="1" />';
 									$content = $content.$imghtml;
 									
 									//失败回调地址
-									$callback = "http://".$_SERVER['HTTP_HOST']."/domailfailed.php?mailid=$maillogsid";		
+									$callback = $site_URL."/domailfailed.php?mailid=$maillogsid";		
 									
 									 $res = send_webmail($mail,$email1,$subject,$content,$userid,$callback);
 									 $array[] = array('url'=>$url,"postdata" => "email=$email1");
@@ -206,13 +203,9 @@ if($num_rows > 0){
 		}
 	}
 }
-
 $queue->addTask($array);
 //将任务推入队列
 $queue->push();
-
-
-
 function getIntervar($userid){
 	global $adb;
 	$query = "select interval from ec_systems where server_type='email' and smownerid='".$userid."' ";	
@@ -223,7 +216,6 @@ function getIntervar($userid){
 		return '';	
 	}
 }
-
 function send_webmail($mail,$to_email,$subject,$contents,$smownerid,$callback)
 {
 	global $adb, $log;
@@ -276,8 +268,6 @@ function send_webmail($mail,$to_email,$subject,$contents,$smownerid,$callback)
 	$log->debug("Exit send_webmail() method ...");
 	return $errMsg;
 }
-
-
 function saveMailLog($maillogsid,$userid,$receiver,$receiver_email,$subject,$mailcontent,$flag,$result,$sendtime){
 	global $adb;
 	global $log;

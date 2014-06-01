@@ -43,7 +43,6 @@ function uninstallCustomModule(id)
                 document.form.submit();
         }
 }
-
 function getCreateCustomModuleForm(id)
 {
 	new Ajax.Request(
@@ -57,7 +56,6 @@ function getCreateCustomModuleForm(id)
 			}
 		}
 	);
-
 }
 function checkIsCreateModule()
 {
@@ -78,7 +76,6 @@ function checkIsCreateModule()
 			}
 		}
 	);
-
 }
 function validate_module() {
 		if(document.addtodb.enname.value == "") {
@@ -139,7 +136,6 @@ function checkRelatedmodule() {
 				return false;
 			}
 		}
-
 	}
 	if(relatedmodule2 != "") {
 		if(relatedmodule1 == "") {			
@@ -152,7 +148,6 @@ function checkRelatedmodule() {
 				return false;
 			}
 		}
-
 	}
 	if(relatedmodule3 != "") {
 		if(relatedmodule2 == "") {			
@@ -179,7 +174,6 @@ function checkImportExport(form)
         <td valign="top"><img src="{$IMAGE_PATH}showPanelTopLeft.gif"></td>
         <td class="showPanelBg" style="padding: 10px;" valign="top" width="100%">
         <br>
-
 	<div align=center>
 			{include file='SetMenu.tpl'}
 			<!-- DISPLAY -->
@@ -192,7 +186,6 @@ function checkImportExport(form)
 					<td rowspan="2" valign="top" width="50"><img src="{$IMAGE_PATH}modulelist.gif" alt="Users" title="Users" border="0" height="48" width="48"></td>
 					<td class="heading2" valign="bottom"><b><a href="index.php?module=Settings&action=index&parenttab=Settings">{$MOD.LBL_SETTINGS}</a> &gt; {$MOD.LBL_MODULE_EDITOR}</b></td>
 				</tr>
-
 				<tr>
 					<td class="small" valign="top">{$MOD.LBL_MODULEBUILDER_DESCRIPTION}</td>
 				</tr>
@@ -212,7 +205,6 @@ function checkImportExport(form)
 					<input type="button" value=" {$MOD.LBL_NEW_MODULE} " onClick="fnvshobj(this,'createmodule');getCreateCustomModuleForm('')" class="crmButton create small"/>
 				</tr>
 				</table>
-
 				<table class="listTable" border="0" cellpadding="5" cellspacing="0" width="100%">
 					<tr>
 						<td class="colHeader small" width="5%">#</td>
@@ -238,7 +230,6 @@ function checkImportExport(form)
 			<table border="0" cellpadding="5" cellspacing="0" width="100%">
 			<tr><td align="center"><img src="include/images/builder_flow.jpg" border="0"></td></tr>
 			<tr>
-
 		  	<td class="small" align="right" nowrap="nowrap"><a href="#top">{$MOD.LBL_SCROLL}</a></td>
 			</tr>
 			</table>
@@ -254,7 +245,6 @@ function checkImportExport(form)
         </tr>
         </table>
         </div>
-
         </td>
         <td valign="top"><img src="{$IMAGE_PATH}showPanelTopRight.gif"></td>
         </tr>

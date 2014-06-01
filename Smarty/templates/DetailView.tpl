@@ -1,5 +1,4 @@
 {*<!--
-
 /*********************************************************************************
 ** The contents of this file are subject to the vtiger CRM Public License Version 1.0
  * ("License"); You may not use this file except in compliance with the License
@@ -9,15 +8,12 @@
  * All Rights Reserved.
 *
  ********************************************************************************/
-
 -->*}
 <script type="text/javascript" src="modules/{$MODULE}/{$SINGLE_MOD}.js"></script>
 <table width="100%" cellpadding="2" cellspacing="0" border="0">
 <tr>
 	<td>
-
 		{include file='Buttons_List1.tpl'}
-
 <!-- Contents -->
 <table border=0 cellspacing=0 cellpadding=0 width=98% align=center>
 <tr>
@@ -58,7 +54,6 @@
 			<td valign=top align=left >
                 <table border=0 cellspacing=0 cellpadding=3 width=100% class="dvtContentSpace">
 				<tr>
-
 					<td align=left>
 					<!-- content cache -->
 					
@@ -90,15 +85,12 @@
 								
 								<input title="{$APP.LBL_DELETE_BUTTON_TITLE}" accessKey="{$APP.LBL_DELETE_BUTTON_KEY}" class="crmbutton small delete" onclick="this.form.return_module.value='{$MODULE}'; this.form.return_action.value='index'; this.form.action.value='Delete'; return confirm('{$APP.NTC_DELETE_CONFIRMATION}')" type="submit" name="Delete" value="{$APP.LBL_DELETE_BUTTON_LABEL}">&nbsp;
 								
-
 						</td>
 						</tr>
 						</table>
-
 							</td>
 						     </tr>{/strip}	
 							{foreach key=header item=detail from=$BLOCKS}
-
 							<!-- Detailed View Code starts here-->
 							<table border=0 cellspacing=0 cellpadding=0 width=100% class="small">
 							<tr>
@@ -160,14 +152,10 @@
 								
 								<input title="{$APP.LBL_DELETE_BUTTON_TITLE}" accessKey="{$APP.LBL_DELETE_BUTTON_KEY}" class="crmbutton small delete" onclick="this.form.return_module.value='{$MODULE}'; this.form.return_action.value='index'; this.form.action.value='Delete'; return confirm('{$APP.NTC_DELETE_CONFIRMATION}')" type="submit" name="Delete" value="{$APP.LBL_DELETE_BUTTON_LABEL}">&nbsp;
 								
-
 						</td>
 						</tr>
 						</table>
-
 							</td>
-
-
 						     </tr>{/strip}
 				</table>
 </td></tr>
@@ -180,7 +168,6 @@
 		</td>
 		<td width=22% valign=top style="border-left:2px dashed #cccccc;padding:13px">
 						<!-- right side relevant info -->
-
 		<!-- Tag cloud display -->
 		<table border=0 cellspacing=0 cellpadding=0 width=100% class="tagCloud">
 		<tr>
@@ -208,7 +195,5 @@
 </tr>
 </table>
 </td>
-
 	<td align=right valign=top><img src="{$IMAGE_PATH}showPanelTopRight.gif"></td>
 </tr></table>
-

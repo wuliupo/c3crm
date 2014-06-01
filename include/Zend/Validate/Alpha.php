@@ -18,12 +18,10 @@
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  * @version    $Id: Alpha.php 23775 2011-03-01 17:25:24Z ralph $
  */
-
 /**
  * @see Zend_Validate_Abstract
  */
 require_once 'include/Zend/Validate/Abstract.php';
-
 /**
  * @category   Zend
  * @package    Zend_Validate
@@ -35,7 +33,6 @@ class Zend_Validate_Alpha extends Zend_Validate_Abstract
     const INVALID      = 'alphaInvalid';
     const NOT_ALPHA    = 'notAlpha';
     const STRING_EMPTY = 'alphaStringEmpty';
-
     /**
      * Whether to allow white space characters; off by default
      *
@@ -43,14 +40,12 @@ class Zend_Validate_Alpha extends Zend_Validate_Abstract
      * @deprecated
      */
     public $allowWhiteSpace;
-
     /**
      * Alphabetic filter used for validation
      *
      * @var Zend_Filter_Alpha
      */
     protected static $_filter = null;
-
     /**
      * Validation failure message template definitions
      *
@@ -61,7 +56,6 @@ class Zend_Validate_Alpha extends Zend_Validate_Abstract
         self::NOT_ALPHA    => "'%value%' contains non alphabetic characters",
         self::STRING_EMPTY => "'%value%' is an empty string"
     );
-
     /**
      * Sets default option values for this instance
      *
@@ -73,7 +67,6 @@ class Zend_Validate_Alpha extends Zend_Validate_Abstract
         if ($allowWhiteSpace instanceof Zend_Config) {
             $allowWhiteSpace = $allowWhiteSpace->toArray();
         }
-
         if (is_array($allowWhiteSpace)) {
             if (array_key_exists('allowWhiteSpace', $allowWhiteSpace)) {
                 $allowWhiteSpace = $allowWhiteSpace['allowWhiteSpace'];
@@ -81,10 +74,8 @@ class Zend_Validate_Alpha extends Zend_Validate_Abstract
                 $allowWhiteSpace = false;
             }
         }
-
         $this->allowWhiteSpace = (boolean) $allowWhiteSpace;
     }
-
     /**
      * Returns the allowWhiteSpace option
      *
@@ -94,7 +85,6 @@ class Zend_Validate_Alpha extends Zend_Validate_Abstract
     {
         return $this->allowWhiteSpace;
     }
-
     /**
      * Sets the allowWhiteSpace option
      *
@@ -106,7 +96,6 @@ class Zend_Validate_Alpha extends Zend_Validate_Abstract
         $this->allowWhiteSpace = (boolean) $allowWhiteSpace;
         return $this;
     }
-
     /**
      * Defined by Zend_Validate_Interface
      *
@@ -121,14 +110,11 @@ class Zend_Validate_Alpha extends Zend_Validate_Abstract
             $this->_error(self::INVALID);
             return false;
         }
-
         $this->_setValue($value);
-
         if ('' === $value) {
             $this->_error(self::STRING_EMPTY);
             return false;
         }
-
         if (null === self::$_filter) {
             /**
              * @see Zend_Filter_Alpha
@@ -136,15 +122,11 @@ class Zend_Validate_Alpha extends Zend_Validate_Abstract
             require_once 'include/Zend/Filter/Alpha.php';
             self::$_filter = new Zend_Filter_Alpha();
         }
-
         self::$_filter->allowWhiteSpace = $this->allowWhiteSpace;
-
         if ($value !== self::$_filter->filter($value)) {
             $this->_error(self::NOT_ALPHA);
             return false;
         }
-
         return true;
     }
-
 }

@@ -4,7 +4,6 @@
  * @package Smarty
  * @subpackage plugins
  */
-
 /**
  * Smarty debug_console function plugin
  *
@@ -18,7 +17,6 @@ function smarty_core_display_debug_console($params, &$smarty)
 {
     // we must force compile the debug template in case the environment
     // changed between separate applications.
-
     if(empty($smarty->debug_tpl)) {
         // set path to debug template from SMARTY_DIR
         $smarty->debug_tpl = SMARTY_DIR . 'debug.tpl';
@@ -27,16 +25,12 @@ function smarty_core_display_debug_console($params, &$smarty)
         }
         $smarty->debug_tpl = 'file:' . SMARTY_DIR . 'debug.tpl';
     }
-
     $_ldelim_orig = $smarty->left_delimiter;
     $_rdelim_orig = $smarty->right_delimiter;
-
     $smarty->left_delimiter = '{';
     $smarty->right_delimiter = '}';
-
     $_compile_id_orig = $smarty->_compile_id;
     $smarty->_compile_id = null;
-
     $_compile_path = $smarty->_get_compile_path($smarty->debug_tpl);
     if ($smarty->_compile_resource($smarty->debug_tpl, $_compile_path))
     {
@@ -47,15 +41,10 @@ function smarty_core_display_debug_console($params, &$smarty)
     } else {
         $_results = '';
     }
-
     $smarty->_compile_id = $_compile_id_orig;
-
     $smarty->left_delimiter = $_ldelim_orig;
     $smarty->right_delimiter = $_rdelim_orig;
-
     return $_results;
 }
-
 /* vim: set expandtab: */
-
 ?>

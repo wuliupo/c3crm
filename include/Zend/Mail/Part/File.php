@@ -18,19 +18,14 @@
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  * @version    $Id: File.php 23775 2011-03-01 17:25:24Z ralph $
  */
-
-
 /**
  * @see Zend_Mime_Decode
  */
 require_once 'include/Zend/Mime/Decode.php';
-
 /**
  * @see Zend_Mail_Part
  */
 require_once 'include/Zend/Mail/Part.php';
-
-
 /**
  * @category   Zend
  * @package    Zend_Mail
@@ -42,7 +37,6 @@ class Zend_Mail_Part_File extends Zend_Mail_Part
     protected $_contentPos = array();
     protected $_partPos = array();
     protected $_fh;
-
     /**
      * Public constructor
      *
@@ -63,7 +57,6 @@ class Zend_Mail_Part_File extends Zend_Mail_Part
             require_once 'include/Zend/Mail/Exception.php';
             throw new Zend_Mail_Exception('no file given in params');
         }
-
         if (!is_resource($params['file'])) {
             $this->_fh = fopen($params['file'], 'r');
         } else {
@@ -84,9 +77,7 @@ class Zend_Mail_Part_File extends Zend_Mail_Part
         while (($endPos === null || ftell($this->_fh) < $endPos) && trim($line = fgets($this->_fh))) {
             $header .= $line;
         }
-
         Zend_Mime_Decode::splitMessage($header, $this->_headers, $null);
-
         $this->_contentPos[0] = ftell($this->_fh);
         if ($endPos !== null) {
             $this->_contentPos[1] = $endPos;
@@ -97,7 +88,6 @@ class Zend_Mail_Part_File extends Zend_Mail_Part
         if (!$this->isMultipart()) {
             return;
         }
-
         $boundary = $this->getHeaderField('content-type', 'boundary');
         if (!$boundary) {
             /**
@@ -106,7 +96,6 @@ class Zend_Mail_Part_File extends Zend_Mail_Part
             require_once 'include/Zend/Mail/Exception.php';
             throw new Zend_Mail_Exception('no boundary found in content type to split message');
         }
-
         $part = array();
         $pos = $this->_contentPos[0];
         fseek($this->_fh, $pos);
@@ -122,11 +111,9 @@ class Zend_Mail_Part_File extends Zend_Mail_Part
                 require_once 'include/Zend/Mail/Exception.php';
                 throw new Zend_Mail_Exception('error reading file');
             }
-
             $lastPos = $pos;
             $pos = ftell($this->_fh);
             $line = trim($line);
-
             if ($line == '--' . $boundary) {
                 if ($part) {
                     // not first part
@@ -141,10 +128,7 @@ class Zend_Mail_Part_File extends Zend_Mail_Part
             }
         }
         $this->_countParts = count($this->_partPos);
-
     }
-
-
     /**
      * Body of part
      *
@@ -162,7 +146,6 @@ class Zend_Mail_Part_File extends Zend_Mail_Part
         $length = $this->_contentPos[1] - $this->_contentPos[0];
         return $length < 1 ? '' : fread($this->_fh, $length);
     }
-
     /**
      * Return size of part
      *
@@ -173,7 +156,6 @@ class Zend_Mail_Part_File extends Zend_Mail_Part
     public function getSize() {
         return $this->_contentPos[1] - $this->_contentPos[0];
     }
-
     /**
      * Get part of multipart message
      *
@@ -191,7 +173,6 @@ class Zend_Mail_Part_File extends Zend_Mail_Part
             require_once 'include/Zend/Mail/Exception.php';
             throw new Zend_Mail_Exception('part not found');
         }
-
         return new self(array('file' => $this->_fh, 'startPos' => $this->_partPos[$num][0],
                               'endPos' => $this->_partPos[$num][1]));
     }

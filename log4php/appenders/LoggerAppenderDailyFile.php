@@ -16,14 +16,12 @@
  * @package log4php
  * @subpackage appenders
  */
-
 /**
  * @ignore 
  */
 if (!defined('LOG4PHP_DIR')) define('LOG4PHP_DIR', dirname(__FILE__) . '/..');
  
 require_once(LOG4PHP_DIR . '/appenders/LoggerAppenderFile.php');
-
 /**
  * LoggerAppenderDailyFile appends log events to a file ne.
  *
@@ -39,7 +37,6 @@ require_once(LOG4PHP_DIR . '/appenders/LoggerAppenderFile.php');
  * @subpackage appenders
  */                      
 class LoggerAppenderDailyFile extends LoggerAppenderFile {
-
     /**
      * Format date. 
      * It follows the {@link PHP_MANUAL#date()} formatting rules and <b>should always be set before {@link $file} param</b>.
@@ -91,7 +88,5 @@ class LoggerAppenderDailyFile extends LoggerAppenderFile {
             parent::setFile( sprintf((string)$args[0], date($this->getDatePattern())), $args[1] );
         }
     } 
-
 }
-
 ?>

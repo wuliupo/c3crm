@@ -16,7 +16,6 @@
  * @package log4php
  * @subpackage appenders
  */
-
 /**
  * @ignore 
  */
@@ -24,7 +23,6 @@ if (!defined('LOG4PHP_DIR')) define('LOG4PHP_DIR', dirname(__FILE__) . '/..');
  
 require_once(LOG4PHP_DIR . '/LoggerAppenderSkeleton.php');
 require_once(LOG4PHP_DIR . '/LoggerLog.php');
-
 /**
  * Appends log events to mail using php function {@link PHP_MANUAL#mail}.
  *
@@ -37,12 +35,10 @@ require_once(LOG4PHP_DIR . '/LoggerLog.php');
  * @subpackage appenders
  */
 class LoggerAppenderMail extends LoggerAppenderSkeleton {
-
     /**
      * @var string 'from' field
      */
     var $from = null;
-
     /**
      * @var string 'subject' field
      */
@@ -52,7 +48,6 @@ class LoggerAppenderMail extends LoggerAppenderSkeleton {
      * @var string 'to' field
      */
     var $to = null;
-
     /**
      * @var string used to create mail body
      * @access private
@@ -73,7 +68,6 @@ class LoggerAppenderMail extends LoggerAppenderSkeleton {
     {
         $this->LoggerAppenderSkeleton($name);
     }
-
     function activateOptions()
     {
         $this->closed = false;
@@ -84,11 +78,8 @@ class LoggerAppenderMail extends LoggerAppenderSkeleton {
     {
         $from       = $this->getFrom();
         $to         = $this->getTo();
-
         if (!empty($this->body) and $from !== null and $to !== null and $this->layout !== null) {
-
             $subject    = $this->getSubject();            
-
             LoggerLog::debug("LoggerAppenderMail::close() sending mail from=[{$from}] to=[{$to}] subject=[{$subject}]");
             
             @mail(
@@ -115,7 +106,6 @@ class LoggerAppenderMail extends LoggerAppenderSkeleton {
     {
         return $this->subject;
     }
-
     /**
      * @return string
      */
@@ -133,12 +123,10 @@ class LoggerAppenderMail extends LoggerAppenderSkeleton {
     {
         $this->to = $to;
     }
-
     function setFrom($from)
     {
         $this->from = $from;
     }  
-
     function append($event)
     {
         if ($this->layout !== null)

@@ -16,19 +16,16 @@
  * @package log4php
  * @subpackage spi
  */
-
 /**
  * @ignore 
  */
 if (!defined('LOG4PHP_DIR')) define('LOG4PHP_DIR', dirname(__FILE__) . '/..');
-
 /**
  * When location information is not available the constant
  * <i>NA</i> is returned. Current value of this string
  * constant is <b>?</b>.  
  */
 define('LOG4PHP_LOGGER_LOCATION_INFO_NA',  'NA');
-
 /**
  * The internal representation of caller location information.
  *
@@ -39,7 +36,6 @@ define('LOG4PHP_LOGGER_LOCATION_INFO_NA',  'NA');
  * @since 0.3
  */
 class LoggerLocationInfo {
-
     /**
     * @var string Caller's line number.
     */
@@ -64,7 +60,6 @@ class LoggerLocationInfo {
     * @var string 
     */
     var $fullInfo = null;
-
     /**
      * Instantiate location information based on a {@link PHP_MANUAL#debug_backtrace}.
      *
@@ -81,12 +76,10 @@ class LoggerLocationInfo {
         $this->fullInfo = $this->getClassName() . '.' . $this->getMethodName() . 
                           '(' . $this->getFileName() . ':' . $this->getLineNumber() . ')';
     }
-
     function getClassName()
     {
         return ($this->className === null) ? LOG4PHP_LOGGER_LOCATION_INFO_NA : $this->className; 
     }
-
     /**
      *  Return the file name of the caller.
      *  <p>This information is not always available.
@@ -95,7 +88,6 @@ class LoggerLocationInfo {
     {
         return ($this->fileName === null) ? LOG4PHP_LOGGER_LOCATION_INFO_NA : $this->fileName; 
     }
-
     /**
      *  Returns the line number of the caller.
      *  <p>This information is not always available.
@@ -104,7 +96,6 @@ class LoggerLocationInfo {
     {
         return ($this->lineNumber === null) ? LOG4PHP_LOGGER_LOCATION_INFO_NA : $this->lineNumber; 
     }
-
     /**
      *  Returns the method name of the caller.
      */

@@ -19,12 +19,10 @@
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  * @version    $Id: Oracle.php 23959 2011-05-03 10:45:47Z yoshida@zend.co.jp $
  */
-
 /**
  * @see Zend_Db_Statement
  */
 require_once 'include/Zend/Db/Statement.php';
-
 /**
  * Extends for Oracle.
  *
@@ -36,17 +34,14 @@ require_once 'include/Zend/Db/Statement.php';
  */
 class Zend_Db_Statement_Oracle extends Zend_Db_Statement
 {
-
     /**
      * Column names.
      */
     protected $_keys;
-
     /**
      * Fetched result values.
      */
     protected $_values;
-
     /**
      * Check if LOB field are returned as string
      * instead of OCI-Lob object
@@ -54,7 +49,6 @@ class Zend_Db_Statement_Oracle extends Zend_Db_Statement
      * @var boolean
      */
     protected $_lobAsString = false;
-
     /**
      * Activate/deactivate return of LOB as string
      *
@@ -66,7 +60,6 @@ class Zend_Db_Statement_Oracle extends Zend_Db_Statement
         $this->_lobAsString = (bool) $lob_as_string;
         return $this;
     }
-
     /**
      * Return whether or not LOB are returned as string
      *
@@ -76,7 +69,6 @@ class Zend_Db_Statement_Oracle extends Zend_Db_Statement
     {
         return $this->_lobAsString;
     }
-
     /**
      * Prepares statement handle
      *
@@ -96,7 +88,6 @@ class Zend_Db_Statement_Oracle extends Zend_Db_Statement
             throw new Zend_Db_Statement_Oracle_Exception(oci_error($connection));
         }
     }
-
     /**
      * Binds a parameter to the specified variable name.
      *
@@ -114,12 +105,10 @@ class Zend_Db_Statement_Oracle extends Zend_Db_Statement
         if ($type === NULL) {
             $type = SQLT_CHR;
         }
-
         // default value
         if ($length === NULL) {
             $length = -1;
         }
-
         $retval = @oci_bind_by_name($this->_stmt, $parameter, $variable, $length, $type);
         if ($retval === false) {
             /**
@@ -128,10 +117,8 @@ class Zend_Db_Statement_Oracle extends Zend_Db_Statement
             require_once 'include/Zend/Db/Statement/Oracle/Exception.php';
             throw new Zend_Db_Statement_Oracle_Exception(oci_error($this->_stmt));
         }
-
         return true;
     }
-
     /**
      * Closes the cursor, allowing the statement to be executed again.
      *
@@ -142,12 +129,10 @@ class Zend_Db_Statement_Oracle extends Zend_Db_Statement
         if (!$this->_stmt) {
             return false;
         }
-
         oci_free_statement($this->_stmt);
         $this->_stmt = false;
         return true;
     }
-
     /**
      * Returns the number of columns in the result set.
      * Returns null if the statement has no result set metadata.
@@ -159,11 +144,8 @@ class Zend_Db_Statement_Oracle extends Zend_Db_Statement
         if (!$this->_stmt) {
             return false;
         }
-
         return oci_num_fields($this->_stmt);
     }
-
-
     /**
      * Retrieves the error code, if any, associated with the last operation on
      * the statement handle.
@@ -175,17 +157,12 @@ class Zend_Db_Statement_Oracle extends Zend_Db_Statement
         if (!$this->_stmt) {
             return false;
         }
-
         $error = oci_error($this->_stmt);
-
         if (!$error) {
             return false;
         }
-
         return $error['code'];
     }
-
-
     /**
      * Retrieves an array of error information, if any, associated with the
      * last operation on the statement handle.
@@ -197,12 +174,10 @@ class Zend_Db_Statement_Oracle extends Zend_Db_Statement
         if (!$this->_stmt) {
             return false;
         }
-
         $error = oci_error($this->_stmt);
         if (!$error) {
             return false;
         }
-
         if (isset($error['sqltext'])) {
             return array(
                 $error['code'],
@@ -217,8 +192,6 @@ class Zend_Db_Statement_Oracle extends Zend_Db_Statement
             );
         }
     }
-
-
     /**
      * Executes a prepared statement.
      *
@@ -229,11 +202,9 @@ class Zend_Db_Statement_Oracle extends Zend_Db_Statement
     public function _execute(array $params = null)
     {
         $connection = $this->_adapter->getConnection();
-
         if (!$this->_stmt) {
             return false;
         }
-
         if ($params !== null) {
             if (!is_array($params)) {
                 $params = array($params);
@@ -253,7 +224,6 @@ class Zend_Db_Statement_Oracle extends Zend_Db_Statement
                 throw new Zend_Db_Statement_Oracle_Exception(oci_error($this->_stmt));
             }
         }
-
         $retval = @oci_execute($this->_stmt, $this->_adapter->_getExecuteMode());
         if ($retval === false) {
             /**
@@ -262,7 +232,6 @@ class Zend_Db_Statement_Oracle extends Zend_Db_Statement
             require_once 'include/Zend/Db/Statement/Oracle/Exception.php';
             throw new Zend_Db_Statement_Oracle_Exception(oci_error($this->_stmt));
         }
-
         $this->_keys = Array();
         if ($field_num = oci_num_fields($this->_stmt)) {
             for ($i = 1; $i <= $field_num; $i++) {
@@ -270,15 +239,12 @@ class Zend_Db_Statement_Oracle extends Zend_Db_Statement
                 $this->_keys[] = $name;
             }
         }
-
         $this->_values = Array();
         if ($this->_keys) {
             $this->_values = array_fill(0, count($this->_keys), null);
         }
-
         return $retval;
     }
-
     /**
      * Fetches a row from the result set.
      *
@@ -293,13 +259,10 @@ class Zend_Db_Statement_Oracle extends Zend_Db_Statement
         if (!$this->_stmt) {
             return false;
         }
-
         if ($style === null) {
             $style = $this->_fetchMode;
         }
-
         $lob_as_string = $this->getLobAsString() ? OCI_RETURN_LOBS : 0;
-
         switch ($style) {
             case Zend_Db::FETCH_NUM:
                 $row = oci_fetch_array($this->_stmt, OCI_NUM | OCI_RETURN_NULLS | $lob_as_string);
@@ -332,7 +295,6 @@ class Zend_Db_Statement_Oracle extends Zend_Db_Statement
                 );
                 break;
         }
-
         if (! $row && $error = oci_error($this->_stmt)) {
             /**
              * @see Zend_Db_Adapter_Oracle_Exception
@@ -340,14 +302,11 @@ class Zend_Db_Statement_Oracle extends Zend_Db_Statement
             require_once 'include/Zend/Db/Statement/Oracle/Exception.php';
             throw new Zend_Db_Statement_Oracle_Exception($error);
         }
-
         if (is_array($row) && array_key_exists('zend_db_rownum', $row)) {
             unset($row['zend_db_rownum']);
         }
-
         return $row;
     }
-
     /**
      * Returns an array containing all of the result set rows.
      *
@@ -361,14 +320,11 @@ class Zend_Db_Statement_Oracle extends Zend_Db_Statement
         if (!$this->_stmt) {
             return false;
         }
-
         // make sure we have a fetch mode
         if ($style === null) {
             $style = $this->_fetchMode;
         }
-
         $flags = OCI_FETCHSTATEMENT_BY_ROW;
-
         switch ($style) {
             case Zend_Db::FETCH_BOTH:
                 /**
@@ -411,7 +367,6 @@ class Zend_Db_Statement_Oracle extends Zend_Db_Statement
                 );
                 break;
         }
-
         $result = Array();
         if ($flags != OCI_FETCHSTATEMENT_BY_ROW) { /* not Zend_Db::FETCH_OBJ */
             if (! ($rows = oci_fetch_all($this->_stmt, $result, 0, -1, $flags) )) {
@@ -446,11 +401,8 @@ class Zend_Db_Statement_Oracle extends Zend_Db_Statement
                 throw new Zend_Db_Statement_Oracle_Exception($error);
             }
         }
-
         return $result;
     }
-
-
     /**
      * Returns a single column from the next row of a result set.
      *
@@ -463,7 +415,6 @@ class Zend_Db_Statement_Oracle extends Zend_Db_Statement
         if (!$this->_stmt) {
             return false;
         }
-
         if (!oci_fetch($this->_stmt)) {
             // if no error, there is simply no record
             if (!$error = oci_error($this->_stmt)) {
@@ -475,7 +426,6 @@ class Zend_Db_Statement_Oracle extends Zend_Db_Statement
             require_once 'include/Zend/Db/Statement/Oracle/Exception.php';
             throw new Zend_Db_Statement_Oracle_Exception($error);
         }
-
         $data = oci_result($this->_stmt, $col+1); //1-based
         if ($data === false) {
             /**
@@ -484,7 +434,6 @@ class Zend_Db_Statement_Oracle extends Zend_Db_Statement
             require_once 'include/Zend/Db/Statement/Oracle/Exception.php';
             throw new Zend_Db_Statement_Oracle_Exception(oci_error($this->_stmt));
         }
-
         if ($this->getLobAsString()) {
             // instanceof doesn't allow '-', we must use a temporary string
             $type = 'OCI-Lob';
@@ -492,10 +441,8 @@ class Zend_Db_Statement_Oracle extends Zend_Db_Statement
                 $data = $data->read($data->size());
             }
         }
-
         return $data;
     }
-
     /**
      * Fetches the next row and returns it as an object.
      *
@@ -509,9 +456,7 @@ class Zend_Db_Statement_Oracle extends Zend_Db_Statement
         if (!$this->_stmt) {
             return false;
         }
-
         $obj = oci_fetch_object($this->_stmt);
-
         if ($error = oci_error($this->_stmt)) {
             /**
              * @see Zend_Db_Adapter_Oracle_Exception
@@ -519,12 +464,9 @@ class Zend_Db_Statement_Oracle extends Zend_Db_Statement
             require_once 'include/Zend/Db/Statement/Oracle/Exception.php';
             throw new Zend_Db_Statement_Oracle_Exception($error);
         }
-
         /* @todo XXX handle parameters */
-
         return $obj;
     }
-
     /**
      * Retrieves the next rowset (result set) for a SQL statement that has
      * multiple result sets.  An example is a stored procedure that returns
@@ -546,7 +488,6 @@ class Zend_Db_Statement_Oracle extends Zend_Db_Statement
             )
         );
     }
-
     /**
      * Returns the number of rows affected by the execution of the
      * last INSERT, DELETE, or UPDATE statement executed by this
@@ -560,9 +501,7 @@ class Zend_Db_Statement_Oracle extends Zend_Db_Statement
         if (!$this->_stmt) {
             return false;
         }
-
         $num_rows = oci_num_rows($this->_stmt);
-
         if ($num_rows === false) {
             /**
              * @see Zend_Db_Adapter_Oracle_Exception
@@ -570,8 +509,6 @@ class Zend_Db_Statement_Oracle extends Zend_Db_Statement
             require_once 'include/Zend/Db/Statement/Oracle/Exception.php';
             throw new Zend_Db_Statement_Oracle_Exception(oci_error($this->_stmt));
         }
-
         return $num_rows;
     }
-
 }

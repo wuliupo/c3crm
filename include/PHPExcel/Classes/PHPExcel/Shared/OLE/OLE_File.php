@@ -18,8 +18,6 @@
 // +----------------------------------------------------------------------+
 //
 // $Id: File.php,v 1.11 2007/02/13 21:00:42 schmidt Exp $
-
-
 /** PHPExcel root directory */
 if (!defined('PHPEXCEL_ROOT')) {
 	/**
@@ -27,9 +25,7 @@ if (!defined('PHPEXCEL_ROOT')) {
 	 */
 	define('PHPEXCEL_ROOT', dirname(__FILE__) . '/../../../');
 }
-
 require_once PHPEXCEL_ROOT . 'PHPExcel/Shared/OLE/OLE_PPS.php';
-
 /**
 * Class for creating File PPS's for OLE containers
 *
@@ -44,7 +40,6 @@ class PHPExcel_Shared_OLE_PPS_File extends PHPExcel_Shared_OLE_PPS
 	* @var string
 	*/
 	public $_tmp_dir;
-
 	/**
 	* The constructor
 	*
@@ -67,7 +62,6 @@ class PHPExcel_Shared_OLE_PPS_File extends PHPExcel_Shared_OLE_PPS
 			'',
 			array());
 	}
-
 	/**
 	* Sets the temp dir used for storing the OLE file
 	*
@@ -83,7 +77,6 @@ class PHPExcel_Shared_OLE_PPS_File extends PHPExcel_Shared_OLE_PPS
 		}
 		return false;
 	}
-
 	/**
 	* Initialization method. Has to be called right after OLE_PPS_File().
 	*
@@ -103,7 +96,6 @@ class PHPExcel_Shared_OLE_PPS_File extends PHPExcel_Shared_OLE_PPS
 		}
 		return true;
 	}
-
 	/**
 	* Append data to PPS
 	*
@@ -118,7 +110,6 @@ class PHPExcel_Shared_OLE_PPS_File extends PHPExcel_Shared_OLE_PPS
 			$this->_data .= $data;
 		}
 	}
-
 	/**
 	 * Returns a stream for reading this file using fread() etc.
 	 * @return  resource  a read-only stream

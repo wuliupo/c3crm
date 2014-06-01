@@ -4,20 +4,15 @@ require_once('include/logging.php');
 require_once('include/database/PearDatabase.php');
 require_once('data/CRMEntity.php');
 require_once('modules/Maillisttmps/ModuleConfig.php');
-
 // Note is used to store customer information.
 class Maillisttmps extends CRMEntity {
 	var $log;
 	var $db;
-
 	var $tab_name = Array('ec_crmentity','ec_maillisttmps');
 	var $tab_name_index = Array('ec_crmentity'=>'crmid','ec_maillisttmps'=>'maillisttmpsid');
 	var $entity_table = "ec_maillisttmps";
-
 	var $column_fields = Array();
-
 	var $sortby_fields = Array('maillisttmpname');
-
 	// This is the list of ec_fields that are in the lists.
 	/* Format: Field Label => Array(tablename, columnname) */
 	// tablename should not have prefix 'ec_'
@@ -46,12 +41,10 @@ class Maillisttmps extends CRMEntity {
 	//added for import and export function
 	var $special_functions =  array("create_user","add_create_account");
 	var $importable_fields = Array();
-
 	//Added these variables which are used as default order by and sortorder in ListView
 	var $default_order_by = 'modifiedtime';
 	var $default_sort_order = 'DESC';
 	var $is_custom_module = true;
-
 	function Maillisttmps() {
 		$this->log = LoggerManager::getLogger('maillisttmps');
 		$this->log->debug("Entering Maillisttmps() method ...");
@@ -59,7 +52,6 @@ class Maillisttmps extends CRMEntity {
 		$this->column_fields = getColumnFields('Maillisttmps');
 		$this->log->debug("Exiting Maillisttmps method ...");
 	}
-
 	function save_module($module)
 	{
 		global $module_enable_product;
@@ -67,11 +59,8 @@ class Maillisttmps extends CRMEntity {
 		{
 			//$this->saveProductDetails(true); update product qty
 			$this->saveProductDetails();
-
 		}
 	}
-
-
 	/**
 	 *      This function is used to add the ec_attachments. This will call the function uploadAndSaveFile which will upload the attachment into the server and save that attachment information in the database.
 	 *      @param int $id  - entity id to which the ec_files to be uploaded
@@ -81,9 +70,7 @@ class Maillisttmps extends CRMEntity {
 	{
 		global $log;
 		$log->debug("Entering into insertIntoAttachment($id,$module) method.");
-
 		$file_saved = false;
-
 		foreach($_FILES as $fileindex => $files)
 		{
 			if($files['name'] != '' && $files['size'] > 0)
@@ -91,13 +78,10 @@ class Maillisttmps extends CRMEntity {
 				$file_saved = $this->uploadAndSaveFile($id,$module,$files);
 			}
 		}
-
 		$log->debug("Exiting from insertIntoAttachment($id,$module) method.");
 	}
-
 	function getListQuery($where,$isSearchAll=false){
 		global $current_user;
-
 		$query = "SELECT ec_maillisttmps.maillisttmpsid as crmid,ec_users.user_name,
 		ec_maillisttmps.* FROM ec_maillisttmps
 		LEFT JOIN ec_users
@@ -106,9 +90,7 @@ class Maillisttmps extends CRMEntity {
 		$query = $query.$where;
 		return $query;
 	}
-
 	
-
 	//get next salesorder id
 	function get_next_id() {
 		//$query = "select count(*) as num from ec_maillisttmps";
@@ -119,7 +101,6 @@ class Maillisttmps extends CRMEntity {
 		elseif($num > 9) return "0".$num;
 		else return "00".$num;
 	}
-
 	/**	Function used to get the sort order for Maillisttmps listview
 	 *	@return string	$sorder	- first check the $_REQUEST['sorder'] if request value is empty then check in the $_SESSION['MAILLISTTMPS_SORT_ORDER'] if this session value is empty then default sort order will be returned.
 	 */
@@ -134,7 +115,6 @@ class Maillisttmps extends CRMEntity {
 		$log->debug("Exiting getSortOrder() method ...");
 		return $sorder;
 	}
-
 	/**	Function used to get the order by value for MAILLISTTMPS listview
 	 *	@return string	$order_by  - first check the $_REQUEST['order_by'] if request value is empty then check in the $_SESSION['MAILLISTTMPS_ORDER_BY'] if this session value is empty then default order by will be returned.
 	 */

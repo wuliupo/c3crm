@@ -11,15 +11,9 @@
  
 require_once('include/CustomFieldUtil.php');
 require_once('include/CRMSmarty.php');
-
-
 global $mod_strings,$app_strings,$app_list_strings,$theme,$adb;
-
 $theme_path="themes/".$theme."/";
 $image_path=$theme_path."images/";
-
-
-
 $tabid=$_REQUEST['tabid'];
 $fieldid=$_REQUEST['fieldid'];
 if(isset($_REQUEST['uitype']) && $_REQUEST['uitype'] != '')
@@ -45,7 +39,6 @@ $cfimagecombo = Array($image_path."text.gif",
 						$image_path."yahoo.gif",
 			            $image_path."skype.gif"						
 						);//$image_path."text.gif",$image_path."text.gif" account,contact
-
 $cftextcombo = Array($mod_strings['Text'],                        
                         $mod_strings['Number'],
                         $mod_strings['Percent'],
@@ -128,14 +121,11 @@ elseif($fieldid == '')
 {
 	$selectedvalue = "0";
 }
-
 if($mode == 'edit')
 	$disable_str = 'disabled' ;
 else
 	$disable_str = '' ;
-
 $output = '';
-
 $combo_output = '';
 for($i=0;$i<count($cftextcombo);$i++)
 {
@@ -145,8 +135,6 @@ for($i=0;$i<count($cftextcombo);$i++)
                 $sel_val = '';
 	$combo_output.= '<a href="javascript:void(0);" onClick="makeFieldSelected(this,'.$i.');" id="field'.$i.'" style="text-decoration:none;background-image:url('.$cfimagecombo[$i].');" class="customMnu" '.$disable_str.'>'.$cftextcombo[$i].'</a>';
 }
-
-
 $output .='<div class="modal-header"><button class="close" type="button" data-dismiss="modal" aria-hidden="true">&times;</button>';
     if($mode == 'edit')
     $output .= '<h3 id="myMOdalLabel">'.$mod_strings['LBL_EDIT_FIELD_TYPE'].' - '.$mod_strings[$customfield_typename].'</h3></div>';
@@ -163,7 +151,6 @@ $output .= '<div class="modal-body"><script language="JavaScript" type="text/jav
                 <input type="hidden" name="mode" id="cfedit_mode" value="'.$mode.'">
                 <input type="hidden" name="cfcombo" id="selectedfieldtype" value="">
                 <input type="hidden" name="fieldType" id="fieldType" value="'.$selectedvalue.'">';
-
  if($mode !='edit'){
      $output .= '<div class="span3 pull-left" >'.$mod_strings['LBL_SELECT_FIELD_TYPE'].'
                     <div name="cfcombo" id="cfcombo" class="small"style="width:205px;height:150px;overflow-y:auto;overflow-x:hidden;
@@ -236,14 +223,12 @@ $output .= '<div class="modal-body"><script language="JavaScript" type="text/jav
                 </div>
             </form>
            </div>';
-
 $output .= '<div class="modal-footer">
                 <button class="btn btn-success pull-right btn-small" type="button" onclick="subForm(\'addtodb\')">
                     <i class="icon-ok icon-white"></i> '.$app_strings['LBL_SAVE_BUTTON_LABEL'].'</button>
                 <button class="btn btn-primary pull-left btn-small" data-dismiss="modal" aria-hidden="true"> 
                     <i class="icon-arrow-left icon-white"></i> '.$app_strings['LBL_CANCEL_BUTTON_LABEL'].'</button>
             </div>';
-
 echo $output;
 //exit();
 //$output .= '<div id="orgLay" style="display:block;" class="layerPopup"><script language="JavaScript" type="text/javascript" src="include/js/customview.js"></script>

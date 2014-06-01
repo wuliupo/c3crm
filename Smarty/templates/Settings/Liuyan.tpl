@@ -120,7 +120,6 @@
 <input type="hidden" value="{$search_url}" id="search_url"  name="search_url"/>
 <script>
 {literal}
-
 function getOrderBy(theorderbystr){
 	getListViewEntries_js("Settings",theorderbystr);
 } 
@@ -154,7 +153,5 @@ function changeReply(id){
 		location.href="index.php?module=Settings&action=Liuyan&change=1&id="+id+urlstring;	
 	}
 }
-
 {/literal}
 </script>
-

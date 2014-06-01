@@ -1,11 +1,9 @@
 <script type="text/javascript" src="modules/{$MODULE}/{$SINGLE_MOD}.js"></script>
 {include file='Buttons_List1.tpl'}	
-
 {*<!-- Contents -->*}
 <table border=0 cellspacing=0 cellpadding=0 width=100% align=center>
    <tr>
 	<td valign=top><img src="{$IMAGE_PATH}showPanelTopLeft.gif"></td>
-
 	<td class="showPanelBg" valign=top width=100%>
 		{*<!-- PUBLIC CONTENTS STARTS-->*}
 		<div class="small" style="padding:20px">
@@ -13,7 +11,6 @@
 			{$UPDATEINFO}	 
 			
 			
-
 			<hr noshade size=1>
 		        <form name="EditView" method="POST" action="index.php">
 			<input type="hidden" name="module" value="{$MODULE}">
@@ -25,7 +22,6 @@
 			<input type="hidden" name="return_id" value="{$RETURN_ID}">
 			<input type="hidden" name="return_action" value="{$RETURN_ACTION}">
 			<input type="hidden" name="return_viewname" value="{$RETURN_VIEWNAME}">
-
 			{*<!-- Account details tabs -->*}
 			<table border=0 cellspacing=0 cellpadding=0 width=100% align=center>
 			   <tr>
@@ -44,7 +40,6 @@
 				<td valign=top align=left >
 					<table border=0 cellspacing=0 cellpadding=3 width=100% class="dvtContentSpace">
 					   <tr>
-
 						<td align=left>
 							{*<!-- content cache -->*}
 					
@@ -74,7 +69,6 @@
 											</div>
 										</td>
 									   </tr>
-
 									   <!-- included to handle the edit fields based on ui types -->
 									   {foreach key=header item=data from=$BLOCKS}
 									      <tr>                                                                                
@@ -98,7 +92,6 @@
 										</td>
 										
 									   </tr>
-
 									   <tr>
 										<td  colspan=6 style="padding:5px">
 											<div align="center">												
@@ -124,11 +117,7 @@
 </table>
 </form>
 <script>	
-
         var fieldname = new Array({$VALIDATION_DATA_FIELDNAME})
-
         var fieldlabel = new Array({$VALIDATION_DATA_FIELDLABEL})
-
         var fielddatatype = new Array({$VALIDATION_DATA_FIELDDATATYPE})
-
 </script>

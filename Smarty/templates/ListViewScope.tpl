@@ -154,7 +154,6 @@
 					{/if}
 				{/if}
 			{/foreach}
-
 			{if $VIEWPURCHASE == 1}
 				<input class="crmbutton small save" type="button" 
 				value="{$APP.LNK_VIEW} {$APP.NOTWAREHOUSED} {$APP.PurchaseOrder}"
@@ -226,7 +225,6 @@
 				{if $button_check eq 'quick_edit'}
 				<!-- <input class="crmbutton small cancel" type="button" value="{$APP.LBL_QUICKEDIT_BUTTON_LABEL}" onclick="return quick_edit(this, 'quickedit', '{$MODULE}')"/> -->
 				
-
 								{elseif $button_check eq 'del'}
 									<input class="crmbutton small delete" type="button" value=" {$button_label} " onclick="return massDelete('{$MODULE}')"/>
 				

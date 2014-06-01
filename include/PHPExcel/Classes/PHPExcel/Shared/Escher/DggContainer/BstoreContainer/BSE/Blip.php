@@ -24,7 +24,6 @@
  * @license    http://www.gnu.org/licenses/old-licenses/lgpl-2.1.txt	LGPL
  * @version    1.7.2, 2010-01-11
  */
-
 /**
  * PHPExcel_Shared_Escher_DggContainer_BstoreContainer_BSE_Blip
  *
@@ -40,14 +39,12 @@ class PHPExcel_Shared_Escher_DggContainer_BstoreContainer_BSE_Blip
 	 * @var PHPExcel_Shared_Escher_DggContainer_BstoreContainer_BSE
 	 */
 	private $_parent;
-
 	/**
 	 * Raw image data
 	 *
 	 * @var string
 	 */
 	private $_data;
-
 	/**
 	 * Get the raw image data
 	 *
@@ -57,7 +54,6 @@ class PHPExcel_Shared_Escher_DggContainer_BstoreContainer_BSE_Blip
 	{
 		return $this->_data;
 	}
-
 	/**
 	 * Set the raw image data
 	 *
@@ -67,7 +63,6 @@ class PHPExcel_Shared_Escher_DggContainer_BstoreContainer_BSE_Blip
 	{
 		$this->_data = $data;
 	}
-
 	/**
 	 * Set parent BSE
 	 *
@@ -77,7 +72,6 @@ class PHPExcel_Shared_Escher_DggContainer_BstoreContainer_BSE_Blip
 	{
 		$this->_parent = $parent;
 	}
-
 	/**
 	 * Get parent BSE
 	 *
@@ -87,5 +81,4 @@ class PHPExcel_Shared_Escher_DggContainer_BstoreContainer_BSE_Blip
 	{
 		return $this->_parent;
 	}
-
 }

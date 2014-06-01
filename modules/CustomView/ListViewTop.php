@@ -19,7 +19,6 @@
  * All Rights Reserved.
  * Contributor(s): ______________________________________..
  ********************************************************************************/
-
       /** to get the details of a KeyMetrics on Home page 
         * @returns  $customviewlist Array in the following format
 	* $values = Array('Title'=>Array(0=>'image name',
@@ -52,16 +51,13 @@ function getKeyMetrics()
 	require_once('modules/CustomView/CustomView.php');
 	require_once('include/logging.php');
 	require_once('include/ListView/ListView.php');
-
 	global $app_strings;
 	global $adb;
 	global $log;
 	global $current_language;
 	$metricviewnames = "'Hot Leads'";
-
 	$current_module_strings = return_module_language($current_language, "CustomView");
 	$log = LoggerManager::getLogger('metrics');
-
 	$metriclists = getMetricList();
 	$log->info("Metrics :: Successfully got MetricList to be displayed");
 	if(isset($metriclists))
@@ -110,17 +106,14 @@ function getKeyMetrics()
 					'COUNT' => $metriclist['count'],
 					'MODULE' => $metriclist['module']
 					);
-
 			$value[]='<a href="index.php?action=index&module='.$metriclist['module'].'&viewname='.$metriclist['id'].'">'.$metriclist['name'].'</a>';
 			$value[]='<a href="index.php?action=index&module='.$metriclist['module'].'&viewname='.$metriclist['id'].'">'.$metriclist['count'].'</a>';
 			$entries[$metriclist['id']]=$value;
 		}
-
 	}
 	$values=Array('Title'=>$title,'Header'=>$header,'Entries'=>$entries);
 	//if ( ($display_empty_home_blocks ) || (count($value)!= 0) )
 	return $values;
-
 }
 	
 	/** to get the details of a customview Entries
@@ -140,7 +133,6 @@ function getMetricList()
 	while($cvrow=$adb->fetch_array($result))
 	{
 		$metricslist = Array();
-
 		$metricslist['id'] = $cvrow['cvid'];
 		$metricslist['name'] = $cvrow['viewname'];
 		$metricslist['module'] = $cvrow['entitytype'];
@@ -148,8 +140,6 @@ function getMetricList()
 		if(isPermitted($cvrow['entitytype'],"index") == "yes")
 			$metriclists[] = $metricslist;
 	}
-
 	return $metriclists;
 }
-
 ?>

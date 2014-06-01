@@ -9,20 +9,16 @@
  ************************************************************************************/
 require_once('include/database/PearDatabase.php');
 @include_once('user_privileges/default_module_view.php');
-
 global $adb, $singlepane_view, $currentModule;
 $idlist = $_REQUEST['idlist'];
 $dest_mod = $_REQUEST['destination_module'];
 $parenttab = $_REQUEST['parenttab'];
-
 $forCRMRecord = isset($_REQUEST['parentid'])?$_REQUEST['parentid']:$_REQUEST['parid'];
 $mode = $_REQUEST['mode'];
-
 if($singlepane_view == 'true')
 	$action = "DetailView";
 else
 	$action = "CallRelatedList";
-
 $storearray = array();
 if(!empty($_REQUEST['idlist'])) {
 	// Split the string of ids
@@ -42,7 +38,5 @@ foreach($storearray as $id)
 		}
 	}
 }
-
 redirect("index.php?action=$action&module=$currentModule&record=".$forCRMRecord."&parenttab=".$parenttab);
-
 ?>

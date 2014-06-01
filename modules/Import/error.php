@@ -19,92 +19,59 @@
  * All Rights Reserved.
  * Contributor(s): ______________________________________..
  ********************************************************************************/
-
 require_once('include/CRMSmarty.php');
 require_once('include/utils/utils.php');
-
 /**	function used to show the error message occured during import process
  *	@param	string	$message - Error message to display in the screen, where the passed error message will be displayed in screen using Importerror.tpl file
  */
 function show_error_import($message)
 {
 	global $import_mod_strings;
-
 	global $theme;
-
 	global $log;
 	global $mod_strings;
 	global $app_strings;
-
 	$theme_path="themes/".$theme."/";
-
 	$image_path=$theme_path."images/";
-
 	
-
 	$log->info("Upload Error");
-
 	$smarty =  new CRMSmarty;
 	$smarty->assign("MOD", $mod_strings);
 	$smarty->assign("APP", $app_strings);
-
-
 	if (isset($_REQUEST['return_module'])) $smarty->assign("RETURN_MODULE", $_REQUEST['return_module']);
-
 	if (isset($_REQUEST['return_action'])) $smarty->assign("RETURN_ACTION", $_REQUEST['return_action']);
-
 	$smarty->assign("THEME", $theme);
-
 	$category = getParenttab();
 	$smarty->assign("CATEGORY", $category); 
-
 	$smarty->assign("IMAGE_PATH", $image_path);
 	//$smarty->assign("PRINT_URL", "phprint.php?jt=".session_id().$GLOBALS['request_string']);
-
 	$smarty->assign("MODULE", $_REQUEST['module']);
 	$smarty->assign("MESSAGE", $message);
-
 	$smarty->display('Importerror.tpl');
 }
 function show_error_import2($message)
 {
 	global $import_mod_strings;
-
 	global $theme;
-
 	global $log;
 	global $mod_strings;
 	global $app_strings;
-
 	$theme_path="themes/".$theme."/";
-
 	$image_path=$theme_path."images/";
-
 	
-
 	$log->info("Upload Error");
-
 	$smarty =  new CRMSmarty;
 	$smarty->assign("MOD", $mod_strings);
 	$smarty->assign("APP", $app_strings);
-
-
 	if (isset($_REQUEST['return_module'])) $smarty->assign("RETURN_MODULE", $_REQUEST['return_module']);
-
 	if (isset($_REQUEST['return_action'])) $smarty->assign("RETURN_ACTION", $_REQUEST['return_action']);
-
 	$smarty->assign("THEME", $theme);
-
 	$category = getParenttab();
 	$smarty->assign("CATEGORY", $category); 
-
 	$smarty->assign("IMAGE_PATH", $image_path);
 	//$smarty->assign("PRINT_URL", "phprint.php?jt=".session_id().$GLOBALS['request_string']);
-
 	$smarty->assign("MODULE", $_REQUEST['module']);
 	$smarty->assign("MESSAGE", $message);
-
 	$smarty->display('Importerror2.tpl');
 }
-
 ?>

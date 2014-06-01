@@ -4,7 +4,6 @@
  * @package Smarty
  * @subpackage plugins
  */
-
 /**
  * Handle insert tags
  *
@@ -13,13 +12,11 @@
  */
 function smarty_core_run_insert_handler($params, &$smarty)
 {
-
     require_once(SMARTY_CORE_DIR . 'core.get_microtime.php');
     if ($smarty->debugging) {
         $_params = array();
         $_debug_start_time = smarty_core_get_microtime($_params, $smarty);
     }
-
     if ($smarty->caching) {
         $_arg_string = serialize($params['args']);
         $_name = $params['args']['name'];
@@ -38,7 +35,6 @@ function smarty_core_run_insert_handler($params, &$smarty)
             if(!smarty_core_get_php_resource($_params, $smarty)) {
                 return false;
             }
-
             if ($_params['resource_type'] == 'file') {
                 $smarty->_include($_params['php_resource'], true);
             } else {
@@ -46,7 +42,6 @@ function smarty_core_run_insert_handler($params, &$smarty)
             }
             unset($params['args']['script']);
         }
-
         $_funcname = $smarty->_plugins['insert'][$params['args']['name']][0];
         $_content = $_funcname($params['args'], $smarty);
         if ($smarty->debugging) {
@@ -57,7 +52,6 @@ function smarty_core_run_insert_handler($params, &$smarty)
                                                 'depth'     => $smarty->_inclusion_depth,
                                                 'exec_time' => smarty_core_get_microtime($_params, $smarty) - $_debug_start_time);
         }
-
         if (!empty($params['args']["assign"])) {
             $smarty->assign($params['args']["assign"], $_content);
         } else {
@@ -65,7 +59,5 @@ function smarty_core_run_insert_handler($params, &$smarty)
         }
     }
 }
-
 /* vim: set expandtab: */
-
 ?>

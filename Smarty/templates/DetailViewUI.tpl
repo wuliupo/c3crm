@@ -1,5 +1,4 @@
 {*<!--
-
 /*********************************************************************************
 ** The contents of this file are subject to the vtiger CRM Public License Version 1.0
  * ("License"); You may not use this file except in compliance with the License
@@ -9,9 +8,7 @@
  * All Rights Reserved.
 *
  ********************************************************************************/
-
 -->*}
-
 <!-- This file is used to display the fields based on the ui type in detailview -->
 		{if $keyid eq '1' || $keyid eq 2 || $keyid eq '11' || $keyid eq '7' || $keyid eq '9' || $keyid eq '55' || $keyid eq '103'} <!--TextBox-->
                                          		<td width=25% class="dvtCellInfo" align="left" id="mouseArea_{$label}" onmouseover="hndMouseOver({$keyid},'{$label}');" onmouseout="fnhide('crmspanid');">
@@ -117,7 +114,6 @@
 								{else}
                							<td width=25% class="dvtCellInfo" align="left">{$keyval}
 								{/if}	
-
                                         		
                							</td>
                                              {elseif $keyid eq '17'} <!--WebSite-->
@@ -290,8 +286,6 @@
 								<td colspan="2" class="dvtCellInfo">&nbsp;</td>
 							   </tr>
 							{/foreach}
-
-
 				{elseif $keyid eq 69}<!-- for Image Reflection -->
                                                   	<td align="left" width=25%">&nbsp;{$keyval}</td>
 				{else}									

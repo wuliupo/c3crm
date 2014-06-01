@@ -20,10 +20,7 @@ $multifieldinfo=getMultiFieldInfo($multifieldid,false);
 $tablename=$multifieldinfo["tablename"];
 $moduleName=$multifieldinfo["modulename"];
 $totallevel=$multifieldinfo["totallevel"];
-
 global $adb;
-
-
 //changed by dingjianting on 2007-2-20 for picklist ,some items used in codes can not be changed such as close win.
 if($level==1){
     $delquery="delete from $tablename ";
@@ -32,7 +29,6 @@ if($level==1){
 //    $delquery="delete from $tablename where thelevel>$level or (thelevel=$level and parentfieldid=$parentfieldid)";
     deleteSubOptionNode($multifieldid,$level,$totallevel,$parentfieldid,$tablename);
 }
-
 if(substr_count($fldPickList,"br") > 0) {
 	$fldPickList = str_replace("&lt;","<",$fldPickList);
 	$fldPickList = str_replace("&gt;",">",$fldPickList);
@@ -42,10 +38,8 @@ if(substr_count($fldPickList,"br") > 0) {
 }
 $count = count($pickArray);
 $tabname=explode('cf_',$tableName);
-
 if($tabname[1]!='')
        	$custom=true;
-
 for($i = 0; $i < $count; $i++)
 {
 	$pickArray[$i] = trim($pickArray[$i]);

@@ -24,8 +24,6 @@
  * @license    http://www.gnu.org/licenses/old-licenses/lgpl-2.1.txt	LGPL
  * @version    1.7.2, 2010-01-11
  */
-
-
 /**
  * PHPExcel_Worksheet_ColumnDimension
  *
@@ -78,14 +76,12 @@ class PHPExcel_Worksheet_ColumnDimension
 	 * @var bool
 	 */
 	private $_collapsed;
-
 	/**
 	 * Index to cellXf
 	 *
 	 * @var int
 	 */
 	private $_xfIndex;
-
     /**
      * Create a new PHPExcel_Worksheet_ColumnDimension
      *
@@ -100,7 +96,6 @@ class PHPExcel_Worksheet_ColumnDimension
     	$this->_visible			= true;
     	$this->_outlineLevel	= 0;
     	$this->_collapsed		= false;
-
 		// set default index to cellXf
 		$this->_xfIndex = 0;
     }
@@ -241,7 +236,6 @@ class PHPExcel_Worksheet_ColumnDimension
 	{
 		return $this->_xfIndex;
 	}
-
 	/**
 	 * Set index to cellXf
 	 *
@@ -253,7 +247,6 @@ class PHPExcel_Worksheet_ColumnDimension
 		$this->_xfIndex = $pValue;
 		return $this;
 	}
-
 	/**
 	 * Implement PHP __clone to create a deep clone, not just a shallow copy.
 	 */
@@ -267,5 +260,4 @@ class PHPExcel_Worksheet_ColumnDimension
 			}
 		}
 	}
-
 }

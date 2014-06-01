@@ -18,12 +18,10 @@
  * @license   http://framework.zend.com/license/new-bsd     New BSD License
  * @version   $Id: Upload.php 23775 2011-03-01 17:25:24Z ralph $
  */
-
 /**
  * @see Zend_Validate_Abstract
  */
 require_once 'include/Zend/Validate/Abstract.php';
-
 /**
  * Validator for the maximum size of a file up to a max of 2GB
  *
@@ -48,7 +46,6 @@ class Zend_Validate_File_Upload extends Zend_Validate_Abstract
     const FILE_NOT_FOUND = 'fileUploadErrorFileNotFound';
     const UNKNOWN        = 'fileUploadErrorUnknown';
     /**@#-*/
-
     /**
      * @var array Error message templates
      */
@@ -64,13 +61,11 @@ class Zend_Validate_File_Upload extends Zend_Validate_Abstract
         self::FILE_NOT_FOUND => "File '%value%' was not found",
         self::UNKNOWN        => "Unknown error while uploading file '%value%'"
     );
-
     /**
      * Internal array of files
      * @var array
      */
     protected $_files = array();
-
     /**
      * Sets validator options
      *
@@ -86,10 +81,8 @@ class Zend_Validate_File_Upload extends Zend_Validate_Abstract
         if ($files instanceof Zend_Config) {
             $files = $files->toArray();
         }
-
         $this->setFiles($files);
     }
-
     /**
      * Returns the array of set files
      *
@@ -105,23 +98,18 @@ class Zend_Validate_File_Upload extends Zend_Validate_Abstract
                 if ($name === $file) {
                     $return[$file] = $this->_files[$name];
                 }
-
                 if ($content['name'] === $file) {
                     $return[$name] = $this->_files[$name];
                 }
             }
-
             if (count($return) === 0) {
                 require_once 'include/Zend/Validate/Exception.php';
                 throw new Zend_Validate_Exception("The file '$file' was not found");
             }
-
             return $return;
         }
-
         return $this->_files;
     }
-
     /**
      * Sets the files to be checked
      *
@@ -135,21 +123,17 @@ class Zend_Validate_File_Upload extends Zend_Validate_Abstract
         } else {
             $this->_files = $files;
         }
-
         // see ZF-10738
         if (is_null($this->_files)) {
             $this->_files = array();
         }
-
         foreach($this->_files as $file => $content) {
             if (!isset($content['error'])) {
                 unset($this->_files[$file]);
             }
         }
-
         return $this;
     }
-
     /**
      * Defined by Zend_Validate_Interface
      *
@@ -169,17 +153,14 @@ class Zend_Validate_File_Upload extends Zend_Validate_Abstract
                 if (isset($content['name']) && ($content['name'] === $value)) {
                     $files[$file] = $this->_files[$file];
                 }
-
                 if (isset($content['tmp_name']) && ($content['tmp_name'] === $value)) {
                     $files[$file] = $this->_files[$file];
                 }
             }
         }
-
         if (empty($files)) {
             return $this->_throw($file, self::FILE_NOT_FOUND);
         }
-
         foreach ($files as $file => $content) {
             $this->_value = $file;
             switch($content['error']) {
@@ -188,48 +169,38 @@ class Zend_Validate_File_Upload extends Zend_Validate_Abstract
                         $this->_throw($file, self::ATTACK);
                     }
                     break;
-
                 case 1:
                     $this->_throw($file, self::INI_SIZE);
                     break;
-
                 case 2:
                     $this->_throw($file, self::FORM_SIZE);
                     break;
-
                 case 3:
                     $this->_throw($file, self::PARTIAL);
                     break;
-
                 case 4:
                     $this->_throw($file, self::NO_FILE);
                     break;
-
                 case 6:
                     $this->_throw($file, self::NO_TMP_DIR);
                     break;
-
                 case 7:
                     $this->_throw($file, self::CANT_WRITE);
                     break;
-
                 case 8:
                     $this->_throw($file, self::EXTENSION);
                     break;
-
                 default:
                     $this->_throw($file, self::UNKNOWN);
                     break;
             }
         }
-
         if (count($this->_messages) > 0) {
             return false;
         } else {
             return true;
         }
     }
-
     /**
      * Throws an error of the given type
      *
@@ -244,7 +215,6 @@ class Zend_Validate_File_Upload extends Zend_Validate_Abstract
                 $this->_value = $file['name'];
             }
         }
-
         $this->_error($errorType);
         return false;
     }

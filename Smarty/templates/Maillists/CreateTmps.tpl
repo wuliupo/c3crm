@@ -4,7 +4,6 @@
 <h3>新增 邮件模板</h3>
 </div>
 <div class="modal-body">
-
 <form name="EditView" method="POST" action="" >
 		<input type="hidden" name="module" value="Maillists">
 		<input type="hidden" name="record" value="">
@@ -29,7 +28,6 @@
    </tr>
   
 </table>
-
 </form>
 </div>
 <div class="modal-footer">
@@ -59,10 +57,8 @@ function SaveTmp(){
   searchobj['maillisttmpname']= $("input[name=maillisttmpname]").val();
   searchobj['description']= $("textarea[name=description]").val();
   var findstr=$.param(searchobj);  
-
   subject = searchobj['maillisttmpname'];
   repstr = searchobj['description'];
-
   $("#status").prop("display","inline");
   $.ajax({  
        type: "GET",  
@@ -70,18 +66,15 @@ function SaveTmp(){
        url:"index.php?module=Maillists&action=CreateTmps&"+findstr,
        success: function(msg){   
            $("#status").prop("display","none");
-
            $("#subject").val(subject);
             if(KE != undefined) {
               KE.html("mailcontent",repstr);
             } else {
               $('#mailcontent').val(repstr);
             }
-
            $('#createtmpdiv').modal('hide');
        }  
   }); 
 }
 {/literal} 
 </script>
-

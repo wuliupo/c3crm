@@ -11,14 +11,10 @@ require_once('include/DatabaseUtil.php');
 require_once('modules/Fenzu/Fenzu.php');
 global $app_strings,$mod_strings,$list_max_entries_per_page;
 global $adb;
-
 $log = LoggerManager::getLogger('maillist_list');
-
 global $currentModule,$image_path,$theme;
-
 $focus = new Maillists();
 $smarty = new CRMSmarty();
-
 if($_REQUEST['parenttab'] != '')
 {
 	$category = $_REQUEST['parenttab'];
@@ -28,14 +24,12 @@ else
 	$category = getParentTab();
 }
 $nowdatetime = date("Y-m-d H:i:s");
-
 //<<<<cutomview>>>>>>>
 $oFenzu = new Fenzu("Maillists");
 $viewid =$_REQUEST['viewname'];
 $customviewcombo_html = $oFenzu->getFenzuCombo($viewid); 
 //$viewnamedesc = $oFenzu->getCustomViewByCvid($viewid);
 //<<<<<customview>>>>>
-
 global $current_user;
 $theme_path="themes/".$theme."/";
 $image_path=$theme_path."images/";
@@ -48,12 +42,9 @@ $smarty->assign("MODULE",$currentModule);
 $smarty->assign("SINGLE_MOD",'Qunfa');
 $smarty->assign("BUTTONS",$other_text);
 $smarty->assign("CATEGORY",$category);
-
-
 //生成事件id
 $sjid = $adb->getUniqueID("ec_crmentity");
 $smarty->assign("sjid",$sjid);
-
 $res = $adb->query("select * from ec_systems where smownerid='".$current_user->id."'");
 $from_name = $adb->query_result($res,0,'from_name');
 $from_email = $adb->query_result($res,0,'from_email');
@@ -61,25 +52,20 @@ $interval = $adb->query_result($res,0,'interval');
 $smarty->assign("from_name",$from_name);
 $smarty->assign("from_email",$from_email);
 $smarty->assign("interval",$interval);
-
 if(isset($_REQUEST['idstring']) && $_REQUEST['idstring'] !=''){
 	$idstring = $_REQUEST['idstring'];
 	$modulename = $_REQUEST['modulename'];
 	$receiveaccountinfo = getAccountMailInfo($idstring,$modulename);
 }
-
 if(isset($_REQUEST['useridstr']) && $_REQUEST['useridstr'] !=''){
 	$useridstr = $_REQUEST['useridstr'];
 	$receiveaccountinfo = getUserMailInfo($useridstr);
 }
-
 $smarty->assign("receiveaccountinfo",$receiveaccountinfo);
-
 //Retreive the List View Table Header
 if($viewid !='')
 $url_string .="&viewname=".$viewid;
 $smarty->assign("ISADMIN",$current_user->is_admin);
-
 if(isset($_REQUEST['ajax']) && $_REQUEST['ajax'] != '')
 	$smarty->display("Maillists/ListViewEntries.tpl");
 else
@@ -129,6 +115,5 @@ function getUserMailInfo($useridstr){
 	}
 	return $return;
 }
-
 	
 ?>

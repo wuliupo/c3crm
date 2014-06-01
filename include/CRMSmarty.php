@@ -22,10 +22,8 @@ class CRMSmarty extends Smarty{
 		$this->compile_dir = $root_directory.$cache_dir.'templates';
 		$this->config_dir = $root_directory.'Smarty/configs';
 		$this->cache_dir = $root_directory.'Smarty/cache';
-
 		//$this->caching = true;
 	        //$this->assign('app_name', 'Login');
 	}
 }
-
 ?>

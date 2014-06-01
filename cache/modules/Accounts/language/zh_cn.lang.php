@@ -13,5 +13,4 @@
   $mod_strings['Billing Code'] = '客户邮编';
   $mod_strings['Last Logintime'] = '最近登陆淘宝时间';
   $mod_strings['Account Name'] = '客户名称';
-
 ?>

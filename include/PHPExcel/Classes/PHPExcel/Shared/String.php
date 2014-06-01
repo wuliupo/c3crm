@@ -24,8 +24,6 @@
  * @license    http://www.gnu.org/licenses/old-licenses/lgpl-2.1.txt	LGPL
  * @version    1.7.2, 2010-01-11
  */
-
-
 /**
  * PHPExcel_Shared_String
  *
@@ -39,43 +37,36 @@ class PHPExcel_Shared_String
 	/**	Regular Expressions		*/
 	//	Fraction
 	const STRING_REGEXP_FRACTION	= '(-?)(\d+)\s+(\d+\/\d+)';
-
-
 	/**
 	 * Control characters array
 	 *
 	 * @var string[]
 	 */
 	private static $_controlCharacters = array();
-
 	/**
 	 * Decimal separator
 	 *
 	 * @var string
 	 */
 	private static $_decimalSeparator;
-
 	/**
 	 * Thousands separator
 	 *
 	 * @var string
 	 */
 	private static $_thousandsSeparator;
-
 	/**
 	 * Is mbstring extension avalable?
 	 *
 	 * @var boolean
 	 */
 	private static $_isMbstringEnabled;
-
 	/**
 	 * Is iconv extension avalable?
 	 *
 	 * @var boolean
 	 */
 	private static $_isIconvEnabled;
-
 	/**
 	 * Build control characters array
 	 */
@@ -88,7 +79,6 @@ class PHPExcel_Shared_String
 			}
 		}
 	}
-
 	/**
 	 * Get whether mbstring extension is available
 	 *
@@ -99,13 +89,10 @@ class PHPExcel_Shared_String
 		if (isset(self::$_isMbstringEnabled)) {
 			return self::$_isMbstringEnabled;
 		}
-
 		self::$_isMbstringEnabled = function_exists('mb_convert_encoding') ?
 			true : false;
-
 		return self::$_isMbstringEnabled;
 	}
-
 	/**
 	 * Get whether iconv extension is available
 	 *
@@ -116,7 +103,6 @@ class PHPExcel_Shared_String
 		if (isset(self::$_isIconvEnabled)) {
 			return self::$_isIconvEnabled;
 		}
-
 		// Check that iconv exists
 		// Sometimes iconv is not working, and e.g. iconv('UTF-8', 'UTF-16LE', 'x') just returns false,
 		// we cannot use iconv when that happens
@@ -125,15 +111,12 @@ class PHPExcel_Shared_String
 		if (function_exists('iconv')
 			&& @iconv('UTF-8', 'UTF-16LE', 'x')
 			&& @iconv_substr('A', 0, 1, 'UTF-8') ) {
-
 			self::$_isIconvEnabled = true;
 		} else {
 			self::$_isIconvEnabled = false;
 		}
-
 		return self::$_isIconvEnabled;
 	}
-
 	/**
 	 * Convert from OpenXML escaped control character to PHP control character
 	 *
@@ -152,10 +135,8 @@ class PHPExcel_Shared_String
 		if(empty(self::$_controlCharacters)) {
 			self::_buildControlCharacters();
 		}
-
 		return str_replace( array_keys(self::$_controlCharacters), array_values(self::$_controlCharacters), $value );
 	}
-
 	/**
 	 * Convert from PHP control character to OpenXML escaped control character
 	 *
@@ -174,10 +155,8 @@ class PHPExcel_Shared_String
 		if(empty(self::$_controlCharacters)) {
 			self::_buildControlCharacters();
 		}
-
 		return str_replace( array_values(self::$_controlCharacters), array_keys(self::$_controlCharacters), $value );
 	}
-
 	/**
 	 * Try to sanitize UTF8, stripping invalid byte sequences. Not perfect. Does not surrogate characters.
 	 *
@@ -190,16 +169,13 @@ class PHPExcel_Shared_String
 			$value = @iconv('UTF-8', 'UTF-8', $value);
 			return $value;
 		}
-
 		if (self::getIsMbstringEnabled()) {
 			$value = mb_convert_encoding($value, 'UTF-8', 'UTF-8');
 			return $value;
 		}
-
 		// else, no conversion
 		return $value;
 	}
-
 	/**
 	 * Check if a string contains UTF8 data
 	 *
@@ -209,7 +185,6 @@ class PHPExcel_Shared_String
 	public static function IsUTF8($value = '') {
 		return utf8_encode(utf8_decode($value)) === $value;
 	}
-
 	/**
 	 * Formats a numeric value as a string for output in various output writers forcing
 	 * point as decimal separator in case locale is other than English.
@@ -223,7 +198,6 @@ class PHPExcel_Shared_String
 		}
 		return (string) $value;
 	}
-
 	/**
 	 * Converts a UTF-8 string into BIFF8 Unicode string data (8-bit string length)
 	 * Writes the string using uncompressed notation, no rich text, no Asian phonetics
@@ -238,18 +212,14 @@ class PHPExcel_Shared_String
 	{
 		// character count
 		$ln = self::CountCharacters($value, 'UTF-8');
-
 		// option flags
 		$opt = (self::getIsIconvEnabled() || self::getIsMbstringEnabled()) ?
 			0x0001 : 0x0000;
-
 		// characters
 		$chars = self::ConvertEncoding($value, 'UTF-16LE', 'UTF-8');
-
 		$data = pack('CC', $ln, $opt) . $chars;
 		return $data;
 	}
-
 	/**
 	 * Converts a UTF-8 string into BIFF8 Unicode string data (16-bit string length)
 	 * Writes the string using uncompressed notation, no rich text, no Asian phonetics
@@ -264,18 +234,14 @@ class PHPExcel_Shared_String
 	{
 		// character count
 		$ln = self::CountCharacters($value, 'UTF-8');
-
 		// option flags
 		$opt = (self::getIsIconvEnabled() || self::getIsMbstringEnabled()) ?
 			0x0001 : 0x0000;
-
 		// characters
 		$chars = self::ConvertEncoding($value, 'UTF-16LE', 'UTF-8');
-
 		$data = pack('vC', $ln, $opt) . $chars;
 		return $data;
 	}
-
 	/**
 	 * Convert string from one encoding to another. First try mbstring, then iconv, or no convertion
 	 *
@@ -290,16 +256,13 @@ class PHPExcel_Shared_String
 			$value = iconv($from, $to, $value);
 			return $value;
 		}
-
 		if (self::getIsMbstringEnabled()) {
 			$value = mb_convert_encoding($value, $to, $from);
 			return $value;
 		}
-
 		// else, no conversion
 		return $value;
 	}
-
 	/**
 	 * Get character count. First try mbstring, then iconv, finally strlen
 	 *
@@ -313,17 +276,14 @@ class PHPExcel_Shared_String
 			$count = iconv_strlen($value, $enc);
 			return $count;
 		}
-
 		if (self::getIsMbstringEnabled()) {
 			$count = mb_strlen($value, $enc);
 			return $count;
 		}
-
 		// else strlen
 		$count = strlen($value);
 		return $count;
 	}
-
 	/**
 	 * Get a substring of a UTF-8 encoded string
 	 *
@@ -338,18 +298,14 @@ class PHPExcel_Shared_String
 			$string = iconv_substr($pValue, $pStart, $pLength, 'UTF-8');
 			return $string;
 		}
-
 		if (self::getIsMbstringEnabled()) {
 			$string = mb_substr($pValue, $pStart, $pLength, 'UTF-8');
 			return $string;
 		}
-
 		// else substr
 		$string = substr($pValue, $pStart, $pLength);
 		return $string;
 	}
-
-
 	/**
 	 * Identify whether a string contains a fractional numeric value,
 	 *    and convert it to a numeric if it is
@@ -366,7 +322,6 @@ class PHPExcel_Shared_String
 		}
 		return false;
 	}	//	function convertToNumberIfFraction()
-
 	/**
 	 * Get the decimal separator. If it has not yet been set explicitly, try to obtain number
 	 * formatting information from locale.
@@ -388,7 +343,6 @@ class PHPExcel_Shared_String
 		}
 		return self::$_decimalSeparator;
 	}
-
 	/**
 	 * Set the decimal separator. Only used by PHPExcel_Style_NumberFormat::toFormattedString()
 	 * to format output by PHPExcel_Writer_HTML and PHPExcel_Writer_PDF
@@ -399,7 +353,6 @@ class PHPExcel_Shared_String
 	{
 		self::$_decimalSeparator = $pValue;
 	}
-
 	/**
 	 * Get the thousands separator. If it has not yet been set explicitly, try to obtain number
 	 * formatting information from locale.
@@ -415,7 +368,6 @@ class PHPExcel_Shared_String
 		}
 		return self::$_thousandsSeparator;
 	}
-
 	/**
 	 * Set the thousands separator. Only used by PHPExcel_Style_NumberFormat::toFormattedString()
 	 * to format output by PHPExcel_Writer_HTML and PHPExcel_Writer_PDF
@@ -426,5 +378,4 @@ class PHPExcel_Shared_String
 	{
 		self::$_thousandsSeparator = $pValue;
 	}
-
 }

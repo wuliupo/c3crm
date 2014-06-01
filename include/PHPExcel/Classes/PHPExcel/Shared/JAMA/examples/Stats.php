@@ -18,13 +18,10 @@
 //
 // $Id: Stats.php,v 1.15 2003/06/01 11:40:30 jmcastagnetto Exp $
 //
-
 include_once 'PEAR.php';
-
 /**
 * @package Math_Stats
 */
-
 // Constants for defining the statistics to calculate /*{{{*/
 /**
 * STATS_BASIC to generate the basic descriptive statistics
@@ -35,7 +32,6 @@ define('STATS_BASIC', 1);
 */
 define('STATS_FULL', 2);
 /*}}}*/
-
 // Constants describing the data set format /*{{{*/
 /**
 * STATS_DATA_SIMPLE for an array of numeric values. This is the default.
@@ -50,7 +46,6 @@ define('STATS_DATA_SIMPLE', 0);
 */
 define('STATS_DATA_CUMMULATIVE', 1);
 /*}}}*/
-
 // Constants defining how to handle nulls /*{{{*/
 /**
 * STATS_REJECT_NULL, reject data sets with null values. This is the default.
@@ -68,7 +63,6 @@ define('STATS_IGNORE_NULL', -2);
 */
 define('STATS_USE_NULL_AS_ZERO', -3);
 /*}}}*/
-
 /**
 * A class to calculate descriptive statistics from a data set.
 * Data sets can be simple arrays of data, or a cummulative hash.
@@ -118,7 +112,6 @@ define('STATS_USE_NULL_AS_ZERO', -3);
 */
 class Base {/*{{{*/
     // properties /*{{{*/
-
     /**
      * The simple or cummulative data set.
      * Null by default.
@@ -127,7 +120,6 @@ class Base {/*{{{*/
      * @var array
      */
     var $_data = null;
-
     /**
      * Expanded data set. Only set when cummulative data
      * is being used. Null by default.
@@ -136,7 +128,6 @@ class Base {/*{{{*/
      * @var array
      */
     var $_dataExpanded = null;
-
     /**
      * Flag for data type, one of STATS_DATA_SIMPLE or
      * STATS_DATA_CUMMULATIVE. Null by default.
@@ -145,7 +136,6 @@ class Base {/*{{{*/
      * @var int
      */
     var $_dataOption = null;
-
     /**
      * Flag for null handling options. One of STATS_REJECT_NULL,
      * STATS_IGNORE_NULL or STATS_USE_NULL_AS_ZERO
@@ -154,7 +144,6 @@ class Base {/*{{{*/
      * @var int
      */
     var $_nullOption;
-
     /**
      * Array for caching result values, should be reset
      * when using setData()
@@ -163,9 +152,7 @@ class Base {/*{{{*/
      * @var array
      */
     var $_calculatedValues = array();
-
     /*}}}*/
-
     /**
      * Constructor for the class
      *
@@ -176,7 +163,6 @@ class Base {/*{{{*/
     function Math_Stats($nullOption=STATS_REJECT_NULL) {/*{{{*/
         $this->_nullOption = $nullOption;
     }/*}}}*/
-
     /**
      * Sets and verifies the data, checking for nulls and using
      * the current null handling option
@@ -204,7 +190,6 @@ class Base {/*{{{*/
         }
         return $this->_validate();
     }/*}}}*/
-
     /**
      * Returns the data which might have been modified
      * according to the current null handling options.
@@ -224,7 +209,6 @@ class Base {/*{{{*/
             return $this->_data;
         }
     }/*}}}*/
-
     /**
      * Sets the null handling option.
      * Must be called before assigning a new data set containing null values
@@ -244,7 +228,6 @@ class Base {/*{{{*/
                         'STATS_REJECT_NULL, STATS_IGNORE_NULL or STATS_USE_NULL_AS_ZERO');
         }
     }/*}}}*/
-
     /**
      * Transforms the data by substracting each entry from the mean and
      * dividing by its standard deviation. This will reset all pre-calculated
@@ -282,7 +265,6 @@ class Base {/*{{{*/
         }
         return $this->setData($arr, $this->_dataOption);
     }/*}}}*/
-
     /**
      * Transforms the data by substracting each entry from the mean.
      * This will reset all pre-calculated values to their original (unset) defaults.
@@ -311,7 +293,6 @@ class Base {/*{{{*/
         }
         return $this->setData($arr, $this->_dataOption);
     }/*}}}*/
-
     /**
      * Calculates the basic or full statistics for the data set
      *
@@ -335,7 +316,6 @@ class Base {/*{{{*/
             return PEAR::raiseError('incorrect mode, expected STATS_BASIC or STATS_FULL');
         }
     }/*}}}*/
-
     /**
      * Calculates a basic set of statistics
      *
@@ -359,7 +339,6 @@ class Base {/*{{{*/
                 'range' => $this->__format($this->range(), $returnErrorObject)
             );
     }/*}}}*/
-
     /**
      * Calculates a full set of statistics
      *
@@ -414,7 +393,6 @@ class Base {/*{{{*/
                 'quartile_skewness_coefficient' => $this->__format($this->quartileSkewnessCoefficient(), $returnErrorObject)
             );
     }/*}}}*/
-
     /**
      * Calculates the minimum of a data set.
      * Handles cummulative data sets correctly
@@ -438,7 +416,6 @@ class Base {/*{{{*/
         }
         return $this->_calculatedValues['min'];
     }/*}}}*/
-
     /**
      * Calculates the maximum of a data set.
      * Handles cummulative data sets correctly
@@ -462,7 +439,6 @@ class Base {/*{{{*/
         }
         return $this->_calculatedValues['max'];
     }/*}}}*/
-
     /**
      * Calculates SUM { xi }
      * Handles cummulative data sets correctly
@@ -484,7 +460,6 @@ class Base {/*{{{*/
         }
         return $this->_calculatedValues['sum'];
     }/*}}}*/
-
     /**
      * Calculates SUM { (xi)^2 }
      * Handles cummulative data sets correctly
@@ -506,7 +481,6 @@ class Base {/*{{{*/
         }
         return $this->_calculatedValues['sum2'];
     }/*}}}*/
-
     /**
      * Calculates SUM { (xi)^n }
      * Handles cummulative data sets correctly
@@ -534,7 +508,6 @@ class Base {/*{{{*/
         }
         return $sumN;
     }/*}}}*/
-
     /**
      * Calculates PROD { (xi) }, (the product of all observations)
      * Handles cummulative data sets correctly
@@ -554,7 +527,6 @@ class Base {/*{{{*/
         }
         return $this->_calculatedValues['product'];
     }/*}}}*/
-
     /**
      * Calculates PROD { (xi)^n }, which is the product of all observations
      * Handles cummulative data sets correctly
@@ -585,9 +557,7 @@ class Base {/*{{{*/
             }
         }
         return $prodN;
-
     }/*}}}*/
-
     /**
      * Calculates the number of data points in the set
      * Handles cummulative data sets correctly
@@ -610,7 +580,6 @@ class Base {/*{{{*/
         }
         return $this->_calculatedValues['count'];
     }/*}}}*/
-
     /**
      * Calculates the mean (average) of the data points in the set
      * Handles cummulative data sets correctly
@@ -635,7 +604,6 @@ class Base {/*{{{*/
         }
         return $this->_calculatedValues['mean'];
     }/*}}}*/
-
     /**
      * Calculates the range of the data set = max - min
      *
@@ -655,9 +623,7 @@ class Base {/*{{{*/
             $this->_calculatedValues['range'] = $max - $min;
         }
         return $this->_calculatedValues['range'];
-
     }/*}}}*/
-
     /**
      * Calculates the variance (unbiased) of the data points in the set
      * Handles cummulative data sets correctly
@@ -678,7 +644,6 @@ class Base {/*{{{*/
         }
         return $this->_calculatedValues['variance'];
     }/*}}}*/
-
     /**
      * Calculates the standard deviation (unbiased) of the data points in the set
      * Handles cummulative data sets correctly
@@ -698,7 +663,6 @@ class Base {/*{{{*/
         }
         return $this->_calculatedValues['stDev'];
     }/*}}}*/
-
     /**
      * Calculates the variance (unbiased) of the data points in the set
      * given a fixed mean (average) value. Not used in calcBasic(), calcFull()
@@ -715,7 +679,6 @@ class Base {/*{{{*/
     function varianceWithMean($mean) {/*{{{*/
         return $this->__calcVariance($mean);
     }/*}}}*/
-
     /**
      * Calculates the standard deviation (unbiased) of the data points in the set
      * given a fixed mean (average) value. Not used in calcBasic(), calcFull()
@@ -735,7 +698,6 @@ class Base {/*{{{*/
         }
         return sqrt($varianceWM);
     }/*}}}*/
-
     /**
      * Calculates the absolute deviation of the data points in the set
      * Handles cummulative data sets correctly
@@ -757,7 +719,6 @@ class Base {/*{{{*/
         }
         return $this->_calculatedValues['absDev'];
     }/*}}}*/
-
     /**
      * Calculates the absolute deviation of the data points in the set
      * given a fixed mean (average) value. Not used in calcBasic(), calcFull()
@@ -773,7 +734,6 @@ class Base {/*{{{*/
     function absDevWithMean($mean) {/*{{{*/
         return $this->__calcAbsoluteDeviation($mean);
     }/*}}}*/
-
     /**
      * Calculates the skewness of the data distribution in the set
      * The skewness measures the degree of asymmetry of a distribution,
@@ -810,7 +770,6 @@ class Base {/*{{{*/
         }
         return $this->_calculatedValues['skewness'];
     }/*}}}*/
-
     /**
      * Calculates the kurtosis of the data distribution in the set
      * The kurtosis measures the degrees of peakedness of a distribution.
@@ -847,7 +806,6 @@ class Base {/*{{{*/
         }
         return $this->_calculatedValues['kurtosis'];
     }/*}}}*/
-
     /**
      * Calculates the median of a data set.
      * The median is the value such that half of the points are below it
@@ -885,7 +843,6 @@ class Base {/*{{{*/
         }
         return $this->_calculatedValues['median'];
     }/*}}}*/
-
     /**
      * Calculates the mode of a data set.
      * The mode is the value with the highest frequency in the data set.
@@ -925,7 +882,6 @@ class Base {/*{{{*/
         }
         return $this->_calculatedValues['mode'];
     }/*}}}*/
-
     /**
      * Calculates the midrange of a data set.
      * The midrange is the average of the minimum and maximum of the data set.
@@ -951,7 +907,6 @@ class Base {/*{{{*/
         }
         return $this->_calculatedValues['midrange'];
     }/*}}}*/
-
     /**
      * Calculates the geometrical mean of the data points in the set
      * Handles cummulative data sets correctly
@@ -982,7 +937,6 @@ class Base {/*{{{*/
         }
         return $this->_calculatedValues['geometricMean'];
     }/*}}}*/
-
     /**
      * Calculates the harmonic mean of the data points in the set
      * Handles cummulative data sets correctly
@@ -1023,7 +977,6 @@ class Base {/*{{{*/
         }
         return $this->_calculatedValues['harmonicMean'];
     }/*}}}*/
-
     /**
      * Calculates the nth central moment (m{n}) of a data set.
      *
@@ -1041,7 +994,6 @@ class Base {/*{{{*/
         if (!is_int($n) || $n < 1) {
             return PEAR::isError('moment must be a positive integer >= 1.');
         }
-
         if ($n == 1) {
             return 0;
         }
@@ -1059,7 +1011,6 @@ class Base {/*{{{*/
         }
         return ($sum / $count);
     }/*}}}*/
-
     /**
      * Calculates the nth raw moment (m{n}) of a data set.
      *
@@ -1077,7 +1028,6 @@ class Base {/*{{{*/
         if (!is_int($n) || $n < 1) {
             return PEAR::isError('moment must be a positive integer >= 1.');
         }
-
         $count = $this->count();
         if (PEAR::isError($count)) {
             return $count;
@@ -1092,8 +1042,6 @@ class Base {/*{{{*/
         }
         return ($sum / $count);
     }/*}}}*/
-
-
     /**
      * Calculates the coefficient of variation of a data set.
      * The coefficient of variation measures the spread of a set of data
@@ -1120,12 +1068,10 @@ class Base {/*{{{*/
             if (PEAR::isError($stDev)) {
                 return $stDev;
             }
-
             $this->_calculatedValues['coeffOfVariation'] = $stDev / $mean;
         }
         return $this->_calculatedValues['coeffOfVariation'];
     }/*}}}*/
-
     /**
      * Calculates the standard error of the mean.
      * It is the standard deviation of the sampling distribution of
@@ -1157,7 +1103,6 @@ class Base {/*{{{*/
         }
         return $this->_calculatedValues['stdErrorOfMean'];
     }/*}}}*/
-
     /**
      * Calculates the value frequency table of a data set.
      * Handles cummulative data sets correctly
@@ -1186,7 +1131,6 @@ class Base {/*{{{*/
         }
         return $this->_calculatedValues['frequency'];
     }/*}}}*/
-
     /**
      * The quartiles are defined as the values that divide a sorted
      * data set into four equal-sized subsets, and correspond to the
@@ -1218,7 +1162,6 @@ class Base {/*{{{*/
         }
         return $this->_calculatedValues['quartiles'];
     }/*}}}*/
-
     /**
      * The interquartile mean is defined as the mean of the values left
      * after discarding the lower 25% and top 25% ranked values, i.e.:
@@ -1256,7 +1199,6 @@ class Base {/*{{{*/
         }
         return $this->_calculatedValues['interquartileMean'];
     }/*}}}*/
-
     /**
      * The interquartile range is the distance between the 75th and 25th
      * percentiles. Basically the range of the middle 50% of the data set,
@@ -1282,7 +1224,6 @@ class Base {/*{{{*/
         }
         return $this->_calculatedValues['interquartileRange'];
     }/*}}}*/
-
     /**
      * The quartile deviation is half of the interquartile range value
      *
@@ -1305,7 +1246,6 @@ class Base {/*{{{*/
         }
         return $this->_calculatedValues['quartileDeviation'];
     }/*}}}*/
-
     /**
      * The quartile variation coefficient is defines as follows:
      *
@@ -1332,7 +1272,6 @@ class Base {/*{{{*/
         }
         return $this->_calculatedValues['quartileVariationCoefficient'];
     }/*}}}*/
-
     /**
      * The quartile skewness coefficient (also known as Bowley Skewness),
      * is defined as follows:
@@ -1361,7 +1300,6 @@ class Base {/*{{{*/
         }
         return $this->_calculatedValues['quartileSkewnessCoefficient'];
     }/*}}}*/
-
     /**
      * The pth percentile is the value such that p% of the a sorted data set
      * is smaller than it, and (100 - p)% of the data is larger.
@@ -1409,9 +1347,7 @@ class Base {/*{{{*/
             return ($data[$left] + $data[$right]) / 2;
         }
     }/*}}}*/
-
     // private methods
-
     /**
      * Utility function to calculate: SUM { (xi - mean)^n }
      *
@@ -1446,7 +1382,6 @@ class Base {/*{{{*/
         }
         return $sdiff;
     }/*}}}*/
-
     /**
      * Utility function to calculate the variance with or without
      * a fixed mean
@@ -1474,7 +1409,6 @@ class Base {/*{{{*/
         }
         return  ($sumdiff2 / ($count - 1));
     }/*}}}*/
-
     /**
      * Utility function to calculate the absolute deviation with or without
      * a fixed mean
@@ -1499,7 +1433,6 @@ class Base {/*{{{*/
         }
         return $sumabsdev / $count;
     }/*}}}*/
-
     /**
      * Utility function to calculate: SUM { | xi - mean | }
      *
@@ -1529,7 +1462,6 @@ class Base {/*{{{*/
         }
         return $sdev;
     }/*}}}*/
-
     /**
      * Utility function to format a PEAR_Error to be used by calc(),
      * calcBasic() and calcFull()
@@ -1549,7 +1481,6 @@ class Base {/*{{{*/
             return $v;
         }
     }/*}}}*/
-
     /**
      * Utility function to validate the data and modify it
      * according to the current null handling option
@@ -1596,10 +1527,7 @@ class Base {/*{{{*/
         }
         return true;
     }/*}}}*/
-
 }/*}}}*/
-
 // vim: ts=4:sw=4:et:
 // vim6: fdl=1: fdm=marker:
-
 ?>

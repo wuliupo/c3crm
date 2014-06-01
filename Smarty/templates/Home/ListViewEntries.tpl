@@ -12,7 +12,6 @@
 	border-top:1px solid #999;
 	border-right:1px solid #999;
 }
-
 .tdw{
 	border-bottom:1px solid #999;
 	border-left:1px solid #999;
@@ -94,7 +93,6 @@
     padding-right: 21px;
 	background: url("themes/softed/images/sfa_yello.png") no-repeat scroll right -42px transparent;
 }
-
 li.sfasn {
     color: #000000;
     display: inline;
@@ -260,7 +258,6 @@ li {
 </td>
 </tr>
 </table> 
-
 <div style="clear:both;"></div>
  <div style="float:left; position:relative; z-index:1000;width:100%;padding-left:0px;padding-top:1px;">
 	<table border=0 cellspacing=0 cellpadding=0 width=100% align=left class=" small" style="margin-top:10px;margin-bottom:100px;" >
@@ -288,11 +285,6 @@ li {
     </tr>
     </table>
  </div>
-
-
-
-
-
 <script>
 {literal}
 function openRunEvent(sfalisteventsid){
@@ -300,6 +292,5 @@ function openRunEvent(sfalisteventsid){
 	window.open (url,'openRunEvent','height=650,width=750,top=0,left=0,toolbar=no,menubar=no,scrollbars=yes, resizable=no,location=no, status=no')
 }
  
-
 {/literal}
 </script>

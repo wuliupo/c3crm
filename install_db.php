@@ -1,28 +1,20 @@
 <?php
 set_time_limit(600);
-
 if (isset($_REQUEST['db_name'])) $db_name  				= $_REQUEST['db_name'];
 if (isset($_REQUEST['db_drop_tables'])) $db_drop_tables 	= $_REQUEST['db_drop_tables'];
 if (isset($_REQUEST['db_create'])) $db_create 			= $_REQUEST['db_create'];
 if (isset($_REQUEST['db_populate'])) $db_populate		= $_REQUEST['db_populate'];
-
 ?>
-
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
 <title>易客CRM - 安装向导 - 完成</title>
-
-
 <link href="include/install/install.css" rel="stylesheet" type="text/css">
 </head>
-
 <body class="small cwPageBg" topmargin="0" leftmargin="0" marginheight="0" marginwidth="0">
-
 	<br><br><br>
 	<!-- Table for cfgwiz starts -->
-
 	<table border=0 cellspacing=0 cellpadding=0 width=80% align=center>
 	<tr>
 		<td class="cwHeadBg" align=left><img src="include/install/images/configwizard.gif" alt="Configuration Wizard" hspace="20" title="Configuration Wizard"></td>
@@ -32,7 +24,6 @@ if (isset($_REQUEST['db_populate'])) $db_populate		= $_REQUEST['db_populate'];
 	<table border=0 cellspacing=0 cellpadding=0 width=80% align=center>
 	<tr>
 		<td background="include/install/images/topInnerShadow.gif" align=left><img src="include/install/images/topInnerShadow.gif" ></td>
-
 	</tr>
 	</table>
 	<table border=0 cellspacing=0 cellpadding=10 width=80% align=center>
@@ -42,7 +33,6 @@ if (isset($_REQUEST['db_populate'])) $db_populate		= $_REQUEST['db_populate'];
 			<table border=0 cellspacing=0 cellpadding=0 width=97%>
 			<tr>
 				<td width=20% valign=top>
-
 				<!-- Left side tabs -->
 					<table border=0 cellspacing=0 cellpadding=10 width=100%>
 					<tr><td class="small cwUnSelectedTab" align=right><div align="left">欢迎使用易客CRM</div></td></tr>
@@ -60,23 +50,16 @@ if (isset($_REQUEST['db_populate'])) $db_populate		= $_REQUEST['db_populate'];
 					<table border=0 cellspacing=0 cellpadding=10 width=100%>
 					<tr><td class=small align=left><img src="include/install/images/confWizFinish.gif" alt="安装完成" title="安装完成"><br>
 					  <hr noshade size=1></td></tr>
-
 					<tr>
 					<td align=center class="small" style="height:250px;"> 
-
 <?php
-
 require('include/init.php');
 global $adb;
 $filepath = 'storage/c3crm.sql';
 $init = sql_import($filepath);
-
-
 //populating forums data
-
 //this is to rename the installation file and folder so that no one destroys the setup
 $renamefile = uniqid(rand(), true);
-
 //@rename("install.php", $renamefile."install.php.txt");
 if(!rename("install.php", $renamefile."install.php.txt"))
 {
@@ -85,7 +68,6 @@ if(!rename("install.php", $renamefile."install.php.txt"))
         	 unlink($renamefile."install.php.txt");
      	}
 }
-
 //@rename("install/", $renamefile."install/");
 if(!rename("install/", $renamefile."install/"))
 {
@@ -95,7 +77,6 @@ if(!rename("install/", $renamefile."install/"))
      	}
 }
 //populate Calendar data
-
 ?>
 		<table border=0 cellspacing=0 cellpadding=5 align="center" width=75% style="background-color:#E1E1FD;border:1px dashed #111111;">
 		<tr>
@@ -109,7 +90,6 @@ if(!rename("install/", $renamefile."install/"))
 			<li>易客CRM默认的用户名和密码均为admin。
 			</ul>
 			</div>
-
 			</td>
 		</tr>
 		</table>
@@ -123,7 +103,6 @@ if(!rename("install/", $renamefile."install/"))
 		</td></tr>
 		</table>		
 		</td>
-
 		</tr>
 		</table>
 		<!-- Master display stops -->
@@ -134,10 +113,8 @@ if(!rename("install/", $renamefile."install/"))
 	</td>
 	</tr>
 	</table>
-
 	<table border=0 cellspacing=0 cellpadding=0 width=80% align=center>
 	<tr>
-
 		<td background="include/install/images/bottomGradient.gif"><img src="include/install/images/bottomGradient.gif"></td>
 	</tr>
 	</table>

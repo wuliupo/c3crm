@@ -18,38 +18,31 @@
  *	@version 1.1
  */
 class SingularValueDecomposition  {
-
 	/**
 	 *	Internal storage of U.
 	 *	@var array
 	 */
 	private $U = array();
-
 	/**
 	 *	Internal storage of V.
 	 *	@var array
 	 */
 	private $V = array();
-
 	/**
 	 *	Internal storage of singular values.
 	 *	@var array
 	 */
 	private $s = array();
-
 	/**
 	 *	Row dimension.
 	 *	@var int
 	 */
 	private $m;
-
 	/**
 	 *	Column dimension.
 	 *	@var int
 	 */
 	private $n;
-
-
 	/**
 	 *	Construct the singular value decomposition
 	 *
@@ -59,7 +52,6 @@ class SingularValueDecomposition  {
 	 *	@return Structure to access U, S and V.
 	 */
 	public function __construct($Arg) {
-
 		// Initialize.
 		$A = $Arg->getArrayCopy();
 		$this->m = $Arg->getRowDimension();
@@ -71,11 +63,9 @@ class SingularValueDecomposition  {
 		$wantv   = true;
 		$nct = min($this->m - 1, $this->n);
 		$nrt = max(0, min($this->n - 2, $this->m));
-
 		// Reduce A to bidiagonal form, storing the diagonal elements
 		// in s and the super-diagonal elements in e.
 		for ($k = 0; $k < max($nct,$nrt); ++$k) {
-
 			if ($k < $nct) {
 				// Compute the transformation for the k-th column and
 				// place the k-th diagonal in s[$k].
@@ -95,7 +85,6 @@ class SingularValueDecomposition  {
 				}
 				$this->s[$k] = -$this->s[$k];
 			}
-
 			for ($j = $k + 1; $j < $this->n; ++$j) {
 				if (($k < $nct) & ($this->s[$k] != 0.0)) {
 					// Apply the transformation.
@@ -112,7 +101,6 @@ class SingularValueDecomposition  {
 					$e[$j] = $A[$k][$j];
 				}
 			}
-
 			if ($wantu AND ($k < $nct)) {
 				// Place the transformation in U for subsequent back
 				// multiplication.
@@ -120,7 +108,6 @@ class SingularValueDecomposition  {
 					$this->U[$i][$k] = $A[$i][$k];
 				}
 			}
-
 			if ($k < $nrt) {
 				// Compute the k-th row transformation and place the
 				// k-th super-diagonal in e[$k].
@@ -165,7 +152,6 @@ class SingularValueDecomposition  {
 				}
 			}
 		}
-
 		// Set up the final bidiagonal matrix or order p.
 		$p = min($this->n, $this->m + 1);
 		if ($nct < $this->n) {
@@ -213,7 +199,6 @@ class SingularValueDecomposition  {
 				}
 			}
 		}
-
 		// If required, generate V.
 		if ($wantv) {
 			for ($k = $this->n - 1; $k >= 0; --$k) {
@@ -235,12 +220,10 @@ class SingularValueDecomposition  {
 				$this->V[$k][$k] = 1.0;
 			}
 		}
-
 		// Main iteration loop for the singular values.
 		$pp   = $p - 1;
 		$iter = 0;
 		$eps  = pow(2.0, -52.0);
-
 		while ($p > 0) {
 			// Here is where a test for too many iterations would go.
 			// This section of the program inspects for negligible
@@ -283,7 +266,6 @@ class SingularValueDecomposition  {
 				}
 			}
 			++$k;
-
 			// Perform the task indicated by kase.
 			switch ($kase) {
 				// Deflate negligible s(p).
@@ -429,10 +411,7 @@ class SingularValueDecomposition  {
 						break;
 			} // end switch
 		} // end while
-
 	} // end constructor
-
-
 	/**
 	 *	Return the left singular vectors
 	 *
@@ -442,8 +421,6 @@ class SingularValueDecomposition  {
 	public function getU() {
 		return new Matrix($this->U, $this->m, min($this->m + 1, $this->n));
 	}
-
-
 	/**
 	 *	Return the right singular vectors
 	 *
@@ -453,8 +430,6 @@ class SingularValueDecomposition  {
 	public function getV() {
 		return new Matrix($this->V);
 	}
-
-
 	/**
 	 *	Return the one-dimensional array of singular values
 	 *
@@ -464,8 +439,6 @@ class SingularValueDecomposition  {
 	public function getSingularValues() {
 		return $this->s;
 	}
-
-
 	/**
 	 *	Return the diagonal matrix of singular values
 	 *
@@ -481,8 +454,6 @@ class SingularValueDecomposition  {
 		}
 		return new Matrix($S);
 	}
-
-
 	/**
 	 *	Two norm
 	 *
@@ -492,8 +463,6 @@ class SingularValueDecomposition  {
 	public function norm2() {
 		return $this->s[0];
 	}
-
-
 	/**
 	 *	Two norm condition number
 	 *
@@ -503,8 +472,6 @@ class SingularValueDecomposition  {
 	public function cond() {
 		return $this->s[0] / $this->s[min($this->m, $this->n) - 1];
 	}
-
-
 	/**
 	 *	Effective numerical matrix rank
 	 *
@@ -522,5 +489,4 @@ class SingularValueDecomposition  {
 		}
 		return $r;
 	}
-
 }	//	class SingularValueDecomposition

@@ -1,21 +1,17 @@
 <script language="JavaScript" type="text/javascript" src="include/js/ListView.js"></script>
 <script language="JavaScript" type="text/javascript" src="include/js/search.js"></script>
 <script language="JavaScript" type="text/javascript" src="modules/{$MODULE}/{$SINGLE_MOD}.js"></script>
-
 <!--<link href="themes/images/style_cn.css" rel="stylesheet" type="text/css">
 <link href="themes/images/report.css" rel="stylesheet" type="text/css"/>-->
 <!--<script type="text/javascript" src="themes/images/tabpane.js"></script>
 <link href="themes/images/tab.css" rel="stylesheet" type="text/css">
 <script src="include/js/highcharts.js"></script>
 <script src="include/js/exporting.js"></script>-->
-
-
 <script language="javascript">
 function callSearch(searchtype)
 {ldelim} 
         $("#status").css('display','inline');
         search_fld_val= $('#bas_searchfield').val();;
-
         search_txt_val= $('input[name=search_text]').val();
         var urlstring = 'index.php?';
         if(searchtype == 'Basic')
@@ -54,7 +50,6 @@ function callSearch(searchtype)
              $("#ListViewContents").html(msg); 
            {rdelim}  
       {rdelim});
-
 {rdelim}
 function alphabetic(module,url,dataid)
 {ldelim} 
@@ -62,7 +57,6 @@ function alphabetic(module,url,dataid)
         {ldelim}
                 var data_td_id = 'alpha_'+ eval(i);
                 getObj(data_td_id).addClass('searchAlph');
-
         {rdelim}
         getObj(dataid).addClass('searchAlphselected');
         $("#status").css('display','inline');
@@ -76,7 +70,6 @@ function alphabetic(module,url,dataid)
            {rdelim}  
         {rdelim});
 {rdelim}
-
 {literal}
 function ajaxChangeStatus(statusname){
 	$("#status").css("display","inline");
@@ -109,7 +102,6 @@ function ajaxChangeStatus(statusname){
 	
 }
 {/literal}
-
 </script>
 <div id="showReportInfo" class="modal fade" tabindex ="-1" role = "dialog" aria-labelledby="myModalLabel" aria-hidden="true"></div>
 <!-- 批量修改负责人-->
@@ -149,7 +141,6 @@ function ajaxChangeStatus(statusname){
 	
  </div>
  <!-- / 批量修改负责人-->
-
  <div class="container-fluid"> 
         <div style="margin-left:0px;margin-right:10px">
              <div>
@@ -171,7 +162,6 @@ function ajaxChangeStatus(statusname){
                       <button type="button" class="btn btn-small " onClick="openAdvanceDialogs('{$MODULE}');">
                       <i class="icon-share-alt"></i>&nbsp;高级搜索</button>
                       
-
                   </form>
                 </div>
                 <div class="pull-right">
@@ -184,7 +174,6 @@ function ajaxChangeStatus(statusname){
                 <li class="nav-header" style="padding-left:0px;padding-right:5px;">
                   <i class="icon-th-list"></i> 
                 </li>
-
                  {foreach name="listviewforeach" key=id item=viewname from=$CUSTOMVIEW_OPTION}
                   {if $id eq $VIEWID} 
                     <li class="active"><a href="javascript:;" onclick="javascript:getTabView('{$MODULE}','viewname={$id}',this,{$id});" >{$viewname}</a></li>
@@ -206,17 +195,13 @@ function ajaxChangeStatus(statusname){
 				{/if}
               </ul>
           </div>
-
           <div style="margin-top:2px;padding-top:5px;margin-bottom:5px;border-top:2px solid #0088CC;" >
-
              
               <div class="pull-left" style="margin-bottom:5px;">
                 <button class="btn btn-small btn-primary" style="margin-top:2px;" onclick="javascript:location.href='index.php?module=Accounts&action=EditView'">
                   <i class="icon-plus icon-white"></i>新增</button>
                 <button class="btn btn-small btn-danger" style="margin-top:2px;" onclick="javascript:return massDelete('{$MODULE}');">
                   <i class="icon-trash icon-white"></i>删除</button>
-
-
 				  <div class="btn-group" style="margin-top:2px;">
 					<a class="btn btn-small btn-inverse dropdown-toggle" data-toggle="dropdown" href="#">
 						<i class="icon-edit icon-white"></i> 批量操作
@@ -241,21 +226,16 @@ function ajaxChangeStatus(statusname){
                   <i class="icon-envelope"></i>发送邮件</button>
                  <button class="btn btn-small " style="margin-top:2px;" onclick="javascript:qunfa_sms(this, 'qunfasms', 'Accounts');return false;">
                   <i class="icon-comment"></i>发送短信</button>
-
               </div>
                <div class="pull-right">
                   
               </div>
           </div>
           <div class="clear"></div> 
-
            <div id="ListViewContents" class="small" style="width:100%;position:relative;">
             {include file="Accounts/ListViewEntries.tpl"}
           </div>
-
 			{*include file="ListViewScope.tpl"*}
-
         </div>
       </div>
-
     </div>

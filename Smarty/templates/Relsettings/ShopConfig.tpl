@@ -17,7 +17,6 @@
         <td class="showPanelBg" style="padding: 10px;" valign="top" width="100%">
         
 	
-
 	<div align=center>
 		
 				<!-- DISPLAY -->
@@ -75,7 +74,6 @@
 	</table>
 		
 	</div>
-
 	
 </td>
    </tr>

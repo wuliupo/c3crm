@@ -7,7 +7,6 @@ $parenttab_label=$_REQUEST['parenttab_label'];
 $parenttab_label_cn = $_REQUEST['parenttab_label_cn'];
 $sequence=$_REQUEST['sequence'];
 $mode=$_REQUEST['mode'];
-
 //checking if the user is trying to create a custom ec_field which already exists  
 if(!empty($id))
 {
@@ -86,7 +85,6 @@ if(is_array($display_tabs) && count($display_tabs) > 0) {
 	$query = "delete from ec_parenttabrel where parenttabid='".$id."'";
 	$adb->query($query);
 }
-
 //echo $query;
 $url = "index.php?module=Settings&action=CustomTabList&parenttab=Settings";
 redirect($url);

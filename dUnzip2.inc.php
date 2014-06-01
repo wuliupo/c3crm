@@ -22,7 +22,6 @@
 // 31/10/2005 (2.2)
 // - Removed redundant 'file_name' on centralDirs declaration (thanks to Lito [PHPfileNavigator])
 // - Fixed redeclaration of file_put_contents when in PHP4 (not returning true)
-
 ##############################################################
 # Class dUnzip2 v2.6
 #
@@ -49,9 +48,6 @@
 #  If you have problems using it, don't think twice before contacting me!
 #
 ##############################################################
-
-
-
 class dUnzip2{
 	Function getVersion(){
 		return "2.6";
@@ -305,7 +301,6 @@ class dUnzip2{
 			if($level == 2)
 				echo "<b style='color: #F00'>dUnzip2:</b> $string<br>";
 	}
-
 	Function _loadFileListByEOF(&$fh, $stopOnFile=false){
 		// Check if there's a valid Central Dir signature.
 		// Let's consider a file comment smaller than 1024 characters...

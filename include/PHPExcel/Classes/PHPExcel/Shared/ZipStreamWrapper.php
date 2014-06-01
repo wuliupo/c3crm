@@ -24,12 +24,8 @@
  * @license    http://www.gnu.org/licenses/old-licenses/lgpl-2.1.txt	LGPL
  * @version    1.7.2, 2010-01-11
  */
-
-
 /** Register new zip wrapper */
 PHPExcel_Shared_ZipStreamWrapper::register();
-
-
 /**
  * PHPExcel_Shared_ZipStreamWrapper
  *
@@ -44,28 +40,24 @@ class PHPExcel_Shared_ZipStreamWrapper {
 	 * @var ZipAcrhive
 	 */
     private $_archive;
-
     /**
      * Filename in ZipAcrhive
      *
      * @var string
      */
     private $_fileNameInArchive = '';
-
     /**
      * Position in file
      *
      * @var int
      */
     private $_position = 0;
-
     /**
      * Data
      *
      * @var mixed
      */
     private $_data = '';
-
     /**
      * Register wrapper
      */
@@ -73,7 +65,6 @@ class PHPExcel_Shared_ZipStreamWrapper {
 		@stream_wrapper_unregister("zip");
 		@stream_wrapper_register("zip", __CLASS__);
     }
-
     /**
      * Open stream
      */
@@ -82,10 +73,8 @@ class PHPExcel_Shared_ZipStreamWrapper {
         if ($mode{0} != 'r') {
             throw new Exception('Mode ' . $mode . ' is not supported. Only read mode is supported.');
         }
-
         // Parse URL
         $url = @parse_url(str_replace('zip://', 'file://', $path));
-
         // Fix URL
 		if (!is_array($url)) {
             $url['host'] = substr($path, strlen('zip://'));
@@ -101,25 +90,20 @@ class PHPExcel_Shared_ZipStreamWrapper {
             $url['host']		= $url['host'] . $url['path'];
             unset($url['path']);
 		}
-
         // Open archive
         $this->_archive = new ZipArchive();
         $this->_archive->open($url['host']);
-
         $this->_fileNameInArchive = $url['fragment'];
         $this->_position = 0;
         $this->_data = $this->_archive->getFromName( $this->_fileNameInArchive );
-
         return true;
     }
-
     /**
      * Stat stream
      */
     public function stream_stat() {
         return $this->_archive->statName( $this->_fileNameInArchive );
     }
-
     /**
      * Read stream
      */
@@ -128,21 +112,18 @@ class PHPExcel_Shared_ZipStreamWrapper {
         $this->_position += strlen($ret);
         return $ret;
     }
-
     /**
      * Tell stream
      */
     public function stream_tell() {
         return $this->_position;
     }
-
     /**
      * EOF stream
      */
     public function stream_eof() {
         return $this->_position >= strlen($this->_data);
     }
-
     /**
      * Seek stream
      */
@@ -156,7 +137,6 @@ class PHPExcel_Shared_ZipStreamWrapper {
                      return false;
                 }
                 break;
-
             case SEEK_CUR:
                 if ($offset >= 0) {
                      $this->_position += $offset;
@@ -165,7 +145,6 @@ class PHPExcel_Shared_ZipStreamWrapper {
                      return false;
                 }
                 break;
-
             case SEEK_END:
                 if (strlen($this->_data) + $offset >= 0) {
                      $this->_position = strlen($this->_data) + $offset;
@@ -174,7 +153,6 @@ class PHPExcel_Shared_ZipStreamWrapper {
                      return false;
                 }
                 break;
-
             default:
                 return false;
         }

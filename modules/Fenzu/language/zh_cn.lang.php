@@ -133,7 +133,6 @@ $mod_strings = array (
   'Before 60 Days' => '60天前',
   'Before 100 Days' => '100天前',
   'Before 180 Days' => '180天前',
-
   'After 7 Days' => '7天后',
   'After 3 Days' => '3天后',
   'After 15 Days' => '15天后',
@@ -141,7 +140,5 @@ $mod_strings = array (
   'After 60 Days' => '60天后',
   'After 100 Days' => '100天后',
   'After 180 Days' => '180天后',
-
-
 );
 ?>

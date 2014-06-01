@@ -72,7 +72,6 @@ $output .= ' <div id="layoutLayer" >
                 </from>
               </div>';
 echo $output;
-
 function getCustomBlocks($module,$tabid){
    	//$tabid = getTabid($module);
 	global $adb;

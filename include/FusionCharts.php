@@ -2,8 +2,6 @@
 // Page: FusionCharts.php
 // Author: InfoSoft Global (P) Ltd.
 // This page contains functions that can be used to render FusionCharts.
-
-
 // encodeDataURL function encodes the dataURL before it's served to FusionCharts.
 // If you've parameters in your dataURL, you necessarily need to encode it.
 // Param: $strDataURL - dataURL to be fed to chart
@@ -22,8 +20,6 @@ function encodeDataURL($strDataURL, $addNoCacheStr=false) {
 	// URL Encode it
 	return urlencode($strDataURL);
 }
-
-
 // datePart function converts MySQL database based on requested mask
 // Param: $mask - what part of the date to return "m' for month,"d" for day, and "y" for year
 // Param: $dateTimeStr - MySQL date/time format (yyyy-mm-dd HH:ii:ss)
@@ -45,12 +41,9 @@ function datePart($mask, $dateTimeStr) {
     }
     return $dataStr;
 }
-
-
 // renderChart renders the JavaScript + HTML code required to embed a chart.
 // This function assumes that you've already included the FusionCharts JavaScript class
 // in your page.
-
 // $chartSWF - SWF File Name (and Path) of the chart which you intend to plot
 // $strURL - If you intend to use dataURL method for this chart, pass the URL as this parameter. Else, set it to "" (in case of dataXML method)
 // $strXML - If you intend to use dataXML method for this chart, pass the XML data as this parameter. Else, set it to "" (in case of dataURL method)
@@ -60,7 +53,6 @@ function datePart($mask, $dateTimeStr) {
 function renderChart($chartSWF, $strURL, $strXML, $chartId, $chartWidth, $chartHeight) {
 	//First we create a new DIV for each chart. We specify the name of DIV as "chartId"Div.			
 	//DIV names are case-sensitive.
-
     // The Steps in the script block below are:
     //
     //  1)In the DIV the text "Chart" is shown to users before the chart has started loading
@@ -76,10 +68,8 @@ function renderChart($chartSWF, $strURL, $strXML, $chartId, $chartWidth, $chartH
         $tempData = "//Set the dataURL of the chart\n\t\tchart_$chartId.setDataURL(\"$strURL\")";
     else
         $tempData = "//Provide entire XML data using dataXML method\n\t\tchart_$chartId.setDataXML(\"$strXML\")";
-
     // Set up necessary variables for the RENDERCAHRT
     $chartIdDiv = $chartId . "Div";
-
     // create a string for outputting by the caller
 	$render_chart = <<<RENDERCHART
 	<!-- START Script Block for Chart $chartId -->
@@ -95,11 +85,8 @@ function renderChart($chartSWF, $strURL, $strXML, $chartId, $chartWidth, $chartH
 	</script>	
 	<!-- END Script Block for Chart $chartId -->
 RENDERCHART;
-
   return $render_chart;
 }
-
-
 //renderChartHTML function renders the HTML code for the JavaScript. This
 //method does NOT embed the chart using JavaScript class. Instead, it uses
 //direct HTML embedding. So, if you see the charts on IE 6 (or above), you'll
@@ -120,7 +107,6 @@ function renderChartHTML($chartSWF, $strURL, $strXML, $chartId, $chartWidth, $ch
     else
         //DataXML Mode
         $strFlashVars .= "&dataXML=" . $strXML;
-
 $HTML_chart = <<<HTMLCHART
 	<!-- START Code Block for Chart $chartId -->
 	<OBJECT classid="clsid:D27CDB6E-AE6D-11cf-96B8-444553540000" codebase=http://download.macromedia.com/pub/shockwave/cabs/flash/swflash.cab#version=6,0,0,0"  width="$chartWidth" height="$chartHeight" id="$chartId">
@@ -132,15 +118,12 @@ $HTML_chart = <<<HTMLCHART
 	</object>
 	<!-- END Code Block for Chart $chartId -->
 HTMLCHART;
-
   return $HTML_chart;
 }
-
 // boolToNum function converts boolean values to numeric (1/0)
 function boolToNum($bVal) {
     return (($bVal==true) ? 1 : 0);
 }
-
 function save_fusion_xml_file($filename,$xml_file) {
 	global $app_strings;
 	$handle = fopen($filename, 'w');
@@ -171,7 +154,6 @@ function save_fusion_xml_file($filename,$xml_file) {
 	}
 	fclose($handle);
 	return true;
-
 }
 function generate_fusioncharts_color($input,$instance) {
 	if ($instance <20) {
@@ -199,9 +181,7 @@ function generate_fusioncharts_color($input,$instance) {
 	$out = $color[$instance];
 	} else {
 	$out = "" . substr(md5($input), 0, 6);
-
 	}
 	return $out;
 }
-
 ?>

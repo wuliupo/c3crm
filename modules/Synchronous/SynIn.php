@@ -1,5 +1,4 @@
 <?php
-
 require_once ('include/CRMSmarty.php');
 require_once ('data/Tracker.php');
 require_once ('include/utils/utils.php');
@@ -13,41 +12,30 @@ require_once ('modules/Synchronous/Syn_fun.php');
 require_once ('modules/Synchronous/config.php');
 global $adb;
 global $current_user;
-
 //$focus_pro = new Products();
 //$focus_so = new SalesOrder();
-
 //执行时间类
 $timer = new timer;
 $timer->start(); 
-
 $timemessage = '';
-
 $start_created = '';
 $end_created = '';
-
-
 $id = $_REQUEST['record'];
 if(empty($id)){
 	die("No Selected One AppKey!");
 }
-
 $query = "select * from ec_appkey where id='".$id."'";
 $row = $adb->getFirstLine($query);
-
 $appKey = $row['appkey'];
 $appSecret = $row['appsecret'];
 $nick = $row['nick'];
 $session = $row['topsession'];
-
 if($nick==''){
 	header("Location: index.php?module=Relsettings&action=Taobaozushou&parenttab=Settings");
 }
-
 $timer->stop();  
 $timemessage .="获取淘宝账号信息用时: <font color=red>".$timer->spent()."</font><br>";
 $timer->start(); 
-
 //获取淘宝订单总数
 $resultcount_arr = getTaobaoOrderCount($rooturl,$session,$appKey,$appSecret,$start_created,$end_created);
 if(!empty($resultcount_arr['msg'])){
@@ -55,11 +43,9 @@ if(!empty($resultcount_arr['msg'])){
 	die;
 }
 $resultcount = $resultcount_arr['total_results'];
-
 $timer->stop();  
 $timemessage .="获取淘宝订单总数用时: <font color=red>".$timer->spent()."</font><br>";
 $timer->start(); 
-
 if($resultcount == 0){
 	echo $timemessage;
 	if(!empty($syntime)){
@@ -72,13 +58,10 @@ if($resultcount == 0){
 	echo $msgstr;
 	die;
 }
-
 //进度条总长度
 $width = 500; 
 $width8 = $width+8;
-
 $errormess='';
-
 echo "<script language=\"JavaScript\">
 function updateProgress(sMsg, iWidth)
 { 
@@ -89,7 +72,6 @@ if(sMsg == \"操作完成!\"){
 	document.getElementById(\"syncontent\").style.display =\"none\";
 }
 }</script>";
-
 echo "<div  width=\"100%\" align=\"center\" id=\"syncontent\">
     <div style=\"margin: 4px; padding: 8px; border: 1px solid gray; background: #EAEAEA; width: ". $width8 ."px\" align=\"left\">
     <div align=\"center\" style=\"font-size:14px\">进度条</div>
@@ -100,23 +82,16 @@ echo "<div  width=\"100%\" align=\"center\" id=\"syncontent\">
     <div id=\"percent\" style=\"position: relative; top: -30px; text-align: center; font-weight: bold; font-size: 8pt\">0%</div>
     </div>
 </div>";
-
 $page_size = 40;
 $page_no = intval($resultcount / $page_size)+1;
-
 $taobaoorders_page = array();
 $taobaoorders = array();
-
-
 //获取淘宝订单信息
 $taobaoorders_page = getTaobaoOrderInfo($rooturl,$session,$appKey,$appSecret,$page_no,$page_size,$start_created,$end_created);
-
 $timer->stop();  
 $timemessage .="获取淘宝订单详细数据用时: <font color=red>".$timer->spent()."</font><br>";
 $timer->start(); 
-
 //总数 > 40 处理数组 array[0][0] to array[0]
-
 if($resultcount >40){
 	foreach($taobaoorders_page as $pageorders){
 		foreach($pageorders as $pageorder){
@@ -126,24 +101,16 @@ if($resultcount >40){
 }else{
 	$taobaoorders = $taobaoorders_page[0];
 }
-
 $timer->stop();  
 $timemessage .="数据转换形式用时: <font color=red>".$timer->spent()."</font><br>";
 $timer->start(); 
-
 //订单总数
 $count_all = count($taobaoorders);
-
 $pix = $width / $count_all; 
 $progress = 0;
-
 $successorder = 0;
 $order_num = 0;
-
-
-
 foreach ($taobaoorders as $key => $taobaoorder) {  //begin {1}
-
 	//taobao.trade.fullinfo.get 
 	//获取交易详情
 	$tid = $taobaoorder['tid'];
@@ -213,7 +180,6 @@ foreach ($taobaoorders as $key => $taobaoorder) {  //begin {1}
 				
 		//子订单编号
 		$oid = $order['oid'];
-
 		$order_is_exist =  checkOrderIsExist($oid); //返回结果：true 不存在 ， false 已存在
 		if(!$order_is_exist){
 			$errormess .="订单:'$oid'已存在。<br>";
@@ -234,17 +200,14 @@ foreach ($taobaoorders as $key => $taobaoorder) {  //begin {1}
 		
 		//创建时间
 		$createdtime_order = $trade_created;
-
 		//修改时间
 		$modifiedtime_order =  $order['modified'];
 		if($modifiedtime_order == ''){
 			$modifiedtime_order = date("Y-m-d H:i:s");
 		}
-
 			// begin insert 
 				
 			$accountid_tmp = checkAccountIsExist($buyer_nick); //判断客户是否已存在
-
 			if(empty($accountid_tmp)){
 				//不存在
 				$accountid =$adb->getUniqueID("ec_crmentity");
@@ -265,7 +228,6 @@ foreach ($taobaoorders as $key => $taobaoorder) {  //begin {1}
 			
 				//Email
 				$email =  $buyer_email;
-
 				//客户最新订单时间
 				$lastorderdate = $trade_created;
 				
@@ -324,7 +286,6 @@ foreach ($taobaoorders as $key => $taobaoorder) {  //begin {1}
 		
 		//订单编号
 		//$subject = $salesorder_seqprefix.date("Ymd")."-".get_next_id('ec_salesorder');
-
 		$insertorderssql = "insert into ec_salesorder(salesorderid,subject,accountid,orderstatus,orderdate,num,total,description,smcreatorid,smownerid,modifiedby,createdtime,modifiedtime,deleted) values(".$salesorderid.",'".$oid."','".$accountid."','全额付款','".$createdtime_order."','','".$total."','".$description_order."',".$current_user->id.",".$current_user->id.",0,'".$createdtime_order."','".$modifiedtime_order."',0);";
 		$rs2 = $adb->query($insertorderssql);
 		if(!$rs2){
@@ -338,10 +299,8 @@ foreach ($taobaoorders as $key => $taobaoorder) {  //begin {1}
 		//插入ec_crmentity
 		$insertcrmentityordersql = "insert into ec_crmentity(crmid,smcreatorid,smownerid,setype,description,createdtime,modifiedtime) " .
 					"values(".$salesorderid.",".$current_user->id.",".$current_user->id.",'SalesOrder','".$description_order."','".$createdtime_order."','".$modifiedtime_order."')";
-
 		$adb->query($insertcrmentityordersql);
 		
-
 		//商品数字id
 		$num_iid = $order['num_iid'];
 		
@@ -359,7 +318,6 @@ foreach ($taobaoorders as $key => $taobaoorder) {  //begin {1}
 				
 				//商品url
 				$detail_url = $ItemInfo['detail_url'];
-
 				//商品数量
 				$pro_num = $ItemInfo['num'];
 				//商品价格
@@ -386,13 +344,11 @@ foreach ($taobaoorders as $key => $taobaoorder) {  //begin {1}
 				//插入ec_crmentity
 				$insertcrmentityproductsql = "insert into ec_crmentity(crmid,smcreatorid,smownerid,setype,description,createdtime,modifiedtime) " .
 						"values(".$productid.",".$current_user->id.",".$current_user->id.",'Products','".$description_pro."','".$createdtime_pro."','".$modifiedtime_pro."')";
-
 				$adb->query($insertcrmentityproductsql);
 			}
 		}else{
 			$productid = $productid_tmp;
 		}
-
 		$insertInventoryProductsql = "insert into ec_inventoryproductrel(id,productid,sequence_no,quantity,listprice,discount_percent,discount_amount,comment,pricebookid) " .
 				"values(".$salesorderid.",".$productid.",'1','".$item_num."','".$item_price."','','','".$comment."','')";
 		$rs4 = $adb->query($insertInventoryProductsql);
@@ -407,12 +363,10 @@ foreach ($taobaoorders as $key => $taobaoorder) {  //begin {1}
 		}
 		//end insert salesorder
 		$order_num++;
-
 	}
 	//order details end	
 	
 	
-
 	if($index == -3){
 		$failed += 1;
 	}elseif($index == 0){
@@ -425,27 +379,19 @@ foreach ($taobaoorders as $key => $taobaoorder) {  //begin {1}
 	echo "<script language=\"JavaScript\">";
 	echo "updateProgress('当前交易号:".$tid."',".$minprogress.");";
 	echo "</script>";
-
 	
 	$progress += $pix;
 	
 } //end  {1}
-
 $timer->stop();  
 $timemessage .="写入数据库用时: <font color=red>".$timer->spent()."</font><br>";
 $timer->start(); 
-
-
 echo "<script language=\"JavaScript\">";
 echo "updateProgress('操作完成!',".$width.");";
 echo "</script>";
-
-
 $message = "当前订单总数:<font color=red>".$order_num." ;</font>&nbsp;&nbsp;&nbsp;";
 $message .="已成功导入订单数:<font color=red>".$successorder." ;</font>";
-
 $importresult = "<font color=green>导入完毕</font>";
-
 ?>
 <table style="background-color: rgb(234, 234, 234);margin-top:-16px;" class="small" width="100%" border="0" cellpadding="3" cellspacing="1">
  <tr style="height: 30px;" bgcolor="white" valign="bottom">

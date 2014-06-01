@@ -4,7 +4,6 @@
 * Arabic Version, UTF-8
 * by : bahjat al mostafa <bahjat983@hotmail.com>
 */
-
 $PHPMAILER_LANG['authenticate']         = 'SMTP Error: لم نستطع تأكيد الهوية.';
 $PHPMAILER_LANG['connect_host']         = 'SMTP Error: لم نستطع الاتصال بمخدم SMTP.';
 $PHPMAILER_LANG['data_not_accepted']    = 'SMTP Error: لم يتم قبول المعلومات .';

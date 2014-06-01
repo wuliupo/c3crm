@@ -4,9 +4,7 @@ require_once('modules/Contacts/Contacts.php');
 require_once('include/database/PearDatabase.php');
 require_once('modules/Contacts/ModuleConfig.php');
 global $adb;
-
 $local_log =& LoggerManager::getLogger('ContactsAjax');
-
 $ajaxaction = $_REQUEST["ajxaction"];
 if($ajaxaction == "DETAILVIEW")
 {

@@ -17,25 +17,19 @@
  * Description:  Defines the Account SugarBean Account entity with the necessary
  * methods and variables.
  ********************************************************************************/
-
 include_once('config.php');
 require_once('include/logging.php');
 require_once('include/database/PearDatabase.php');
 require_once('modules/Notes/Notes.php');
 require_once('modules/Accounts/Accounts.php');
-
 // Account is used to store ec_account information.
 class ImportAccount extends Accounts {
 	 var $db;
-
 	// This is the list of ec_fields that are required.
 	var $required_fields =  array("accountname"=>1);
-
 	// This is the list of the functions to run when importing
 	var $special_functions =  array();
-
 	var $importable_fields = Array();
-
 	/**   function used to set the assigned_user_id value in the column_fields when we map the username during import
          */
 	function assign_user()
@@ -65,12 +59,9 @@ class ImportAccount extends Accounts {
 //			}
 //		}
 	}
-
-
 	/** Constructor which will set the importable_fields as $this->importable_fields[$key]=1 in this object where key is the fieldname in the field table
 	 */
 	function ImportAccount() {
-
 		$this->log = LoggerManager::getLogger('import_account');
 		$this->db = & getSingleDBInstance();
 		$colf = getColumnFields("Accounts");
@@ -79,7 +70,6 @@ class ImportAccount extends Accounts {
 			$this->column_fields[$key]='';
 	}
 	function ClearColumnFields() {
-
 		$this->log = LoggerManager::getLogger('import_account');
 		$this->db = & getSingleDBInstance();
 		$colf = getColumnFields("Accounts");
@@ -87,8 +77,6 @@ class ImportAccount extends Accounts {
 			//$this->importable_fields[$key]=1;
 			$this->column_fields[$key]='';
 	}
-
-
 	function isExist()
 	{
 		$this->log->info("Entering into isExist function");
@@ -103,8 +91,6 @@ class ImportAccount extends Accounts {
 		$this->log->info("Exit isExist function");
 		return false;
 	}
-
-
 	function save($module) {
 		
 		global $current_user;
@@ -140,18 +126,13 @@ class ImportAccount extends Accounts {
 				  }
 			}
 		}
-
 		$this->log->info("end account save function");
 	}
-
-
-
 	function insertIntoEntityTable($table_name, $module)
 	{
 	  global $log;
   	  global $current_user;
 	  $log->debug("Entering into function insertIntoEntityTable()");
-
       if(isset($this->column_fields['createdtime']) && $this->column_fields['createdtime'] != "") {
 			$createdtime = getDisplayDate_WithTime($this->column_fields['createdtime']);
 		} else {
@@ -211,7 +192,6 @@ class ImportAccount extends Accounts {
 		      $sql1 = "update ".$table_name." set modifiedby='".$current_user->id."',modifiedtime=NOW(),".$update." where ".$this->tab_name_index[$table_name]."=".$this->id;
 		      $eof = $this->db->query($sql1);
 		  }
-
 	  } else {
 		  $column = $this->tab_name_index[$table_name];
 	      $value = $this->id;
@@ -227,7 +207,6 @@ class ImportAccount extends Accounts {
 				  }
 			  }
 		  }
-
 		  $sql1 = "insert into ".$table_name." (".$column.",smcreatorid,smownerid,createdtime,modifiedtime) values(".$value.",'".$current_user->id."','".$current_user->id."',NOW(),NOW())";
 		  $eof = $this->db->query($sql1);
 	  }
@@ -238,9 +217,6 @@ class ImportAccount extends Accounts {
 	  }
 	  $log->debug("Exiting function insertIntoEntityTable()");
 	}
-
-
-
 	function saveentity($module)
 	{	
 		global $log;
@@ -266,9 +242,5 @@ class ImportAccount extends Accounts {
 		  }
 		$log->debug("Exiting function saveentity");
 	}
-
 }
-
-
-
 ?>

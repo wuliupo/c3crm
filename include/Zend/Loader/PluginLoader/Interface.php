@@ -19,7 +19,6 @@
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  * @version    $Id: Interface.php 23775 2011-03-01 17:25:24Z ralph $
  */
-
 /**
  * Plugin class loader interface
  *
@@ -39,7 +38,6 @@ interface Zend_Loader_PluginLoader_Interface
      * @return Zend_Loader_PluginLoader
      */
     public function addPrefixPath($prefix, $path);
-
     /**
      * Remove a prefix (or prefixed-path) from the registry
      *
@@ -48,7 +46,6 @@ interface Zend_Loader_PluginLoader_Interface
      * @return Zend_Loader_PluginLoader
      */
     public function removePrefixPath($prefix, $path = null);
-
     /**
      * Whether or not a Helper by a specific name
      *
@@ -56,7 +53,6 @@ interface Zend_Loader_PluginLoader_Interface
      * @return Zend_Loader_PluginLoader
      */
     public function isLoaded($name);
-
     /**
      * Return full class name for a named helper
      *
@@ -64,7 +60,6 @@ interface Zend_Loader_PluginLoader_Interface
      * @return string
      */
     public function getClassName($name);
-
     /**
      * Load a helper via the name provided
      *

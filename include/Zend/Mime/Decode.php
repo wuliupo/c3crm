@@ -18,12 +18,10 @@
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  * @version    $Id: Decode.php 23984 2011-05-03 19:35:48Z ralph $
  */
-
 /**
  * @see Zend_Mime
  */
 require_once 'include/Zend/Mime.php';
-
 /**
  * @category   Zend
  * @package    Zend_Mime
@@ -46,7 +44,6 @@ class Zend_Mime_Decode
     {
         // TODO: we're ignoring \r for now - is this function fast enough and is it safe to asume noone needs \r?
         $body = str_replace("\r", '', $body);
-
         $start = 0;
         $res = array();
         // find every mime part limiter and cut out the
@@ -57,26 +54,21 @@ class Zend_Mime_Decode
             // no parts found!
             return array();
         }
-
         // position after first boundary line
         $start = $p + 3 + strlen($boundary);
-
         while (($p = strpos($body, '--' . $boundary . "\n", $start)) !== false) {
             $res[] = substr($body, $start, $p-$start);
             $start = $p + 3 + strlen($boundary);
         }
-
         // no more parts, find end boundary
         $p = strpos($body, '--' . $boundary . '--', $start);
         if ($p===false) {
             throw new Zend_Exception('Not a valid Mime Message: End Missing');
         }
-
         // the remaining part also needs to be parsed:
         $res[] = substr($body, $start, $p-$start);
         return $res;
     }
-
     /**
      * decodes a mime encoded String and returns a
      * struct of parts with header and body
@@ -101,7 +93,6 @@ class Zend_Mime_Decode
         }
         return $result;
     }
-
     /**
      * split a message in header and body part, if no header or an
      * invalid header is found $headers is empty
@@ -124,7 +115,6 @@ class Zend_Mime_Decode
             $body = str_replace(array("\r", "\n"), array('', $EOL), $message);
             return;
         }
-
         // find an empty line between headers and body
         // default is set new line
         if (strpos($message, $EOL . $EOL)) {
@@ -139,14 +129,11 @@ class Zend_Mime_Decode
         } else {
             @list($headers, $body) = @preg_split("%([\r\n]+)\\1%U", $message, 2);
         }
-
         $headers = iconv_mime_decode_headers($headers, ICONV_MIME_DECODE_CONTINUE_ON_ERROR);
-
         if ($headers === false ) {
             // an error occurs during the decoding
             return;
         }
-
         // normalize header names
         foreach ($headers as $name => $header) {
             $lower = strtolower($name);
@@ -165,7 +152,6 @@ class Zend_Mime_Decode
             $headers[$lower] = array($headers[$lower], $header);
         }
     }
-
     /**
      * split a content type in its different parts
      *
@@ -177,7 +163,6 @@ class Zend_Mime_Decode
     {
         return self::splitHeaderField($type, $wantedPart, 'type');
     }
-
     /**
      * split a header field like content type in its different parts
      *
@@ -191,18 +176,15 @@ class Zend_Mime_Decode
     {
         $wantedPart = strtolower($wantedPart);
         $firstName = strtolower($firstName);
-
         // special case - a bit optimized
         if ($firstName === $wantedPart) {
             $field = strtok($field, ';');
             return $field[0] == '"' ? substr($field, 1, -1) : $field;
         }
-
         $field = $firstName . '=' . $field;
         if (!preg_match_all('%([^=\s]+)\s*=\s*("[^"]+"|[^;]+)(;\s*|$)%', $field, $matches)) {
             throw new Zend_Exception('not a valid header field');
         }
-
         if ($wantedPart) {
             foreach ($matches[1] as $key => $name) {
                 if (strcasecmp($name, $wantedPart)) {
@@ -215,7 +197,6 @@ class Zend_Mime_Decode
             }
             return null;
         }
-
         $split = array();
         foreach ($matches[1] as $key => $name) {
             $name = strtolower($name);
@@ -225,10 +206,8 @@ class Zend_Mime_Decode
                 $split[$name] = $matches[2][$key];
             }
         }
-
         return $split;
     }
-
     /**
      * decode a quoted printable encoded string
      *

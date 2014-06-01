@@ -1,20 +1,14 @@
 <?php
 require_once('include/utils/CommonUtils.php');
 require_once('include/utils/utils.php');
-
 class Accountsrel{
 	private $lastuseridstr;
 	function __construct(){
-
 	}
-
-
-
     /**
 	 * 获取订单详细信息
 	 */
      function getDetailsOrderInfo($accountid) {
-
          global $log;
 		 global $adb;
          $log->debug("Entering getDetailsOrderInfo method ...");
@@ -34,12 +28,9 @@ class Accountsrel{
 			$row['subject'] = "<a href='index.php?action=DetailView&module=SalesOrder&record=".$row['salesorderid']."&parenttab=Sales' target='_blank'>".$row['subject']."</a>";
 			$arr[] = $row;
 		 }
-
          $log->debug("Exiting getDetailsOrderInfo method ...");
 		 return $arr;
      }
-
-
       /**
 	 * 获取客户的收货信息
 	 */
@@ -57,7 +48,6 @@ class Accountsrel{
          $log->debug("Exiting getReceiveInfo method ...");
 		 return $arr;
      }
-
 	  /**
 	 * 获取购买产品信息
 	 */
@@ -82,7 +72,6 @@ class Accountsrel{
          $log->debug("Exiting getBuyProducts method ...");
 		 return $arr;
      }
-
 	//获取客户联系记录
 	function getDetailsNoteInfo($accountid){
 		 global $log;
@@ -119,7 +108,6 @@ class Accountsrel{
 		 $log->debug("Exiting getContactInfo method ...");
 		 return $arr;
 	}
-
 	//获取客户的群发短信信息
 	function getQunfasInfo($accountid){
 		
@@ -162,7 +150,6 @@ class Accountsrel{
 		$log->debug("Exiting getQunfasInfo method ...");
 		return $arr;
 	}
-
 	
 	//获取客户的群发邮件信息
 	function getMaillistsInfo($accountid){
@@ -186,8 +173,6 @@ class Accountsrel{
 		$log->debug("Exiting getMaillistsInfo method ...");
 		return $arr;
 	}
-
-
 		function getMemberNameInfo($id)
 		{
 			global $adb;
@@ -222,7 +207,6 @@ class Accountsrel{
 		return $infohtml;
 	}
 	function __destruct(){
-
 	}
 }
 ?>

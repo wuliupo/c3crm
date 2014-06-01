@@ -18,12 +18,10 @@
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  * @version    $Id: Callback.php 23775 2011-03-01 17:25:24Z ralph $
  */
-
 /**
  * @see Zend_Validate_Abstract
  */
 require_once 'include/Zend/Validate/Abstract.php';
-
 /**
  * @category   Zend
  * @package    Zend_Validate
@@ -36,12 +34,10 @@ class Zend_Validate_Callback extends Zend_Validate_Abstract
      * Invalid callback
      */
     const INVALID_CALLBACK = 'callbackInvalid';
-
     /**
      * Invalid value
      */
     const INVALID_VALUE = 'callbackValue';
-
     /**
      * Validation failure message template definitions
      *
@@ -51,21 +47,18 @@ class Zend_Validate_Callback extends Zend_Validate_Abstract
         self::INVALID_VALUE    => "'%value%' is not valid",
         self::INVALID_CALLBACK => "An exception has been raised within the callback",
     );
-
     /**
      * Callback in a call_user_func format
      *
      * @var string|array
      */
     protected $_callback = null;
-
     /**
      * Default options to set for the filter
      *
      * @var mixed
      */
     protected $_options = array();
-
     /**
      * Sets validator options
      *
@@ -86,13 +79,11 @@ class Zend_Validate_Callback extends Zend_Validate_Abstract
                 $this->setOptions($callback['options']);
             }
         }
-
         if (null === ($initializedCallack = $this->getCallback())) {
             require_once 'include/Zend/Validate/Exception.php';
             throw new Zend_Validate_Exception('No callback registered');
         }
     }
-
     /**
      * Returns the set callback
      *
@@ -102,7 +93,6 @@ class Zend_Validate_Callback extends Zend_Validate_Abstract
     {
         return $this->_callback;
     }
-
     /**
      * Sets the callback
      *
@@ -118,7 +108,6 @@ class Zend_Validate_Callback extends Zend_Validate_Abstract
         $this->_callback = $callback;
         return $this;
     }
-
     /**
      * Returns the set options for the callback
      *
@@ -128,7 +117,6 @@ class Zend_Validate_Callback extends Zend_Validate_Abstract
     {
         return $this->_options;
     }
-
     /**
      * Sets options for the callback
      *
@@ -140,7 +128,6 @@ class Zend_Validate_Callback extends Zend_Validate_Abstract
         $this->_options = (array) $options;
         return $this;
     }
-
     /**
      * Defined by Zend_Validate_Interface
      *
@@ -153,12 +140,10 @@ class Zend_Validate_Callback extends Zend_Validate_Abstract
     public function isValid($value)
     {
         $this->_setValue($value);
-
         $options  = $this->getOptions();
         $callback = $this->getCallback();
         $args     = func_get_args();
         $options  = array_merge($args, $options);
-
         try {
             if (!call_user_func_array($callback, $options)) {
                 $this->_error(self::INVALID_VALUE);
@@ -168,7 +153,6 @@ class Zend_Validate_Callback extends Zend_Validate_Abstract
             $this->_error(self::INVALID_CALLBACK);
             return false;
         }
-
         return true;
     }
 }

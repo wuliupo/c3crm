@@ -19,8 +19,6 @@
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  * @version    $Id: Pop3.php 23775 2011-03-01 17:25:24Z ralph $
  */
-
-
 /**
  * @category   Zend
  * @package    Zend_Mail
@@ -34,26 +32,21 @@ class Zend_Mail_Protocol_Pop3
      * Default timeout in seconds for initiating session
      */
     const TIMEOUT_CONNECTION = 30;
-
     /**
      * saves if server supports top
      * @var null|bool
      */
     public $hasTop = null;
-
     /**
      * socket to pop3
      * @var null|resource
      */
     protected $_socket;
-
     /**
      * greeting timestamp for apop
      * @var null|string
      */
     protected $_timestamp;
-
-
     /**
      * Public constructor
      *
@@ -68,8 +61,6 @@ class Zend_Mail_Protocol_Pop3
             $this->connect($host, $port, $ssl);
         }
     }
-
-
     /**
      * Public destructor
      */
@@ -77,8 +68,6 @@ class Zend_Mail_Protocol_Pop3
     {
         $this->logout();
     }
-
-
     /**
      * Open connection to POP3 server
      *
@@ -93,11 +82,9 @@ class Zend_Mail_Protocol_Pop3
         if ($ssl == 'SSL') {
             $host = 'ssl://' . $host;
         }
-
         if ($port === null) {
             $port = $ssl == 'SSL' ? 995 : 110;
         }
-
         $errno  =  0;
         $errstr = '';
         $this->_socket = @fsockopen($host, $port, $errno, $errstr, self::TIMEOUT_CONNECTION);
@@ -109,9 +96,7 @@ class Zend_Mail_Protocol_Pop3
             throw new Zend_Mail_Protocol_Exception('cannot connect to host; error = ' . $errstr .
                                                    ' (errno = ' . $errno . ' )');
         }
-
         $welcome = $this->readResponse();
-
         strtok($welcome, '<');
         $this->_timestamp = strtok('>');
         if (!strpos($this->_timestamp, '@')) {
@@ -119,7 +104,6 @@ class Zend_Mail_Protocol_Pop3
         } else {
             $this->_timestamp = '<' . $this->_timestamp . '>';
         }
-
         if ($ssl === 'TLS') {
             $this->request('STLS');
             $result = stream_socket_enable_crypto($this->_socket, true, STREAM_CRYPTO_METHOD_TLS_CLIENT);
@@ -131,11 +115,8 @@ class Zend_Mail_Protocol_Pop3
                 throw new Zend_Mail_Protocol_Exception('cannot enable TLS');
             }
         }
-
         return $welcome;
     }
-
-
     /**
      * Send a request
      *
@@ -154,8 +135,6 @@ class Zend_Mail_Protocol_Pop3
             throw new Zend_Mail_Protocol_Exception('send failed - connection closed?');
         }
     }
-
-
     /**
      * read a response
      *
@@ -173,7 +152,6 @@ class Zend_Mail_Protocol_Pop3
             require_once 'include/Zend/Mail/Protocol/Exception.php';
             throw new Zend_Mail_Protocol_Exception('read failed - connection closed?');
         }
-
         $result = trim($result);
         if (strpos($result, ' ')) {
             list($status, $message) = explode(' ', $result, 2);
@@ -181,7 +159,6 @@ class Zend_Mail_Protocol_Pop3
             $status = $result;
             $message = '';
         }
-
         if ($status != '+OK') {
             /**
              * @see Zend_Mail_Protocol_Exception
@@ -189,7 +166,6 @@ class Zend_Mail_Protocol_Pop3
             require_once 'include/Zend/Mail/Protocol/Exception.php';
             throw new Zend_Mail_Protocol_Exception('last request failed');
         }
-
         if ($multiline) {
             $message = '';
             $line = fgets($this->_socket);
@@ -201,11 +177,8 @@ class Zend_Mail_Protocol_Pop3
                 $line = fgets($this->_socket);
             };
         }
-
         return $message;
     }
-
-
     /**
      * Send request and get resposne
      *
@@ -221,8 +194,6 @@ class Zend_Mail_Protocol_Pop3
         $this->sendRequest($request);
         return $this->readResponse($multiline);
     }
-
-
     /**
      * End communication with POP3 server (also closes socket)
      *
@@ -233,18 +204,14 @@ class Zend_Mail_Protocol_Pop3
         if (!$this->_socket) {
             return;
         }
-
         try {
             $this->request('QUIT');
         } catch (Zend_Mail_Protocol_Exception $e) {
             // ignore error - we're closing the socket anyway
         }
-
         fclose($this->_socket);
         $this->_socket = null;
     }
-
-
     /**
      * Get capabilities from POP3 server
      *
@@ -256,8 +223,6 @@ class Zend_Mail_Protocol_Pop3
         $result = $this->request('CAPA', true);
         return explode("\n", $result);
     }
-
-
     /**
      * Login to POP3 server. Can use APOP
      *
@@ -277,12 +242,9 @@ class Zend_Mail_Protocol_Pop3
                 // ignore
             }
         }
-
         $result = $this->request("USER $user");
         $result = $this->request("PASS $password");
     }
-
-
     /**
      * Make STAT call for message count and size sum
      *
@@ -296,11 +258,8 @@ class Zend_Mail_Protocol_Pop3
         $messages = 0;
         $octets = 0;
         $result = $this->request('STAT');
-
         list($messages, $octets) = explode(' ', $result);
     }
-
-
     /**
      * Make LIST call for size of message(s)
      *
@@ -312,11 +271,9 @@ class Zend_Mail_Protocol_Pop3
     {
         if ($msgno !== null) {
             $result = $this->request("LIST $msgno");
-
             list(, $result) = explode(' ', $result);
             return (int)$result;
         }
-
         $result = $this->request('LIST', true);
         $messages = array();
         $line = strtok($result, "\n");
@@ -325,11 +282,8 @@ class Zend_Mail_Protocol_Pop3
             $messages[(int)$no] = (int)$size;
             $line = strtok("\n");
         }
-
         return $messages;
     }
-
-
     /**
      * Make UIDL call for getting a uniqueid
      *
@@ -341,13 +295,10 @@ class Zend_Mail_Protocol_Pop3
     {
         if ($msgno !== null) {
             $result = $this->request("UIDL $msgno");
-
             list(, $result) = explode(' ', $result);
             return $result;
         }
-
         $result = $this->request('UIDL', true);
-
         $result = explode("\n", $result);
         $messages = array();
         foreach ($result as $line) {
@@ -357,12 +308,8 @@ class Zend_Mail_Protocol_Pop3
             list($no, $id) = explode(' ', trim($line), 2);
             $messages[(int)$no] = $id;
         }
-
         return $messages;
-
     }
-
-
     /**
      * Make TOP call for getting headers and maybe some body lines
      * This method also sets hasTop - before it it's not known if top is supported
@@ -390,9 +337,7 @@ class Zend_Mail_Protocol_Pop3
             }
         }
         $this->hasTop = true;
-
         $lines = (!$lines || $lines < 1) ? 0 : (int)$lines;
-
         try {
             $result = $this->request("TOP $msgno $lines", true);
         } catch (Zend_Mail_Protocol_Exception $e) {
@@ -403,11 +348,8 @@ class Zend_Mail_Protocol_Pop3
                 throw $e;
             }
         }
-
         return $result;
     }
-
-
     /**
      * Make a RETR call for retrieving a full message with headers and body
      *
@@ -420,8 +362,6 @@ class Zend_Mail_Protocol_Pop3
     {
         return $this->retrieve($msgno);
     }
-
-
     /**
      * Make a RETR call for retrieving a full message with headers and body
      *
@@ -434,7 +374,6 @@ class Zend_Mail_Protocol_Pop3
         $result = $this->request("RETR $msgno", true);
         return $result;
     }
-
     /**
      * Make a NOOP call, maybe needed for keeping the server happy
      *
@@ -445,8 +384,6 @@ class Zend_Mail_Protocol_Pop3
     {
         $this->request('NOOP');
     }
-
-
     /**
      * Make a DELE count to remove a message
      *
@@ -457,8 +394,6 @@ class Zend_Mail_Protocol_Pop3
     {
         $this->request("DELE $msgno");
     }
-
-
     /**
      * Make RSET call, which rollbacks delete requests
      *

@@ -1,5 +1,4 @@
 <script type="text/javascript" src="modules/{$MODULE}/{$SINGLE_MOD}.js"></script>
-
 {if $RETURN_ACTION=="CallRelatedList"}
 <div class="modal-header">
 	<button class="close" type="button" data-dismiss="modal" aria-hidden="true">&times;</button>
@@ -9,7 +8,6 @@
 {/if}
 	{*<!-- Contents -->*}
 	{include file='EditViewHidden.tpl'}
-
 	<!-- center start -->
 		 <div class="container-fluid">
 			<div class="row-fluid">

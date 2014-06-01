@@ -18,13 +18,11 @@ global $theme;
 $theme_path="themes/".$theme."/";
 $image_path=$theme_path."images/";
 $smarty = new CRMSmarty();
-
 $settingmode = "view";
 if(isset($_REQUEST['settingmode']) && $_REQUEST['settingmode'] != ''){
 	$settingmode = $_REQUEST['settingmode'];
 }
 $smarty->assign("SETTINGMODE", $settingmode);
-
 $settype = "SmsUser";
 if($_REQUEST['settype'] && !empty($_REQUEST['settype'])){
 	$settype = $_REQUEST['settype'];
@@ -45,13 +43,10 @@ $settypekeyarr = array_keys($settypearray);
 if(!empty($settype) && in_array($settype,$settypekeyarr)){
 	require_once("modules/Settings/{$settype}.php");
 }
-
 $smarty->assign("SETTYPEARRAY", $settypearray);
 $smarty->assign("SETTYPE", $settype);
 $relsethead = $app_strings['Settings'];
 $smarty->assign("RELSETHEAD", $relsethead);
-
-
 $smarty->assign("APP", $app_strings);
 $smarty->assign("MODULE", 'Settings');
 $smarty->assign("CATEGORY", 'Settings');

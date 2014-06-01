@@ -11,7 +11,6 @@
 require_once('include/database/PearDatabase.php');
 global $mod_strings;
 global $adb;
-
 if(isset($_REQUEST['id'])) {
 	$id=$_REQUEST['id'];
 	$query = "select * from ec_modules where id='".$id."'";

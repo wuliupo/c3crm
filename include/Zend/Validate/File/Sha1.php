@@ -18,12 +18,10 @@
  * @license   http://framework.zend.com/license/new-bsd     New BSD License
  * @version   $Id: Sha1.php 23775 2011-03-01 17:25:24Z ralph $
  */
-
 /**
  * @see Zend_Validate_File_Hash
  */
 require_once 'include/Zend/Validate/File/Hash.php';
-
 /**
  * Validator for the sha1 hash of given files
  *
@@ -40,7 +38,6 @@ class Zend_Validate_File_Sha1 extends Zend_Validate_File_Hash
     const DOES_NOT_MATCH = 'fileSha1DoesNotMatch';
     const NOT_DETECTED   = 'fileSha1NotDetected';
     const NOT_FOUND      = 'fileSha1NotFound';
-
     /**
      * @var array Error message templates
      */
@@ -49,14 +46,12 @@ class Zend_Validate_File_Sha1 extends Zend_Validate_File_Hash
         self::NOT_DETECTED   => "A sha1 hash could not be evaluated for the given file",
         self::NOT_FOUND      => "File '%value%' is not readable or does not exist",
     );
-
     /**
      * Hash of the file
      *
      * @var string
      */
     protected $_hash;
-
     /**
      * Sets validator options
      *
@@ -75,10 +70,8 @@ class Zend_Validate_File_Sha1 extends Zend_Validate_File_Hash
             require_once 'include/Zend/Validate/Exception.php';
             throw new Zend_Validate_Exception('Invalid options to validator provided');
         }
-
         $this->setHash($options);
     }
-
     /**
      * Returns all set sha1 hashes
      *
@@ -88,7 +81,6 @@ class Zend_Validate_File_Sha1 extends Zend_Validate_File_Hash
     {
         return $this->getHash();
     }
-
     /**
      * Sets the sha1 hash for one or multiple files
      *
@@ -100,12 +92,10 @@ class Zend_Validate_File_Sha1 extends Zend_Validate_File_Hash
         if (!is_array($options)) {
             $options = (array) $options;
         }
-
         $options['algorithm'] = 'sha1';
         parent::setHash($options);
         return $this;
     }
-
     /**
      * Sets the sha1 hash for one or multiple files
      *
@@ -117,7 +107,6 @@ class Zend_Validate_File_Sha1 extends Zend_Validate_File_Hash
         $this->setHash($options);
         return $this;
     }
-
     /**
      * Adds the sha1 hash for one or multiple files
      *
@@ -129,12 +118,10 @@ class Zend_Validate_File_Sha1 extends Zend_Validate_File_Hash
         if (!is_array($options)) {
             $options = (array) $options;
         }
-
         $options['algorithm'] = 'sha1';
         parent::addHash($options);
         return $this;
     }
-
     /**
      * Adds the sha1 hash for one or multiple files
      *
@@ -146,7 +133,6 @@ class Zend_Validate_File_Sha1 extends Zend_Validate_File_Hash
         $this->addHash($options);
         return $this;
     }
-
     /**
      * Defined by Zend_Validate_Interface
      *
@@ -163,19 +149,16 @@ class Zend_Validate_File_Sha1 extends Zend_Validate_File_Hash
         if (!Zend_Loader::isReadable($value)) {
             return $this->_throw($file, self::NOT_FOUND);
         }
-
         $hashes = array_unique(array_keys($this->_hash));
         $filehash = hash_file('sha1', $value);
         if ($filehash === false) {
             return $this->_throw($file, self::NOT_DETECTED);
         }
-
         foreach ($hashes as $hash) {
             if ($filehash === $hash) {
                 return true;
             }
         }
-
         return $this->_throw($file, self::DOES_NOT_MATCH);
     }
 }
