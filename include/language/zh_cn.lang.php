@@ -236,8 +236,28 @@ $app_strings = array (
   'NTC_DELETE_CONFIRMATION'=>'确认删除?',
   'LBL_SHOWING'=>'显示 ',
   'Category' =>'分类',
-  'LBL_NONE_INCLUDED'=>'无相关信息'
+  'LBL_NONE_INCLUDED'=>'无相关信息',
 
+  //add from /cache/application/language/zh_cn.lang.php
+  'Sales' => '销售',
+  'Product' => '产品',
+  'Qunfas' => '群发短信',
+  'Qunfa' => '群发短信',
+  'Maillists' => '群发邮件',
+  'Maillist' => '群发邮件',
+  'Qunfatmps' => '短信模板',
+  'Qunfatmp' => '短信模板',
+  'Maillisttmps' => '邮件模板',
+  'Maillisttmp' => '邮件模板',
+  'Sets' => '设置',
+  'Relsettings' => '相关设置',
+  'Relsetting' => '相关设置',
+  'Settings' => '控制面板',
+  'report' => '报表',
+  'Customer' => '客户',
+  'Marketing' => '营销',
+  'Memdays' => '纪念日',
+  'Memday' => '纪念日',
 );
 $app_list_strings = array (
   'moduleList' =>
@@ -249,6 +269,15 @@ $app_list_strings = array (
     'Products' => '产品',
     'SalesOrder' => '订单',
 	'Caches' => '清除缓存',
+	
+	//add from /cache/application/language/zh_cn.lang.php
+	'Qunfas' => '群发短信',
+	'Maillists' => '群发邮件',
+	'Qunfatmps' => '短信模板',
+	'Maillisttmps' => '邮件模板',
+	'Relsettings' => '相关设置',
+	'Memdays' => '纪念日',
+	  
   )
 );
 
