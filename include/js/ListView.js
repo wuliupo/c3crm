@@ -281,7 +281,7 @@ function getColumnCollectInf(module,url)
 		success:function(msg){
 			$("#status").css("display","none");
 			$("#collectcolumntable").html(msg);
-			eval(msg);
+			//eval(msg);
 		}
 	});
 //     new Ajax.Request(

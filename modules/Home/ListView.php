@@ -270,13 +270,14 @@ $dashboard_arr['keyview']['content'] = $OneMonthMemday;
 
 //=================================易客CRM新闻=================================//
 
+/*
 require('modules/Home/c3crm_news.php');
 
 $dashboard_arr['crmnews']['title'] = "易客CRM新闻";
 $dashboard_arr['crmnews']['type'] = "text";
 $dashboard_arr['crmnews']['divid'] = "crmnews";
 $dashboard_arr['crmnews']['content']= $html_contents;
-
+*/
 
 $theme_path="themes/".$theme."/";
 $image_path=$theme_path."images/";
