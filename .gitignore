@@ -1,3 +1,3 @@
-Smarty/templates_c
-cache
+cache/sqlcache
+cache/templates
 logs

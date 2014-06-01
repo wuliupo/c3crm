@@ -941,7 +941,7 @@ function getSqlCacheData($key)
 		global $cache_dir;
 		$key_hash = md5($key);
 		$return_data = false;
-		$cache_filename = $root_directory . $cache_dir . 'sqlcache_' . $key_hash . '.php';
+		$cache_filename = $root_directory . $cache_dir . 'sqlcache/' . $key_hash . '.php';
 		//$log->debug("get cache_filename:".$cache_filename);
 		if(is_file($cache_filename) && ($data = file_get_contents($cache_filename)) && isset($data{23}))
 		{
@@ -968,7 +968,7 @@ function setSqlCacheData($key,$data)
 		global $root_directory;
 		global $cache_dir;
 		$key_hash = md5($key);
-		$cache_filename = $root_directory . $cache_dir . 'sqlcache_' . $key_hash . '.php';
+		$cache_filename = $root_directory . $cache_dir . 'sqlcache/' . $key_hash . '.php';
 		//$log->debug("set cache_filename:".$cache_filename);
 		@file_put_contents($cache_filename, '<?php exit;?>' . time() . serialize($data));
 		clearstatcache();
@@ -992,8 +992,8 @@ function clear_cache_files()
 		$mem->flush();
 		$mem->close();
 	} else {
-		global $root_directory;
-		$dir = $root_directory."cache/";
+		global $root_directory,$cache_dir;
+		$dir = $root_directory.$cache_dir;
 		$folder = @opendir($dir);
 		if ($folder == false)
 		{
@@ -1018,7 +1018,7 @@ function clear_cache_files()
 		closedir($folder);
 	}
 
-	$dir = $root_directory."Smarty/templates_c/";
+	$dir = $dir."templates/";
     $folder = @opendir($dir);
 	if ($folder == false)
 	{

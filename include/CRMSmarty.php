@@ -16,10 +16,10 @@ class CRMSmarty extends Smarty{
 	*/
 	function CRMSmarty()
 	{
-		global $root_directory;
+		global $root_directory,$cache_dir;
 		$this->Smarty();
 		$this->template_dir = $root_directory.'Smarty/templates';
-		$this->compile_dir = $root_directory.'Smarty/templates_c';
+		$this->compile_dir = $root_directory.$cache_dir.'templates';
 		$this->config_dir = $root_directory.'Smarty/configs';
 		$this->cache_dir = $root_directory.'Smarty/cache';
 

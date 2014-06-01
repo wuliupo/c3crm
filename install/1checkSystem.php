@@ -1,25 +1,13 @@
 <html>
 <?php
-
-
 ob_start();
 eval("phpinfo();");
 $info = ob_get_contents();
 ob_end_clean();
-
- foreach(explode("\n", $info) as $line) {
-           if(strpos($line, "Client API version")!==false)
-               $mysql_version = trim(str_replace("Client API version", "", strip_tags($line)));
- }
-
-
-
-
-
-
-
-
-
+foreach(explode("\n", $info) as $line) {
+	if(strpos($line, "Client API version")!==false)
+		$mysql_version = trim(str_replace("Client API version", "", strip_tags($line)));
+}
 ob_start();
 phpinfo(INFO_GENERAL);
 $string = ob_get_contents();
@@ -43,9 +31,7 @@ foreach($pieces as $val)
 			$phpini = strip_tags($val);
 	   	}
    }
-
 }
-
 $gd_info_alternate = 'function gd_info() {
 $array = Array(
                        "GD Version" => "",
@@ -253,8 +239,8 @@ $array = Array(
             					<td valign=top bgcolor="white"><?php echo (is_writable('./install.php'))?"<strong><font color=\"#00CC00\">可写</font></strong>":"<strong><font color=\"#FF0000\">不可写</strong> <br>最后一步将出现问题</font>"; ?></td>
 					</tr>
 					<tr bgcolor="#fafafa">
-				                <td valign=top ><strong>Smarty编译目录 </strong><br> (Smarty/templates_c)</td>
-				                <td valign=top bgcolor="white"><?php echo (is_writable('./Smarty/templates_c/'))?"<strong><font color=\"#00CC00\">可写</font></strong>":"<strong><font color=\"#FF0000\">不可写</strong> <br>您将不能登陆 </font>";?></td>
+				                <td valign=top ><strong>Smarty编译目录 </strong><br> (cache/templates)</td>
+				                <td valign=top bgcolor="white"><?php echo (is_writable('./cache/templates/'))?"<strong><font color=\"#00CC00\">可写</font></strong>":"<strong><font color=\"#FF0000\">不可写</strong> <br>您将不能登陆 </font>";?></td>
 					</tr>
        				</table>
 				<br><br>
@@ -294,7 +280,6 @@ $array = Array(
 	</table>
 	<table border=0 cellspacing=0 cellpadding=0 width=80% align=center>
 	<tr>
-
 		<td background="include/install/images/bottomGradient.gif"><img src="include/install/images/bottomGradient.gif"></td>
 	</tr>
 	</table>
